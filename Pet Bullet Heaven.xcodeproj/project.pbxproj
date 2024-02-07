@@ -16,6 +16,9 @@
 		0D64094C2B71FBD30047847B /* Pet_Bullet_HeavenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D64094B2B71FBD30047847B /* Pet_Bullet_HeavenTests.swift */; };
 		0D6409562B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409552B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift */; };
 		0D6409582B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409572B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift */; };
+		0DC4313F2B7433F000C51F82 /* MainGameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4313E2B7433F000C51F82 /* MainGameNode.swift */; };
+		0DC431412B74341400C51F82 /* MainMenuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC431402B74341400C51F82 /* MainMenuNode.swift */; };
+		0DC431432B743FF700C51F82 /* PetSelectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC431422B743FF700C51F82 /* PetSelectionNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		0D6409512B71FBD30047847B /* Pet Bullet HeavenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pet Bullet HeavenUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409552B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet_Bullet_HeavenUITests.swift; sourceTree = "<group>"; };
 		0D6409572B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet_Bullet_HeavenUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0DC4313E2B7433F000C51F82 /* MainGameNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGameNode.swift; sourceTree = "<group>"; };
+		0DC431402B74341400C51F82 /* MainMenuNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuNode.swift; sourceTree = "<group>"; };
+		0DC431422B743FF700C51F82 /* PetSelectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectionNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,9 @@
 				0D6409352B71FBD00047847B /* AppDelegate.swift */,
 				0D6409372B71FBD00047847B /* art.scnassets */,
 				0D6409392B71FBD00047847B /* GameViewController.swift */,
+				0DC4313E2B7433F000C51F82 /* MainGameNode.swift */,
+				0DC431422B743FF700C51F82 /* PetSelectionNode.swift */,
+				0DC431402B74341400C51F82 /* MainMenuNode.swift */,
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
@@ -258,7 +267,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D64093A2B71FBD00047847B /* GameViewController.swift in Sources */,
+				0DC431432B743FF700C51F82 /* PetSelectionNode.swift in Sources */,
+				0DC431412B74341400C51F82 /* MainMenuNode.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
+				0DC4313F2B7433F000C51F82 /* MainGameNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
