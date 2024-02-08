@@ -7,9 +7,7 @@
 
 import SceneKit
 
-class MainMenuNode: SCNNode {
-    let zIndex = 10
-    
+class MainMenuNode: SCNNode {    
     override init() {
         super.init()
         setup()
@@ -20,15 +18,12 @@ class MainMenuNode: SCNNode {
     }
     
     private func setup() {
-        position = SCNVector3(0, 0, zIndex)
+        let playButton = UIHelpers.createButtonNode(title: "Play", position: SCNVector3(0, 2, Constants.UIZIndex))
+        let selectPetsButton = UIHelpers.createButtonNode(title: "Select Pets", position: SCNVector3(0, 0, Constants.UIZIndex))
+        let exitButton = UIHelpers.createButtonNode(title: "Exit", position: SCNVector3(0, -2, Constants.UIZIndex))
         
-        // Create and add buttons
-        let button1 = UIHelpers.createButtonNode(title: "Play", position: SCNVector3(0, 2, 0))
-        let button2 = UIHelpers.createButtonNode(title: "Select Pets", position: SCNVector3(0, 0, 0))
-        let button3 = UIHelpers.createButtonNode(title: "Exit", position: SCNVector3(0, -2, 0))
-        
-        addChildNode(button1)
-        addChildNode(button2)
-        addChildNode(button3)
+        addChildNode(playButton)
+        addChildNode(selectPetsButton)
+        addChildNode(exitButton)
     }
 }

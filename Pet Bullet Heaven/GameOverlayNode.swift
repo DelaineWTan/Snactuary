@@ -1,13 +1,14 @@
 //
-//  PetSelectionNode.swift
+//  GameOverlayNode.swift
 //  Pet Bullet Heaven
 //
 //  Created by Delaine on 2024-02-07.
 //
 
+
 import SceneKit
 
-class PetSelectionNode: SCNNode {
+class GameOverlayNode: SCNNode {
     override init() {
         super.init()
         setup()
@@ -17,13 +18,9 @@ class PetSelectionNode: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup() {        
-        let mainMenuButton = UIHelpers.createButtonNode(title: "Main Menu", position: SCNVector3(0, 0, Constants.UIZIndex))
+    private func setup() {
+        let pauseMenuButton = UIHelpers.createButtonNode(title: "Pause", position: SCNVector3(0, -10, Constants.UIZIndex))
         
-        addChildNode(mainMenuButton)
+        addChildNode(pauseMenuButton)
     }
-    
-    
 }
-
-

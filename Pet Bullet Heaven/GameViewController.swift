@@ -10,9 +10,19 @@ import QuartzCore
 import SceneKit
 
 class GameViewController: UIViewController {
-    let mainMenuNode = MainMenuNode()
+    // This node always displays the selected pets and current stage background
     let mainGameNode = MainGameNode()
+    // Main menu
+    let mainMenuNode = MainMenuNode()
+    // In-game overlay for normal gameplay experience
+    let gameOverlayNode = GameOverlayNode()
+    // In-game pause menu
+    let pauseMenuNode = PauseMenuNode()
+    // Pet selection user intereface
     let petSelectionNode = PetSelectionNode()
+    
+    
+    
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/ship.scn")!
     
@@ -31,7 +41,7 @@ class GameViewController: UIViewController {
         mainGameNode.addChildNode(cameraNode)
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 30)
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: Constants.cameraZIndex)
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -109,7 +119,7 @@ class GameViewController: UIViewController {
         // Check if the tapped node or any of its ancestors match a specific name
         if hasAncestorWithName(tappedNode, "Play") {
             print("Play button tapped")
-            scene.rootNode.addChildNode(mainGameNode);
+            scene.rootNode.addChildNode(gameOverlayNode);
             mainMenuNode.removeFromParentNode();
             // Perform action for play button tap
         } else if hasAncestorWithName(tappedNode, "Select Pets") {
@@ -125,6 +135,14 @@ class GameViewController: UIViewController {
             print("Main menu button tapped")
             scene.rootNode.addChildNode(mainMenuNode);
             petSelectionNode.removeFromParentNode();
+            pauseMenuNode.removeFromParentNode();
+            gameOverlayNode.removeFromParentNode()
+        } else if hasAncestorWithName(tappedNode, "Pause") {
+            print("Pause menu button tapped")
+            scene.rootNode.addChildNode(pauseMenuNode);
+        } else if hasAncestorWithName(tappedNode, "Return") {
+            print("Return button tapped")
+            pauseMenuNode.removeFromParentNode();
         }
         
         // get its material
