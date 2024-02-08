@@ -15,7 +15,9 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         // create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        //let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene(named: "art.scnassets/test map.scn")!
+        
         
         // show main menu node on start
         //let mainMenuNode = MainMenuNode()
@@ -31,35 +33,7 @@ class GameViewController: UIViewController {
         let petSelectionNode = PetSelectionNode()
         scene.rootNode.addChildNode(petSelectionNode)
         
-        // create and add a camera to the scene
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        gameNode.addChildNode(cameraNode)
-        
-        // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 30)
-        //cameraNode.addChildNode(mainMenuNode)
-        
-//        // create and add a light to the scene
-//        let lightNode = SCNNode()
-//        lightNode.light = SCNLight()
-//        lightNode.light!.type = .omni
-//        lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
-//        gameNode.addChildNode(lightNode)
-//        
-//        // create and add an ambient light to the scene
-//        let ambientLightNode = SCNNode()
-//        ambientLightNode.light = SCNLight()
-//        ambientLightNode.light!.type = .ambient
-//        ambientLightNode.light!.color = UIColor.darkGray
-//        gameNode.addChildNode(ambientLightNode)
-//        
-//        // retrieve the ship node
-//        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
-//        
-//        // animate the 3d object
-//        ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
-        
+
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         

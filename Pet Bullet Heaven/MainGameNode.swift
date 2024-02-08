@@ -36,7 +36,7 @@ class MainGameNode: SCNNode {
         addChildNode(ambientLightNode)
         
         // retrieve the ship node
-        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
+        //let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
         
         addCube1()
         // animate the 3d object
@@ -59,7 +59,7 @@ class MainGameNode: SCNNode {
         }
         
         theCube.position = SCNVector3(0, 0, 0) // Put the cube at position (0, 0, 0)
-        scene1.rootNode.addChildNode(theCube) // Add the cube node to the scene
+        rootNode.addChildNode(theCube) // Add the cube node to the scene
     }
 }
 
