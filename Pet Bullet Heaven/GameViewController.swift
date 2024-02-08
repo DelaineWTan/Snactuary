@@ -129,6 +129,9 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     
     @objc
     func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
+        // Gets x, y values of pan. Does not return any when not detecting finger moving
+        // Prob need to clamp it, have to create a helper method
+        
         switch gestureRecongnize.state {
         case .changed:
             print("enter .changed")
@@ -136,11 +139,16 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
             touchDestination = translation
             isMoving = true
             
+            // move the player's pos
+            //playerNode?.position.x += Float(translation.x)
+            //playerNode?.position.y -= Float(translation.y) // change to z coords
+            
             // reset the translation
             gestureRecongnize.setTranslation(.zero, in: view)
             
         case .ended:
-            stopPlayer()
+            isMoving = false
+            // add other logic
             
         default:
             break
@@ -148,9 +156,8 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
     func movePlayer(xPoint: Float, zPoint: Float) {
-        // Prob need to clamp it, have to create a helper method
         playerNode?.position.x += xPoint
-        playerNode?.position.y -= zPoint //change to z coordinate later after testing
+        playerNode?.position.y -= zPoint //change to z coordinate
     }
     
     func stopPlayer() {
