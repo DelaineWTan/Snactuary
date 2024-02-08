@@ -17,10 +17,7 @@ class PetSelectionNode: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup() {        
-        let mainMenuButton = UIHelpers.createButtonNode(title: "Main Menu", position: SCNVector3(0, 0, Constants.UIZIndex))
-        
-        addChildNode(mainMenuButton)
+    private func setup() {
     }
     
     
