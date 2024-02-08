@@ -24,7 +24,7 @@ class MainMenuNode: SCNNode {
         
         // Create and add buttons
         let button1 = createButton(title: "Play", position: SCNVector3(0, 2, 0))
-        let button2 = createButton(title: "Settings", position: SCNVector3(0, 0, 0))
+        let button2 = createButton(title: "Select Pets", position: SCNVector3(0, 0, 0))
         let button3 = createButton(title: "Exit", position: SCNVector3(0, -2, 0))
         
         addChildNode(button1)
@@ -42,6 +42,8 @@ class MainMenuNode: SCNNode {
         // Create button node
         let buttonNode = SCNNode(geometry: buttonGeometry)
         buttonNode.position = position
+        // Assign custom name based on button title
+        buttonNode.name = title
         
         // Add text label to button
         let textGeometry = SCNText(string: title, extrusionDepth: 0.1)
@@ -52,9 +54,7 @@ class MainMenuNode: SCNNode {
         
         // Calculate text size
         let (min, max) = textGeometry.boundingBox
-        let textWidth = max.x - min.x
-        let textHeight = max.y - min.y
-        
+
         // Create text node
         let textNode = SCNNode(geometry: textGeometry)
         let dx = Float(min.x - max.x)
@@ -65,6 +65,8 @@ class MainMenuNode: SCNNode {
         textNode.position = SCNVector3(dx, dy, 0)
         textNode.scale = SCNVector3(2, 2, 2) // Adjust text scale
         buttonNode.addChildNode(textNode)
+        
+        categoryBitMask
         
         return buttonNode
     }

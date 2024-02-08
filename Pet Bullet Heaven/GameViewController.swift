@@ -87,32 +87,61 @@ class GameViewController: UIViewController {
         // check what nodes are tapped
         let p = gestureRecognize.location(in: scnView)
         let hitResults = scnView.hitTest(p, options: [:])
+        
         // check that we clicked on at least one object
-        if hitResults.count > 0 {
-            // retrieved the first clicked object
-            let result = hitResults[0]
+        guard hitResults.count > 0, let result = hitResults.first else {
+            return
+        }
+        
+        // Function to check if any ancestor node has the given name
+        func hasAncestorWithName(_ node: SCNNode?, _ name: String) -> Bool {
+            var currentNode = node
             
-            // get its material
-            let material = result.node.geometry!.firstMaterial!
-            
-            // highlight it
+            // Iterate through the ancestors until we reach the root node
+            while let ancestor = currentNode?.parent {
+                if currentNode?.name == name {
+                    return true
+                }
+                currentNode = ancestor
+            }
+            return false
+        }
+        
+        // get the tapped node
+        let tappedNode = result.node
+        
+        // Check if the tapped node or any of its ancestors match a specific name
+        if hasAncestorWithName(tappedNode, "Play") {
+            print("Play button tapped")
+            // Perform action for play button tap
+        } else if hasAncestorWithName(tappedNode, "Select Pets") {
+            print("Select Pets button tapped")
+            // Perform action for select pets button tap
+        } else if hasAncestorWithName(tappedNode, "Exit") {
+            print("Exit button tapped")
+            // Perform action for exit button tap
+        }
+        
+        // get its material
+        let material = result.node.geometry!.firstMaterial!
+        
+
+        SCNTransaction.begin()
+        SCNTransaction.animationDuration = 0.5
+        
+        // on completion - unhighlight
+        SCNTransaction.completionBlock = {
             SCNTransaction.begin()
             SCNTransaction.animationDuration = 0.5
             
-            // on completion - unhighlight
-            SCNTransaction.completionBlock = {
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                
-                material.emission.contents = UIColor.black
-                
-                SCNTransaction.commit()
-            }
-            
-            material.emission.contents = UIColor.red
+            material.emission.contents = UIColor.black
             
             SCNTransaction.commit()
         }
+        
+        material.emission.contents = UIColor.red
+        
+        SCNTransaction.commit()
     }
     
     override var prefersStatusBarHidden: Bool {
