@@ -9,13 +9,19 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, SCNSceneRendererDelegate {
+    
+    var playerNode: SCNNode?
+    
+    var isMoving = false
+    var touchDestination: CGPoint? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // create a new scene
         let scene = SCNScene(named: "art.scnassets/ship.scn")!
+    
         
         // show main menu node on start
         let mainMenuNode = MainMenuNode()
@@ -53,6 +59,7 @@ class GameViewController: UIViewController {
         
         // retrieve the ship node
         let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
+        playerNode = ship
         
         // animate the 3d object
         ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
@@ -72,16 +79,12 @@ class GameViewController: UIViewController {
         // configure the view
         scnView.backgroundColor = UIColor.black
         
-        
+        // add self rendering every frame logic
+        scnView.delegate = self
         
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
-        
-        // add long press gesture to initiate movement
-//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-//        longPressGesture.minimumPressDuration = 0 // change threshold for long press
-//        scnView.addGestureRecognizer(longPressGesture)
         
         // add panning gesture for pet movement
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
@@ -125,22 +128,40 @@ class GameViewController: UIViewController {
     }
     
     @objc
-    func handleLongPress(_ gestureRecongnize: UILongPressGestureRecognizer) {
-        if gestureRecongnize.state == .began {
-            // spawn a thumbpad graphic to indicate toggling movement
-            print("long press")
+    func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
+        switch gestureRecongnize.state {
+        case .changed:
+            print("enter .changed")
+            let translation = gestureRecongnize.translation(in: view)
+            touchDestination = translation
+            isMoving = true
+            
+            // reset the translation
+            gestureRecongnize.setTranslation(.zero, in: view)
+            
+        case .ended:
+            stopPlayer()
+            
+        default:
+            break
         }
     }
     
-    @objc
-    func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
-        // Gets x, y values of pan. Does not return any when not detecting finger moving
-        // Prob need to clamp it
-        let translation = gestureRecongnize.translation(in: view)
-        print(translation)
-        
-        // reset the translation
-        gestureRecongnize.setTranslation(.zero, in: view)
+    func movePlayer(xPoint: Float, zPoint: Float) {
+        // Prob need to clamp it, have to create a helper method
+        playerNode?.position.x += xPoint
+        playerNode?.position.y -= zPoint //change to z coordinate later after testing
+    }
+    
+    func stopPlayer() {
+        isMoving = false
+        // add other logic here (like stopping sound or animation
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if (isMoving) {
+            movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
