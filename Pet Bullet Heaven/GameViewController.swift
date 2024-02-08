@@ -10,35 +10,19 @@ import QuartzCore
 import SceneKit
 
 class GameViewController: UIViewController {
-    // This node always displays the selected pets and current stage background
-    let mainGameNode = MainGameNode()
-    // Main menu
-    let mainMenuNode = MainMenuNode()
-    // In-game overlay for normal gameplay experience
-    let gameOverlayNode = GameOverlayNode()
-    // In-game pause menu
-    let pauseMenuNode = PauseMenuNode()
-    // Pet selection user intereface
-    let petSelectionNode = PetSelectionNode()
-    
-    
-    
+    let overlayView = GameUIView()
+    // Camera node
+    let cameraNode = SCNNode()
+
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/ship.scn")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // show main menu node on start
-        scene.rootNode.addChildNode(mainMenuNode)
-        
-        // node that contains all the game objects
-        scene.rootNode.addChildNode(mainGameNode)
-        
+                
         // create and add a camera to the scene
-        let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        mainGameNode.addChildNode(cameraNode)
+        scene.rootNode.addChildNode(cameraNode)
         
         // place the camera
         cameraNode.position = SCNVector3(x: 0, y: 0, z: Constants.cameraZIndex)
@@ -48,14 +32,14 @@ class GameViewController: UIViewController {
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
         lightNode.position = SCNVector3(x: 0, y: 10, z: 20)
-        mainGameNode.addChildNode(lightNode)
+        scene.rootNode.addChildNode(lightNode)
         
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.darkGray
-        mainGameNode.addChildNode(ambientLightNode)
+        scene.rootNode.addChildNode(ambientLightNode)
         
         // retrieve the ship node
         let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
@@ -78,7 +62,10 @@ class GameViewController: UIViewController {
         // configure the view
         scnView.backgroundColor = UIColor.black
         
-        
+        // Add overlay view
+        overlayView.frame = scnView.bounds
+        overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scnView.addSubview(overlayView)
         
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -97,52 +84,6 @@ class GameViewController: UIViewController {
         // check that we clicked on at least one object
         guard hitResults.count > 0, let result = hitResults.first else {
             return
-        }
-        
-        // Function to check if any ancestor node has the given name
-        func hasAncestorWithName(_ node: SCNNode?, _ name: String) -> Bool {
-            var currentNode = node
-            
-            // Iterate through the ancestors until we reach the root node
-            while let ancestor = currentNode?.parent {
-                if currentNode?.name == name {
-                    return true
-                }
-                currentNode = ancestor
-            }
-            return false
-        }
-        
-        // get the tapped node
-        let tappedNode = result.node
-        
-        // Check if the tapped node or any of its ancestors match a specific name
-        if hasAncestorWithName(tappedNode, "Play") {
-            print("Play button tapped")
-            scene.rootNode.addChildNode(gameOverlayNode);
-            mainMenuNode.removeFromParentNode();
-            // Perform action for play button tap
-        } else if hasAncestorWithName(tappedNode, "Select Pets") {
-            print("Select Pets button tapped")
-            scene.rootNode.addChildNode(petSelectionNode);
-            mainMenuNode.removeFromParentNode();
-            // Perform action for select pets button tap
-        } else if hasAncestorWithName(tappedNode, "Exit") {
-            print("Exit button tapped")
-            // Quit the app
-            exit(0)
-        } else if hasAncestorWithName(tappedNode, "Main Menu") {
-            print("Main menu button tapped")
-            scene.rootNode.addChildNode(mainMenuNode);
-            petSelectionNode.removeFromParentNode();
-            pauseMenuNode.removeFromParentNode();
-            gameOverlayNode.removeFromParentNode()
-        } else if hasAncestorWithName(tappedNode, "Pause") {
-            print("Pause menu button tapped")
-            scene.rootNode.addChildNode(pauseMenuNode);
-        } else if hasAncestorWithName(tappedNode, "Return") {
-            print("Return button tapped")
-            pauseMenuNode.removeFromParentNode();
         }
         
         // get its material

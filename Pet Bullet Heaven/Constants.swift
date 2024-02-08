@@ -7,5 +7,4 @@
 
 public class Constants {
     public static let cameraZIndex:Float = 30;
-    public static let UIZIndex:Float = 10;
 }
