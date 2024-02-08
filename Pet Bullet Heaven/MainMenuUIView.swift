@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainMenuView: UIView {
+class MainMenuUIView: UIView {
     var playButtonTappedHandler: (() -> Void)?
     var selectPetsButtonTappedHandler: (() -> Void)?
     var exitButtonTappedHandler: (() -> Void)?

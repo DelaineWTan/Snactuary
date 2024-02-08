@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class PetSelectionView: UIView {
+class PetSelectionUIView: UIView {
     var mainMenuButtonTappedHandler: (() -> Void)?
     
     lazy var mainMenuButton: UIButton = {
@@ -34,7 +34,6 @@ class PetSelectionView: UIView {
         addSubview(mainMenuButton)
         
         // Layout constraints for buttons
-        
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainMenuButton.centerXAnchor.constraint(equalTo: centerXAnchor),

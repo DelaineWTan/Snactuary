@@ -9,9 +9,9 @@
 
 import UIKit
 
-class OverlayView: UIView {
-    let mainMenuView = MainMenuView()
-    let petSelectionView = PetSelectionView()
+class GameUIView: UIView {
+    let mainMenuView = MainMenuUIView()
+    let petSelectionView = PetSelectionUIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

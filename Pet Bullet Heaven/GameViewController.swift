@@ -10,24 +10,19 @@ import QuartzCore
 import SceneKit
 
 class GameViewController: UIViewController {
-    let overlayView = OverlayView()
+    let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
-    // This node always displays the selected pets and current stage background
-    let mainGameNode = MainGameNode()
 
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/ship.scn")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // node that contains all the game objects
-        scene.rootNode.addChildNode(mainGameNode)
-        
+                
         // create and add a camera to the scene
         cameraNode.camera = SCNCamera()
-        mainGameNode.addChildNode(cameraNode)
+        scene.rootNode.addChildNode(cameraNode)
         
         // place the camera
         cameraNode.position = SCNVector3(x: 0, y: 0, z: Constants.cameraZIndex)
@@ -37,14 +32,14 @@ class GameViewController: UIViewController {
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
         lightNode.position = SCNVector3(x: 0, y: 10, z: 20)
-        mainGameNode.addChildNode(lightNode)
+        scene.rootNode.addChildNode(lightNode)
         
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.darkGray
-        mainGameNode.addChildNode(ambientLightNode)
+        scene.rootNode.addChildNode(ambientLightNode)
         
         // retrieve the ship node
         let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
