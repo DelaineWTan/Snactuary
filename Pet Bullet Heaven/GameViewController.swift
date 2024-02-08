@@ -26,7 +26,6 @@ class GameViewController: UIViewController {
         
         // node that contains all the game objects
         let gameNode = MainGameNode()
-        gameNode.setup(scene: scene)
         scene.rootNode.addChildNode(gameNode)
         
         // node for pet selection
