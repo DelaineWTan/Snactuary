@@ -64,7 +64,7 @@ class GameViewController: UIViewController {
         scnView.scene = scene
         
         // allows the user to manipulate the camera
-        scnView.allowsCameraControl = true
+        //scnView.allowsCameraControl = true
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
@@ -77,6 +77,15 @@ class GameViewController: UIViewController {
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
+        
+        // add long press gesture to initiate movement
+//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+//        longPressGesture.minimumPressDuration = 0 // change threshold for long press
+//        scnView.addGestureRecognizer(longPressGesture)
+        
+        // add panning gesture for pet movement
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
+        scnView.addGestureRecognizer(panGesture)
     }
     
     @objc
@@ -113,6 +122,25 @@ class GameViewController: UIViewController {
             
             SCNTransaction.commit()
         }
+    }
+    
+    @objc
+    func handleLongPress(_ gestureRecongnize: UILongPressGestureRecognizer) {
+        if gestureRecongnize.state == .began {
+            // spawn a thumbpad graphic to indicate toggling movement
+            print("long press")
+        }
+    }
+    
+    @objc
+    func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
+        // Gets x, y values of pan. Does not return any when not detecting finger moving
+        // Prob need to clamp it
+        let translation = gestureRecongnize.translation(in: view)
+        print(translation)
+        
+        // reset the translation
+        gestureRecongnize.setTranslation(.zero, in: view)
     }
     
     override var prefersStatusBarHidden: Bool {
