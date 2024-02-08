@@ -10,29 +10,25 @@ import QuartzCore
 import SceneKit
 
 class GameViewController: UIViewController {
-
+    let mainMenuNode = MainMenuNode()
+    let mainGameNode = MainGameNode()
+    let petSelectionNode = PetSelectionNode()
+    // create a new scene
+    let scene = SCNScene(named: "art.scnassets/ship.scn")!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
         // show main menu node on start
-        let mainMenuNode = MainMenuNode()
         scene.rootNode.addChildNode(mainMenuNode)
         
         // node that contains all the game objects
-        let gameNode = MainGameNode()
-        scene.rootNode.addChildNode(gameNode)
-        
-        // node for pet selection
-        let petSelectionNode = PetSelectionNode()
-        scene.rootNode.addChildNode(petSelectionNode)
+        scene.rootNode.addChildNode(mainGameNode)
         
         // create and add a camera to the scene
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        gameNode.addChildNode(cameraNode)
+        mainGameNode.addChildNode(cameraNode)
         
         // place the camera
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 30)
@@ -41,15 +37,15 @@ class GameViewController: UIViewController {
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
-        lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
-        gameNode.addChildNode(lightNode)
+        lightNode.position = SCNVector3(x: 0, y: 10, z: 20)
+        mainGameNode.addChildNode(lightNode)
         
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.darkGray
-        gameNode.addChildNode(ambientLightNode)
+        mainGameNode.addChildNode(ambientLightNode)
         
         // retrieve the ship node
         let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
@@ -113,13 +109,22 @@ class GameViewController: UIViewController {
         // Check if the tapped node or any of its ancestors match a specific name
         if hasAncestorWithName(tappedNode, "Play") {
             print("Play button tapped")
+            scene.rootNode.addChildNode(mainGameNode);
+            mainMenuNode.removeFromParentNode();
             // Perform action for play button tap
         } else if hasAncestorWithName(tappedNode, "Select Pets") {
             print("Select Pets button tapped")
+            scene.rootNode.addChildNode(petSelectionNode);
+            mainMenuNode.removeFromParentNode();
             // Perform action for select pets button tap
         } else if hasAncestorWithName(tappedNode, "Exit") {
             print("Exit button tapped")
-            // Perform action for exit button tap
+            // Quit the app
+            exit(0)
+        } else if hasAncestorWithName(tappedNode, "Main Menu") {
+            print("Main menu button tapped")
+            scene.rootNode.addChildNode(mainMenuNode);
+            petSelectionNode.removeFromParentNode();
         }
         
         // get its material

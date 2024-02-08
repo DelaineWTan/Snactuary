@@ -8,6 +8,8 @@
 import SceneKit
 
 class PetSelectionNode: SCNNode {
+    let zIndex = 10
+    
     override init() {
         super.init()
         setup()
@@ -18,7 +20,14 @@ class PetSelectionNode: SCNNode {
     }
     
     private func setup() {
+        position = SCNVector3(0, 0, zIndex)
+        
+        let mainMenuButton = UIHelpers.createButtonNode(title: "Main Menu", position: SCNVector3(0, 2, 0))
+        
+        addChildNode(mainMenuButton)
     }
+    
+    
 }
 
 

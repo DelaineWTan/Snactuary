@@ -19,6 +19,7 @@
 		0DC4313F2B7433F000C51F82 /* MainGameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4313E2B7433F000C51F82 /* MainGameNode.swift */; };
 		0DC431412B74341400C51F82 /* MainMenuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC431402B74341400C51F82 /* MainMenuNode.swift */; };
 		0DC431432B743FF700C51F82 /* PetSelectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC431422B743FF700C51F82 /* PetSelectionNode.swift */; };
+		0DCB55A92B74B5B600C18DD0 /* UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55A82B74B5B600C18DD0 /* UIHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		0DC4313E2B7433F000C51F82 /* MainGameNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGameNode.swift; sourceTree = "<group>"; };
 		0DC431402B74341400C51F82 /* MainMenuNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuNode.swift; sourceTree = "<group>"; };
 		0DC431422B743FF700C51F82 /* PetSelectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectionNode.swift; sourceTree = "<group>"; };
+		0DCB55A82B74B5B600C18DD0 /* UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
+				0DCB55A82B74B5B600C18DD0 /* UIHelpers.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				0D64093A2B71FBD00047847B /* GameViewController.swift in Sources */,
 				0DC431432B743FF700C51F82 /* PetSelectionNode.swift in Sources */,
 				0DC431412B74341400C51F82 /* MainMenuNode.swift in Sources */,
+				0DCB55A92B74B5B600C18DD0 /* UIHelpers.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
 				0DC4313F2B7433F000C51F82 /* MainGameNode.swift in Sources */,
 			);
