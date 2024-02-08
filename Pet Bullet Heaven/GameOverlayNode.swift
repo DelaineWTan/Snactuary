@@ -19,7 +19,7 @@ class GameOverlayNode: SCNNode {
     }
     
     private func setup() {
-        let pauseMenuButton = UIHelpers.createButtonNode(title: "Pause", position: SCNVector3(0, -10, Constants.UIZIndex))
+        let pauseMenuButton = UIHelpers.createButtonNode(title: "Pause", position: SCNVector3(0, -8, Constants.UIZIndex))
         
         addChildNode(pauseMenuButton)
     }
