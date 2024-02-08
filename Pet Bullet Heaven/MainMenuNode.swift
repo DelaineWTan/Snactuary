@@ -45,7 +45,7 @@ class MainMenuNode: SCNNode {
         
         // Add text label to button
         let textGeometry = SCNText(string: title, extrusionDepth: 0.1)
-        textGeometry.font = UIFont.systemFont(ofSize: 0.2) // Adjust font size as needed
+        textGeometry.font = UIFont.systemFont(ofSize: 0.2)
         let textMaterial = SCNMaterial()
         textMaterial.diffuse.contents = UIColor.white
         textGeometry.materials = [textMaterial]
@@ -57,7 +57,12 @@ class MainMenuNode: SCNNode {
         
         // Create text node
         let textNode = SCNNode(geometry: textGeometry)
-        textNode.position = SCNVector3(-textWidth, textHeight, 0) // Adjust text position
+        let dx = Float(min.x - max.x)
+        // @TODO find out why we need this -2 offset, seems arbitrary but it aligns the
+        // text perfectly
+        let dy = -2 + Float(min.y - max.y)/2.0
+        //textNode.position = SCNVector3(-textWidth, -textHeight/2, 0)
+        textNode.position = SCNVector3(dx, dy, 0)
         textNode.scale = SCNVector3(2, 2, 2) // Adjust text scale
         buttonNode.addChildNode(textNode)
         
