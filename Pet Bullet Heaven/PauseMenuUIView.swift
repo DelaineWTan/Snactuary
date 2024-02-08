@@ -1,12 +1,12 @@
 //
-//  PetSelectionUIView.swift
+//  PauseMenuUIView.swift
 //  Pet Bullet Heaven
 //
 //  Created by Delaine on 2024-02-08.
 //
 import UIKit
 
-class PetSelectionUIView: UIView {
+class PauseMenuUIView: UIView {
     var mainMenuButtonTappedHandler: (() -> Void)?
     
     lazy var mainMenuButton: UIButton = {
@@ -47,5 +47,6 @@ class PetSelectionUIView: UIView {
         mainMenuButtonTappedHandler?()
     }
 }
+
 
 
