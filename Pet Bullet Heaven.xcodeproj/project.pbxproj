@@ -16,9 +16,12 @@
 		0D64094C2B71FBD30047847B /* Pet_Bullet_HeavenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D64094B2B71FBD30047847B /* Pet_Bullet_HeavenTests.swift */; };
 		0D6409562B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409552B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift */; };
 		0D6409582B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409572B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift */; };
-		0DC4313F2B7433F000C51F82 /* MainGameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4313E2B7433F000C51F82 /* MainGameNode.swift */; };
-		0DC431412B74341400C51F82 /* MainMenuNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC431402B74341400C51F82 /* MainMenuNode.swift */; };
-		0DC431432B743FF700C51F82 /* PetSelectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC431422B743FF700C51F82 /* PetSelectionNode.swift */; };
+		0DCB55AB2B74B7C500C18DD0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55AA2B74B7C500C18DD0 /* Constants.swift */; };
+		0DCB55B92B75937600C18DD0 /* PetSelectionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B62B75937600C18DD0 /* PetSelectionUIView.swift */; };
+		0DCB55BA2B75937600C18DD0 /* MainMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */; };
+		0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B82B75937600C18DD0 /* GameUIView.swift */; };
+		0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */; };
+		0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,9 +54,12 @@
 		0D6409512B71FBD30047847B /* Pet Bullet HeavenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pet Bullet HeavenUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409552B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet_Bullet_HeavenUITests.swift; sourceTree = "<group>"; };
 		0D6409572B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet_Bullet_HeavenUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0DC4313E2B7433F000C51F82 /* MainGameNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGameNode.swift; sourceTree = "<group>"; };
-		0DC431402B74341400C51F82 /* MainMenuNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuNode.swift; sourceTree = "<group>"; };
-		0DC431422B743FF700C51F82 /* PetSelectionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectionNode.swift; sourceTree = "<group>"; };
+		0DCB55AA2B74B7C500C18DD0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0DCB55B62B75937600C18DD0 /* PetSelectionUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSelectionUIView.swift; sourceTree = "<group>"; };
+		0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuUIView.swift; sourceTree = "<group>"; };
+		0DCB55B82B75937600C18DD0 /* GameUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUIView.swift; sourceTree = "<group>"; };
+		0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuUIView.swift; sourceTree = "<group>"; };
+		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,9 +113,12 @@
 				0D6409352B71FBD00047847B /* AppDelegate.swift */,
 				0D6409372B71FBD00047847B /* art.scnassets */,
 				0D6409392B71FBD00047847B /* GameViewController.swift */,
-				0DC4313E2B7433F000C51F82 /* MainGameNode.swift */,
-				0DC431422B743FF700C51F82 /* PetSelectionNode.swift */,
-				0DC431402B74341400C51F82 /* MainMenuNode.swift */,
+				0DCB55B82B75937600C18DD0 /* GameUIView.swift */,
+				0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */,
+				0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */,
+				0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */,
+				0DCB55B62B75937600C18DD0 /* PetSelectionUIView.swift */,
+				0DCB55AA2B74B7C500C18DD0 /* Constants.swift */,
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
@@ -266,11 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DCB55BA2B75937600C18DD0 /* MainMenuUIView.swift in Sources */,
 				0D64093A2B71FBD00047847B /* GameViewController.swift in Sources */,
-				0DC431432B743FF700C51F82 /* PetSelectionNode.swift in Sources */,
-				0DC431412B74341400C51F82 /* MainMenuNode.swift in Sources */,
+				0DCB55AB2B74B7C500C18DD0 /* Constants.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
-				0DC4313F2B7433F000C51F82 /* MainGameNode.swift in Sources */,
+				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
+				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
+				0DCB55B92B75937600C18DD0 /* PetSelectionUIView.swift in Sources */,
+				0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
