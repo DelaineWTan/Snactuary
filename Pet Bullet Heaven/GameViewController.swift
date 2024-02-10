@@ -9,22 +9,35 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneRendererDelegate {
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
 
     // create a new scene
-    let scene = SCNScene(named: "art.scnassets/test map.scn")!
+    
+    
+    //let cube = SCNScene(named: "box 2", recursively: true)
+    
     
     override func viewDidLoad() {
+        
+        print("help me plox")
+        
         super.viewDidLoad()
-
+        
+        let scene = SCNScene(named: "art.scnassets/faiz test map.scn")!
+        //let cube = scene.rootNode.childNode(withName: "box2", recursively: true)
+        
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
         // set the scene to the view
         scnView.scene = scene
+        
+        scnView.delegate = self
+        
+        scene.physicsWorld.contactDelegate = self
         
         // allows the user to manipulate the camera
         scnView.allowsCameraControl = true
@@ -38,7 +51,7 @@ class GameViewController: UIViewController {
         // Add overlay view
         overlayView.frame = scnView.bounds
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        scnView.addSubview(overlayView)
+        //scnView.addSubview(overlayView)
         
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -80,6 +93,16 @@ class GameViewController: UIViewController {
         
         SCNTransaction.commit()
     }
+    
+    // Handle collision events
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+            // Check which objects collided
+//            if contact.nodeA.physicsBody?.categoryBitMask == 0x1 &&
+//               contact.nodeB.physicsBody?.categoryBitMask == 0x2 {
+                print("Collision Happened")
+//            }
+            // You can add more conditions for different collisions if needed
+        }
     
     override var prefersStatusBarHidden: Bool {
         return true
