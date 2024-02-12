@@ -13,6 +13,11 @@ class GameViewController: UIViewController {
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
+    
+    var playerNode: SCNNode?
+    
+    var isMoving = false
+    var touchDestination: CGPoint? = nil
 
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/test map.scn")!
@@ -26,9 +31,6 @@ class GameViewController: UIViewController {
         // set the scene to the view
         scnView.scene = scene
         
-        // allows the user to manipulate the camera
-        scnView.allowsCameraControl = true
-        
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
         
@@ -39,10 +41,18 @@ class GameViewController: UIViewController {
         overlayView.frame = scnView.bounds
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scnView.addSubview(overlayView)
-        
+        // add self rendering every frame logic
+                
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
+        
+        // add panning gesture for pet movement
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
+        scnView.addGestureRecognizer(panGesture)
+        
+        //get player
+        playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
     }
     
     @objc
@@ -79,6 +89,41 @@ class GameViewController: UIViewController {
         material.emission.contents = UIColor.red
         
         SCNTransaction.commit()
+    }
+    
+    @objc
+    func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
+        // Gets x, y values of pan. Does not return any when not detecting finger moving
+        // Prob need to clamp it, have to create a helper method
+        print("enter pan")
+        switch gestureRecongnize.state {
+        case .changed:
+            print("enter .changed")
+            let translation = gestureRecongnize.translation(in: view)
+            touchDestination = translation
+            isMoving = true
+            movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
+            
+            // reset the translation
+            gestureRecongnize.setTranslation(.zero, in: view)
+            
+        case .ended:
+            isMoving = false
+            // add other logic
+            
+        default:
+            break
+        }
+    }
+    
+    func movePlayer(xPoint: Float, zPoint: Float) {
+        playerNode?.position.x += xPoint
+        playerNode?.position.z -= zPoint //change to z coordinate
+    }
+    
+    func stopPlayer() {
+        isMoving = false
+        // add other logic here (like stopping sound or animation
     }
     
     override var prefersStatusBarHidden: Bool {
