@@ -10,7 +10,7 @@ import SceneKit
 class MainGameNode: SCNNode {
     override init() {
         super.init()
-        setup()
+        //setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -18,6 +18,8 @@ class MainGameNode: SCNNode {
     }
     
     private func setup() {
+    
     }
+    
 }
 
