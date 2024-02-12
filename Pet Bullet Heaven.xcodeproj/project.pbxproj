@@ -92,6 +92,7 @@
 		0D6409292B71FBD00047847B = {
 			isa = PBXGroup;
 			children = (
+				0D8DB43B2B7AC9AB008D2AE8 /* .gitignore */,
 				0D6409342B71FBD00047847B /* Pet Bullet Heaven */,
 				0D64094A2B71FBD30047847B /* Pet Bullet HeavenTests */,
 				0D6409542B71FBD30047847B /* Pet Bullet HeavenUITests */,
@@ -124,7 +125,6 @@
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
-				0D8DB43B2B7AC9AB008D2AE8 /* .gitignore */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
