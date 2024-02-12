@@ -8,15 +8,63 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4A1C815D-010D-4347-BE59-F03E2F41BCF8"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pet Bullet Heaven/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "handleMovementPan(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4A1C815D-010D-4347-BE59-F03E2F41BCF8 - 2e18c139d312e5da"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pet_Bullet_Heaven.GameViewController.handleMovementPan(__C.UIPanGestureRecognizer) -&gt; ()"
+                  moduleName = "Pet Bullet Heaven"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lbednarek/Documents/Pet-Bullet-Heaven/Pet%20Bullet%20Heaven/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "740">
+               </Location>
+               <Location
+                  uuid = "4A1C815D-010D-4347-BE59-F03E2F41BCF8 - 2e18c139d312e51c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pet_Bullet_Heaven.GameViewController.handleMovementPan(__C.UIPanGestureRecognizer) -&gt; ()"
+                  moduleName = "Pet Bullet Heaven"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lbednarek/Documents/Pet-Bullet-Heaven/Pet%20Bullet%20Heaven/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "728">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DA66DB7D-75A3-471F-947C-7FFDDADFA0CE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pet Bullet Heaven/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "handleMovementPan(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
