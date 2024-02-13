@@ -101,6 +101,7 @@ class GameViewController: UIViewController {
             print("enter .changed")
             let translation = gestureRecongnize.translation(in: view)
             touchDestination = translation
+            print("X = \(Float(touchDestination?.x ?? 0)), Y = \(Float(touchDestination?.y ?? 0))")
             isMoving = true
             movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
             
@@ -117,7 +118,7 @@ class GameViewController: UIViewController {
     }
     
     func movePlayer(xPoint: Float, zPoint: Float) {
-        playerNode?.position.x += xPoint
+        playerNode?.position.x -= xPoint
         playerNode?.position.z -= zPoint //change to z coordinate
     }
     
