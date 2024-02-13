@@ -95,14 +95,23 @@ class GameViewController: UIViewController {
     func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
         // Gets x, y values of pan. Does not return any when not detecting finger moving
         // Prob need to clamp it, have to create a helper method
-        print("enter pan")
+        let scnView = self.view as! SCNView
+        
         switch gestureRecongnize.state {
+        case .began:
+            let location = gestureRecongnize.location(in: gestureRecongnize.view)
+            print(gestureRecongnize.location(in: gestureRecongnize.view))
+            //overlayView.inGameUIView.setStickPosition(location: location)
+            
         case .changed:
-            print("enter .changed")
             let translation = gestureRecongnize.translation(in: view)
             touchDestination = translation
             isMoving = true
-            movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
+            overlayView.inGameUIView.updateStickPosition(translation: translation)
+            
+            let sceneTrans = scnView.unprojectPoint(SCNVector3(translation.x, 0, translation.y))
+            
+//            movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
             
             // reset the translation
             gestureRecongnize.setTranslation(.zero, in: view)
@@ -117,8 +126,8 @@ class GameViewController: UIViewController {
     }
     
     func movePlayer(xPoint: Float, zPoint: Float) {
-        playerNode?.position.x += xPoint
-        playerNode?.position.z -= zPoint //change to z coordinate
+        playerNode?.position.x += xPoint/2 + zPoint/2
+        playerNode?.position.z += zPoint/2 + zPoint/2
     }
     
     func stopPlayer() {
