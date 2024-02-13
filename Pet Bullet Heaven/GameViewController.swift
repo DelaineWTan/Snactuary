@@ -100,15 +100,16 @@ class GameViewController: UIViewController {
         switch gestureRecongnize.state {
         case .began:
             let location = gestureRecongnize.location(in: gestureRecongnize.view)
-            print(gestureRecongnize.location(in: gestureRecongnize.view))
-            //overlayView.inGameUIView.setStickPosition(location: location)
+            
+            overlayView.inGameUIView.setStickPosition(location: location) 
+            overlayView.inGameUIView.stickVisibilty(isVisible: true)
             
         case .changed:
             let translation = gestureRecongnize.translation(in: view)
             touchDestination = translation
             isMoving = true
-            overlayView.inGameUIView.updateStickPosition(translation: translation)
             
+            overlayView.inGameUIView.updateStickPosition(translation: translation)
             let sceneTrans = scnView.unprojectPoint(SCNVector3(translation.x, 0, translation.y))
             
 //            movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
@@ -118,7 +119,7 @@ class GameViewController: UIViewController {
             
         case .ended:
             isMoving = false
-            // add other logic
+            overlayView.inGameUIView.stickVisibilty(isVisible: false)
             
         default:
             break

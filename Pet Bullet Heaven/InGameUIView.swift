@@ -35,15 +35,14 @@ class InGameUIView: UIView {
     }
     
     public func setStickPosition(location: CGPoint) {
-        print(bounds.maxY)
-        let testX = location.x + bounds.maxX/2
-        let testY = location.y + bounds.maxY/2
+        let xLocation = location.x - bounds.maxX/2
+        let yLocation = location.y - bounds.maxY/2
         
-        innerCircleLayer?.position.x = testX
-        innerCircleLayer?.position.y = testY
+        innerCircleLayer?.position.x = xLocation
+        innerCircleLayer?.position.y = yLocation
         
-        outerCircleLayer?.position.x = testX
-        outerCircleLayer?.position.y = testY
+        outerCircleLayer?.position.x = xLocation
+        outerCircleLayer?.position.y = yLocation
     }
     
     public func updateStickPosition(translation: CGPoint) {
@@ -52,7 +51,10 @@ class InGameUIView: UIView {
         innerCircleLayer?.position.y += CGFloat(translation.y)
     }
     
-    
+    public func stickVisibilty(isVisible: Bool) {
+        innerCircleLayer?.isHidden = !isVisible
+        outerCircleLayer?.isHidden = !isVisible
+    }
     
     private func setupUI() {
         addSubview(pauseButton)
@@ -88,6 +90,8 @@ class InGameUIView: UIView {
         // add circles as sublayers
         layer.addSublayer(innerCircleLayer!)
         layer.addSublayer(outerCircleLayer!)
+        innerCircleLayer?.isHidden = true
+        outerCircleLayer?.isHidden = true
     }
     
     @objc private func pauseButtonTapped() {
