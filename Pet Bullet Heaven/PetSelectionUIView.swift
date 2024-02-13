@@ -8,27 +8,10 @@ import UIKit
 import SwiftUI
 import Combine
 
-struct Pet {
-    let id: Int
-    var name: String
-    // might need more properties yea
-}
 
 class PetSelectionViewModel: ObservableObject {
-    @Published var activePets: [Pet] = [
-        Pet(id: 1, name: "Bunni"),
-        Pet(id: 2, name: "Frogger"),
-        Pet(id: 3, name: "Ticken"),
-        Pet(id: 4, name: "Foxxy")
-    ]
-    
-    @Published var allPets: [Pet] = [
-        Pet(id: 5, name: "Horze"),
-        Pet(id: 6, name: "Furret"),
-        Pet(id: 7, name: "Krockerdile"),
-        Pet(id: 8, name: "Pengwin")
-        // Add more pets as needed
-    ]
+    @Published var activePets:[Pet] = Globals.activePets
+    @Published var allPets:[Pet] = Globals.allPets
 }
 
 class PetSelectionUIView: UIView {
@@ -106,20 +89,25 @@ class PetSelectionUIView: UIView {
     }
     
     func updateButtonTitles() {
-            // Update active pet buttons
-            for (index, pet) in viewModel.activePets.enumerated() {
-                if let button = viewWithTag(1000 + index) as? UIButton {
-                    button.setTitle(pet.name, for: .normal)
-                }
-            }
-            
-            // Update collection pet buttons
-            for (index, pet) in viewModel.allPets.enumerated() {
-                if let button = viewWithTag(2000 + index) as? UIButton {
-                    button.setTitle(pet.name, for: .normal)
-                }
+        // Update active pet buttons
+        for (index, pet) in viewModel.activePets.enumerated() {
+            if let button = viewWithTag(1000 + index) as? UIButton {
+                button.setTitle(pet.name, for: .normal)
+                
+                button.removeFromSuperview()
+                addSubview(button)
             }
         }
+        
+        // Update collection pet buttons
+        for (index, pet) in viewModel.allPets.enumerated() {
+            if let button = viewWithTag(2000 + index) as? UIButton {
+                button.setTitle(pet.name, for: .normal)
+                addSubview(button)
+            }
+        }
+    }
+    
     @objc private func activePetButtonTapped(_ sender: UIButton) {
             if let petName = sender.title(for: .normal), let pet = viewModel.activePets.first(where: { $0.name == petName }) {
                 if let selectedPet = selectedActivePet {
@@ -129,7 +117,9 @@ class PetSelectionUIView: UIView {
                         viewModel.activePets.swapAt(index1, index2)
                         selectedActivePet = nil
                         updateButtonTitles() // Update button titles after swapping
+                        
                         print("Swapped: \(selectedPet.name) with \(pet.name)")
+                        self.setNeedsDisplay()
                     }
                 } else {
                     selectedActivePet = pet
@@ -148,6 +138,7 @@ class PetSelectionUIView: UIView {
                         selectedCollectionPet = nil
                         updateButtonTitles() // Update button titles after swapping
                         print("Swapped: \(selectedPet.name) with \(pet.name)")
+                        self.setNeedsDisplay()
                     }
                 } else {
                     selectedCollectionPet = pet
