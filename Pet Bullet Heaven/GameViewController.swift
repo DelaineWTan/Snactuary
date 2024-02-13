@@ -101,16 +101,18 @@ class GameViewController: UIViewController {
         case .began:
             let location = gestureRecongnize.location(in: gestureRecongnize.view)
             
-            overlayView.inGameUIView.setStickPosition(location: location) 
+            overlayView.inGameUIView.setStickPosition(location: location)
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             
         case .changed:
             let translation = gestureRecongnize.translation(in: view)
             touchDestination = translation
-            print("X = \(Float(touchDestination?.x ?? 0)), Y = \(Float(touchDestination?.y ?? 0))")
+            //print("X = \(Float(touchDestination?.x ?? 0)), Y = \(Float(touchDestination?.y ?? 0))")
             isMoving = true
             movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
-            overlayView.inGameUIView.updateStickPosition(translation: translation)
+            
+            let location = gestureRecongnize.location(in: gestureRecongnize.view)
+            overlayView.inGameUIView.updateStickPosition(translation: translation, fingerLocation: location)
             
             // reset the translation
             gestureRecongnize.setTranslation(.zero, in: view)

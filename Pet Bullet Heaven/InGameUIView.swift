@@ -13,6 +13,8 @@ class InGameUIView: UIView {
     var innerCircleLayer: CAShapeLayer?
     var outerCircleLayer: CAShapeLayer?
     
+    var innerCircleInitialCenterPoint: CGPoint?
+    
     lazy var pauseButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Pause", for: .normal)
@@ -35,6 +37,7 @@ class InGameUIView: UIView {
     }
     
     public func setStickPosition(location: CGPoint) {
+        // translate gesture plot to UI kit plot
         let xLocation = location.x - bounds.maxX/2
         let yLocation = location.y - bounds.maxY/2
         
@@ -43,17 +46,66 @@ class InGameUIView: UIView {
         
         outerCircleLayer?.position.x = xLocation
         outerCircleLayer?.position.y = yLocation
+        
+        innerCircleInitialCenterPoint = innerCircleLayer!.position
     }
     
-    public func updateStickPosition(translation: CGPoint) {
-        // set pos to outer
-        innerCircleLayer?.position.x += CGFloat(translation.x)
-        innerCircleLayer?.position.y += CGFloat(translation.y)
+    public func updateStickPosition(translation: CGPoint, fingerLocation: CGPoint) {
+        let innerPosition = innerCircleLayer?.position
+        let outerPosition = outerCircleLayer?.position
+        
+        // get diameters of both circles and subtract to get range of inner
+        let innerDiameter = max((innerCircleLayer?.path?.boundingBox.width)!, (innerCircleLayer?.path?.boundingBox.height)!)
+        let outerDiameter = max((outerCircleLayer?.path?.boundingBox.width)!, (outerCircleLayer?.path?.boundingBox.height)!)
+        let thumbStickRange = (outerDiameter - innerDiameter) / 2
+        
+        let a = min(max(translation.x, -thumbStickRange), thumbStickRange)
+        let b = min(max(translation.x, -thumbStickRange), thumbStickRange)
+//        print("mine:")
+//        print(innerDiameter)
+//        print(outerDiameter)
+//        print(thumbStickRange)
+        
+        let distance = calculateDistanceBetweenPoints(point1: innerPosition!, point2: innerCircleInitialCenterPoint!)
+//        print("distance: \(distance)")
+//        print("range: \(thumbStickRange)")
+        
+//        let test = CGPoint(x: innerPosition!.x - outerPosition!.x, y: (innerPosition!.y - outerPosition!.y) * -1)
+//        //print("distance: \(test)")
+//        let normalizeDirection = CGPoint(x: test.x / distance, y: test.y / distance)
+//        print("distance: \(normalizeDirection)")
+        
+        
+        
+        if (distance > thumbStickRange) {
+            print("true")
+            let angle = atan2(fingerLocation.y - innerPosition!.y, fingerLocation.x - innerPosition!.x)
+            let clamp = min(distance, thumbStickRange)
+            let newX = innerPosition!.x + cos(angle) * clamp
+            let newY = innerPosition!.y + sin(angle) * clamp
+            innerCircleLayer?.position = CGPoint(x: newX, y: newY)
+            
+//            let direction = CGPoint(x: innerPosition!.x - outerPosition!.x, y: (innerPosition!.y - outerPosition!.y) * -1)
+//            let normalizeDirection = CGPoint(x: direction.x / distance, y: direction.y / distance)
+//            innerCircleLayer?.position = CGPoint(x: outerPosition!.x + normalizeDirection.x * (outerDiameter / 2), y: outerPosition!.y + normalizeDirection.y * (outerDiameter / 2))
+        } else {
+            print("false")
+            innerCircleLayer?.position.x += CGFloat(translation.x)
+            innerCircleLayer?.position.y += CGFloat(translation.y)
+        }
+        
     }
     
     public func stickVisibilty(isVisible: Bool) {
         innerCircleLayer?.isHidden = !isVisible
         outerCircleLayer?.isHidden = !isVisible
+    }
+    
+    // Can be a public func in a static math helper class
+    private func calculateDistanceBetweenPoints(point1: CGPoint, point2: CGPoint) -> CGFloat {
+        let dx = point2.x - point1.x
+        let dy = point2.y - point1.y
+        return sqrt(dx * dx + dy * dy)
     }
     
     private func setupUI() {
