@@ -110,6 +110,7 @@ class GameViewController: UIViewController {
             print("X = \(Float(touchDestination?.x ?? 0)), Y = \(Float(touchDestination?.y ?? 0))")
             isMoving = true
             movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
+            overlayView.inGameUIView.updateStickPosition(translation: translation)
             
             // reset the translation
             gestureRecongnize.setTranslation(.zero, in: view)
