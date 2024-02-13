@@ -23,6 +23,10 @@
 		0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B82B75937600C18DD0 /* GameUIView.swift */; };
 		0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */; };
 		0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */; };
+		4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637A2B7C21B3007ED6AA /* Ability.swift */; };
+		4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */; };
+		4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637E2B7C21EE007ED6AA /* Projectile.swift */; };
+		4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,10 @@
 		0DCB55B82B75937600C18DD0 /* GameUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUIView.swift; sourceTree = "<group>"; };
 		0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuUIView.swift; sourceTree = "<group>"; };
 		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
+		4FAE637A2B7C21B3007ED6AA /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
+		4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingProjectileAbility.swift; sourceTree = "<group>"; };
+		4FAE637E2B7C21EE007ED6AA /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingPaw.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +133,10 @@
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
+				4FAE637A2B7C21B3007ED6AA /* Ability.swift */,
+				4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */,
+				4FAE637E2B7C21EE007ED6AA /* Projectile.swift */,
+				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -280,11 +292,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DCB55BA2B75937600C18DD0 /* MainMenuUIView.swift in Sources */,
+				4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */,
 				0D64093A2B71FBD00047847B /* GameViewController.swift in Sources */,
 				0DCB55AB2B74B7C500C18DD0 /* Constants.swift in Sources */,
+				4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
+				4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
+				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				0DCB55B92B75937600C18DD0 /* PetSelectionUIView.swift in Sources */,
 				0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */,
 			);
