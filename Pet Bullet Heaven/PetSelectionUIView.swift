@@ -11,7 +11,7 @@ import Combine
 struct Pet {
     let id: Int
     var name: String
-    // might need more properties
+    // might need more properties yea
 }
 
 class PetSelectionViewModel: ObservableObject {
