@@ -107,12 +107,9 @@ class GameViewController: UIViewController {
         case .changed:
             let translation = gestureRecongnize.translation(in: view)
             touchDestination = translation
+            print("X = \(Float(touchDestination?.x ?? 0)), Y = \(Float(touchDestination?.y ?? 0))")
             isMoving = true
-            
-            overlayView.inGameUIView.updateStickPosition(translation: translation)
-            let sceneTrans = scnView.unprojectPoint(SCNVector3(translation.x, 0, translation.y))
-            
-//            movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
+            movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
             
             // reset the translation
             gestureRecongnize.setTranslation(.zero, in: view)
@@ -127,8 +124,8 @@ class GameViewController: UIViewController {
     }
     
     func movePlayer(xPoint: Float, zPoint: Float) {
-        playerNode?.position.x += xPoint/2 + zPoint/2
-        playerNode?.position.z += zPoint/2 + zPoint/2
+        playerNode?.position.x -= xPoint
+        playerNode?.position.z -= zPoint //change to z coordinate
     }
     
     func stopPlayer() {
