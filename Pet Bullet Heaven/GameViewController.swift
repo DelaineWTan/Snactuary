@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
     var touchDestination: CGPoint? = nil
     
     // radius for the joystick input
-    var joyStickRadius = 100
+    var joyStickClampedDistance: CGFloat = 100
 
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/test map.scn")!
@@ -101,27 +101,17 @@ class GameViewController: UIViewController {
     func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
         // Gets x, y values of pan. Does not return any when not detecting finger moving
         // Prob need to clamp it, have to create a helper method
-        //print("enter pan")
         let translation = gestureRecongnize.translation(in: view)
         
-        touchDestination = translation
-        var totalDistanceX = CGFloat.zero
-        var totalDistanceY = CGFloat.zero
         switch gestureRecongnize.state {
         case .began:
-            totalDistanceX = 0
-            totalDistanceY = 0
             isMoving = true
-            gestureRecongnize.setTranslation(.zero, in: view)
-
         case .changed:
-            //print("\(translation.x), \(translation.y)")
-            totalDistanceX += translation.x
-            totalDistanceY += translation.y
-            let x = totalDistanceX.clamp(min: -100, max: 100) / 100
-            let z = totalDistanceY.clamp(min: -100, max: 100) / 100
+
+            let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
+            let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             print("(\(x), \(z))")
-            movePlayer(xPoint: Float(x), zPoint: Float(z)) //
+            movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
         case .ended:
             isMoving = false
             // add other logic
