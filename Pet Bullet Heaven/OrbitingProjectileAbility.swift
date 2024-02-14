@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SceneKit
 
 class OrbitingProjectileAbility : Ability {
     
@@ -20,8 +21,15 @@ class OrbitingProjectileAbility : Ability {
     
     var _ProjectileList : [Projectile]?
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // Mutated Constructor
-    func OrbitingProjectileAbility(_InputAbilityDamage: Int, _InputAbilityDuration: Int, _InputRotationSpeed : Float, _InputDistanceFromCenter : Float){
+    init(_InputAbilityDamage: Int, _InputAbilityDuration: Int, _InputRotationSpeed : Float, _InputDistanceFromCenter : Float){
+        
+        super.init()
+        
         _AbilityDamage = _InputAbilityDamage
         _AbilityDuration = _InputAbilityDuration
         _rotationSpeed = _InputRotationSpeed
@@ -32,22 +40,48 @@ class OrbitingProjectileAbility : Ability {
      Helper Function for spawning the projectile, making sure that I've already set my Projectile.
      */
     override func SpawnProjectile() -> Projectile {
-        <#code#>
+        
+        var _SpawnedProjectile = OrbitingPaw(_InputDamage: 1)
+        _ProjectileList?.append(_SpawnedProjectile)
+        
+        return _SpawnedProjectile
     }
     
     /*
      Overriden Function for activating this ability. The majority of the effects will happen here.
      */
     override func ActivateAbility() -> Bool {
-        <#code#>
+        
+        // 1. Find the intervals at which I need to spawn projectiles
+        var _Intervals = CalculateProjectileInterval()
+        
+        // 2. Initialize all the Projectiles
+        while (_ProjectileList!.capacity < _numProjectiles!){
+            SpawnProjectile() // Throw if this returns null, something wrong happened
+        }
+        
+        // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
+        var _Counter = 0
+        while _Counter < _ProjectileList!.capacity {
+            
+            // Translate them in the forward direction
+            _ProjectileList![_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
+            
+            // Rotate them along the Z-Axis accordingly.
+            _ProjectileList![_Counter].eulerAngles = SCNVector3(0,0,_Intervals * Float(_Counter))
+            
+            _Counter+=1
+        }
+        
+        return true
     }
     
     /*
      Takes into consideration, the number of projectiles I will need to spawn,
     then returns the the angle I need to rotate each interval for each Projectile I'm Spawning
      */
-    func CalculateProjectileInterval(){
-         
+    func CalculateProjectileInterval() -> Float {
+        return Float(360 / _numProjectiles!)
     }
     
     func SetSpawnedProjectile(_ProjetileStrategy: Projectile){

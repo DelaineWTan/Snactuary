@@ -6,19 +6,20 @@
 //
 
 import Foundation
+import SceneKit
 
-class Ability {
+class Ability : SCNNode {
     
     // Member Variables
-    var _AbilityDamage : Int = 1
+    var _AbilityDamage : Int?
     
-    var _AbilityDuration : Int = 1
+    var _AbilityDuration : Int?
     
     func SpawnProjectile() -> Projectile {
         return Projectile()
     }
     
-    func ActivateAbility() -> Bool{
+    func ActivateAbility() -> Bool { 
         return false
     }
     

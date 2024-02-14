@@ -6,12 +6,21 @@
 //
 
 import Foundation
+import SceneKit
 
 class OrbitingPaw : Projectile {
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // Mutated Constructor
-    func OrbitingPaw(_InputDamage: Int){
+    init(_InputDamage: Int){
+        // Call to Super Constructor
+        super.init()
+        
         _Damage = _InputDamage
+        _Mesh = loadFromFile(_AssetName: "Penguin.001", _FileType: ".dae") // Dummy Mesh
     }
     
 }
