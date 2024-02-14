@@ -62,8 +62,8 @@
             filePath = "Pet Bullet Heaven/OrbitingProjectileAbility.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "ActivateAbility()"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "Pet Bullet Heaven/OrbitingProjectileAbility.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "ActivateAbility()"
             landmarkType = "7">
          </BreakpointContent>
@@ -98,6 +98,38 @@
             endingLineNumber = "61"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C6470FB0-E30E-4988-8943-0E2936325F84 - 278b0ad7316a2c4e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pet_Bullet_Heaven.GameViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "Pet Bullet Heaven"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwang550/Documents/COMP-8051/Labs/Pet%20Bullet%20Heaven/Pet-Bullet-Heaven/Pet%20Bullet%20Heaven/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "1444">
+               </Location>
+               <Location
+                  uuid = "C6470FB0-E30E-4988-8943-0E2936325F84 - 278b0ad7316a2c4e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pet_Bullet_Heaven.GameViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "Pet Bullet Heaven"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwang550/Documents/COMP-8051/Labs/Pet%20Bullet%20Heaven/Pet-Bullet-Heaven/Pet%20Bullet%20Heaven/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "1348">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -175,6 +207,21 @@
                   endingLineNumber = "63"
                   offsetFromSymbolStart = "1432">
                </Location>
+               <Location
+                  uuid = "DEB3AB1A-244B-463E-92CC-664FFA85F1CC - 278b0ad7316a2c88"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pet_Bullet_Heaven.GameViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "Pet Bullet Heaven"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwang550/Documents/COMP-8051/Labs/Pet%20Bullet%20Heaven/Pet-Bullet-Heaven/Pet%20Bullet%20Heaven/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "1540">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -188,8 +235,8 @@
             filePath = "Pet Bullet Heaven/OrbitingProjectileAbility.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "ActivateAbility()"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,6 +253,38 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
             endingLineNumber = "63"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5EB236E5-FC8E-400E-952B-98241908A766"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pet Bullet Heaven/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FF38E30D-BA9F-4842-BD48-45DC09A87A84"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pet Bullet Heaven/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>

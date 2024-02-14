@@ -20,7 +20,8 @@ class OrbitingPaw : Projectile {
         super.init()
         
         _Damage = _InputDamage
-        _Mesh = loadFromFile(_AssetName: "Penguin.001", _FileType: "dae") // Dummy Mesh
+        //_Mesh = loadFromFile(_AssetName: "Penguin.001", _FileType: "dae") // Dummy Mesh
+        _Mesh = SCNBox(width: 1,height: 1,length: 1,chamferRadius: 0)
         
     }
     

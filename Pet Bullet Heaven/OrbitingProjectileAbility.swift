@@ -66,13 +66,15 @@ class OrbitingProjectileAbility : Ability {
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
         var _Counter = 0
-        while _Counter < _ProjectileList.capacity-1 {
+        while _Counter < _ProjectileList.capacity {
             
             // Translate them in the forward direction
             _ProjectileList[_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
             
             // Rotate them along the Z-Axis accordingly.
             _ProjectileList[_Counter].eulerAngles = SCNVector3(0,0,_Intervals * Float(_Counter))
+            
+            print(_ProjectileList[_Counter].position)
             
             _Counter+=1
         }

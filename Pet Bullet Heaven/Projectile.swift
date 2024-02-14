@@ -13,7 +13,7 @@ class Projectile : SCNNode{
     // Member Variables
     var _Damage : Int = 1
     
-    var _Mesh : SCNReferenceNode?
+    var _Mesh : SCNBox?
     
     func OnCollision(){
         
