@@ -99,9 +99,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
             // Check which objects collided
 //            if contact.nodeA.physicsBody?.categoryBitMask == 0x1 &&
 //               contact.nodeB.physicsBody?.categoryBitMask == 0x2 {
-                print("Collision Happened")
-//            }
-            // You can add more conditions for different collisions if needed
+        
+        print("Collision Happened, Destroying object")
+        //contact.nodeA.removeFromParentNode() //Destroy food object when it collides
+        
         }
     
     override var prefersStatusBarHidden: Bool {
