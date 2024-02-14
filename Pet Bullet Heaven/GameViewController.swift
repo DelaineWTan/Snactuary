@@ -16,8 +16,12 @@ class GameViewController: UIViewController {
     
     var playerNode: SCNNode?
     
+    
     var isMoving = false
     var touchDestination: CGPoint? = nil
+    
+    // radius for the joystick input
+    var joyStickClampedDistance: CGFloat = 100
 
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/test map.scn")!
@@ -91,23 +95,23 @@ class GameViewController: UIViewController {
         SCNTransaction.commit()
     }
     
+    var intialCenter = CGPoint()
+    
     @objc
     func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
         // Gets x, y values of pan. Does not return any when not detecting finger moving
         // Prob need to clamp it, have to create a helper method
-        print("enter pan")
+        let translation = gestureRecongnize.translation(in: view)
+        
         switch gestureRecongnize.state {
-        case .changed:
-            print("enter .changed")
-            let translation = gestureRecongnize.translation(in: view)
-            touchDestination = translation
-            print("X = \(Float(touchDestination?.x ?? 0)), Y = \(Float(touchDestination?.y ?? 0))")
+        case .began:
             isMoving = true
-            movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
-            
-            // reset the translation
-            gestureRecongnize.setTranslation(.zero, in: view)
-            
+        case .changed:
+
+            let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
+            let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
+            print("(\(x), \(z))")
+            movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
         case .ended:
             isMoving = false
             // add other logic
@@ -139,4 +143,10 @@ class GameViewController: UIViewController {
         }
     }
 
+}
+
+extension Comparable {
+    func clamp(min: Self, max: Self) -> Self {
+        return Swift.max(min, Swift.min(self, max))
+    }
 }
