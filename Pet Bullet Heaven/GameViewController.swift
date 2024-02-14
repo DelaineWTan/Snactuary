@@ -115,7 +115,7 @@ class GameViewController: UIViewController {
             overlayView.inGameUIView.updateStickPosition(translation: translation, fingerLocation: location)
             
             // reset the translation
-            gestureRecongnize.setTranslation(.zero, in: view)
+            //gestureRecongnize.setTranslation(.zero, in: view)
             
         case .ended:
             isMoving = false

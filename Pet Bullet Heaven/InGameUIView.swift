@@ -14,6 +14,7 @@ class InGameUIView: UIView {
     var outerCircleLayer: CAShapeLayer?
     
     var innerCircleInitialCenterPoint: CGPoint?
+    var lastLocation: CGPoint?
     
     lazy var pauseButton: UIButton = {
         let button = UIButton(type: .system)
@@ -58,41 +59,30 @@ class InGameUIView: UIView {
         let innerDiameter = max((innerCircleLayer?.path?.boundingBox.width)!, (innerCircleLayer?.path?.boundingBox.height)!)
         let outerDiameter = max((outerCircleLayer?.path?.boundingBox.width)!, (outerCircleLayer?.path?.boundingBox.height)!)
         let thumbStickRange = (outerDiameter - innerDiameter) / 2
+
+        let testX = fingerLocation.x - bounds.maxX/2
+        let testY = fingerLocation.y - bounds.maxY/2
+        let bigTest = CGPoint(x: testX, y: testY) 
+        let distance = calculateDistanceBetweenPoints(point1: outerPosition!, point2: bigTest)
         
-        let a = min(max(translation.x, -thumbStickRange), thumbStickRange)
-        let b = min(max(translation.x, -thumbStickRange), thumbStickRange)
-//        print("mine:")
-//        print(innerDiameter)
-//        print(outerDiameter)
-//        print(thumbStickRange)
-        
-        let distance = calculateDistanceBetweenPoints(point1: innerPosition!, point2: innerCircleInitialCenterPoint!)
-//        print("distance: \(distance)")
-//        print("range: \(thumbStickRange)")
-        
-//        let test = CGPoint(x: innerPosition!.x - outerPosition!.x, y: (innerPosition!.y - outerPosition!.y) * -1)
-//        //print("distance: \(test)")
-//        let normalizeDirection = CGPoint(x: test.x / distance, y: test.y / distance)
-//        print("distance: \(normalizeDirection)")
-        
-        
-        
+        innerCircleLayer?.position = bigTest
+        print("trans: \(distance)")
+        print("dist: \(thumbStickRange)")
         if (distance > thumbStickRange) {
-            print("true")
-            let angle = atan2(fingerLocation.y - innerPosition!.y, fingerLocation.x - innerPosition!.x)
-            let clamp = min(distance, thumbStickRange)
-            let newX = innerPosition!.x + cos(angle) * clamp
-            let newY = innerPosition!.y + sin(angle) * clamp
-            innerCircleLayer?.position = CGPoint(x: newX, y: newY)
+            innerCircleLayer?.position = innerPosition!
             
-//            let direction = CGPoint(x: innerPosition!.x - outerPosition!.x, y: (innerPosition!.y - outerPosition!.y) * -1)
-//            let normalizeDirection = CGPoint(x: direction.x / distance, y: direction.y / distance)
-//            innerCircleLayer?.position = CGPoint(x: outerPosition!.x + normalizeDirection.x * (outerDiameter / 2), y: outerPosition!.y + normalizeDirection.y * (outerDiameter / 2))
+            
         } else {
-            print("false")
-            innerCircleLayer?.position.x += CGFloat(translation.x)
-            innerCircleLayer?.position.y += CGFloat(translation.y)
+            innerCircleLayer?.position = bigTest
         }
+////            let direction = CGPoint(x: innerPosition!.x - outerPosition!.x, y: (innerPosition!.y - outerPosition!.y) * -1)
+////            let normalizeDirection = CGPoint(x: direction.x / distance, y: direction.y / distance)
+////            innerCircleLayer?.position = CGPoint(x: outerPosition!.x + normalizeDirection.x * (outerDiameter / 2), y: outerPosition!.y + normalizeDirection.y * (outerDiameter / 2))
+//        } else {
+//            print("false")
+//            innerCircleLayer?.position.x += CGFloat(translation.x)
+//            innerCircleLayer?.position.y += CGFloat(translation.y)
+//        }
         
     }
     
