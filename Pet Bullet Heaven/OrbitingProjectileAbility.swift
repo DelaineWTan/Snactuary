@@ -19,14 +19,14 @@ class OrbitingProjectileAbility : Ability {
     
     var _Projectile : Projectile?
     
-    var _ProjectileList : [Projectile]?
+    var _ProjectileList : [Projectile] = []
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // Mutated Constructor
-    init(_InputAbilityDamage: Int, _InputAbilityDuration: Int, _InputRotationSpeed : Float, _InputDistanceFromCenter : Float){
+    init(_InputAbilityDamage: Int, _InputAbilityDuration: Int, _InputRotationSpeed : Float, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int){
         
         super.init()
         
@@ -34,6 +34,7 @@ class OrbitingProjectileAbility : Ability {
         _AbilityDuration = _InputAbilityDuration
         _rotationSpeed = _InputRotationSpeed
         _distanceFromCenter = _InputDistanceFromCenter
+        _numProjectiles = _InputNumProjectiles
     }
     
     /*
@@ -42,7 +43,7 @@ class OrbitingProjectileAbility : Ability {
     override func SpawnProjectile() -> Projectile {
         
         var _SpawnedProjectile = OrbitingPaw(_InputDamage: 1)
-        _ProjectileList?.append(_SpawnedProjectile)
+        _ProjectileList.append(_SpawnedProjectile)
         
         return _SpawnedProjectile
     }
@@ -56,19 +57,19 @@ class OrbitingProjectileAbility : Ability {
         var _Intervals = CalculateProjectileInterval()
         
         // 2. Initialize all the Projectiles
-        while (_ProjectileList!.capacity < _numProjectiles!){
+        while (_ProjectileList.capacity < _numProjectiles!){
             SpawnProjectile() // Throw if this returns null, something wrong happened
         }
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
         var _Counter = 0
-        while _Counter < _ProjectileList!.capacity {
+        while _Counter < _ProjectileList.capacity {
             
             // Translate them in the forward direction
-            _ProjectileList![_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
+            _ProjectileList[_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
             
             // Rotate them along the Z-Axis accordingly.
-            _ProjectileList![_Counter].eulerAngles = SCNVector3(0,0,_Intervals * Float(_Counter))
+            _ProjectileList[_Counter].eulerAngles = SCNVector3(0,0,_Intervals * Float(_Counter))
             
             _Counter+=1
         }

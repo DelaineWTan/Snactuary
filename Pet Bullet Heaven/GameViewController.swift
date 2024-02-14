@@ -55,7 +55,7 @@ class GameViewController: UIViewController {
         playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         
         
-        var testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 1, _InputDistanceFromCenter: 2)
+        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 1, _InputDistanceFromCenter: 2, _InputNumProjectiles: 4)
         testAbility.position = SCNVector3(0,0,0)
         testAbility.ActivateAbility()
         

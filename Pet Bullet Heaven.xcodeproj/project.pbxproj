@@ -27,6 +27,7 @@
 		4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */; };
 		4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637E2B7C21EE007ED6AA /* Projectile.swift */; };
 		4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */; };
+		4FAE63842B7C484E007ED6AA /* Penguin.001.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4FAE63832B7C484E007ED6AA /* Penguin.001.dae */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingProjectileAbility.swift; sourceTree = "<group>"; };
 		4FAE637E2B7C21EE007ED6AA /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingPaw.swift; sourceTree = "<group>"; };
+		4FAE63832B7C484E007ED6AA /* Penguin.001.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Penguin.001.dae; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 		0D6409342B71FBD00047847B /* Pet Bullet Heaven */ = {
 			isa = PBXGroup;
 			children = (
+				4FAE63822B7C483D007ED6AA /* Resources */,
 				0D6409352B71FBD00047847B /* AppDelegate.swift */,
 				0D6409372B71FBD00047847B /* art.scnassets */,
 				0D6409392B71FBD00047847B /* GameViewController.swift */,
@@ -156,6 +159,14 @@
 				0D6409572B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift */,
 			);
 			path = "Pet Bullet HeavenUITests";
+			sourceTree = "<group>";
+		};
+		4FAE63822B7C483D007ED6AA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4FAE63832B7C484E007ED6AA /* Penguin.001.dae */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +277,7 @@
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
+				4FAE63842B7C484E007ED6AA /* Penguin.001.dae in Resources */,
 				0D64093D2B71FBD00047847B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
