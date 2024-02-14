@@ -45,6 +45,9 @@ class OrbitingProjectileAbility : Ability {
         var _SpawnedProjectile = OrbitingPaw(_InputDamage: 1)
         _ProjectileList.append(_SpawnedProjectile)
         
+        // Add to the rootNode of this SceneGraph
+        self.addChildNode(_SpawnedProjectile)
+        
         return _SpawnedProjectile
     }
     
@@ -57,13 +60,13 @@ class OrbitingProjectileAbility : Ability {
         var _Intervals = CalculateProjectileInterval()
         
         // 2. Initialize all the Projectiles
-        while (_ProjectileList.capacity < _numProjectiles!){
+        while (_ProjectileList.count < _numProjectiles!){
             SpawnProjectile() // Throw if this returns null, something wrong happened
         }
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
         var _Counter = 0
-        while _Counter < _ProjectileList.capacity {
+        while _Counter < _ProjectileList.capacity-1 {
             
             // Translate them in the forward direction
             _ProjectileList[_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))

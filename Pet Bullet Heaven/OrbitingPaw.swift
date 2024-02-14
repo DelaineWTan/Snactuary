@@ -21,6 +21,7 @@ class OrbitingPaw : Projectile {
         
         _Damage = _InputDamage
         _Mesh = loadFromFile(_AssetName: "Penguin.001", _FileType: "dae") // Dummy Mesh
+        
     }
     
 }

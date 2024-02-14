@@ -72,6 +72,7 @@
 		4FAE637E2B7C21EE007ED6AA /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingPaw.swift; sourceTree = "<group>"; };
 		4FAE63832B7C484E007ED6AA /* Penguin.001.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Penguin.001.dae; sourceTree = "<group>"; };
+		4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Penguin_HandPaint.001.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +165,7 @@
 		4FAE63822B7C483D007ED6AA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */,
 				4FAE63832B7C484E007ED6AA /* Penguin.001.dae */,
 			);
 			path = Resources;
