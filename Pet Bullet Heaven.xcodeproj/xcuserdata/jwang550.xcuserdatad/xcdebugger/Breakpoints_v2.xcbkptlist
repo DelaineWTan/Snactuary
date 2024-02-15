@@ -49,6 +49,21 @@
                   endingLineNumber = "76"
                   offsetFromSymbolStart = "856">
                </Location>
+               <Location
+                  uuid = "DAD6F86D-8BC6-4845-B2CA-42078C72A1B3 - d85e61be0c3f0837"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pet_Bullet_Heaven.OrbitingProjectileAbility.ActivateAbility() -&gt; Swift.Bool"
+                  moduleName = "Pet Bullet Heaven"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwang550/Documents/COMP-8051/Labs/Pet%20Bullet%20Heaven/Pet-Bullet-Heaven/Pet%20Bullet%20Heaven/OrbitingProjectileAbility.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "75"
+                  endingLineNumber = "75"
+                  offsetFromSymbolStart = "856">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -348,6 +363,54 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1EED11E0-B8F3-4F00-B494-503BA1B58BB9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pet Bullet Heaven/OrbitingProjectileAbility.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "ActivateAbility()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1EED11E0-B8F3-4F00-B494-503BA1B58BB9 - d85e61be0c3f0faa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pet_Bullet_Heaven.OrbitingProjectileAbility.ActivateAbility() -&gt; Swift.Bool"
+                  moduleName = "Pet Bullet Heaven"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwang550/Documents/COMP-8051/Labs/Pet%20Bullet%20Heaven/Pet-Bullet-Heaven/Pet%20Bullet%20Heaven/OrbitingProjectileAbility.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "592">
+               </Location>
+               <Location
+                  uuid = "1EED11E0-B8F3-4F00-B494-503BA1B58BB9 - d85e61be0c3f0faa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pet_Bullet_Heaven.OrbitingProjectileAbility.ActivateAbility() -&gt; Swift.Bool"
+                  moduleName = "Pet Bullet Heaven"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwang550/Documents/COMP-8051/Labs/Pet%20Bullet%20Heaven/Pet-Bullet-Heaven/Pet%20Bullet%20Heaven/OrbitingProjectileAbility.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "568">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

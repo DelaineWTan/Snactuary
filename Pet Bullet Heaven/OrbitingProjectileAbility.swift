@@ -66,13 +66,13 @@ class OrbitingProjectileAbility : Ability {
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
         var _Counter = 0
-        while _Counter < _ProjectileList.capacity {
+        while _Counter < _ProjectileList.count{
             
             // Translate them in the forward direction
             _ProjectileList[_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
             
             // Rotate them along the Z-Axis accordingly.
-            _ProjectileList[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin(_Intervals*Float(_Counter)/2), z:0 , w: cos(_Intervals*Float(_Counter)/2)), aroundTarget: SCNVector3(0,0,0))
+            _ProjectileList[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin((_Intervals*Float(_Counter))/2), z:0 , w: cos((_Intervals*Float(_Counter))/2)), aroundTarget: SCNVector3(0,0,0))
             
             print(_ProjectileList[_Counter].position)
             
@@ -84,14 +84,15 @@ class OrbitingProjectileAbility : Ability {
     
     /*
      Takes into consideration, the number of projectiles I will need to spawn,
-    then returns the the angle I need to rotate each interval for each Projectile I'm Spawning
+     then returns the the angle I need to rotate each interval for each Projectile I'm Spawning
+     Returns radians
      */
     func CalculateProjectileInterval() -> Float {
-        return Float(360 / _numProjectiles!)
+        return Float(360 / _numProjectiles!) / Float(Float.pi/180)
     }
     
-    func SetSpawnedProjectile(_ProjetileStrategy: Projectile){
-        _Projectile = _ProjetileStrategy
+    func SetSpawnedProjectile(_ProjectileStrategy: Projectile){
+        _Projectile = _ProjectileStrategy
     }
     
 }
