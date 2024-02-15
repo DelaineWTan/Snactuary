@@ -16,8 +16,12 @@ class GameViewController: UIViewController {
     
     var playerNode: SCNNode?
     
+    
     var isMoving = false
     var touchDestination: CGPoint? = nil
+    
+    // radius for the joystick input
+    var joyStickClampedDistance: CGFloat = 100
 
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/test map.scn")!
@@ -91,35 +95,33 @@ class GameViewController: UIViewController {
         SCNTransaction.commit()
     }
     
+    var intialCenter = CGPoint()
+    
     @objc
     func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
         // Gets x, y values of pan. Does not return any when not detecting finger moving
         // Prob need to clamp it, have to create a helper method
-        let scnView = self.view as! SCNView
+        let translation = gestureRecongnize.translation(in: view)
+        let location = gestureRecongnize.location(in: view)
         
         switch gestureRecongnize.state {
         case .began:
-            let location = gestureRecongnize.location(in: gestureRecongnize.view)
-            
-            overlayView.inGameUIView.setStickPosition(location: location)
-            overlayView.inGameUIView.stickVisibilty(isVisible: true)
-            
-        case .changed:
-            let translation = gestureRecongnize.translation(in: view)
-            touchDestination = translation
-            //print("X = \(Float(touchDestination?.x ?? 0)), Y = \(Float(touchDestination?.y ?? 0))")
             isMoving = true
-            movePlayer(xPoint: Float(touchDestination?.x ?? 0), zPoint: Float(touchDestination?.y ?? 0))
+            overlayView.inGameUIView.setStickPosition(location: location)
+        case .changed:
+
+            let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
+            let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
+            print("(\(x), \(z))")
+            movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
             
-            let location = gestureRecongnize.location(in: gestureRecongnize.view)
-            overlayView.inGameUIView.updateStickPosition(translation: translation, fingerLocation: location)
-            
-            // reset the translation
-            //gestureRecongnize.setTranslation(.zero, in: view)
-            
+            // Stick UI
+            overlayView.inGameUIView.stickVisibilty(isVisible: true)
+            overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
         case .ended:
             isMoving = false
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
+            // add other logic
             
         default:
             break
@@ -148,4 +150,10 @@ class GameViewController: UIViewController {
         }
     }
 
+}
+
+extension Comparable {
+    func clamp(min: Self, max: Self) -> Self {
+        return Swift.max(min, Swift.min(self, max))
+    }
 }

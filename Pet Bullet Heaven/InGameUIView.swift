@@ -13,9 +13,6 @@ class InGameUIView: UIView {
     var innerCircleLayer: CAShapeLayer?
     var outerCircleLayer: CAShapeLayer?
     
-    var innerCircleInitialCenterPoint: CGPoint?
-    var lastLocation: CGPoint?
-    
     lazy var pauseButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Pause", for: .normal)
@@ -38,57 +35,46 @@ class InGameUIView: UIView {
     }
     
     public func setStickPosition(location: CGPoint) {
-        // translate gesture plot to UI kit plot
-        let xLocation = location.x - bounds.maxX/2
-        let yLocation = location.y - bounds.maxY/2
+        let anchorPoint = convertGestureCoordinateSystemToUICoordinateSystem(point: location)
         
-        innerCircleLayer?.position.x = xLocation
-        innerCircleLayer?.position.y = yLocation
-        
-        outerCircleLayer?.position.x = xLocation
-        outerCircleLayer?.position.y = yLocation
-        
-        innerCircleInitialCenterPoint = innerCircleLayer!.position
+        innerCircleLayer?.position = anchorPoint
+        outerCircleLayer?.position = anchorPoint
     }
     
-    public func updateStickPosition(translation: CGPoint, fingerLocation: CGPoint) {
-        let innerPosition = innerCircleLayer?.position
+    // Put source which helped me here
+    public func updateStickPosition(fingerLocation: CGPoint) {
         let outerPosition = outerCircleLayer?.position
         
-        // get diameters of both circles and subtract to get range of inner
+        // get diameters of both circles and subtract to get range of which the inner circle may move
         let innerDiameter = max((innerCircleLayer?.path?.boundingBox.width)!, (innerCircleLayer?.path?.boundingBox.height)!)
         let outerDiameter = max((outerCircleLayer?.path?.boundingBox.width)!, (outerCircleLayer?.path?.boundingBox.height)!)
         let thumbStickRange = (outerDiameter - innerDiameter) / 2
-
-        let testX = fingerLocation.x - bounds.maxX/2
-        let testY = fingerLocation.y - bounds.maxY/2
-        let bigTest = CGPoint(x: testX, y: testY) 
-        let distance = calculateDistanceBetweenPoints(point1: outerPosition!, point2: bigTest)
+        let translatedFingerPos = convertGestureCoordinateSystemToUICoordinateSystem(point: fingerLocation)
         
-        innerCircleLayer?.position = bigTest
-        print("trans: \(distance)")
-        print("dist: \(thumbStickRange)")
-        if (distance > thumbStickRange) {
-            innerCircleLayer?.position = innerPosition!
-            
-            
-        } else {
-            innerCircleLayer?.position = bigTest
-        }
-////            let direction = CGPoint(x: innerPosition!.x - outerPosition!.x, y: (innerPosition!.y - outerPosition!.y) * -1)
-////            let normalizeDirection = CGPoint(x: direction.x / distance, y: direction.y / distance)
-////            innerCircleLayer?.position = CGPoint(x: outerPosition!.x + normalizeDirection.x * (outerDiameter / 2), y: outerPosition!.y + normalizeDirection.y * (outerDiameter / 2))
-//        } else {
-//            print("false")
-//            innerCircleLayer?.position.x += CGFloat(translation.x)
-//            innerCircleLayer?.position.y += CGFloat(translation.y)
-//        }
+        // distance b/w finger-hold location and middle of thumbstick
+        let distance = calculateDistanceBetweenPoints(point1: outerPosition!, point2: translatedFingerPos)
         
+        // Get angle b/w center of thumbstick and finger
+        let angle = atan2(translatedFingerPos.y - outerPosition!.y, translatedFingerPos.x - outerPosition!.x)
+        let clamp = min(distance, thumbStickRange)
+        
+        // new coordinates of inner circle
+        let newX = outerPosition!.x + cos(angle) * clamp
+        let newY = outerPosition!.y + sin(angle) * clamp
+        
+        innerCircleLayer?.position = CGPoint(x: newX, y: newY)
     }
     
     public func stickVisibilty(isVisible: Bool) {
         innerCircleLayer?.isHidden = !isVisible
         outerCircleLayer?.isHidden = !isVisible
+    }
+    
+    private func convertGestureCoordinateSystemToUICoordinateSystem(point: CGPoint) -> CGPoint {
+        // translate gesture plot to UI kit plot
+        let xPoint = point.x - bounds.maxX/2
+        let yPoint = point.y - bounds.maxY/2
+        return CGPoint(x: xPoint, y: yPoint)
     }
     
     // Can be a public func in a static math helper class
@@ -116,10 +102,10 @@ class InGameUIView: UIView {
         
         // inner circle
         innerCircleLayer = CAShapeLayer()
-        innerCircleLayer?.opacity = 0.3
+        innerCircleLayer?.opacity = 0.6
         innerCircleLayer?.path = innerCirclePath.cgPath
         
-        innerCircleLayer?.fillColor = UIColor.blue.cgColor
+        innerCircleLayer?.fillColor = UIColor.darkGray.cgColor
         
         // outer circle
         let outerCirclePath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX+200, y: bounds.midY+400), radius: 50, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
