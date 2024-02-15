@@ -72,7 +72,7 @@ class OrbitingProjectileAbility : Ability {
             _ProjectileList[_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
             
             // Rotate them along the Z-Axis accordingly.
-            _ProjectileList[_Counter].eulerAngles = SCNVector3(0,0,_Intervals * Float(_Counter))
+            _ProjectileList[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin(_Intervals*Float(_Counter)/2), z:0 , w: cos(_Intervals*Float(_Counter)/2)), aroundTarget: SCNVector3(0,0,0))
             
             print(_ProjectileList[_Counter].position)
             

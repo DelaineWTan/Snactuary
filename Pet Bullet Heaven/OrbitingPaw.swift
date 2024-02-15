@@ -20,8 +20,10 @@ class OrbitingPaw : Projectile {
         super.init()
         
         _Damage = _InputDamage
-        //_Mesh = loadFromFile(_AssetName: "Penguin.001", _FileType: "dae") // Dummy Mesh
-        _Mesh = SCNBox(width: 1,height: 1,length: 1,chamferRadius: 0)
+        _Mesh = loadFromFile(_AssetName: "Penguin.002", _FileType: "dae") // Dummy Mesh
+//        _Mesh = SCNNode(geometry: SCNBox(width: 2, height: 2, length: 2, chamferRadius: 0))
+        
+        self.addChildNode(_Mesh!)
         
     }
     
