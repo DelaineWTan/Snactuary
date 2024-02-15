@@ -26,3 +26,9 @@ public class Globals {
     ]
     public static let cameraZIndex:Float = 30;
 }
+
+extension Comparable {
+    func clamp(min: Self, max: Self) -> Self {
+        return Swift.max(min, Swift.min(self, max))
+    }
+}

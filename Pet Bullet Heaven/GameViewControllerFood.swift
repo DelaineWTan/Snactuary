@@ -9,7 +9,7 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewController: UIViewController {
+class GameViewControllerFood: UIViewController {
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
@@ -24,7 +24,7 @@ class GameViewController: UIViewController {
     var joyStickClampedDistance: CGFloat = 100
 
     // create a new scene
-    let scene = SCNScene(named: "art.scnassets/test map.scn")!
+    let scene = SCNScene(named: "art.scnassets/food functionality.scn")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,12 @@ class GameViewController: UIViewController {
         
         //get player
         playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
+        
+        let food = Food()
+        //food.eulerAngles = SCNVector3(0, 90, 0)
+        scene.rootNode.addChildNode(food)
+        
+        
     }
     
     @objc
