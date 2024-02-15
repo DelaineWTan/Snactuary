@@ -102,18 +102,25 @@ class GameViewController: UIViewController {
         // Gets x, y values of pan. Does not return any when not detecting finger moving
         // Prob need to clamp it, have to create a helper method
         let translation = gestureRecongnize.translation(in: view)
+        let location = gestureRecongnize.location(in: view)
         
         switch gestureRecongnize.state {
         case .began:
             isMoving = true
+            overlayView.inGameUIView.setStickPosition(location: location)
         case .changed:
 
             let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             print("(\(x), \(z))")
             movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
+            
+            // Stick UI
+            overlayView.inGameUIView.stickVisibilty(isVisible: true)
+            overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
         case .ended:
             isMoving = false
+            overlayView.inGameUIView.stickVisibilty(isVisible: false)
             // add other logic
             
         default:
