@@ -88,7 +88,8 @@ class OrbitingProjectileAbility : Ability {
      Returns radians
      */
     func CalculateProjectileInterval() -> Float {
-        return Float(360 / _numProjectiles!) / Float(Float.pi/180)
+//        return Float(360 / _numProjectiles!) / Float(Float.pi/180)
+        return Float(360 / _numProjectiles!) * Float(Float.pi/180)
     }
     
     func SetSpawnedProjectile(_ProjectileStrategy: Projectile){
