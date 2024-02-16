@@ -29,12 +29,16 @@ class Food : SCNNode {
         
         // not sure if we put it here or in gameviewcontroller
         cubeNode.position = SCNVector3(0, 0.5, 0)
-        cubeNode.eulerAngles = SCNVector3(0, 45, 0)
+        
+        let angleInDegrees: Float = 45.0
+        let angleInRadians = angleInDegrees * .pi / 180.0
+        cubeNode.eulerAngles = SCNVector3(0, angleInRadians, 0)
         self.addChildNode(cubeNode)
         
         self._Mesh = cubeGeometry
     }
     
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

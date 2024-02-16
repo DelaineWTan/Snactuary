@@ -46,21 +46,33 @@ class GameViewControllerFood: UIViewController {
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scnView.addSubview(overlayView)
         // add self rendering every frame logic
+        
+        // For moving camera inside the game
+        scnView.allowsCameraControl = true
                 
         // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        scnView.addGestureRecognizer(tapGesture)
+        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        //scnView.addGestureRecognizer(tapGesture)
         
         // add panning gesture for pet movement
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
-        scnView.addGestureRecognizer(panGesture)
+        //let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
+        //scnView.addGestureRecognizer(panGesture)
         
         //get player
         playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         
-        let food = Food()
+        let positions: [SCNVector3] = [
+            SCNVector3(x: 10, y: 0, z: 0),
+            SCNVector3(x: -10, y: 0, z: 0),
+            SCNVector3(x: 0, y: 0, z: 10),
+            SCNVector3(x: 0, y: 0, z: -10),
+        ]
+        
+        let foodSpawner = FoodSpawner(scene: scene, spawnPositions: positions)
+        //let food = Food()
+        
         //food.eulerAngles = SCNVector3(0, 90, 0)
-        scene.rootNode.addChildNode(food)
+        //scene.rootNode.addChildNode(food)
         
         
     }

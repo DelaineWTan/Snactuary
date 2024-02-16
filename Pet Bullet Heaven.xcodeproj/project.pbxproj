@@ -24,6 +24,7 @@
 		0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */; };
 		0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */; };
 		58861D4C2B7C1084002573D2 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58861D4B2B7C1084002573D2 /* Pet.swift */; };
+		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* Food.swift */; };
 		FB73289A2B7D97F700557AE6 /* GameViewControllerFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328992B7D97F700557AE6 /* GameViewControllerFood.swift */; };
 /* End PBXBuildFile section */
@@ -66,6 +67,7 @@
 		0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuUIView.swift; sourceTree = "<group>"; };
 		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
 		58861D4B2B7C1084002573D2 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		FB7328992B7D97F700557AE6 /* GameViewControllerFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerFood.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +136,7 @@
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
 				FB7328972B7D947500557AE6 /* Food.swift */,
+				FB6306C32B8017DD00E8096D /* FoodSpawner.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				0D64093A2B71FBD00047847B /* GameViewController.swift in Sources */,
 				0DCB55AB2B74B7C500C18DD0 /* Globals.swift in Sources */,
 				58861D4C2B7C1084002573D2 /* Pet.swift in Sources */,
+				FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
