@@ -31,6 +31,7 @@ class FoodSpawner {
             food.position = position
             print("food spawned in location: \(position)")
             mainScene.rootNode.addChildNode(food)
+            food.Move(increment: -1)
         }
     }
 }

@@ -20,7 +20,7 @@ class Food : SCNNode {
     override init() {
         super.init()
         
-        let cubeGeometry = SCNBox(width: 1.0, height: 1.0, length: 1.0, chamferRadius: 0.0)
+        let cubeGeometry = SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2)
         
         let cubeNode = SCNNode(geometry: cubeGeometry)
         
@@ -38,8 +38,13 @@ class Food : SCNNode {
         self._Mesh = cubeGeometry
     }
     
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func Move(increment: CGFloat) {
+        let moveAction = SCNAction.moveBy(x: increment, y: 0, z: 0, duration: 1)
+        let repeatAction = SCNAction.repeatForever(moveAction)
+        self.runAction(repeatAction)
     }
 }

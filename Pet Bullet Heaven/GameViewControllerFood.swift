@@ -63,12 +63,12 @@ class GameViewControllerFood: UIViewController {
         
         let positions: [SCNVector3] = [
             SCNVector3(x: 10, y: 0, z: 0),
-            SCNVector3(x: -10, y: 0, z: 0),
-            SCNVector3(x: 0, y: 0, z: 10),
-            SCNVector3(x: 0, y: 0, z: -10),
+//            SCNVector3(x: -10, y: 0, z: 0),
+//            SCNVector3(x: 0, y: 0, z: 10),
+//            SCNVector3(x: 0, y: 0, z: -10),
         ]
         
-        let foodSpawner = FoodSpawner(scene: scene, spawnPositions: positions)
+        var foodSpawner = FoodSpawner(scene: scene, spawnPositions: positions)
         //let food = Food()
         
         //food.eulerAngles = SCNVector3(0, 90, 0)
