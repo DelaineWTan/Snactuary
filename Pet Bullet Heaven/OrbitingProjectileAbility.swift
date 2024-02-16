@@ -13,7 +13,7 @@ class OrbitingProjectileAbility : Ability {
     // Member Variables
     var _numProjectiles : Int?
     
-    var _rotationSpeed : Float?
+    var _rotationSpeed : CGFloat?
      
     var _distanceFromCenter : Float?
     
@@ -26,7 +26,7 @@ class OrbitingProjectileAbility : Ability {
     }
     
     // Mutated Constructor
-    init(_InputAbilityDamage: Int, _InputAbilityDuration: Int, _InputRotationSpeed : Float, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int){
+    init(_InputAbilityDamage: Int, _InputAbilityDuration: Double, _InputRotationSpeed : CGFloat, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int){
         
         super.init()
         
@@ -79,6 +79,11 @@ class OrbitingProjectileAbility : Ability {
             _Counter+=1
         }
         
+        // Start rotating this Ability, and remove after Ability Duration
+        self.runAction(SCNAction.rotateBy(x: 0, y: _rotationSpeed!, z: 0, duration: _AbilityDuration!)){
+            self.runAction(SCNAction.removeFromParentNode())
+        }
+        
         return true
     }
     
@@ -94,6 +99,10 @@ class OrbitingProjectileAbility : Ability {
     
     func SetSpawnedProjectile(_ProjectileStrategy: Projectile){
         _Projectile = _ProjectileStrategy
+    }
+    
+    func ConvertDegreesToRadian(_InDegrees: CGFloat) -> CGFloat {
+        return CGFloat(_InDegrees * CGFloat(Float.pi / 180))
     }
     
 }

@@ -13,7 +13,7 @@ class Ability : SCNNode {
     // Member Variables
     var _AbilityDamage : Int?
     
-    var _AbilityDuration : Int?
+    var _AbilityDuration : Double?
     
     func SpawnProjectile() -> Projectile {
         return Projectile()
