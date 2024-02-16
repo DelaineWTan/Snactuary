@@ -42,8 +42,9 @@ class Food : SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // TODO: add modifiable duration and increment
     func Move(increment: CGFloat) {
-        let moveAction = SCNAction.moveBy(x: increment, y: 0, z: 0, duration: 1)
+        let moveAction = SCNAction.moveBy(x: increment, y: 0, z: 0, duration: 0.5)
         let repeatAction = SCNAction.repeatForever(moveAction)
         self.runAction(repeatAction)
     }
