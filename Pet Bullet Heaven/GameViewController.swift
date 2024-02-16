@@ -9,16 +9,17 @@ import UIKit
 import QuartzCore
 import SceneKit
 
+// categories for object types
+let playerCategory: Int = 0b001
+let foodCategory: Int = 0b010
+
 class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneRendererDelegate {
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
 
-    // create a new scene
-    
-    
-    //let cube = SCNScene(named: "box 2", recursively: true)
-    
+    var score = 0
+    let scoreLabel = UILabel(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
     
     override func viewDidLoad() {
         
@@ -39,6 +40,14 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         
         scene.physicsWorld.contactDelegate = self
         
+        let playerNode = scene.rootNode.childNode(withName: "player", recursively: true)
+        let foodNode = scene.rootNode.childNode(withName: "food", recursively: true)
+        
+        // set the physics categories for objects
+        playerNode?.physicsBody?.categoryBitMask = playerCategory
+        foodNode?.physicsBody?.categoryBitMask = foodCategory
+               
+        
         // allows the user to manipulate the camera
         scnView.allowsCameraControl = true
         
@@ -56,6 +65,32 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
+
+       
+        scoreLabel.text = "Score: \(score)"
+        scoreLabel.font = UIFont.systemFont(ofSize: 20)
+        scoreLabel.textColor = .white
+        view.addSubview(scoreLabel)
+
+        
+    }
+    
+    // Update score and destroy food on collision
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        let nodeA = contact.nodeA
+        let nodeB = contact.nodeB
+        
+        // Check if player collides with food
+        if (nodeA.physicsBody?.categoryBitMask == playerCategory || nodeB.physicsBody?.categoryBitMask == playerCategory) &&
+            (nodeA.physicsBody?.categoryBitMask == foodCategory || nodeB.physicsBody?.categoryBitMask == foodCategory) {
+            // Destroy food
+            print("Destroying food")
+            nodeB.removeFromParentNode()
+            score += 1
+            DispatchQueue.main.async {
+                self.scoreLabel.text = "Score: \(self.score)"
+            }
+        }
     }
     
     @objc
@@ -94,16 +129,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         SCNTransaction.commit()
     }
     
-    // Handle collision events
-    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-            // Check which objects collided
-//            if contact.nodeA.physicsBody?.categoryBitMask == 0x1 &&
-//               contact.nodeB.physicsBody?.categoryBitMask == 0x2 {
-        
-        print("Collision Happened, Destroying object")
-        //contact.nodeA.removeFromParentNode() //Destroy food object when it collides
-        
-        }
+
+    
     
     override var prefersStatusBarHidden: Bool {
         return true
