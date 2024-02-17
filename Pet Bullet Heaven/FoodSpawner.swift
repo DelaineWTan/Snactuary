@@ -22,6 +22,7 @@ class FoodSpawner {
     
     func spawn() {
         let foodCount = 3
+        let stageNode = mainScene.rootNode.childNode(withName: "plane", recursively: true)
         
         for _ in 0..<foodCount {
             let randomIndex = Int.random(in: 0..<spawnPositions.count)
@@ -29,9 +30,9 @@ class FoodSpawner {
             
             let food = Food()
             food.position = position
-            print("food spawned in location: \(position)")
-            mainScene.rootNode.addChildNode(food)
-            food.Move(increment: -1)
+            stageNode?.addChildNode(food)
+            print("food spawned in location: \(food.position)")
+            //food.Move(increment: -1)
         }
     }
 }

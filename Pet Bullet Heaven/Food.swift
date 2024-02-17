@@ -20,7 +20,7 @@ class Food : SCNNode {
     override init() {
         super.init()
         
-        let cubeGeometry = SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2)
+        let cubeGeometry = SCNBox(width: 5.7, height: 5.7, length: 5.7, chamferRadius: 0.2)
         
         let cubeNode = SCNNode(geometry: cubeGeometry)
         
