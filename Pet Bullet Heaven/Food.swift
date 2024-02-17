@@ -35,7 +35,6 @@ class Food : SCNNode {
         // will be changed to whatever the model is
         cubeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/goldblock.png")
         
-        // not sure if we put it here or in gameviewcontroller
         cubeNode.position = SCNVector3(0, 0.5, 0)
         
         let angleInDegrees: Float = 45.0
@@ -57,38 +56,41 @@ class Food : SCNNode {
     }
     
     // TODO: add modifiable duration and increment
+    /// Moves the food randomly towards the player and relative to the player's inputs
     func move() {
         
         var modifierX = 0.0
         var modifierZ = 0.0
         
-        // TODO: add some variations/randomness
+        // can't tell if working properly or not
+        let randomXVariation = Float.random(in: -3.0...3.0)
+        let randomZVariation = Float.random(in: -3.0...3.0)
+
         if spawnLocation.x > 0 {
-            modifierX = -2
+            modifierX = Double(-2 + randomXVariation)
         } else {
-            modifierX = 2
+            modifierX = Double(2 + randomXVariation)
         }
         if spawnLocation.z > 0 {
-            modifierZ = -2
+            modifierZ = Double(-2 + randomZVariation)
         } else {
-            modifierZ = 2
+            modifierZ = Double(2 + randomZVariation)
         }
         
-        self.position.x += Float(self.increment * modifierX) // Apply the translation to the node's current position
+        self.position.x += Float(self.increment * modifierX)
         self.position.z += Float(self.increment * modifierZ)
         
+        // Move food relative to the player
         if Globals.playerIsMoving {
-            // Calculate the translation vector based on player movement
             let translationVector = SCNVector3(Globals.rawInputX / 100, 0, Globals.rawInputZ / 100)
             
-            // Apply the translation to the stage plane
             self.position.x += translationVector.x
             self.position.z += translationVector.z
         }
     }
     
     func firstUpdate() async {
-        await reanimate() // Call reanimate on the first graphics update frame
+        await reanimate()
     }
     
     
