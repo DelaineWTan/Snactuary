@@ -17,6 +17,15 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
+    
+    var playerNode: SCNNode?
+    
+    
+    var isMoving = false
+    var touchDestination: CGPoint? = nil
+    
+    // radius for the joystick input
+    var joyStickClampedDistance: CGFloat = 100
 
     var score = 0
     let scoreLabel = UILabel(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
@@ -27,7 +36,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         
         super.viewDidLoad()
         
-        let scene = SCNScene(named: "art.scnassets/faiz test map.scn")!
+        let scene = SCNScene(named: "art.scnassets/main.scn")!
         //let cube = scene.rootNode.childNode(withName: "box2", recursively: true)
         
         // retrieve the SCNView
@@ -40,7 +49,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         
         scene.physicsWorld.contactDelegate = self
         
-        let playerNode = scene.rootNode.childNode(withName: "player", recursively: true)
+        //get player
+        playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         let foodNode = scene.rootNode.childNode(withName: "food", recursively: true)
         
         // set the physics categories for objects
@@ -62,17 +72,22 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         //scnView.addSubview(overlayView)
         
-        // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        scnView.addGestureRecognizer(tapGesture)
-
        
         scoreLabel.text = "Score: \(score)"
         scoreLabel.font = UIFont.systemFont(ofSize: 20)
         scoreLabel.textColor = .white
         view.addSubview(scoreLabel)
 
+        scnView.addSubview(overlayView)
+        // add self rendering every frame logic
+                
+        // add a tap gesture recognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        scnView.addGestureRecognizer(tapGesture)
         
+        // add panning gesture for pet movement
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
+        scnView.addGestureRecognizer(panGesture)
     }
     
     // Update score and destroy food on collision
@@ -91,6 +106,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
                 self.scoreLabel.text = "Score: \(self.score)"
             }
         }
+
+        
     }
     
     @objc
@@ -129,9 +146,41 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         SCNTransaction.commit()
     }
     
+    var intialCenter = CGPoint()
+    
+    @objc
+    func handleMovementPan(_ gestureRecongnize: UIPanGestureRecognizer) {
+        // Gets x, y values of pan. Does not return any when not detecting finger moving
+        // Prob need to clamp it, have to create a helper method
+        let translation = gestureRecongnize.translation(in: view)
+        
+        switch gestureRecongnize.state {
+        case .began:
+            isMoving = true
+        case .changed:
 
+            let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
+            let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
+            print("(\(x), \(z))")
+            movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
+        case .ended:
+            isMoving = false
+            // add other logic
+            
+        default:
+            break
+        }
+    }
     
+    func movePlayer(xPoint: Float, zPoint: Float) {
+        playerNode?.position.x -= xPoint
+        playerNode?.position.z -= zPoint //change to z coordinate
+    }
     
+    func stopPlayer() {
+        isMoving = false
+        // add other logic here (like stopping sound or animation
+    }
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -144,4 +193,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         }
     }
 
+}
+
+extension Comparable {
+    func clamp(min: Self, max: Self) -> Self {
+        return Swift.max(min, Swift.min(self, max))
+    }
 }

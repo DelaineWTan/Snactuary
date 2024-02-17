@@ -16,12 +16,14 @@
 		0D64094C2B71FBD30047847B /* Pet_Bullet_HeavenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D64094B2B71FBD30047847B /* Pet_Bullet_HeavenTests.swift */; };
 		0D6409562B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409552B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift */; };
 		0D6409582B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409572B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift */; };
-		0DCB55AB2B74B7C500C18DD0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55AA2B74B7C500C18DD0 /* Constants.swift */; };
+		0D8DB43C2B7AC9AB008D2AE8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0D8DB43B2B7AC9AB008D2AE8 /* .gitignore */; };
+		0DCB55AB2B74B7C500C18DD0 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55AA2B74B7C500C18DD0 /* Globals.swift */; };
 		0DCB55B92B75937600C18DD0 /* PetSelectionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B62B75937600C18DD0 /* PetSelectionUIView.swift */; };
 		0DCB55BA2B75937600C18DD0 /* MainMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */; };
 		0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B82B75937600C18DD0 /* GameUIView.swift */; };
 		0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */; };
 		0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */; };
+		58861D4C2B7C1084002573D2 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58861D4B2B7C1084002573D2 /* Pet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,12 +56,14 @@
 		0D6409512B71FBD30047847B /* Pet Bullet HeavenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pet Bullet HeavenUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409552B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet_Bullet_HeavenUITests.swift; sourceTree = "<group>"; };
 		0D6409572B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet_Bullet_HeavenUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0DCB55AA2B74B7C500C18DD0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0D8DB43B2B7AC9AB008D2AE8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		0DCB55AA2B74B7C500C18DD0 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		0DCB55B62B75937600C18DD0 /* PetSelectionUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSelectionUIView.swift; sourceTree = "<group>"; };
 		0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuUIView.swift; sourceTree = "<group>"; };
 		0DCB55B82B75937600C18DD0 /* GameUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUIView.swift; sourceTree = "<group>"; };
 		0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuUIView.swift; sourceTree = "<group>"; };
 		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
+		58861D4B2B7C1084002573D2 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 		0D6409292B71FBD00047847B = {
 			isa = PBXGroup;
 			children = (
+				0D8DB43B2B7AC9AB008D2AE8 /* .gitignore */,
 				0D6409342B71FBD00047847B /* Pet Bullet Heaven */,
 				0D64094A2B71FBD30047847B /* Pet Bullet HeavenTests */,
 				0D6409542B71FBD30047847B /* Pet Bullet HeavenUITests */,
@@ -118,7 +123,8 @@
 				0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */,
 				0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */,
 				0DCB55B62B75937600C18DD0 /* PetSelectionUIView.swift */,
-				0DCB55AA2B74B7C500C18DD0 /* Constants.swift */,
+				58861D4B2B7C1084002573D2 /* Pet.swift */,
+				0DCB55AA2B74B7C500C18DD0 /* Globals.swift */,
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
@@ -247,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D8DB43C2B7AC9AB008D2AE8 /* .gitignore in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
@@ -277,7 +284,8 @@
 			files = (
 				0DCB55BA2B75937600C18DD0 /* MainMenuUIView.swift in Sources */,
 				0D64093A2B71FBD00047847B /* GameViewController.swift in Sources */,
-				0DCB55AB2B74B7C500C18DD0 /* Constants.swift in Sources */,
+				0DCB55AB2B74B7C500C18DD0 /* Globals.swift in Sources */,
+				58861D4C2B7C1084002573D2 /* Pet.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
