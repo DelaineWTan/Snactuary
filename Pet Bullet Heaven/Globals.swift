@@ -25,6 +25,7 @@ public class Globals {
         // Add more pets as needed
     ]
     public static let cameraZIndex:Float = 30;
+    
 }
 
 extension Comparable {

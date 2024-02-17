@@ -63,14 +63,8 @@ class GameViewControllerFood: UIViewController {
         // get stage plane
         stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
         
-        let positions: [SCNVector3] = [
-            SCNVector3(x: 10, y: 0, z: 0),
-//            SCNVector3(x: -10, y: 0, z: 0),
-//            SCNVector3(x: 0, y: 0, z: 10),
-//            SCNVector3(x: 0, y: 0, z: -10),
-        ]
         
-        var foodSpawner = FoodSpawner(scene: scene, spawnPositions: positions)
+        var foodSpawner = FoodSpawner(scene: scene)
     }
     
     @objc

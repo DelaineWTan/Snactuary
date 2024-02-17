@@ -17,8 +17,17 @@ class Food : SCNNode {
     
     var _Mesh : SCNBox?
     
-    override init() {
+    var spawnLocation : SCNVector3
+    var increment : CGFloat
+    
+    var deltaTime : CFTimeInterval = 0
+    var previousTimestamp: CFTimeInterval = 0
+    
+    init(spawnLocation: SCNVector3, increment: CGFloat) {
+        self.spawnLocation = spawnLocation
+        self.increment = increment
         super.init()
+        
         let cubeGeometry = SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2)
         
         let cubeNode = SCNNode(geometry: cubeGeometry)
@@ -48,10 +57,9 @@ class Food : SCNNode {
     }
     
     // TODO: add modifiable duration and increment
-    func Move(increment: CGFloat) {
-        let moveAction = SCNAction.moveBy(x: increment, y: 0, z: 0, duration: 0.5)
-        let repeatAction = SCNAction.repeatForever(moveAction)
-        self.runAction(repeatAction)
+    func move() {
+
+        self.position.x += Float(self.increment) // Apply the translation to the node's current position
     }
     
     func firstUpdate() async {
@@ -62,6 +70,7 @@ class Food : SCNNode {
     @MainActor
     func reanimate() async {
         // code logic here
+        move()
         
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: UInt64(1.0 / 60.0))
