@@ -22,16 +22,21 @@ class FoodSpawner {
     
     func spawn() {
         let foodCount = 3
-        let stageNode = mainScene.rootNode.childNode(withName: "plane", recursively: true)
+        //let stageNode = mainScene.rootNode.childNode(withName: "plane", recursively: true)
         
         for _ in 0..<foodCount {
-            let randomIndex = Int.random(in: 0..<spawnPositions.count)
-            let position = spawnPositions[randomIndex]
             
+            let isPositive = Bool.random()
+
+            let randomFromAtoB = Float(Int.random(in: -10...10))
+
+            let randomIorJ = Float(isPositive ? 10 : -10)
+            
+            let randomPosition = isPositive ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
+
             let food = Food()
-            food.position = position
-            stageNode?.addChildNode(food)
-            print("food spawned in location: \(food.position)")
+            food.position = randomPosition
+            mainScene.rootNode.addChildNode(food)
             //food.Move(increment: -1)
         }
     }

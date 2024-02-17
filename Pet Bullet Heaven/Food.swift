@@ -19,8 +19,7 @@ class Food : SCNNode {
     
     override init() {
         super.init()
-        
-        let cubeGeometry = SCNBox(width: 5.7, height: 5.7, length: 5.7, chamferRadius: 0.2)
+        let cubeGeometry = SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2)
         
         let cubeNode = SCNNode(geometry: cubeGeometry)
         
@@ -36,6 +35,12 @@ class Food : SCNNode {
         self.addChildNode(cubeNode)
         
         self._Mesh = cubeGeometry
+        
+        
+        Task {
+            await firstUpdate()
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,5 +52,19 @@ class Food : SCNNode {
         let moveAction = SCNAction.moveBy(x: increment, y: 0, z: 0, duration: 0.5)
         let repeatAction = SCNAction.repeatForever(moveAction)
         self.runAction(repeatAction)
+    }
+    
+    func firstUpdate() async {
+        await reanimate() // Call reanimate on the first graphics update frame
+    }
+    
+    // Your 'Update()' function
+    @MainActor
+    func reanimate() async {
+        // code logic here
+        
+        // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
+        try! await Task.sleep(nanoseconds: UInt64(1.0 / 60.0))
+        await reanimate()
     }
 }
