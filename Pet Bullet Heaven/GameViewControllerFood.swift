@@ -47,21 +47,21 @@ class GameViewControllerFood: UIViewController {
         scnView.addSubview(overlayView)
         // add self rendering every frame logic
                 
-        scnView.allowsCameraControl = true
+        //scnView.allowsCameraControl = true
         
         // add a tap gesture recognizer
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-//        scnView.addGestureRecognizer(tapGesture)
-//        
-//        // add panning gesture for pet movement
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
-//        scnView.addGestureRecognizer(panGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        scnView.addGestureRecognizer(tapGesture)
+        
+        // add panning gesture for pet movement
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
+        scnView.addGestureRecognizer(panGesture)
         
         // get player
         playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         
         // get stage plane
-        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        stageNode = scene.rootNode.childNode(withName: "plane", recursively: true)
         
         
         var foodSpawner = FoodSpawner(scene: scene)
@@ -115,12 +115,15 @@ class GameViewControllerFood: UIViewController {
         switch gestureRecongnize.state {
         case .began:
             isMoving = true
+            Globals.playerIsMoving = isMoving
             overlayView.inGameUIView.setStickPosition(location: location)
         case .changed:
 
             let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
 
+            Globals.rawInputX = x
+            Globals.rawInputZ = z
             movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
             
             // Stick UI
@@ -128,6 +131,7 @@ class GameViewControllerFood: UIViewController {
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
         case .ended:
             isMoving = false
+            Globals.playerIsMoving = isMoving
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
             // add other logic
             

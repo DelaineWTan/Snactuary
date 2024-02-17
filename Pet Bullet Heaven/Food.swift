@@ -58,13 +58,39 @@ class Food : SCNNode {
     
     // TODO: add modifiable duration and increment
     func move() {
-
-        self.position.x += Float(self.increment) // Apply the translation to the node's current position
+        
+        var modifierX = 0.0
+        var modifierZ = 0.0
+        
+        // TODO: add some variations/randomness
+        if spawnLocation.x > 0 {
+            modifierX = -2
+        } else {
+            modifierX = 2
+        }
+        if spawnLocation.z > 0 {
+            modifierZ = -2
+        } else {
+            modifierZ = 2
+        }
+        
+        self.position.x += Float(self.increment * modifierX) // Apply the translation to the node's current position
+        self.position.z += Float(self.increment * modifierZ)
+        
+        if Globals.playerIsMoving {
+            // Calculate the translation vector based on player movement
+            let translationVector = SCNVector3(Globals.rawInputX / 100, 0, Globals.rawInputZ / 100)
+            
+            // Apply the translation to the stage plane
+            self.position.x += translationVector.x
+            self.position.z += translationVector.z
+        }
     }
     
     func firstUpdate() async {
         await reanimate() // Call reanimate on the first graphics update frame
     }
+    
     
     // Your 'Update()' function
     @MainActor
