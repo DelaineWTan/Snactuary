@@ -13,7 +13,7 @@ import SceneKit
 let playerCategory: Int = 0b001
 let foodCategory: Int = 0b010
 
-class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneRendererDelegate {
+class GameViewControllerFaizics: UIViewController, SCNPhysicsContactDelegate, SCNSceneRendererDelegate {
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
@@ -50,16 +50,18 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         
         scene.physicsWorld.contactDelegate = self
         
-        let playerNode = scene.rootNode.childNode(withName: "player", recursively: true)
+        playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         let foodNode = scene.rootNode.childNode(withName: "food", recursively: true)
         
         // set the physics categories for objects
         playerNode?.physicsBody?.categoryBitMask = playerCategory
         foodNode?.physicsBody?.categoryBitMask = foodCategory
-               
+        // get stage plane
+        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
+            
         
         // allows the user to manipulate the camera
-        scnView.allowsCameraControl = true
+        //scnView.allowsCameraControl = true
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
@@ -90,8 +92,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
         scnView.addGestureRecognizer(panGesture)
         
-        // get stage plane
-        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
     }
     
     // Update score and destroy food on collision
@@ -191,7 +191,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
 
     // Function to scroll the stage plane based on player movement and create the illusion of infinite scrolling
     func scrollStage(xTranslation: Float, zTranslation: Float) {
-        print("doing 2")
+        print("doing 2 \(stageNode) | \(playerNode)")
         // Get the current position of the stage plane
         guard let stageNode = stageNode, let playerNode = playerNode else {
             return
@@ -200,6 +200,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         // Adjust the scrolling speed as needed
         let scrollSpeed: Float = 1
         
+        print("doing 3 \(xTranslation) | \(zTranslation)")
         // Manually input the stage size
         let stageX: Float = 100 // Adjust as needed
         let stageZ: Float = 100 // Adjust as needed
