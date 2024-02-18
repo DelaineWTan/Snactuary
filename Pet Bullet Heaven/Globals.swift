@@ -24,5 +24,16 @@ public class Globals {
         Pet(petName:"Axiloto",petId: 8)
         // Add more pets as needed
     ]
-    public static let cameraZIndex:Float = 30;
+    public static let cameraZIndex : Float = 30;
+    
+    public static var rawInputX : CGFloat = 0
+    public static var rawInputZ : CGFloat = 0
+    
+    public static var playerIsMoving : Bool = false
+}
+
+extension Comparable {
+    func clamp(min: Self, max: Self) -> Self {
+        return Swift.max(min, Swift.min(self, max))
+    }
 }
