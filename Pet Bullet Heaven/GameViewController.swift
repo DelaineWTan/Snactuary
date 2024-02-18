@@ -91,6 +91,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
         
+        let scnView = self.view as! SCNView
+        
         // Check if player collides with food
         if (nodeA.physicsBody?.categoryBitMask == playerCategory || nodeB.physicsBody?.categoryBitMask == playerCategory) &&
             (nodeA.physicsBody?.categoryBitMask == foodCategory || nodeB.physicsBody?.categoryBitMask == foodCategory) {
