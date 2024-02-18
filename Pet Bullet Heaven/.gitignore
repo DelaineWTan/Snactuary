@@ -1,0 +1,5 @@
+**/.DS_Store
+
+# You can safely ignore the xcuserdata files - but do NOT ignore the files next to them
+**/xcuserdata/*
+*/xcuserdata/*

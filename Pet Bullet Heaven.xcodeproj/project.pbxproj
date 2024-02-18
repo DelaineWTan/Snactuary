@@ -22,6 +22,7 @@
 		0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B82B75937600C18DD0 /* GameUIView.swift */; };
 		0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */; };
 		0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */; };
+		FBC69D6E2B82B6420052C572 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FBC69D6D2B82B6420052C572 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		0DCB55B82B75937600C18DD0 /* GameUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUIView.swift; sourceTree = "<group>"; };
 		0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuUIView.swift; sourceTree = "<group>"; };
 		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
+		FBC69D6D2B82B6420052C572 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
+				FBC69D6D2B82B6420052C572 /* .gitignore */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBC69D6E2B82B6420052C572 /* .gitignore in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
