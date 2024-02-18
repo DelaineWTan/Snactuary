@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409352B71FBD00047847B /* AppDelegate.swift */; };
 		0D6409382B71FBD00047847B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6409372B71FBD00047847B /* art.scnassets */; };
-		0D64093A2B71FBD00047847B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409392B71FBD00047847B /* GameViewController.swift */; };
 		0D64093D2B71FBD00047847B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093B2B71FBD00047847B /* Main.storyboard */; };
 		0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093E2B71FBD20047847B /* Assets.xcassets */; };
 		0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D6409402B71FBD20047847B /* LaunchScreen.storyboard */; };
@@ -25,9 +24,10 @@
 		0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */; };
 		58861D4C2B7C1084002573D2 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58861D4B2B7C1084002573D2 /* Pet.swift */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
-		FB6306C62B805D6500E8096D /* Updateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C52B805D6500E8096D /* Updateable.swift */; };
 		FB7328982B7D947500557AE6 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* Food.swift */; };
 		FB73289A2B7D97F700557AE6 /* GameViewControllerFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328992B7D97F700557AE6 /* GameViewControllerFood.swift */; };
+		FBC69D772B82C7B50052C572 /* GameViewControllerFaizics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D762B82C7B50052C572 /* GameViewControllerFaizics.swift */; };
+		FBC69D792B82C85F0052C572 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D782B82C85F0052C572 /* GameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,6 @@
 		0D6409322B71FBD00047847B /* Pet Bullet Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pet Bullet Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409352B71FBD00047847B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D6409372B71FBD00047847B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		0D6409392B71FBD00047847B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		0D64093C2B71FBD00047847B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0D64093E2B71FBD20047847B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D6409412B71FBD20047847B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -69,9 +68,10 @@
 		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
 		58861D4B2B7C1084002573D2 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
-		FB6306C52B805D6500E8096D /* Updateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updateable.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		FB7328992B7D97F700557AE6 /* GameViewControllerFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerFood.swift; sourceTree = "<group>"; };
+		FBC69D762B82C7B50052C572 /* GameViewControllerFaizics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerFaizics.swift; sourceTree = "<group>"; };
+		FBC69D782B82C85F0052C572 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +125,9 @@
 			children = (
 				0D6409352B71FBD00047847B /* AppDelegate.swift */,
 				0D6409372B71FBD00047847B /* art.scnassets */,
-				0D6409392B71FBD00047847B /* GameViewController.swift */,
 				FB7328992B7D97F700557AE6 /* GameViewControllerFood.swift */,
+				FBC69D762B82C7B50052C572 /* GameViewControllerFaizics.swift */,
+				FBC69D782B82C85F0052C572 /* GameViewController.swift */,
 				0DCB55B82B75937600C18DD0 /* GameUIView.swift */,
 				0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */,
 				0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */,
@@ -139,7 +140,6 @@
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
 				FB7328972B7D947500557AE6 /* Food.swift */,
 				FB6306C32B8017DD00E8096D /* FoodSpawner.swift */,
-				FB6306C52B805D6500E8096D /* Updateable.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -294,10 +294,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBC69D792B82C85F0052C572 /* GameViewController.swift in Sources */,
+				FBC69D772B82C7B50052C572 /* GameViewControllerFaizics.swift in Sources */,
 				0DCB55BA2B75937600C18DD0 /* MainMenuUIView.swift in Sources */,
-				0D64093A2B71FBD00047847B /* GameViewController.swift in Sources */,
 				0DCB55AB2B74B7C500C18DD0 /* Globals.swift in Sources */,
-				FB6306C62B805D6500E8096D /* Updateable.swift in Sources */,
 				58861D4C2B7C1084002573D2 /* Pet.swift in Sources */,
 				FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,

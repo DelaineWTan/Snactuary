@@ -9,11 +9,7 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-// categories for object types
-let playerCategory: Int = 0b001
-let foodCategory: Int = 0b010
-
-class GameViewControllerFaizics: UIViewController, SCNPhysicsContactDelegate, SCNSceneRendererDelegate {
+class GameViewController: UIViewController {
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
@@ -27,41 +23,17 @@ class GameViewControllerFaizics: UIViewController, SCNPhysicsContactDelegate, SC
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
 
-    var score = 0
-    let scoreLabel = UILabel(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
     // create a new scene
-    var scene = SCNScene(named: "art.scnassets/main.scn")!
+    let scene = SCNScene(named: "art.scnassets/main.scn")!
     
     override func viewDidLoad() {
-        
-        print("help me plox")
-        
         super.viewDidLoad()
-        //scene = SCNScene(named: "art.scnassets/main.scn")!
-        //let cube = scene.rootNode.childNode(withName: "box2", recursively: true)
-        
+
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
         // set the scene to the view
         scnView.scene = scene
-        
-        scnView.delegate = self
-        
-        scene.physicsWorld.contactDelegate = self
-        
-        playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
-        let foodNode = scene.rootNode.childNode(withName: "food", recursively: true)
-        
-        // set the physics categories for objects
-        playerNode?.physicsBody?.categoryBitMask = playerCategory
-        foodNode?.physicsBody?.categoryBitMask = foodCategory
-        // get stage plane
-        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
-            
-        
-        // allows the user to manipulate the camera
-        //scnView.allowsCameraControl = true
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
@@ -72,15 +44,6 @@ class GameViewControllerFaizics: UIViewController, SCNPhysicsContactDelegate, SC
         // Add overlay view
         overlayView.frame = scnView.bounds
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        //scnView.addSubview(overlayView)
-
-       
-        scoreLabel.text = "Score: \(score)"
-        scoreLabel.font = UIFont.systemFont(ofSize: 20)
-        scoreLabel.textColor = .white
-        view.addSubview(scoreLabel)
-
-        
         scnView.addSubview(overlayView)
         // add self rendering every frame logic
                 
@@ -92,24 +55,11 @@ class GameViewControllerFaizics: UIViewController, SCNPhysicsContactDelegate, SC
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
         scnView.addGestureRecognizer(panGesture)
         
-    }
-    
-    // Update score and destroy food on collision
-    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        let nodeA = contact.nodeA
-        let nodeB = contact.nodeB
+        // get player
+        playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         
-        // Check if player collides with food
-        if (nodeA.physicsBody?.categoryBitMask == playerCategory || nodeB.physicsBody?.categoryBitMask == playerCategory) &&
-            (nodeA.physicsBody?.categoryBitMask == foodCategory || nodeB.physicsBody?.categoryBitMask == foodCategory) {
-            // Destroy food
-            print("Destroying food")
-            nodeB.removeFromParentNode()
-            score += 1
-            DispatchQueue.main.async {
-                self.scoreLabel.text = "Score: \(self.score)"
-            }
-        }
+        // get stage plane
+        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
     }
     
     @objc
@@ -148,8 +98,6 @@ class GameViewControllerFaizics: UIViewController, SCNPhysicsContactDelegate, SC
         SCNTransaction.commit()
     }
     
-
-    
     var intialCenter = CGPoint()
     
     @objc
@@ -164,6 +112,7 @@ class GameViewControllerFaizics: UIViewController, SCNPhysicsContactDelegate, SC
             isMoving = true
             overlayView.inGameUIView.setStickPosition(location: location)
         case .changed:
+
             let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
 
@@ -190,7 +139,6 @@ class GameViewControllerFaizics: UIViewController, SCNPhysicsContactDelegate, SC
 
     // Function to scroll the stage plane based on player movement and create the illusion of infinite scrolling
     func scrollStage(xTranslation: Float, zTranslation: Float) {
-        
         // Get the current position of the stage plane
         guard let stageNode = stageNode, let playerNode = playerNode else {
             return
