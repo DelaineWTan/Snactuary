@@ -30,15 +30,14 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
     var score = 0
     let scoreLabel = UILabel(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
     // create a new scene
-    let scene = SCNScene(named: "art.scnassets/main.scn")!
+    var scene = SCNScene(named: "art.scnassets/main.scn")!
     
     override func viewDidLoad() {
         
         print("help me plox")
         
         super.viewDidLoad()
-        
-        let scene = SCNScene(named: "art.scnassets/faiz test map.scn")!
+        //scene = SCNScene(named: "art.scnassets/main.scn")!
         //let cube = scene.rootNode.childNode(withName: "box2", recursively: true)
         
         // retrieve the SCNView
@@ -72,10 +71,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         overlayView.frame = scnView.bounds
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         //scnView.addSubview(overlayView)
-        
-        // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        scnView.addGestureRecognizer(tapGesture)
 
        
         scoreLabel.text = "Score: \(score)"
@@ -84,14 +79,25 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
         view.addSubview(scoreLabel)
 
         
+        scnView.addSubview(overlayView)
+        // add self rendering every frame logic
+                
+        // add a tap gesture recognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        scnView.addGestureRecognizer(tapGesture)
+        
+        // add panning gesture for pet movement
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
+        scnView.addGestureRecognizer(panGesture)
+        
+        // get stage plane
+        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
     }
     
     // Update score and destroy food on collision
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
-        
-        let scnView = self.view as! SCNView
         
         // Check if player collides with food
         if (nodeA.physicsBody?.categoryBitMask == playerCategory || nodeB.physicsBody?.categoryBitMask == playerCategory) &&
@@ -104,22 +110,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
                 self.scoreLabel.text = "Score: \(self.score)"
             }
         }
-        scnView.addSubview(overlayView)
-        // add self rendering every frame logic
-                
-        // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        scnView.addGestureRecognizer(tapGesture)
-        
-        // add panning gesture for pet movement
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
-        scnView.addGestureRecognizer(panGesture)
-        
-        // get player
-        playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
-        
-        // get stage plane
-        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
     }
     
     @objc
@@ -174,7 +164,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
             isMoving = true
             overlayView.inGameUIView.setStickPosition(location: location)
         case .changed:
-
             let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
 
@@ -196,11 +185,13 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SCNSceneR
     // "Moves" the player by moving everything else (stage, food etc) the opposite direction in order to keep the player at origin 0,0,0
     func movePlayer(xPoint: Float, zPoint: Float) {
         // Call the function to scroll the stage based on player movement
+        print("doing")
         scrollStage(xTranslation: xPoint, zTranslation: zPoint)
     }
 
     // Function to scroll the stage plane based on player movement and create the illusion of infinite scrolling
     func scrollStage(xTranslation: Float, zTranslation: Float) {
+        print("doing 2")
         // Get the current position of the stage plane
         guard let stageNode = stageNode, let playerNode = playerNode else {
             return
