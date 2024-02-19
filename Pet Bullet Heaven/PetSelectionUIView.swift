@@ -8,7 +8,6 @@ import UIKit
 import SwiftUI
 import Combine
 
-
 class PetSelectionViewModel: ObservableObject {
     @Published var activePets:[Pet] = Globals.activePets
     @Published var allPets:[Pet] = Globals.allPets
@@ -17,8 +16,8 @@ class PetSelectionViewModel: ObservableObject {
 class PetSelectionUIView: UIView {
     let viewModel = PetSelectionViewModel()
     
-    var selectedActivePet: Pet?
-    var selectedCollectionPet: Pet?
+    var selectedPet: Pet?
+    var selectedPetButton: UIButton?
     
     var mainMenuButtonTappedHandler: (() -> Void)?
     
@@ -54,7 +53,6 @@ class PetSelectionUIView: UIView {
             mainMenuButton.widthAnchor.constraint(equalToConstant: 100),
             mainMenuButton.heightAnchor.constraint(equalToConstant: 40)
         ])
-
         // Active Pets
         var yPosition: CGFloat = 200 // Initial Y position for the active pets section
         for pet in viewModel.activePets {
@@ -63,7 +61,7 @@ class PetSelectionUIView: UIView {
             button.backgroundColor = .blue
             button.setTitleColor(.white, for: .normal)
             button.layer.cornerRadius = 8
-            button.addTarget(self, action: #selector(activePetButtonTapped(_:)), for: .touchUpInside)
+            button.addTarget(self, action: #selector(petButtonTapped(_:)), for: .touchUpInside)
             button.frame = CGRect(x: 20, y: yPosition, width: 200, height: 40) // Adjust frame as needed
             addSubview(button)
             yPosition += 50 // Increment Y position for the next button
@@ -77,7 +75,7 @@ class PetSelectionUIView: UIView {
             button.backgroundColor = .green
             button.setTitleColor(.black, for: .normal)
             button.layer.cornerRadius = 8
-            button.addTarget(self, action: #selector(collectionPetButtonTapped(_:)), for: .touchUpInside)
+            button.addTarget(self, action: #selector(petButtonTapped(_:)), for: .touchUpInside)
             button.frame = CGRect(x: 20, y: yPosition, width: 200, height: 40) // Adjust frame as needed
             addSubview(button)
             yPosition += 50 // Increment Y position for the next button
@@ -93,57 +91,34 @@ class PetSelectionUIView: UIView {
         for (index, pet) in viewModel.activePets.enumerated() {
             if let button = viewWithTag(1000 + index) as? UIButton {
                 button.setTitle(pet.name, for: .normal)
-                
-                button.removeFromSuperview()
-                addSubview(button)
             }
         }
-        
         // Update collection pet buttons
         for (index, pet) in viewModel.allPets.enumerated() {
             if let button = viewWithTag(2000 + index) as? UIButton {
                 button.setTitle(pet.name, for: .normal)
-                addSubview(button)
             }
         }
     }
-    
-    @objc private func activePetButtonTapped(_ sender: UIButton) {
-            if let petName = sender.title(for: .normal), let pet = viewModel.activePets.first(where: { $0.name == petName }) {
-                if let selectedPet = selectedActivePet {
-                    // Swap pets
-                    if let index1 = viewModel.activePets.firstIndex(where: { $0.name == petName }),
-                       let index2 = viewModel.activePets.firstIndex(where: { $0.name == selectedPet.name }) {
-                        viewModel.activePets.swapAt(index1, index2)
-                        selectedActivePet = nil
-                        updateButtonTitles() // Update button titles after swapping
-                        
-                        print("Swapped: \(selectedPet.name) with \(pet.name)")
-                        self.setNeedsDisplay()
-                    }
-                } else {
-                    selectedActivePet = pet
-                    print("Selected active pet: \(petName)")
-                }
+    @objc private func petButtonTapped(_ sender: UIButton) {
+        if let petName = sender.title(for: .normal),
+           let pet = viewModel.allPets.first(where: { $0.name == petName }) ?? viewModel.activePets.first(where: { $0.name == petName }) {
+            
+            if let selectedPet = selectedPet,
+               let petIndex = viewModel.allPets.firstIndex(where: { $0.name == petName }) ?? viewModel.activePets.firstIndex(where: { $0.name == petName }),
+               let selectedIndex = viewModel.allPets.firstIndex(where: { $0.name == selectedPet.name }) ?? viewModel.activePets.firstIndex(where: { $0.name == selectedPet.name }) {
+                
+                viewModel.allPets.swapAt(petIndex, selectedIndex)
+                viewModel.activePets.swapAt(petIndex, selectedIndex)
+                
+                // Update the UI
+                sender.setTitle(selectedPet.name, for: .normal)
+                selectedPetButton?.setTitle(petName, for: .normal)
             }
+            
+            selectedPet = pet
+            selectedPetButton = sender
+            print("Selected pet: \(petName)")
         }
-
-        @objc private func collectionPetButtonTapped(_ sender: UIButton) {
-            if let petName = sender.title(for: .normal), let pet = viewModel.allPets.first(where: { $0.name == petName }) {
-                if let selectedPet = selectedCollectionPet {
-                    // Swap pets
-                    if let index1 = viewModel.allPets.firstIndex(where: { $0.name == petName }),
-                       let index2 = viewModel.allPets.firstIndex(where: { $0.name == selectedPet.name }) {
-                        viewModel.allPets.swapAt(index1, index2)
-                        selectedCollectionPet = nil
-                        updateButtonTitles() // Update button titles after swapping
-                        print("Swapped: \(selectedPet.name) with \(pet.name)")
-                        self.setNeedsDisplay()
-                    }
-                } else {
-                    selectedCollectionPet = pet
-                    print("Selected collection pet: \(petName)")
-                }
-            }
-        }
+    }
 }

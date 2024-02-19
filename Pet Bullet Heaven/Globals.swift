@@ -17,11 +17,11 @@ public class Globals {
     ]
     
     public static var allPets: [Pet] = [
-        Pet(petName:"Horze",petId: 5),
-        Pet(petName:"Furret",petId: 6),
-        Pet(petName:"Krockerdile",petId: 7),
-        Pet(petName:"Pengwin",petId: 8),
-        Pet(petName:"Axiloto",petId: 8)
+        Pet(petName:"Horze",petId: 1),
+        Pet(petName:"Furret",petId: 2),
+        Pet(petName:"Krockerdile",petId: 3),
+        Pet(petName:"Pengwin",petId: 4),
+        Pet(petName:"Axiloto",petId: 5)
         // Add more pets as needed
     ]
     public static let cameraZIndex : Float = 30;
