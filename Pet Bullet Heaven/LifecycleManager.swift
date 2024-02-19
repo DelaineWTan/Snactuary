@@ -7,7 +7,13 @@
 
 import Foundation
 
-class LifecycleManager {
+public class LifecycleManager {
+    
+    // Singleton (not again) instance
+    static let shared = LifecycleManager()
+    
+    private init() {}
+    
     private var gameObjects = [Updatable]()
     private var lastUpdateTime: TimeInterval = 0
     
@@ -20,6 +26,10 @@ class LifecycleManager {
         let currentTime = Date.timeIntervalSinceReferenceDate
         let deltaTime = currentTime - lastUpdateTime
         lastUpdateTime = currentTime
+        
+        if Float(deltaTime) > 2 {
+                    return
+                }
         
         for gameObject in gameObjects {
             gameObject.Update(deltaTime: deltaTime)

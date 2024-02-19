@@ -19,15 +19,18 @@ class Food : SCNNode, Updatable {
     var _Mesh : SCNBox?
     
     var spawnLocation : SCNVector3
-    var increment : CGFloat
+    var speed : Float
     
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
     
-    init(spawnLocation: SCNVector3, increment: CGFloat) {
+    init(spawnLocation: SCNVector3, speed: Float) {
+        
         self.spawnLocation = spawnLocation
-        self.increment = increment
+        self.speed = speed
         super.init()
+        
+        LifecycleManager.shared.addGameObject(self)
         
         let cubeGeometry = SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2)
         
@@ -61,36 +64,39 @@ class Food : SCNNode, Updatable {
     
     var count = 0
     func Update(deltaTime: TimeInterval) {
-        print("counter: \(count)")
+        //print("deltatime: \(deltaTime)")
+        //print("counter in food: \(count)")
         count += 1
-        move()
+        move(deltaTime: deltaTime)
     }
     
     // TODO: add modifiable duration and increment
     /// Moves the food randomly towards the player and relative to the player's inputs
-    func move() {
+    func move(deltaTime: TimeInterval) {
         
-        var modifierX = 0.0
-        var modifierZ = 0.0
+        // TODO: make it work with new deltaTime
+        var modifierX : Float = 0.0
+        var modifierZ : Float = 0.0
         
         // can't tell if working properly or not
         let randomXVariation = Float.random(in: -3.0...3.0)
         let randomZVariation = Float.random(in: -3.0...3.0)
 
         if spawnLocation.x > 0 {
-            modifierX = Double(-2 + randomXVariation)
+            modifierX = Float(-2 + randomXVariation)
         } else {
-            modifierX = Double(2 + randomXVariation)
+            modifierX = Float(2 + randomXVariation)
         }
         if spawnLocation.z > 0 {
-            modifierZ = Double(-2 + randomZVariation)
+            modifierZ = Float(-2 + randomZVariation)
         } else {
-            modifierZ = Double(2 + randomZVariation)
+            modifierZ = Float(2 + randomZVariation)
         }
-        
-        self.position.x += Float(self.increment * modifierX)
-        self.position.z += Float(self.increment * modifierZ)
-        
+
+        self.speed = 0
+        self.position.x += Float(self.speed * Float(deltaTime))
+        self.position.z += Float(self.speed * Float(deltaTime) * 3)
+        print("pos: \(position.x), \(position.z)")
         // Move food relative to the player
         if Globals.playerIsMoving {
             let translationVector = SCNVector3(Globals.rawInputX / 100, 0, Globals.rawInputZ / 100)

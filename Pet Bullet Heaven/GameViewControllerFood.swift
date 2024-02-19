@@ -27,6 +27,7 @@ class GameViewControllerFood: UIViewController {
     let scene = SCNScene(named: "art.scnassets/food functionality.scn")!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -79,10 +80,9 @@ class GameViewControllerFood: UIViewController {
 //    private var gameObjects = [Updatable]()
 //    private var lastUpdateTime: TimeInterval = 0
 //    
-//    func StartLoop() async {
-//        delegate?.Start()
-//        await ContinuousLoop()
-//    }
+    func StartLoop() async {
+        await ContinuousLoop()
+    }
 //    
 //    func addGameObject(_ gameObject: Updatable) {
 //        gameObjects.append(gameObject)
@@ -105,7 +105,7 @@ class GameViewControllerFood: UIViewController {
 //        for gameObject in gameObjects {
 //            gameObject.Update(deltaTime: deltaTime)
 //        }
-        
+        LifecycleManager.shared.update()
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
         await ContinuousLoop()

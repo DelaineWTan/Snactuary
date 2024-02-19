@@ -35,7 +35,7 @@ class FoodSpawner {
             let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
 
             // TODO: the increment's really low for now, we might need a deltaTime for us to properly calculate physics and movement, but this will do for now
-            let food = Food(spawnLocation: randomPosition, increment: 0.00001)
+            let food = Food(spawnLocation: randomPosition, speed: 0.5)
             food.position = randomPosition
             print("food \(i) position: \(food.position)")
             mainScene.rootNode.addChildNode(food)
