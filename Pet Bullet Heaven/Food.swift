@@ -106,19 +106,4 @@ class Food : SCNNode, Updatable {
         }
     }
     
-//    func firstUpdate() async {
-//        await reanimate()
-//    }
-//    
-//    
-//    // Your 'Update()' function
-//    @MainActor
-//    func reanimate() async {
-//        // code logic here
-//        move()
-//        
-//        // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
-//        try! await Task.sleep(nanoseconds: UInt64(1.0 / 60.0))
-//        await reanimate()
-//    }
 }
