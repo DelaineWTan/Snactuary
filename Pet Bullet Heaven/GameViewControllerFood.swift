@@ -29,6 +29,10 @@ class GameViewControllerFood: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        Task {
+            await Start()
+        }
+        
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
@@ -63,8 +67,26 @@ class GameViewControllerFood: UIViewController {
         // get stage plane
         stageNode = scene.rootNode.childNode(withName: "plane", recursively: true)
         
-        
+        // gives warning, will fix later -Jun
         var foodSpawner = FoodSpawner(scene: scene)
+    }
+    
+    func Start() async {
+        
+        await Update()
+    }
+    
+    var count = 0
+    
+    // Your 'Update()' function
+    @MainActor
+    func Update() async {
+        // code logic here
+        print("counter: \(count)")
+        count += 1
+        // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
+        try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
+        await Update()
     }
     
     @objc
