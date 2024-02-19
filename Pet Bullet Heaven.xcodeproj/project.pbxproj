@@ -28,6 +28,8 @@
 		FB73289A2B7D97F700557AE6 /* GameViewControllerFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328992B7D97F700557AE6 /* GameViewControllerFood.swift */; };
 		FBC69D772B82C7B50052C572 /* GameViewControllerFaizics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D762B82C7B50052C572 /* GameViewControllerFaizics.swift */; };
 		FBC69D792B82C85F0052C572 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D782B82C85F0052C572 /* GameViewController.swift */; };
+		FBC69D7B2B82DEFB0052C572 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7A2B82DEFB0052C572 /* Updatable.swift */; };
+		FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		FB7328992B7D97F700557AE6 /* GameViewControllerFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerFood.swift; sourceTree = "<group>"; };
 		FBC69D762B82C7B50052C572 /* GameViewControllerFaizics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerFaizics.swift; sourceTree = "<group>"; };
 		FBC69D782B82C85F0052C572 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		FBC69D7A2B82DEFB0052C572 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
+		FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,8 @@
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
 				FB7328972B7D947500557AE6 /* Food.swift */,
 				FB6306C32B8017DD00E8096D /* FoodSpawner.swift */,
+				FBC69D7A2B82DEFB0052C572 /* Updatable.swift */,
+				FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -302,9 +308,11 @@
 				FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
+				FBC69D7B2B82DEFB0052C572 /* Updatable.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
 				FB7328982B7D947500557AE6 /* Food.swift in Sources */,
 				FB73289A2B7D97F700557AE6 /* GameViewControllerFood.swift in Sources */,
+				FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */,
 				0DCB55B92B75937600C18DD0 /* PetSelectionUIView.swift in Sources */,
 				0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */,
 			);

@@ -11,7 +11,8 @@ import SceneKit
 ///
 /// Rudimentary Food Class
 ///
-class Food : SCNNode {
+class Food : SCNNode, Updatable {
+    
     
     var _Health : Int = 1
     
@@ -45,14 +46,24 @@ class Food : SCNNode {
         self._Mesh = cubeGeometry
         
         
-        Task {
-            await firstUpdate()
-        }
+//        Task {
+//            await firstUpdate()
+//        }
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func Start() {
+    }
+    
+    var count = 0
+    func Update(deltaTime: TimeInterval) {
+        print("counter: \(count)")
+        count += 1
+        move()
     }
     
     // TODO: add modifiable duration and increment
@@ -89,19 +100,19 @@ class Food : SCNNode {
         }
     }
     
-    func firstUpdate() async {
-        await reanimate()
-    }
-    
-    
-    // Your 'Update()' function
-    @MainActor
-    func reanimate() async {
-        // code logic here
-        move()
-        
-        // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
-        try! await Task.sleep(nanoseconds: UInt64(1.0 / 60.0))
-        await reanimate()
-    }
+//    func firstUpdate() async {
+//        await reanimate()
+//    }
+//    
+//    
+//    // Your 'Update()' function
+//    @MainActor
+//    func reanimate() async {
+//        // code logic here
+//        move()
+//        
+//        // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
+//        try! await Task.sleep(nanoseconds: UInt64(1.0 / 60.0))
+//        await reanimate()
+//    }
 }

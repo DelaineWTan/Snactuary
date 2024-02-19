@@ -26,11 +26,12 @@ class GameViewControllerFood: UIViewController {
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/food functionality.scn")!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         Task {
-            await Start()
+            await StartLoop()
         }
         
         // retrieve the SCNView
@@ -69,24 +70,45 @@ class GameViewControllerFood: UIViewController {
         
         // gives warning, will fix later -Jun
         var foodSpawner = FoodSpawner(scene: scene)
-    }
-    
-    func Start() async {
         
-        await Update()
     }
     
-    var count = 0
+    // might want to look into weak keyword and how to use it
+    // might need to manage memory carefully to avoid retain cycles.
+//    var delegate: Updatable?
+//    private var gameObjects = [Updatable]()
+//    private var lastUpdateTime: TimeInterval = 0
+//    
+//    func StartLoop() async {
+//        delegate?.Start()
+//        await ContinuousLoop()
+//    }
+//    
+//    func addGameObject(_ gameObject: Updatable) {
+//        gameObjects.append(gameObject)
+//        gameObject.Start()
+//    }
+    
+//    var count = 0
     
     // Your 'Update()' function
     @MainActor
-    func Update() async {
+    func ContinuousLoop() async {
         // code logic here
-        print("counter: \(count)")
-        count += 1
+//        print("counter: \(count)")
+//        count += 1
+        
+//        let currentTime = Date.timeIntervalSinceReferenceDate
+//        let deltaTime = currentTime - lastUpdateTime
+//        lastUpdateTime = currentTime
+//        
+//        for gameObject in gameObjects {
+//            gameObject.Update(deltaTime: deltaTime)
+//        }
+        
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
-        await Update()
+        await ContinuousLoop()
     }
     
     @objc
