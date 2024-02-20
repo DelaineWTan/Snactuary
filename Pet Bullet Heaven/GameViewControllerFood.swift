@@ -9,7 +9,7 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewController: UIViewController {
+class GameViewControllerFood: UIViewController {
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
@@ -24,11 +24,15 @@ class GameViewController: UIViewController {
     var joyStickClampedDistance: CGFloat = 100
 
     // create a new scene
-    let scene = SCNScene(named: "art.scnassets/main.scn")!
+    let scene = SCNScene(named: "art.scnassets/food functionality.scn")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        Task {
+            await Start()
+        }
+        
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
@@ -47,6 +51,8 @@ class GameViewController: UIViewController {
         scnView.addSubview(overlayView)
         // add self rendering every frame logic
                 
+        //scnView.allowsCameraControl = true
+        
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
@@ -59,15 +65,28 @@ class GameViewController: UIViewController {
         playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         
         // get stage plane
-        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        stageNode = scene.rootNode.childNode(withName: "plane", recursively: true)
         
-        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 20, _InputRotationSpeed: 10, _InputDistanceFromCenter: 3, _InputNumProjectiles: 3)
-        testAbility.ActivateAbility()
+        // gives warning, will fix later -Jun
+        var foodSpawner = FoodSpawner(scene: scene)
+    }
+    
+    func Start() async {
         
-        // Tentative, add to rootNode. Add to player in order to see Ability
-        scnView.scene!.rootNode.addChildNode(testAbility)
-        
-               
+        await Update()
+    }
+    
+    var count = 0
+    
+    // Your 'Update()' function
+    @MainActor
+    func Update() async {
+        // code logic here
+        print("counter: \(count)")
+        count += 1
+        // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
+        try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
+        await Update()
     }
     
     @objc
@@ -118,12 +137,15 @@ class GameViewController: UIViewController {
         switch gestureRecongnize.state {
         case .began:
             isMoving = true
+            Globals.playerIsMoving = isMoving
             overlayView.inGameUIView.setStickPosition(location: location)
         case .changed:
 
             let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
 
+            Globals.rawInputX = x
+            Globals.rawInputZ = z
             movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
             
             // Stick UI
@@ -131,6 +153,7 @@ class GameViewController: UIViewController {
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
         case .ended:
             isMoving = false
+            Globals.playerIsMoving = isMoving
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
             // add other logic
             
