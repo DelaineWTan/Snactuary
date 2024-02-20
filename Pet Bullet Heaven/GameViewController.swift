@@ -60,6 +60,14 @@ class GameViewController: UIViewController {
         
         // get stage plane
         stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        
+        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 20, _InputRotationSpeed: 10, _InputDistanceFromCenter: 3, _InputNumProjectiles: 3)
+        testAbility.ActivateAbility()
+        
+        // Tentative, add to rootNode. Add to player in order to see Ability
+        scnView.scene!.rootNode.addChildNode(testAbility)
+        
+               
     }
     
     @objc
