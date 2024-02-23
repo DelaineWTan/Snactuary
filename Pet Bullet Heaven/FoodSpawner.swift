@@ -34,10 +34,14 @@ class FoodSpawner {
             // Randomly set the X or Z food position to I or J, then set the other a random number between A and B
             let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
 
-            // TODO: the increment's really low for now, we might need a deltaTime for us to properly calculate physics and movement, but this will do for now
-            let food = Food(spawnLocation: randomPosition, speed: 20)
+            let food = Food(spawnLocation: randomPosition, speed: 1)
             food.position = randomPosition
-            print("food \(i) position: \(food.position)")
+            //print("food \(i) position: \(food.position)")
+            food.onDestroy = {
+                // Do any cleanup or additional tasks before destroying the node
+                print("Food destroyed!")
+            }
+            food.onDestroy(after: 10.0) // Destroy the food after 3 seconds
             mainScene.rootNode.addChildNode(food)
         }
     }

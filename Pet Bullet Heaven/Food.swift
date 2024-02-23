@@ -12,7 +12,7 @@ import SceneKit
 /// Rudimentary Food Class
 ///
 class Food : SCNNode, Updatable {
-    
+    var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
     
     var _Health : Int = 1
     
@@ -49,10 +49,6 @@ class Food : SCNNode, Updatable {
         self._Mesh = cubeGeometry
         
         
-//        Task {
-//            await firstUpdate()
-//        }
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -66,7 +62,7 @@ class Food : SCNNode, Updatable {
     func Update(deltaTime: TimeInterval) {
         //print("deltatime: \(deltaTime)")
         //print("counter in food: \(count)")
-        count += 1
+        //count += 1
         move(deltaTime: deltaTime)
     }
     
@@ -94,9 +90,9 @@ class Food : SCNNode, Updatable {
         }
 
         //self.speed = 0
-        //self.position.x += Float(self.speed * Float(deltaTime))
-        //self.position.z += Float(self.speed * Float(deltaTime) * 3)
-        print("pos: \(position.x), \(position.z)")
+        self.position.x += Float(self.speed * Float(deltaTime))
+        self.position.z += Float(self.speed * Float(deltaTime))
+        //print("pos: \(position.x), \(position.z)")
         let playerSpeed : Float = 100
         // Move food relative to the player
         if Globals.playerIsMoving {
@@ -106,5 +102,22 @@ class Food : SCNNode, Updatable {
             self.position.z += translationVector.z
         }
     }
+    
+    // Other properties and methods
+    
+    // not sure how to make this 
+    // Function to destroy the node after a certain duration
+    func onDestroy(after duration: TimeInterval) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
+            self?.destroy()
+        }
+    }
+        
+    // Function to destroy the node
+    private func destroy() {
+        onDestroy?() // Call the onDestroy closure if it's set
+        self.removeFromParentNode() // Remove the node from its parent
+    }
+    
     
 }
