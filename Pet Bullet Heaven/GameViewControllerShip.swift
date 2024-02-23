@@ -1,15 +1,8 @@
-//
-//  GameViewController.swift
-//  Pet Bullet Heaven
-//
-//  Created by Delaine on 2024-02-05.
-//
-
 import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewControllerFood: UIViewController {
+class GameViewControllerShip: UIViewController {
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
@@ -24,16 +17,12 @@ class GameViewControllerFood: UIViewController {
     var joyStickClampedDistance: CGFloat = 100
 
     // create a new scene
-    let scene = SCNScene(named: "art.scnassets/food functionality.scn")!
+    let scene = SCNScene(named: "art.scnassets/ship.scn")!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        Task {
-            await StartLoop()
-        }
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -47,70 +36,29 @@ class GameViewControllerFood: UIViewController {
         // configure the view
         scnView.backgroundColor = UIColor.black
         
-        // Add overlay view
-        overlayView.frame = scnView.bounds
-        overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        scnView.addSubview(overlayView)
-        // add self rendering every frame logic
-                
-        //scnView.allowsCameraControl = true
-        
-        // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        scnView.addGestureRecognizer(tapGesture)
-        
-        // add panning gesture for pet movement
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
-        scnView.addGestureRecognizer(panGesture)
+            
+        scnView.allowsCameraControl = true
+
         
         // get player
-        playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
+        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)
+        ship?.runAction(
+          SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
         
-        // get stage plane
-    
-        stageNode = scene.rootNode.childNode(withName: "plane", recursively: true)
-        //stageNode?.geometry?.firstMaterial?.program = program
-        // gives warning, will fix later -Jun
-        var foodSpawner = FoodSpawner(scene: scene)
-        
+        let shipMaterial = ship?.childNodes[0].geometry?.firstMaterial
+        let program = SCNProgram()
+        program.vertexFunctionName = "myVertex"
+        program.fragmentFunctionName = "myFragment"
+        ship?.childNodes[0].geometry?.firstMaterial?.program = program
+
+        let image = UIImage(named: "art.scnassets/goldblock")
+        let imageProperty = SCNMaterialProperty(contents: image)
+        // The name you supply here should match the texture parameter name in the fragment shader
+        shipMaterial?.setValue(imageProperty, forKey: "diffuseTexture")
+
     }
     
-    // might want to look into weak keyword and how to use it
-    // might need to manage memory carefully to avoid retain cycles.
-//    var delegate: Updatable?
-//    private var gameObjects = [Updatable]()
-//    private var lastUpdateTime: TimeInterval = 0
-//    
-    func StartLoop() async {
-        await ContinuousLoop()
-    }
-//    
-//    func addGameObject(_ gameObject: Updatable) {
-//        gameObjects.append(gameObject)
-//        gameObject.Start()
-//    }
-    
-//    var count = 0
-    
-    // Your 'Update()' function
-    @MainActor
-    func ContinuousLoop() async {
-        // code logic here
-//        print("counter: \(count)")
-//        count += 1
-        
-//        let currentTime = Date.timeIntervalSinceReferenceDate
-//        let deltaTime = currentTime - lastUpdateTime
-//        lastUpdateTime = currentTime
-//        
-//        for gameObject in gameObjects {
-//            gameObject.Update(deltaTime: deltaTime)
-//        }
-        LifecycleManager.shared.update()
-        // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
-        try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
-        await ContinuousLoop()
-    }
+
     
     @objc
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
