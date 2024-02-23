@@ -11,7 +11,7 @@ struct MyNodeBuffer {
     float4x4 modelViewProjectionTransform;
 };
 
-typedef struct {
+typedef struct VertexIn {
     float3 position [[ attribute(SCNVertexSemanticPosition) ]];
     float2 texCoords [[ attribute(SCNVertexSemanticTexcoord0) ]];
 } MyVertexInput;

@@ -49,9 +49,9 @@ class GameViewControllerShip: UIViewController {
         let program = SCNProgram()
         program.vertexFunctionName = "myVertex"
         program.fragmentFunctionName = "myFragment"
-        ship?.childNodes[0].geometry?.firstMaterial?.program = program
+        shipMaterial?.program = program
 
-        let image = UIImage(named: "art.scnassets/goldblock")
+        let image = UIImage(named: "art.scnassets/texture")
         let imageProperty = SCNMaterialProperty(contents: image)
         // The name you supply here should match the texture parameter name in the fragment shader
         shipMaterial?.setValue(imageProperty, forKey: "diffuseTexture")
