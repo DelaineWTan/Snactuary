@@ -111,12 +111,15 @@ class GameViewControllerMerged: UIViewController, SCNPhysicsContactDelegate {
         
         print("Collision Begin")
         
-        // Check if player collides with food
-        if (nodeA.physicsBody?.categoryBitMask == playerCategory || nodeB.physicsBody?.categoryBitMask ==           playerCategory) &&
-            (nodeA.physicsBody?.categoryBitMask == foodCategory || nodeB.physicsBody?.categoryBitMask == foodCategory) {
-            // Destroy food
+        // Check if player collides with food or vice versa
+        if (nodeA.physicsBody?.categoryBitMask == playerCategory && nodeB.physicsBody?.categoryBitMask == foodCategory)
+        {
             print("Destroying food")
             nodeB.removeFromParentNode()
+            score += 1
+        }
+        else if(nodeA.physicsBody?.categoryBitMask == foodCategory &&            nodeB.physicsBody?.categoryBitMask == playerCategory) {
+            print("Destroying food")
             nodeA.removeFromParentNode()
             score += 1
             DispatchQueue.main.async {
