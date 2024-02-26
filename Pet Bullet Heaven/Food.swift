@@ -23,6 +23,8 @@ class Food : SCNNode {
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
     
+    var hungerValue : Int = 3 // pre-assigned just for testing purposes
+    
     init(spawnLocation: SCNVector3, increment: CGFloat) {
         self.spawnLocation = spawnLocation
         self.increment = increment
