@@ -13,6 +13,9 @@ class InGameUIView: UIView {
     var innerCircleLayer: CAShapeLayer?
     var outerCircleLayer: CAShapeLayer?
     
+    var hungerProgress = 0
+    var maxHungerProgress = 100
+    
     lazy var pauseButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Pause", for: .normal)
@@ -22,6 +25,16 @@ class InGameUIView: UIView {
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(pauseButtonTapped), for: .touchUpInside)
         return button
+    }()
+    
+    lazy var hungerMeter: UIProgressView = {
+        let hungerMeterBar = UIProgressView(progressViewStyle: .bar)
+        hungerMeterBar.progress = 0
+        hungerMeterBar.layer.cornerRadius = 5
+        hungerMeterBar.layer.masksToBounds = true
+        hungerMeterBar.progressTintColor = .yellow
+        hungerMeterBar.trackTintColor = .darkGray
+        return hungerMeterBar
     }()
     
     override init(frame: CGRect) {
@@ -86,6 +99,7 @@ class InGameUIView: UIView {
     
     private func setupUI() {
         addSubview(pauseButton)
+        addSubview(hungerMeter)
         
             
         // Layout constraints for pause button
@@ -95,7 +109,17 @@ class InGameUIView: UIView {
             pauseButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             pauseButton.widthAnchor.constraint(equalToConstant: 100),
             pauseButton.heightAnchor.constraint(equalToConstant: 40)
-        ]) 
+        ])
+        
+        // Layout constraints for hunger meter
+        hungerMeter.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hungerMeter.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            hungerMeter.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            //hungerMeter.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            hungerMeter.widthAnchor.constraint(equalToConstant: 240),
+            hungerMeter.heightAnchor.constraint(equalToConstant: 10),
+        ])
         
         //let circlePath = UIBezierPath(ovalIn: bounds)
         let innerCirclePath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX+200, y: bounds.midY+400), radius: 30, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
