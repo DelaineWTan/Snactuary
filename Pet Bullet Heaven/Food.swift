@@ -47,13 +47,15 @@ class Food : SCNNode {
         
         self._Mesh = cubeGeometry
         
-        let foodPhysicsBody = SCNPhysicsBody(type: .dynamic, shape: nil) // Create a dynamic physics body
+        let foodPhysicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
         foodPhysicsBody.mass = 1.0 // Set the mass of the physics body
         foodPhysicsBody.isAffectedByGravity = false
-        cubeNode.physicsBody = foodPhysicsBody
-        cubeNode.physicsBody?.categoryBitMask = foodCategory
-        cubeNode.physicsBody?.collisionBitMask = -1
-        cubeNode.physicsBody?.contactTestBitMask = 1
+        
+        //attach physics to food object
+        self.physicsBody = foodPhysicsBody
+        self.physicsBody?.categoryBitMask = foodCategory
+        self.physicsBody?.collisionBitMask = -1
+        self.physicsBody?.contactTestBitMask = 1
         
         
         Task {

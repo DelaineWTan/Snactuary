@@ -22,7 +22,7 @@ class FoodSpawner {
     func spawn() {
         
         // TODO: make A, B, I, and J (maybe even foodCount) be easily modifiable
-        let foodCount = 3
+        let foodCount = 10
         
         for i in 0..<foodCount {
             // There might be some miscalculations here somewhere, I'm just cooked
@@ -37,7 +37,11 @@ class FoodSpawner {
             // TODO: the increment's really low for now, we might need a deltaTime for us to properly calculate physics and movement, but this will do for now
             let food = Food(spawnLocation: randomPosition, increment: 0.00001)
             food.position = randomPosition
-            print("food \(i) position: \(food.position)")
+            //print("food \(i) position: \(food.position)")
+            
+            //print("food category mask \(food.physicsBody?.categoryBitMask)")
+            //print("food collision mask \(food.physicsBody?.collisionBitMask)")
+            
             mainScene.rootNode.addChildNode(food)
         }
     }

@@ -9,14 +9,14 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewControllerMerged: UIViewController {
+class GameViewControllerMerged: UIViewController, SCNPhysicsContactDelegate {
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
     
     // categories for object types
-    let playerCategory: Int = 0b001
-    let foodCategory: Int = 0b010
+    let playerCategory: Int = 1
+    let foodCategory: Int = 2
     
     var playerNode: SCNNode?
     var stageNode: SCNNode?
@@ -45,6 +45,8 @@ class GameViewControllerMerged: UIViewController {
         
         // set the scene to the view
         scnView.scene = scene
+        
+        scene.physicsWorld.contactDelegate = self
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
@@ -98,6 +100,7 @@ class GameViewControllerMerged: UIViewController {
         
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
+        
         
     }
     

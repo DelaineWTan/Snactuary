@@ -26,10 +26,10 @@ class Projectile : SCNNode{
         petPhysicsBody.mass = 1.0 // Set the mass of the physics body
         petPhysicsBody.isAffectedByGravity = false
         
-        self.physicsBody = petPhysicsBody
-        self.physicsBody?.categoryBitMask = playerCategory
-        self.physicsBody?.collisionBitMask = -1
-        self.physicsBody?.contactTestBitMask = 1
+        //self.physicsBody = petPhysicsBody
+//        self.physicsBody?.categoryBitMask = playerCategory
+//        self.physicsBody?.collisionBitMask = -1
+//        self.physicsBody?.contactTestBitMask = 1
         
         // Retrieve the URL of the specified Resource
         let _URL = Bundle.main.url(forResource: _AssetName, withExtension: _FileType)
