@@ -10,11 +10,17 @@ import UIKit
 class InGameUIView: UIView {
     var pauseButtonTappedHandler: (() -> Void)?
     var isStickVisible = false
-    var innerCircleLayer: CAShapeLayer?
-    var outerCircleLayer: CAShapeLayer?
+    private var innerCircleLayer: CAShapeLayer?
+    private var outerCircleLayer: CAShapeLayer?
     
-    var hungerProgress = 0
-    var maxHungerProgress = 100
+    // review this implementation of private vars and public getters if we want to do it like this
+    private var _hungerProgress: Int = 0
+    private var _maxHungerProgress: Int = 100
+    
+    // variable getters
+    public var getHungerProgress: Int {
+        get { return _hungerProgress }
+    }
     
     lazy var pauseButton: UIButton = {
         let button = UIButton(type: .system)
@@ -45,6 +51,19 @@ class InGameUIView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
+    }
+    
+    public func addToHungerMeter(hungerValue: Int) {
+        if (_hungerProgress < _maxHungerProgress) {
+            // update new hunger value or keep at max
+            let updatedHunger = _hungerProgress + hungerValue
+            _hungerProgress = min(updatedHunger, _maxHungerProgress)
+            
+            // animate the hunger meter filling up to new value
+            let progress = Float(_hungerProgress) / Float(_maxHungerProgress)
+            hungerMeter.setProgress(progress, animated: true)
+            print(_hungerProgress)
+        }
     }
     
     public func setStickPosition(location: CGPoint) {
@@ -144,20 +163,6 @@ class InGameUIView: UIView {
         layer.addSublayer(outerCircleLayer!)
         innerCircleLayer?.isHidden = true
         outerCircleLayer?.isHidden = true
-        
-        collectObjects() // remove
-    }
-    // func to test hunger meter
-    func collectObjects() {
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            self.hungerProgress += 1
-            let progress = Float(self.hungerProgress) / Float(self.maxHungerProgress)
-            self.hungerMeter.setProgress(progress, animated: true)
-            
-            if self.hungerProgress >= self.maxHungerProgress {
-                timer.invalidate()
-            }
-        }
     }
     
     @objc private func pauseButtonTapped() {

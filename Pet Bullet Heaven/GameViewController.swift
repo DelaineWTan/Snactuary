@@ -132,7 +132,8 @@ class GameViewController: UIViewController {
         case .ended:
             isMoving = false
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
-            // add other logic
+            // hunger test, delete after proper implementation on food colision
+            overlayView.inGameUIView.addToHungerMeter(hungerValue: 3)
             
         default:
             break
