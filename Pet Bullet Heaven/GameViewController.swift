@@ -123,9 +123,9 @@ class GameViewController: UIViewController {
 
             let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
-
-            movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
-            
+            // Normalize xz vector so diagonal movement equals 1
+            let length = sqrt(pow(x, 2) + pow(z, 2))
+            movePlayer(xPoint: Float(x / length), zPoint: Float(z / length))
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
@@ -156,8 +156,8 @@ class GameViewController: UIViewController {
         let scrollSpeed: Float = 1
         
         // Manually input the stage size
-        let stageX: Float = 100 // Adjust as needed
-        let stageZ: Float = 100 // Adjust as needed
+        let stageX: Float = 800
+        let stageZ: Float = 800
         
         // Calculate the translation vector based on player movement
         let translationVector = SCNVector3(xTranslation * scrollSpeed, 0, zTranslation * scrollSpeed)
@@ -167,18 +167,19 @@ class GameViewController: UIViewController {
         stageNode.position.z += translationVector.z
         
         // Check if the player is approaching the edge of the stage
-        let edgeMargin: Float = 20.0 // Adjust as needed
+        let edgeMargin: Float = 40.0 // Adjust as needed
         
-        if abs(stageNode.position.x - playerNode.position.x) > stageX / 2 - edgeMargin {
-            // If the player is close to the edge, shift the stage in the opposite direction to create the illusion of infinite scrolling
-            
-            stageNode.position.x = playerNode.position.x
+        let xDiff = stageNode.position.x - playerNode.position.x
+        let zDiff = stageNode.position.z - playerNode.position.z
+        print("X diff: ", xDiff, "| Z diff: ", zDiff)
+        
+        // Too far north/south, teleport to south/north edge
+        if abs(zDiff) > stageZ / 2 - edgeMargin {
+            stageNode.position.z = -zDiff
         }
-        
-        if abs(stageNode.position.z - playerNode.position.z) > stageZ / 2 - edgeMargin {
-            // If the player is close to the edge, shift the stage in the opposite direction to create the illusion of infinite scrolling
-            
-            stageNode.position.z = playerNode.position.z
+        // Too far east/west, teleport to west/east edge
+        if abs(xDiff) > stageX / 2 - edgeMargin {
+            stageNode.position.x = -xDiff
         }
     }
 
