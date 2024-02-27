@@ -8,8 +8,10 @@
 import UIKit
 import QuartzCore
 import SceneKit
+import AVFoundation
 
 class GameViewController: UIViewController {
+    var backgroundMusic: AVAudioPlayer?
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
@@ -67,7 +69,19 @@ class GameViewController: UIViewController {
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
         
-               
+        // Load and play background music
+        if let musicURL = Bundle.main.url(forResource: "bgm", withExtension: "wav", subdirectory: "art.scnassets") {
+            do {
+                backgroundMusic = try AVAudioPlayer(contentsOf: musicURL)
+                backgroundMusic?.numberOfLoops = -1 // Loop indefinitely
+                backgroundMusic?.volume = 0.3 // Hardcode to 0.3 volume for now until volume settings exist
+                backgroundMusic?.play()
+            } catch {
+                print("Error loading background music: \(error.localizedDescription)")
+            }
+        } else {
+            print("Background music file not found")
+        }
     }
     
     @objc
@@ -171,7 +185,6 @@ class GameViewController: UIViewController {
         
         let xDiff = stageNode.position.x - playerNode.position.x
         let zDiff = stageNode.position.z - playerNode.position.z
-        print("X diff: ", xDiff, "| Z diff: ", zDiff)
         
         // Too far north/south, teleport to south/north edge
         if abs(zDiff) > stageZ / 2 - edgeMargin {
