@@ -14,12 +14,37 @@ public class LifecycleManager {
     
     private init() {}
     
-    private var gameObjects = [Updatable]()
+    private var gameObjects = [UUID: Updatable]()
     private var lastUpdateTime: TimeInterval = 0
     
     func addGameObject(_ gameObject: Updatable) {
-        gameObjects.append(gameObject)
+        //gameObjects.append(gameObject)
+        //let uuid = UUID()
+        //print(uuid.uuidString) // This will print a unique identifier
+        //gameObject.uniqueID = uuid // Set the uniqueID of the gameObject
+        gameObjects[gameObject.uniqueID] = gameObject
+        print("printing uniqueIDs v")
+        for gameObject in gameObjects.values {
+            print("\(gameObject.uniqueID)")
+        }
         gameObject.Start()
+    }
+    
+    func deleteGameObject(gameObject: Updatable) {
+//            if let index = gameObjects.firstIndex(where: { $0 === gameObject }) {
+//                gameObjects.remove(at: index)
+//            }
+//        for (index, existingObject) in gameObjects.enumerated() {
+//            if gameObject === existingObject {
+//                gameObjects.remove(at: index)
+//                break // Exit loop after removing the object
+//            }
+//        }
+        gameObjects.removeValue(forKey: gameObject.uniqueID)
+        print("printing uniqueIDs v")
+        for gameObject in gameObjects.values {
+            print("\(gameObject.uniqueID)")
+        }
     }
     
     func update() {
@@ -31,7 +56,10 @@ public class LifecycleManager {
                     return
                 }
         
-        for gameObject in gameObjects {
+//        for gameObject in gameObjects {
+//            gameObject.Update(deltaTime: deltaTime)
+//        }
+        for gameObject in gameObjects.values {
             gameObject.Update(deltaTime: deltaTime)
         }
     }

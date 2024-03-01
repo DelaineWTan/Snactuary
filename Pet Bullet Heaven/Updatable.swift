@@ -8,6 +8,14 @@
 import Foundation
 
 protocol Updatable {
+    var uniqueID: UUID { get set }
     func Start()
     func Update(deltaTime: TimeInterval)
+}
+
+extension Updatable {
+    var uniqueID: UUID {
+        get { return UUID() }
+        set { }
+    }
 }

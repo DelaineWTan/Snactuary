@@ -15,7 +15,8 @@ class FoodSpawner {
         self.mainScene = scene
         
         spawn()
-        
+        let food = Food(spawnLocation: SCNVector3(x: 5, y: 0, z: 5), speed: 1)
+        //food.position = SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB)
     }
     
     /// Spawns food nodes, for now it's set to spawn just 3 food. Will eventually spawn food in set intervals
@@ -37,12 +38,13 @@ class FoodSpawner {
             let food = Food(spawnLocation: randomPosition, speed: 1)
             food.position = randomPosition
             //print("food \(i) position: \(food.position)")
-            food.onDestroy = {
-                // Do any cleanup or additional tasks before destroying the node
-                print("Food destroyed!")
-                //food.removeFromParentNode()
-            }
-            food.onDestroy(after: 3.0) // Destroy the food after 3 seconds
+//            food.onDestroy = {
+//                // Do any cleanup or additional tasks before destroying the node
+//                print("Food destroyed!")
+//                //food.removeFromParentNode()
+//            }
+//            food.onDestroy(after: 3.0) // Destroy the food after 3 seconds
+            food.onDestroy(after: 3.0, obj: food)
             mainScene.rootNode.addChildNode(food)
         }
     }

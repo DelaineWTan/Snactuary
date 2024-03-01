@@ -13,11 +13,12 @@ protocol Destroyable {
     func onDestroy(after duration: TimeInterval, obj: SCNNode)
 }
 
-extension Destroyable where Self: AnyObject {
+extension Destroyable where Self: SCNNode {
     func onDestroy(after duration: TimeInterval, obj: SCNNode) {
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
             self?.destroy()
-            print("deeznuts")
+            LifecycleManager.shared.deleteGameObject()
+            self?.removeFromParentNode()
         }
     }
     
