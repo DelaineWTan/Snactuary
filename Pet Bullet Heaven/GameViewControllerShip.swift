@@ -42,8 +42,7 @@ class GameViewControllerShip: UIViewController {
         
         // get player
         let ship = scene.rootNode.childNode(withName: "ship", recursively: true)
-        ship?.runAction(
-          SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
+        //ship?.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
         
         let shipMaterial = ship?.childNodes[0].geometry?.firstMaterial
         let program = SCNProgram()
