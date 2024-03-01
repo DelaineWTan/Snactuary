@@ -167,7 +167,7 @@ class GameViewController: UIViewController {
         }
         
         // Adjust the scrolling speed as needed
-        
+        let scrollSpeed: Float = 2
         
         // Manually input the stage size
         let stageX: Float = 800
