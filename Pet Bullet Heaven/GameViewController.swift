@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
     let cameraNode = SCNNode()
     
     var playerNode: SCNNode?
-    var stageNode: SCNNode?
+    var stageNode: MapNode?
     
     var isMoving = false
     var touchDestination: CGPoint? = nil
@@ -61,7 +61,7 @@ class GameViewController: UIViewController {
         playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         
         // get stage plane
-        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true) as? MapNode
         
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 20, _InputRotationSpeed: 10, _InputDistanceFromCenter: 3, _InputNumProjectiles: 3)
         testAbility.ActivateAbility()
@@ -131,7 +131,7 @@ class GameViewController: UIViewController {
         
         switch gestureRecongnize.state {
         case .began:
-            isMoving = true
+            stageNode?.setIsMoving(true)
             overlayView.inGameUIView.setStickPosition(location: location)
         case .changed:
 
@@ -139,69 +139,18 @@ class GameViewController: UIViewController {
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             // Normalize xz vector so diagonal movement equals 1
             let length = sqrt(pow(x, 2) + pow(z, 2))
-            movePlayer(xPoint: Float(x / length), zPoint: Float(z / length))
+            stageNode?.setJoystickTranslation(xTranslation: Float(x / length), zTranslation: Float(z / length))
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
         case .ended:
-            isMoving = false
+            stageNode?.setIsMoving(false)
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
             // add other logic
             
         default:
             break
         }
-    }
-    
-    // "Moves" the player by moving everything else (stage, food etc) the opposite direction in order to keep the player at origin 0,0,0
-    func movePlayer(xPoint: Float, zPoint: Float) {
-        // Call the function to scroll the stage based on player movement
-        scrollStage(xTranslation: xPoint, zTranslation: zPoint)
-    }
-
-    // Function to scroll the stage plane based on player movement and create the illusion of infinite scrolling
-    func scrollStage(xTranslation: Float, zTranslation: Float) {
-        // Get the current position of the stage plane
-        guard let stageNode = stageNode, let playerNode = playerNode else {
-            return
-        }
-        
-        // Adjust the scrolling speed as needed
-        let scrollSpeed: Float = 2
-        
-        // Manually input the stage size
-        let stageX: Float = 800
-        let stageZ: Float = 800
-        
-        // Calculate the translation vector based on player movement
-        let translationVector = SCNVector3(xTranslation * scrollSpeed, 0, zTranslation * scrollSpeed)
-        
-        // Apply the translation to the stage plane
-        stageNode.position.x += translationVector.x
-        stageNode.position.z += translationVector.z
-        
-        // Check if the player is approaching the edge of the stage
-        let edgeMargin: Float = 40.0 // Adjust as needed
-        
-        let xDiff = stageNode.position.x - playerNode.position.x
-        let zDiff = stageNode.position.z - playerNode.position.z
-        
-        // Too far north/south, teleport to south/north edge
-        if abs(zDiff) > stageZ / 2 - edgeMargin {
-            stageNode.position.z = -zDiff
-        }
-        // Too far east/west, teleport to west/east edge
-        if abs(xDiff) > stageX / 2 - edgeMargin {
-            stageNode.position.x = -xDiff
-        }
-    }
-
-
-
-    
-    func stopPlayer() {
-        isMoving = false
-        // add other logic here (like stopping sound or animation
     }
     
     override var prefersStatusBarHidden: Bool {
