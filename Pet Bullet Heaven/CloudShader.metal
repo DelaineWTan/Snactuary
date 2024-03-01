@@ -40,6 +40,7 @@ float noise(float2 p, float freq) {
     return mix(x1, x2, xy.y);
 }
 
+// "Referenced" perlin noise from here https://gist.github.com/patriciogonzalezvivo/670c22f3966e662d2f83
 float pNoise(float2 p, int res) {
     float persistance = 0.5;
     float n = 0.0;
@@ -72,6 +73,7 @@ struct SimpleVertex
     float3 normal;
     float2 texCoords;
 };
+
 
 typedef struct VertexIn {
     float3 position [[ attribute(SCNVertexSemanticPosition) ]];
