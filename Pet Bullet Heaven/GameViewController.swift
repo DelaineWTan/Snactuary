@@ -8,8 +8,10 @@
 import UIKit
 import QuartzCore
 import SceneKit
+import AVFoundation
 
 class GameViewController: UIViewController {
+    var backgroundMusic: AVAudioPlayer?
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
@@ -67,7 +69,19 @@ class GameViewController: UIViewController {
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
         
-               
+        // Load and play background music
+        if let musicURL = Bundle.main.url(forResource: "bgm", withExtension: "wav", subdirectory: "art.scnassets") {
+            do {
+                backgroundMusic = try AVAudioPlayer(contentsOf: musicURL)
+                backgroundMusic?.numberOfLoops = -1 // Loop indefinitely
+                backgroundMusic?.volume = 0.3 // Hardcode to 0.3 volume for now until volume settings exist
+                backgroundMusic?.play()
+            } catch {
+                print("Error loading background music: \(error.localizedDescription)")
+            }
+        } else {
+            print("Background music file not found")
+        }
     }
     
     @objc
@@ -123,9 +137,9 @@ class GameViewController: UIViewController {
 
             let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
-
-            movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
-            
+            // Normalize xz vector so diagonal movement equals 1
+            let length = sqrt(pow(x, 2) + pow(z, 2))
+            movePlayer(xPoint: Float(x / length), zPoint: Float(z / length))
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
@@ -153,11 +167,11 @@ class GameViewController: UIViewController {
         }
         
         // Adjust the scrolling speed as needed
-        let scrollSpeed: Float = 1
+        let scrollSpeed: Float = 2
         
         // Manually input the stage size
-        let stageX: Float = 100 // Adjust as needed
-        let stageZ: Float = 100 // Adjust as needed
+        let stageX: Float = 800
+        let stageZ: Float = 800
         
         // Calculate the translation vector based on player movement
         let translationVector = SCNVector3(xTranslation * scrollSpeed, 0, zTranslation * scrollSpeed)
@@ -167,18 +181,18 @@ class GameViewController: UIViewController {
         stageNode.position.z += translationVector.z
         
         // Check if the player is approaching the edge of the stage
-        let edgeMargin: Float = 20.0 // Adjust as needed
+        let edgeMargin: Float = 40.0 // Adjust as needed
         
-        if abs(stageNode.position.x - playerNode.position.x) > stageX / 2 - edgeMargin {
-            // If the player is close to the edge, shift the stage in the opposite direction to create the illusion of infinite scrolling
-            
-            stageNode.position.x = playerNode.position.x
+        let xDiff = stageNode.position.x - playerNode.position.x
+        let zDiff = stageNode.position.z - playerNode.position.z
+        
+        // Too far north/south, teleport to south/north edge
+        if abs(zDiff) > stageZ / 2 - edgeMargin {
+            stageNode.position.z = -zDiff
         }
-        
-        if abs(stageNode.position.z - playerNode.position.z) > stageZ / 2 - edgeMargin {
-            // If the player is close to the edge, shift the stage in the opposite direction to create the illusion of infinite scrolling
-            
-            stageNode.position.z = playerNode.position.z
+        // Too far east/west, teleport to west/east edge
+        if abs(xDiff) > stageX / 2 - edgeMargin {
+            stageNode.position.x = -xDiff
         }
     }
 
