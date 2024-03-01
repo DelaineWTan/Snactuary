@@ -25,7 +25,7 @@ float rand(float2 n) {
 
 float noise(float2 p, float freq) {
     //p.x +=  * 0.1; // Adjust the time scaling factor as needed
-    float screenWidth = .1;
+    float screenWidth = .7;
     float unit = screenWidth / freq;
     float2 ij = floor(p / unit);
     float2 xy = (p / unit) - (ij * unit);

@@ -41,7 +41,7 @@ class GameViewControllerShip: UIViewController {
 
         
         // Usage example:
-        let planeGeometry = createPlaneGeometry(width: 10.0, height: 10.0, widthSegments: 10, heightSegments: 10)
+        let planeGeometry = createPlaneGeometry(width: 50.0, height: 50.0, widthSegments: 500, heightSegments: 500)
         let planeNode = SCNNode(geometry: planeGeometry)
         planeNode.eulerAngles.x = .pi / -2
         scene.rootNode.addChildNode(planeNode)
