@@ -11,7 +11,11 @@ import SceneKit
 ///
 /// Rudimentary Food Class
 ///
-class Food : SCNNode, Updatable {
+class Food : SCNNode, MonoBehaviour {
+    
+    var uniqueID: UUID
+    
+    
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
     
     var _Health : Int = 1
@@ -28,6 +32,7 @@ class Food : SCNNode, Updatable {
         
         self.spawnLocation = spawnLocation
         self.speed = speed
+        self.uniqueID = UUID() // make sure every class that has an Updatable
         super.init()
         
         LifecycleManager.shared.addGameObject(self)
@@ -107,15 +112,15 @@ class Food : SCNNode, Updatable {
     
     // not sure how to make this 
     // Function to destroy the node after a certain duration
-    func onDestroy(after duration: TimeInterval) {
-        
-    }
-        
-    // Function to destroy the node
-    private func destroy() {
-        onDestroy?() // Call the onDestroy closure if it's set
-        self.removeFromParentNode() // Remove the node from its parent
-    }
+//    func onDestroy(after duration: TimeInterval) {
+//        
+//    }
+//        
+//    // Function to destroy the node
+//    private func destroy() {
+//        onDestroy?() // Call the onDestroy closure if it's set
+//        //self.removeFromParentNode() // Remove the node from its parent
+//    }
     
     
 }

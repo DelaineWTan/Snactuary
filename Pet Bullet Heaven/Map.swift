@@ -6,7 +6,15 @@
 //
 import SceneKit
 
-class Map : Updatable {
+class Map : MonoBehaviour {
+    var uniqueID: UUID
+    
+    var onDestroy: (() -> Void)?
+    
+    func onDestroy(after duration: TimeInterval) {
+        // code
+    }
+    
     var stageNode: SCNNode?
     var playerNode: SCNNode?
     var isMoving: Bool
@@ -19,6 +27,7 @@ class Map : Updatable {
         zTranslation = 0.0
         self.stageNode = stageNode
         self.playerNode = playerNode
+        self.uniqueID = UUID()
         LifecycleManager.shared.addGameObject(self)
     }
     

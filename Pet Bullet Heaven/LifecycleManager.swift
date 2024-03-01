@@ -14,12 +14,16 @@ public class LifecycleManager {
     
     private init() {}
     
-    private var gameObjects = [Updatable]()
+    private var gameObjects = [UUID: MonoBehaviour]()
     private var lastUpdateTime: TimeInterval = 0
     
-    func addGameObject(_ gameObject: Updatable) {
-        gameObjects.append(gameObject)
+    func addGameObject(_ gameObject: MonoBehaviour) {
+        gameObjects[gameObject.uniqueID] = gameObject
         gameObject.Start()
+    }
+    
+    func deleteGameObject(gameObject: MonoBehaviour) {
+        gameObjects.removeValue(forKey: gameObject.uniqueID)
     }
     
     func update() {
@@ -31,7 +35,7 @@ public class LifecycleManager {
                     return
                 }
         
-        for gameObject in gameObjects {
+        for gameObject in gameObjects.values {
             gameObject.Update(deltaTime: deltaTime)
         }
     }
