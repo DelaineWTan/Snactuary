@@ -30,7 +30,7 @@ class GameViewControllerFaizics: UIViewController, SCNPhysicsContactDelegate, SC
     var score = 0
     let scoreLabel = UILabel(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
     // create a new scene
-    var scene = SCNScene(named: "art.scnassets/main.scn")!
+    var scene = SCNScene(named: "art.scnassets/faiz test map.scn")!
     
     override func viewDidLoad() {
         
