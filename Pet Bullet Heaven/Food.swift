@@ -108,9 +108,7 @@ class Food : SCNNode, Updatable {
     // not sure how to make this 
     // Function to destroy the node after a certain duration
     func onDestroy(after duration: TimeInterval) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
-            self?.destroy()
-        }
+        
     }
         
     // Function to destroy the node

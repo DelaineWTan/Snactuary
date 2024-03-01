@@ -23,6 +23,5 @@ extension Destroyable where Self: AnyObject {
     
     private func destroy() {
         onDestroy?()
-        //self.removeFromParentNode()
     }
 }

@@ -40,8 +40,9 @@ class FoodSpawner {
             food.onDestroy = {
                 // Do any cleanup or additional tasks before destroying the node
                 print("Food destroyed!")
+                //food.removeFromParentNode()
             }
-            food.onDestroy(after: 10.0) // Destroy the food after 3 seconds
+            food.onDestroy(after: 3.0) // Destroy the food after 3 seconds
             mainScene.rootNode.addChildNode(food)
         }
     }
