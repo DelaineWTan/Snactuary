@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D2F2EDE2B8D80B800F2F1F4 /* Penguin.002.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F2EDD2B8D80B800F2F1F4 /* Penguin.002.dae */; };
 		0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409352B71FBD00047847B /* AppDelegate.swift */; };
 		0D6409382B71FBD00047847B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6409372B71FBD00047847B /* art.scnassets */; };
 		0D64093D2B71FBD00047847B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093B2B71FBD00047847B /* Main.storyboard */; };
@@ -31,7 +32,6 @@
 		FB73289A2B7D97F700557AE6 /* GameViewControllerFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328992B7D97F700557AE6 /* GameViewControllerFood.swift */; };
 		FBC69D772B82C7B50052C572 /* GameViewControllerFaizics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D762B82C7B50052C572 /* GameViewControllerFaizics.swift */; };
 		FBC69D792B82C85F0052C572 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D782B82C85F0052C572 /* GameViewController.swift */; };
-		FBFDBE6A2B854F0F0071A1F6 /* Penguin.002.dae in Resources */ = {isa = PBXBuildFile; fileRef = FBFDBE692B854F0F0071A1F6 /* Penguin.002.dae */; };
 		FBFDBE6C2B8550780071A1F6 /* PetSelectionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFDBE6B2B8550780071A1F6 /* PetSelectionUIView.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D2F2EDD2B8D80B800F2F1F4 /* Penguin.002.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Penguin.002.dae; sourceTree = "<group>"; };
 		0D6409322B71FBD00047847B /* Pet Bullet Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pet Bullet Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409352B71FBD00047847B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D6409372B71FBD00047847B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		FB7328992B7D97F700557AE6 /* GameViewControllerFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerFood.swift; sourceTree = "<group>"; };
 		FBC69D762B82C7B50052C572 /* GameViewControllerFaizics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerFaizics.swift; sourceTree = "<group>"; };
 		FBC69D782B82C85F0052C572 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		FBFDBE692B854F0F0071A1F6 /* Penguin.002.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Penguin.002.dae; path = ../../../../Downloads/Penguin.002.dae; sourceTree = "<group>"; };
 		FBFDBE6B2B8550780071A1F6 /* PetSelectionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectionUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */,
-				FBFDBE692B854F0F0071A1F6 /* Penguin.002.dae */,
+				0D2F2EDD2B8D80B800F2F1F4 /* Penguin.002.dae */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -291,7 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D8DB43C2B7AC9AB008D2AE8 /* .gitignore in Resources */,
-				FBFDBE6A2B854F0F0071A1F6 /* Penguin.002.dae in Resources */,
+				0D2F2EDE2B8D80B800F2F1F4 /* Penguin.002.dae in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
