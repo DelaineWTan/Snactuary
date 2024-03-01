@@ -11,7 +11,11 @@ import SceneKit
 ///
 /// Rudimentary Food Class
 ///
-class Food : SCNNode, Updatable, Destroyable {
+class Food : SCNNode, MonoBehaviour {
+    
+    var uniqueID: UUID
+    
+    
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
     
     var _Health : Int = 1
@@ -28,6 +32,7 @@ class Food : SCNNode, Updatable, Destroyable {
         
         self.spawnLocation = spawnLocation
         self.speed = speed
+        self.uniqueID = UUID() // make sure every class that has an Updatable
         super.init()
         
         LifecycleManager.shared.addGameObject(self)

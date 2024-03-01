@@ -14,23 +14,24 @@ public class LifecycleManager {
     
     private init() {}
     
-    private var gameObjects = [UUID: Updatable]()
+    private var gameObjects = [UUID: MonoBehaviour]()
     private var lastUpdateTime: TimeInterval = 0
     
-    func addGameObject(_ gameObject: Updatable) {
+    func addGameObject(_ gameObject: MonoBehaviour) {
         //gameObjects.append(gameObject)
         //let uuid = UUID()
         //print(uuid.uuidString) // This will print a unique identifier
         //gameObject.uniqueID = uuid // Set the uniqueID of the gameObject
+        //gameObject.setUUID()
         gameObjects[gameObject.uniqueID] = gameObject
         print("printing uniqueIDs v")
         for gameObject in gameObjects.values {
-            print("\(gameObject.uniqueID)")
+            print("\(gameObject.uniqueID )")
         }
         gameObject.Start()
     }
     
-    func deleteGameObject(gameObject: Updatable) {
+    func deleteGameObject(gameObject: MonoBehaviour) {
 //            if let index = gameObjects.firstIndex(where: { $0 === gameObject }) {
 //                gameObjects.remove(at: index)
 //            }
@@ -43,7 +44,7 @@ public class LifecycleManager {
         gameObjects.removeValue(forKey: gameObject.uniqueID)
         print("printing uniqueIDs v")
         for gameObject in gameObjects.values {
-            print("\(gameObject.uniqueID)")
+            print("\(gameObject.uniqueID ) tits tits")
         }
     }
     

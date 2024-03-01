@@ -14,15 +14,15 @@ protocol Destroyable {
 }
 
 extension Destroyable where Self: SCNNode {
-    func onDestroy(after duration: TimeInterval, obj: SCNNode) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
-            self?.destroy()
-            LifecycleManager.shared.deleteGameObject()
-            self?.removeFromParentNode()
-        }
-    }
-    
-    private func destroy() {
-        onDestroy?()
-    }
+//    func onDestroy(after duration: TimeInterval, obj: SCNNode) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
+//            self?.destroy()
+//            LifecycleManager.shared.deleteGameObject()
+//            self?.removeFromParentNode()
+//        }
+//    }
+//    
+//    private func destroy() {
+//        onDestroy?()
+//    }
 }

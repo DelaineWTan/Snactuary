@@ -33,9 +33,8 @@
 		FB7EC28F2B8955B7008A0A05 /* Destroyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7EC28E2B8955B7008A0A05 /* Destroyable.swift */; };
 		FBC69D772B82C7B50052C572 /* GameViewControllerFaizics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D762B82C7B50052C572 /* GameViewControllerFaizics.swift */; };
 		FBC69D792B82C85F0052C572 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D782B82C85F0052C572 /* GameViewController.swift */; };
-		FBC69D7B2B82DEFB0052C572 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7A2B82DEFB0052C572 /* Updatable.swift */; };
+		FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */; };
 		FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */; };
-		FBFDBE6A2B854F0F0071A1F6 /* Penguin.002.dae in Resources */ = {isa = PBXBuildFile; fileRef = FBFDBE692B854F0F0071A1F6 /* Penguin.002.dae */; };
 		FBFDBE6C2B8550780071A1F6 /* PetSelectionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFDBE6B2B8550780071A1F6 /* PetSelectionUIView.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,9 +86,8 @@
 		FB7EC28E2B8955B7008A0A05 /* Destroyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destroyable.swift; sourceTree = "<group>"; };
 		FBC69D762B82C7B50052C572 /* GameViewControllerFaizics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerFaizics.swift; sourceTree = "<group>"; };
 		FBC69D782B82C85F0052C572 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		FBC69D7A2B82DEFB0052C572 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
+		FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoBehaviour.swift; sourceTree = "<group>"; };
 		FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleManager.swift; sourceTree = "<group>"; };
-		FBFDBE692B854F0F0071A1F6 /* Penguin.002.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Penguin.002.dae; path = ../../../../Downloads/Penguin.002.dae; sourceTree = "<group>"; };
 		FBFDBE6B2B8550780071A1F6 /* PetSelectionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectionUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,7 +157,7 @@
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
 				FB7328972B7D947500557AE6 /* Food.swift */,
 				FB6306C32B8017DD00E8096D /* FoodSpawner.swift */,
-				FBC69D7A2B82DEFB0052C572 /* Updatable.swift */,
+				FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */,
 				FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */,
 				FB7EC28E2B8955B7008A0A05 /* Destroyable.swift */,
 				4FAE637A2B7C21B3007ED6AA /* Ability.swift */,
@@ -343,11 +341,10 @@
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
 				4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
-				FBC69D7B2B82DEFB0052C572 /* Updatable.swift in Sources */,
+				FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
 				FB7EC28F2B8955B7008A0A05 /* Destroyable.swift in Sources */,
 				FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */,
-				0DCB55B92B75937600C18DD0 /* PetSelectionUIView.swift in Sources */,
 				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				FB7328982B7D947500557AE6 /* Food.swift in Sources */,
 				FB73289A2B7D97F700557AE6 /* GameViewControllerFood.swift in Sources */,

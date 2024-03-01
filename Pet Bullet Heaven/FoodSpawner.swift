@@ -44,7 +44,7 @@ class FoodSpawner {
 //                //food.removeFromParentNode()
 //            }
 //            food.onDestroy(after: 3.0) // Destroy the food after 3 seconds
-            food.onDestroy(after: 3.0, obj: food)
+            food.onDestroy(after: 3.0)
             mainScene.rootNode.addChildNode(food)
         }
     }
