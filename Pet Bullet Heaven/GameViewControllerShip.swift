@@ -40,6 +40,12 @@ class GameViewControllerShip: UIViewController {
         scnView.allowsCameraControl = true
 
         
+        // Usage example:
+        let planeGeometry = createPlaneGeometry(width: 10.0, height: 10.0, widthSegments: 10, heightSegments: 10)
+        let planeNode = SCNNode(geometry: planeGeometry)
+        planeNode.eulerAngles.x = .pi / -2
+        scene.rootNode.addChildNode(planeNode)
+        
         // get player
         let ship = scene.rootNode.childNode(withName: "ship", recursively: true)
         //ship?.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
@@ -50,17 +56,73 @@ class GameViewControllerShip: UIViewController {
         program.fragmentFunctionName = "cloudFragment"
         shipMaterial?.program = program
 
-        let image = UIImage(named: "art.scnassets/texture")
+        let image = UIImage(named: "art.scnassets/perlinmap")
         let imageProperty = SCNMaterialProperty(contents: image)
         // The name you supply here should match the texture parameter name in the fragment shader
         shipMaterial?.setValue(imageProperty, forKey: "diffuseTexture")
         
-        let plane = scene.rootNode.childNode(withName: "plane", recursively: true)
-        plane?.geometry?.firstMaterial?.program = program
-        plane?.geometry?.firstMaterial?.setValue(imageProperty, forKey: "diffuseTexture")
-
+        //let plane = scene.rootNode.childNode(withName: "floor", recursively: true)
+        planeNode.geometry?.firstMaterial?.program = program
+        //plane?.geometry?.firstMaterial?.setValue(imageProperty, forKey: "diffuseTexture")
+        let geosphere = scene.rootNode.childNode(withName: "geosphere", recursively: true)
+        geosphere?.geometry?.firstMaterial?.program = program
+        let sphere = scene.rootNode.childNode(withName: "sphere", recursively: true)
+        sphere?.geometry?.firstMaterial?.program = program
     }
-    
+
+
+    func createPlaneGeometry(width: CGFloat, height: CGFloat, widthSegments: Int, heightSegments: Int) -> SCNGeometry {
+        // Calculate the size of each segment
+        let segmentWidth = width / CGFloat(widthSegments)
+        let segmentHeight = height / CGFloat(heightSegments)
+        
+        // Create arrays to hold the vertices, normals, texture coordinates, and indices
+        var vertices: [SCNVector3] = []
+        var normals: [SCNVector3] = [] // Add normals array
+        var texCoords: [CGPoint] = []
+        var indices: [Int32] = []
+        
+        // Generate vertices, normals, and texture coordinates
+        for y in 0...heightSegments {
+            for x in 0...widthSegments {
+                let vertex = SCNVector3(CGFloat(x) * segmentWidth, CGFloat(y) * segmentHeight, 0.0)
+                let normal = SCNVector3(0.0, 0.0, 1.0) // Default normal (e.g., pointing in positive z-direction)
+                let texCoord = CGPoint(x: CGFloat(x) / CGFloat(widthSegments), y: CGFloat(y) / CGFloat(heightSegments))
+                vertices.append(vertex)
+                normals.append(normal)
+                texCoords.append(texCoord)
+            }
+        }
+        
+        // Generate indices
+        for y in 0..<heightSegments {
+            for x in 0..<widthSegments {
+                let startIndex = Int32(y * (widthSegments + 1) + x)
+                let nextRowStartIndex = startIndex + Int32(widthSegments) + 1
+                indices.append(startIndex)
+                indices.append(startIndex + 1)
+                indices.append(nextRowStartIndex)
+                indices.append(startIndex + 1)
+                indices.append(nextRowStartIndex + 1)
+                indices.append(nextRowStartIndex)
+            }
+        }
+        
+        // Create geometry sources for vertices, normals, and texture coordinates
+        let vertexSource = SCNGeometrySource(vertices: vertices)
+        let normalSource = SCNGeometrySource(normals: normals) // Create geometry source for normals
+        let texCoordSource = SCNGeometrySource(textureCoordinates: texCoords)
+        
+        // Create geometry element for indices
+        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+        
+        // Create geometry
+        let geometry = SCNGeometry(sources: [vertexSource, normalSource, texCoordSource], elements: [element]) // Include normal source
+        
+        return geometry
+    }
+
+
 
     
     @objc
