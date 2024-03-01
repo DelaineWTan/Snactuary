@@ -46,14 +46,18 @@ class GameViewControllerShip: UIViewController {
         
         let shipMaterial = ship?.childNodes[0].geometry?.firstMaterial
         let program = SCNProgram()
-        program.vertexFunctionName = "myVertex"
-        program.fragmentFunctionName = "myFragment"
+        program.vertexFunctionName = "cloudVertex"
+        program.fragmentFunctionName = "cloudFragment"
         shipMaterial?.program = program
 
         let image = UIImage(named: "art.scnassets/texture")
         let imageProperty = SCNMaterialProperty(contents: image)
         // The name you supply here should match the texture parameter name in the fragment shader
         shipMaterial?.setValue(imageProperty, forKey: "diffuseTexture")
+        
+        let plane = scene.rootNode.childNode(withName: "plane", recursively: true)
+        plane?.geometry?.firstMaterial?.program = program
+        plane?.geometry?.firstMaterial?.setValue(imageProperty, forKey: "diffuseTexture")
 
     }
     
