@@ -17,7 +17,8 @@ class GameViewController: UIViewController {
     let cameraNode = SCNNode()
     
     var playerNode: SCNNode?
-    var stageNode: MapNode?
+    var stageNode: SCNNode?
+    var map: Map?
     
     var isMoving = false
     var touchDestination: CGPoint? = nil
@@ -31,6 +32,10 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        Task {
+            await StartLoop()
+        }
+        
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
@@ -61,7 +66,8 @@ class GameViewController: UIViewController {
         playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         
         // get stage plane
-        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true) as? MapNode
+        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 20, _InputRotationSpeed: 10, _InputDistanceFromCenter: 3, _InputNumProjectiles: 3)
         testAbility.ActivateAbility()
@@ -82,6 +88,18 @@ class GameViewController: UIViewController {
         } else {
             print("Background music file not found")
         }
+    }
+    
+    func StartLoop() async {
+        await ContinuousLoop()
+    }
+    
+    @MainActor
+    func ContinuousLoop() async {
+        LifecycleManager.shared.update()
+        // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
+        try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
+        await ContinuousLoop()
     }
     
     @objc
@@ -131,7 +149,7 @@ class GameViewController: UIViewController {
         
         switch gestureRecongnize.state {
         case .began:
-            stageNode?.setIsMoving(true)
+            map?.setIsMoving(true)
             overlayView.inGameUIView.setStickPosition(location: location)
         case .changed:
 
@@ -139,12 +157,12 @@ class GameViewController: UIViewController {
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             // Normalize xz vector so diagonal movement equals 1
             let length = sqrt(pow(x, 2) + pow(z, 2))
-            stageNode?.setJoystickTranslation(xTranslation: Float(x / length), zTranslation: Float(z / length))
+            map?.setJoystickTranslation(xTranslation: Float(x / length), zTranslation: Float(z / length))
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
         case .ended:
-            stageNode?.setIsMoving(false)
+            map?.setIsMoving(false)
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
             // add other logic
             
