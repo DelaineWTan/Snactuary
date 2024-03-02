@@ -53,7 +53,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
-        
+        // show debug options
+        scnView.debugOptions = [
+            SCNDebugOptions.showPhysicsShapes
+        ]
         // configure the view
         scnView.backgroundColor = UIColor.black
         
@@ -78,7 +81,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
-        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 20, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 3)
+        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 100, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
         testAbility.ActivateAbility()
         
         scoreLabel.text = "Score: \(score)"
@@ -116,6 +119,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     
     func doPhysics() {
         
+        // TODO: remove eaten food from LifeCycleManager dictionary
         // Check if player collides with food or vice versa
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory)
         {
