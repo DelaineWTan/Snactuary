@@ -22,10 +22,11 @@
 		0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B82B75937600C18DD0 /* GameUIView.swift */; };
 		0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */; };
 		0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */; };
-		4E3235E82B894E0B00F738A2 /* Penguin.002.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4E3235E72B894E0B00F738A2 /* Penguin.002.dae */; };
-		4E3235EC2B89513D00F738A2 /* GameViewControllerMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3235EB2B89513D00F738A2 /* GameViewControllerMerged.swift */; };
 		0ED95DCA2B9193E5008F010E /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED95DC92B9193E5008F010E /* Map.swift */; };
 		0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */; };
+		4E3235EC2B89513D00F738A2 /* GameViewControllerMerged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3235EB2B89513D00F738A2 /* GameViewControllerMerged.swift */; };
+		4E4BB8992B92B695003008D6 /* GameViewController Physics Continued.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4BB8982B92B695003008D6 /* GameViewController Physics Continued.swift */; };
+		4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */; };
 		4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637A2B7C21B3007ED6AA /* Ability.swift */; };
 		4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */; };
 		4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637E2B7C21EE007ED6AA /* Projectile.swift */; };
@@ -33,7 +34,6 @@
 		58861D4C2B7C1084002573D2 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58861D4B2B7C1084002573D2 /* Pet.swift */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* Food.swift */; };
-		FBC69D792B82C85F0052C572 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D782B82C85F0052C572 /* GameViewController.swift */; };
 		FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */; };
 		FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */; };
 		FBFDBE6C2B8550780071A1F6 /* PetSelectionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFDBE6B2B8550780071A1F6 /* PetSelectionUIView.swift */; };
@@ -75,9 +75,10 @@
 		0DCB55B82B75937600C18DD0 /* GameUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUIView.swift; sourceTree = "<group>"; };
 		0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuUIView.swift; sourceTree = "<group>"; };
 		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
-		4E3235E72B894E0B00F738A2 /* Penguin.002.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Penguin.002.dae; sourceTree = "<group>"; };
-		4E3235EB2B89513D00F738A2 /* GameViewControllerMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerMerged.swift; sourceTree = "<group>"; };
 		0ED95DC92B9193E5008F010E /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		4E3235EB2B89513D00F738A2 /* GameViewControllerMerged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerMerged.swift; sourceTree = "<group>"; };
+		4E4BB8982B92B695003008D6 /* GameViewController Physics Continued.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameViewController Physics Continued.swift"; sourceTree = "<group>"; };
+		4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		4FAE637A2B7C21B3007ED6AA /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
 		4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingProjectileAbility.swift; sourceTree = "<group>"; };
 		4FAE637E2B7C21EE007ED6AA /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
@@ -86,7 +87,6 @@
 		58861D4B2B7C1084002573D2 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
-		FBC69D782B82C85F0052C572 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoBehaviour.swift; sourceTree = "<group>"; };
 		FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleManager.swift; sourceTree = "<group>"; };
 		FBFDBE6B2B8550780071A1F6 /* PetSelectionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectionUIView.swift; sourceTree = "<group>"; };
@@ -144,8 +144,9 @@
 				4FAE63822B7C483D007ED6AA /* Resources */,
 				0D6409352B71FBD00047847B /* AppDelegate.swift */,
 				0D6409372B71FBD00047847B /* art.scnassets */,
+				4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */,
+				4E4BB8982B92B695003008D6 /* GameViewController Physics Continued.swift */,
 				4E3235EB2B89513D00F738A2 /* GameViewControllerMerged.swift */,
-				FBC69D782B82C85F0052C572 /* GameViewController.swift */,
 				0DCB55B82B75937600C18DD0 /* GameUIView.swift */,
 				0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */,
 				0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */,
@@ -330,7 +331,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBC69D792B82C85F0052C572 /* GameViewController.swift in Sources */,
 				0DCB55BA2B75937600C18DD0 /* MainMenuUIView.swift in Sources */,
 				0DCB55AB2B74B7C500C18DD0 /* Globals.swift in Sources */,
 				58861D4C2B7C1084002573D2 /* Pet.swift in Sources */,
@@ -338,8 +338,10 @@
 				FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */,
 				4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */,
 				4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */,
+				4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
 				4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */,
+				4E4BB8992B92B695003008D6 /* GameViewController Physics Continued.swift in Sources */,
 				4E3235EC2B89513D00F738A2 /* GameViewControllerMerged.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
 				FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */,

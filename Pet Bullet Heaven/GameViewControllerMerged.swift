@@ -206,8 +206,8 @@ class GameViewControllerMerged: UIViewController, SCNPhysicsContactDelegate {
             let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
 
-            Globals.rawInputX = x
-            Globals.rawInputZ = z
+            Globals.inputX = x
+            Globals.inputZ = z
             movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
             
             // Stick UI

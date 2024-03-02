@@ -10,7 +10,7 @@ import QuartzCore
 import SceneKit
 import AVFoundation
 
-class GameViewController: UIViewController, SCNPhysicsContactDelegate{
+class GameViewControllerPhysicsContinued: UIViewController, SCNPhysicsContactDelegate{
     var backgroundMusic: AVAudioPlayer?
     let overlayView = GameUIView()
     // Camera node
