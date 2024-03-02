@@ -46,6 +46,9 @@ class GameViewControllerMerged: UIViewController, SCNPhysicsContactDelegate {
         // set the scene to the view
         scnView.scene = scene
         
+        //show hitboxes
+        scnView.debugOptions = [SCNDebugOptions.showPhysicsShapes]
+        
         scene.physicsWorld.contactDelegate = self
         
         // show statistics such as fps and timing information
@@ -71,9 +74,9 @@ class GameViewControllerMerged: UIViewController, SCNPhysicsContactDelegate {
         scnView.addGestureRecognizer(panGesture)
         
         // Create a physics body
-        let playerPhysicsBody = SCNPhysicsBody(type: .dynamic, shape: nil) // Create a dynamic physics body
-        playerPhysicsBody.mass = 1.0 // Set the mass of the physics body
-        playerPhysicsBody.isAffectedByGravity = false
+//        let playerPhysicsBody = SCNPhysicsBody(type: .dynamic, shape: nil) // Create a dynamic physics body
+//        playerPhysicsBody.mass = 1.0 // Set the mass of the physics body
+//        playerPhysicsBody.isAffectedByGravity = false
         
         // get player
 //        playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
@@ -101,7 +104,6 @@ class GameViewControllerMerged: UIViewController, SCNPhysicsContactDelegate {
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
         
-        
     }
     
     // Update score and destroy food on collision
@@ -114,17 +116,20 @@ class GameViewControllerMerged: UIViewController, SCNPhysicsContactDelegate {
         // Check if player collides with food or vice versa
         if (nodeA.physicsBody?.categoryBitMask == playerCategory && nodeB.physicsBody?.categoryBitMask == foodCategory)
         {
-            print("Destroying food")
             nodeB.removeFromParentNode()
             score += 1
+            print("A. Destroying food, Score is: \(score)")
+            
         }
-        else if(nodeA.physicsBody?.categoryBitMask == foodCategory &&            nodeB.physicsBody?.categoryBitMask == playerCategory) {
-            print("Destroying food")
+        else if(nodeA.physicsBody?.categoryBitMask == foodCategory && nodeB.physicsBody?.categoryBitMask == playerCategory)
+        {
             nodeA.removeFromParentNode()
             score += 1
-            DispatchQueue.main.async {
-                self.scoreLabel.text = "Score: \(self.score)"
-            }
+            print("B. Destroying food B, Score is: \(score)")
+            
+        }
+        DispatchQueue.main.async {
+            self.scoreLabel.text = "Score: \(self.score)"
         }
     }
     
