@@ -8,14 +8,17 @@
 import UIKit
 import QuartzCore
 import SceneKit
+import AVFoundation
 
 class GameViewController: UIViewController {
+    var backgroundMusic: AVAudioPlayer?
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
     
     var playerNode: SCNNode?
     var stageNode: SCNNode?
+    var map: Map?
     
     var isMoving = false
     var touchDestination: CGPoint? = nil
@@ -29,6 +32,10 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        Task {
+            await StartLoop()
+        }
+        
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
@@ -60,6 +67,7 @@ class GameViewController: UIViewController {
         
         // get stage plane
         stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 20, _InputRotationSpeed: 10, _InputDistanceFromCenter: 3, _InputNumProjectiles: 3)
         testAbility.ActivateAbility()
@@ -67,7 +75,31 @@ class GameViewController: UIViewController {
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
         
-               
+        // Load and play background music
+        if let musicURL = Bundle.main.url(forResource: "bgm", withExtension: "wav", subdirectory: "art.scnassets") {
+            do {
+                backgroundMusic = try AVAudioPlayer(contentsOf: musicURL)
+                backgroundMusic?.numberOfLoops = -1 // Loop indefinitely
+                backgroundMusic?.volume = 0.3 // Hardcode to 0.3 volume for now until volume settings exist
+                backgroundMusic?.play()
+            } catch {
+                print("Error loading background music: \(error.localizedDescription)")
+            }
+        } else {
+            print("Background music file not found")
+        }
+    }
+    
+    func StartLoop() async {
+        await ContinuousLoop()
+    }
+    
+    @MainActor
+    func ContinuousLoop() async {
+        LifecycleManager.shared.update()
+        // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
+        try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
+        await ContinuousLoop()
     }
     
     @objc
@@ -117,77 +149,26 @@ class GameViewController: UIViewController {
         
         switch gestureRecongnize.state {
         case .began:
-            isMoving = true
+            map?.setIsMoving(true)
             overlayView.inGameUIView.setStickPosition(location: location)
         case .changed:
 
             let x = translation.x.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
-
-            movePlayer(xPoint: Float(x), zPoint: Float(z)) // decouple later
-            
+            // Normalize xz vector so diagonal movement equals 1
+            let length = sqrt(pow(x, 2) + pow(z, 2))
+            map?.setJoystickTranslation(xTranslation: Float(x / length), zTranslation: Float(z / length))
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
         case .ended:
-            isMoving = false
+            map?.setIsMoving(false)
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
             // add other logic
             
         default:
             break
         }
-    }
-    
-    // "Moves" the player by moving everything else (stage, food etc) the opposite direction in order to keep the player at origin 0,0,0
-    func movePlayer(xPoint: Float, zPoint: Float) {
-        // Call the function to scroll the stage based on player movement
-        scrollStage(xTranslation: xPoint, zTranslation: zPoint)
-    }
-
-    // Function to scroll the stage plane based on player movement and create the illusion of infinite scrolling
-    func scrollStage(xTranslation: Float, zTranslation: Float) {
-        // Get the current position of the stage plane
-        guard let stageNode = stageNode, let playerNode = playerNode else {
-            return
-        }
-        
-        // Adjust the scrolling speed as needed
-        let scrollSpeed: Float = 1
-        
-        // Manually input the stage size
-        let stageX: Float = 100 // Adjust as needed
-        let stageZ: Float = 100 // Adjust as needed
-        
-        // Calculate the translation vector based on player movement
-        let translationVector = SCNVector3(xTranslation * scrollSpeed, 0, zTranslation * scrollSpeed)
-        
-        // Apply the translation to the stage plane
-        stageNode.position.x += translationVector.x
-        stageNode.position.z += translationVector.z
-        
-        // Check if the player is approaching the edge of the stage
-        let edgeMargin: Float = 20.0 // Adjust as needed
-        
-        if abs(stageNode.position.x - playerNode.position.x) > stageX / 2 - edgeMargin {
-            // If the player is close to the edge, shift the stage in the opposite direction to create the illusion of infinite scrolling
-            
-            stageNode.position.x = playerNode.position.x
-        }
-        
-        if abs(stageNode.position.z - playerNode.position.z) > stageZ / 2 - edgeMargin {
-            // If the player is close to the edge, shift the stage in the opposite direction to create the illusion of infinite scrolling
-            
-            stageNode.position.z = playerNode.position.z
-        }
-    }
-
-
-
-    
-    func stopPlayer() {
-        isMoving = false
-        // add other logic here (like stopping sound or animation
     }
     
     override var prefersStatusBarHidden: Bool {

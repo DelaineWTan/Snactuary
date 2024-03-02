@@ -15,7 +15,8 @@ class FoodSpawner {
         self.mainScene = scene
         
         spawn()
-        
+        let food = Food(spawnLocation: SCNVector3(x: 5, y: 0, z: 5), speed: 1)
+        //food.position = SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB)
     }
     
     /// Spawns food nodes, for now it's set to spawn just 3 food. Will eventually spawn food in set intervals
@@ -34,14 +35,16 @@ class FoodSpawner {
             // Randomly set the X or Z food position to I or J, then set the other a random number between A and B
             let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
 
-            // TODO: the increment's really low for now, we might need a deltaTime for us to properly calculate physics and movement, but this will do for now
-            let food = Food(spawnLocation: randomPosition, increment: 0.00001)
+            let food = Food(spawnLocation: randomPosition, speed: 1)
             food.position = randomPosition
             //print("food \(i) position: \(food.position)")
-            
-            //print("food category mask \(food.physicsBody?.categoryBitMask)")
-            //print("food collision mask \(food.physicsBody?.collisionBitMask)")
-            
+//            food.onDestroy = {
+//                // Do any cleanup or additional tasks before destroying the node
+//                print("Food destroyed!")
+//                //food.removeFromParentNode()
+//            }
+//            food.onDestroy(after: 3.0) // Destroy the food after 3 seconds
+            food.onDestroy(after: 3.0)
             mainScene.rootNode.addChildNode(food)
         }
     }
