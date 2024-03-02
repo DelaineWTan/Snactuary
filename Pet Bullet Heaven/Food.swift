@@ -28,6 +28,8 @@ class Food : SCNNode, MonoBehaviour {
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
     
+    let foodCategory: Int = 0b010
+
     init(spawnLocation: SCNVector3, speed: Float) {
         
         self.spawnLocation = spawnLocation
@@ -52,6 +54,16 @@ class Food : SCNNode, MonoBehaviour {
         self.addChildNode(cubeNode)
         
         self._Mesh = cubeGeometry
+        
+        let foodPhysicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
+        foodPhysicsBody.mass = 1.0 // Set the mass of the physics body
+        foodPhysicsBody.isAffectedByGravity = false
+        
+        //attach physics to food object
+        self.physicsBody = foodPhysicsBody
+        self.physicsBody?.categoryBitMask = foodCategory
+        self.physicsBody?.collisionBitMask = -1
+        self.physicsBody?.contactTestBitMask = 1
         
         
     }

@@ -10,11 +10,15 @@ import QuartzCore
 import SceneKit
 import AVFoundation
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     var backgroundMusic: AVAudioPlayer?
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
+    
+    // categories for object types
+    let playerCategory: Int = 1
+    let foodCategory: Int = 2
     
     var playerNode: SCNNode?
     var stageNode: SCNNode?
@@ -25,6 +29,9 @@ class GameViewController: UIViewController {
     
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
+    
+    var score = 0
+    let scoreLabel = UILabel(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
 
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/main.scn")!
@@ -41,6 +48,8 @@ class GameViewController: UIViewController {
         
         // set the scene to the view
         scnView.scene = scene
+        
+        scene.physicsWorld.contactDelegate = self
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
@@ -72,6 +81,11 @@ class GameViewController: UIViewController {
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 20, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 3)
         testAbility.ActivateAbility()
         
+        scoreLabel.text = "Score: \(score)"
+        scoreLabel.font = UIFont.systemFont(ofSize: 20)
+        scoreLabel.textColor = .white
+        view.addSubview(scoreLabel)
+        
         _ = FoodSpawner(scene: scene)
         
         // Tentative, add to rootNode. Add to player in order to see Ability
@@ -91,6 +105,36 @@ class GameViewController: UIViewController {
             print("Background music file not found")
         }
     }
+    var nodeA : SCNNode? = SCNNode()
+    var nodeB : SCNNode? = SCNNode()
+    
+    // Update score and destroy food on collision
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        nodeA = contact.nodeA
+        nodeB = contact.nodeB
+    }
+    
+    func doPhysics() {
+        
+        // Check if player collides with food or vice versa
+        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory)
+        {
+            nodeB?.removeFromParentNode()
+            score += 1
+            
+        }
+        else if(nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory)
+        {
+            nodeA?.removeFromParentNode()
+            score += 1
+            
+        }
+        nodeA = nil
+        nodeB = nil
+        DispatchQueue.main.async {
+            self.scoreLabel.text = "Score: \(self.score)"
+        }
+    }
     
     func StartLoop() async {
         await ContinuousLoop()
@@ -99,6 +143,7 @@ class GameViewController: UIViewController {
     @MainActor
     func ContinuousLoop() async {
         LifecycleManager.shared.update()
+        doPhysics()
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
         await ContinuousLoop()
