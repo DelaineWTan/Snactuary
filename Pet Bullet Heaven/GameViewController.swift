@@ -105,29 +105,32 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             print("Background music file not found")
         }
     }
+    var nodeA : SCNNode? = SCNNode()
+    var nodeB : SCNNode? = SCNNode()
     
     // Update score and destroy food on collision
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        let nodeA = contact.nodeA
-        let nodeB = contact.nodeB
-        
-        print("Collision Begin")
+        nodeA = contact.nodeA
+        nodeB = contact.nodeB
+    }
+    
+    func doPhysics() {
         
         // Check if player collides with food or vice versa
-        if (nodeA.physicsBody?.categoryBitMask == playerCategory && nodeB.physicsBody?.categoryBitMask == foodCategory)
+        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory)
         {
-            nodeB.removeFromParentNode()
+            nodeB?.removeFromParentNode()
             score += 1
-            print("A. Destroying food, Score is: \(score)")
             
         }
-        else if(nodeA.physicsBody?.categoryBitMask == foodCategory && nodeB.physicsBody?.categoryBitMask == playerCategory)
+        else if(nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory)
         {
-            nodeA.removeFromParentNode()
+            nodeA?.removeFromParentNode()
             score += 1
-            print("B. Destroying food B, Score is: \(score)")
             
         }
+        nodeA = nil
+        nodeB = nil
         DispatchQueue.main.async {
             self.scoreLabel.text = "Score: \(self.score)"
         }
@@ -140,6 +143,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     @MainActor
     func ContinuousLoop() async {
         LifecycleManager.shared.update()
+        doPhysics()
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
         await ContinuousLoop()
