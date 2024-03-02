@@ -22,7 +22,7 @@ class Projectile : SCNNode{
     func loadFromFile(_AssetName: String, _FileType: String) -> SCNReferenceNode {
         
         // Create a physics body
-        let petPhysicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: SCNBox(width: 1.5, height: 5, length: 1.5, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
+        let petPhysicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: SCNBox(width: 1.5, height: 5, length: 2.5, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
         petPhysicsBody.mass = 1.0 // Set the mass of the physics body
         petPhysicsBody.isAffectedByGravity = false
         
