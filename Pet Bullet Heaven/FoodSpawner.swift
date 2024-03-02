@@ -28,9 +28,6 @@ class FoodSpawner: MonoBehaviour {
     func spawn() {
         
         // TODO: make A, B, I, and J (maybe even foodCount) be easily modifiable
-        let foodCount = 3
-        
-        
         let randomFromAtoB = Float(Int.random(in: -10...10))
         
         let randomIorJ = Float(Bool.random() ? 10 : -10)
