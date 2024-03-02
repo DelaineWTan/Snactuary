@@ -95,13 +95,11 @@ class Food : SCNNode, MonoBehaviour {
         }
 
         //self.speed = 0
-        self.position.x += Float(self.speed * Float(deltaTime))
-        self.position.z += Float(self.speed * Float(deltaTime))
-        //print("pos: \(position.x), \(position.z)")
-        let playerSpeed : Float = 100
+        //self.position.x += Float(self.speed * Float(deltaTime))
+        //self.position.z += Float(self.speed * Float(deltaTime))
         // Move food relative to the player
         if Globals.playerIsMoving {
-            let translationVector = SCNVector3(Float(Globals.rawInputX) / 100 * playerSpeed, 0, Float(Globals.rawInputZ) / 100 * playerSpeed)
+            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
             
             self.position.x += translationVector.x
             self.position.z += translationVector.z
