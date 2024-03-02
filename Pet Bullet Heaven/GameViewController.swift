@@ -72,6 +72,8 @@ class GameViewController: UIViewController {
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 20, _InputRotationSpeed: 10, _InputDistanceFromCenter: 3, _InputNumProjectiles: 3)
         testAbility.ActivateAbility()
         
+        _ = FoodSpawner(scene: scene)
+        
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
         
@@ -149,7 +151,7 @@ class GameViewController: UIViewController {
         
         switch gestureRecongnize.state {
         case .began:
-            map?.setIsMoving(true)
+            Globals.playerIsMoving = true
             overlayView.inGameUIView.setStickPosition(location: location)
         case .changed:
 
@@ -157,12 +159,13 @@ class GameViewController: UIViewController {
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             // Normalize xz vector so diagonal movement equals 1
             let length = sqrt(pow(x, 2) + pow(z, 2))
-            map?.setJoystickTranslation(xTranslation: Float(x / length), zTranslation: Float(z / length))
+            Globals.inputX = x / length
+            Globals.inputZ = z / length
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
         case .ended:
-            map?.setIsMoving(false)
+            Globals.playerIsMoving = false
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
             // add other logic
             

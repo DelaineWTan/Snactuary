@@ -17,14 +17,8 @@ class Map : MonoBehaviour {
     
     var stageNode: SCNNode?
     var playerNode: SCNNode?
-    var isMoving: Bool
-    var moveSpeed: Float = 200
-    var xTranslation, zTranslation: Float
     
     init(stageNode: SCNNode, playerNode: SCNNode) {
-        isMoving = false
-        xTranslation = 0.0
-        zTranslation = 0.0
         self.stageNode = stageNode
         self.playerNode = playerNode
         self.uniqueID = UUID()
@@ -38,32 +32,22 @@ class Map : MonoBehaviour {
         scrollStage(deltaTime)
     }
     
-    func setIsMoving(_ isMoving: Bool) {
-        self.isMoving = isMoving
-    }
-    
-    func setJoystickTranslation(xTranslation: Float, zTranslation: Float) {
-        self.xTranslation = xTranslation
-        self.zTranslation = zTranslation
-    }
     
     func scrollStage(_ deltaTime: TimeInterval) {
-        if (!isMoving)
+        if (!Globals.playerIsMoving)
         {
             return
         }
         guard let playerNode = self.playerNode, let stageNode = self.stageNode else {
             return
         }
-        // Adjust the scrolling speed as needed
-        let scrollSpeed: Float = 2
         
         // Manually input the stage size
         let stageX: Float = 800
         let stageZ: Float = 800
         
         // Calculate the translation vector based on player movement
-        let translationVector = SCNVector3(xTranslation * moveSpeed * Float(deltaTime), 0, zTranslation * moveSpeed * Float(deltaTime))
+        let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
         
         // Apply the translation to the stage plane
         stageNode.position.x += translationVector.x

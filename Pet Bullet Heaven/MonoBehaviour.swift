@@ -29,5 +29,4 @@ extension MonoBehaviour where Self: SCNNode {
     private func destroy() {
         onDestroy?()
     }
-    
 }
