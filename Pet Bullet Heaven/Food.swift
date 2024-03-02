@@ -94,33 +94,14 @@ class Food : SCNNode, MonoBehaviour {
             modifierZ = Float(2 + randomZVariation)
         }
 
-        //self.speed = 0
-        self.position.x += Float(self.speed * Float(deltaTime))
-        self.position.z += Float(self.speed * Float(deltaTime))
-        //print("pos: \(position.x), \(position.z)")
-        let playerSpeed : Float = 100
+        self.position.x += Float((self.speed + modifierX) * Float(deltaTime))
+        self.position.z += Float((self.speed + modifierZ) * Float(deltaTime))
         // Move food relative to the player
         if Globals.playerIsMoving {
-            let translationVector = SCNVector3(Float(Globals.rawInputX) / 100 * playerSpeed, 0, Float(Globals.rawInputZ) / 100 * playerSpeed)
+            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
             
             self.position.x += translationVector.x
             self.position.z += translationVector.z
         }
     }
-    
-    // Other properties and methods
-    
-    // not sure how to make this 
-    // Function to destroy the node after a certain duration
-//    func onDestroy(after duration: TimeInterval) {
-//        
-//    }
-//        
-//    // Function to destroy the node
-//    private func destroy() {
-//        onDestroy?() // Call the onDestroy closure if it's set
-//        //self.removeFromParentNode() // Remove the node from its parent
-//    }
-    
-    
 }
