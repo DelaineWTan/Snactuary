@@ -163,6 +163,20 @@ class InGameUIView: UIView {
         layer.addSublayer(outerCircleLayer!)
         innerCircleLayer?.isHidden = true
         outerCircleLayer?.isHidden = true
+        
+        collectObjects() // remove
+    }
+    // func to test hunger meter
+    func collectObjects() {
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+            self.hungerScore += 1
+            let progress = Float(self.hungerScore) / Float(self.maxHungerScore)
+            self.hungerMeter.setProgress(progress, animated: true)
+            
+            if self.hungerScore >= self.maxHungerScore {
+                timer.invalidate()
+            }
+        }
     }
     
     @objc private func pauseButtonTapped() {
