@@ -13,8 +13,8 @@ class InGameUIView: UIView {
     var innerCircleLayer: CAShapeLayer?
     var outerCircleLayer: CAShapeLayer?
     
-    var hungerProgress = 0
-    var maxHungerProgress = 100
+    var hungerScore = 0
+    var maxHungerScore = 100
     
     lazy var pauseButton: UIButton = {
         let button = UIButton(type: .system)
@@ -150,11 +150,11 @@ class InGameUIView: UIView {
     // func to test hunger meter
     func collectObjects() {
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            self.hungerProgress += 1
-            let progress = Float(self.hungerProgress) / Float(self.maxHungerProgress)
+            self.hungerScore += 1
+            let progress = Float(self.hungerScore) / Float(self.maxHungerScore)
             self.hungerMeter.setProgress(progress, animated: true)
             
-            if self.hungerProgress >= self.maxHungerProgress {
+            if self.hungerScore >= self.maxHungerScore {
                 timer.invalidate()
             }
         }
