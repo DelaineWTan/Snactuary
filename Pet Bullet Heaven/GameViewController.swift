@@ -111,14 +111,21 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         // Check if player collides with food or vice versa
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory)
         {
+            // downcast as food obj and use its hunger value for score
+            if let food = nodeB as? Food {
+                overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+            }
             nodeB?.removeFromParentNode()
-            overlayView.inGameUIView.addToHungerMeter(hungerValue: 10)
+            
             
         }
         else if(nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory)
         {
+            // downcast as food obj and use its hunger value for score
+            if let food = nodeA as? Food {
+                overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+            }
             nodeA?.removeFromParentNode()
-            overlayView.inGameUIView.addToHungerMeter(hungerValue: 10)
             
         }
         nodeA = nil
