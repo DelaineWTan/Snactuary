@@ -29,9 +29,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
-    
-    var score = 0
-    let scoreLabel = UILabel(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
 
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/main.scn")!
@@ -81,11 +78,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 20, _InputRotationSpeed: 10, _InputDistanceFromCenter: 3, _InputNumProjectiles: 3)
         testAbility.ActivateAbility()
         
-        scoreLabel.text = "Score: \(score)"
-        scoreLabel.font = UIFont.systemFont(ofSize: 20)
-        scoreLabel.textColor = .white
-        view.addSubview(scoreLabel)
-        
         _ = FoodSpawner(scene: scene)
         
         // Tentative, add to rootNode. Add to player in order to see Ability
@@ -120,20 +112,17 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory)
         {
             nodeB?.removeFromParentNode()
-            score += 1
+            overlayView.inGameUIView.addToHungerMeter(hungerValue: 10)
             
         }
         else if(nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory)
         {
             nodeA?.removeFromParentNode()
-            score += 1
+            overlayView.inGameUIView.addToHungerMeter(hungerValue: 10)
             
         }
         nodeA = nil
         nodeB = nil
-        DispatchQueue.main.async {
-            self.scoreLabel.text = "Score: \(self.score)"
-        }
     }
     
     func StartLoop() async {

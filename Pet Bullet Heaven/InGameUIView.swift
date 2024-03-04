@@ -14,12 +14,15 @@ class InGameUIView: UIView {
     private var outerCircleLayer: CAShapeLayer?
     
     // review this implementation of private vars and public getters if we want to do it like this
-    private var _hungerProgress: Int = 0
-    private var _maxHungerProgress: Int = 100
+    private var _hungerScore: Int = 0
+    private var _maxHungerScore: Int = 100
     
     // variable getters
-    public var getHungerProgress: Int {
-        get { return _hungerProgress }
+    public var getHungerScore: Int {
+        get { return _hungerScore }
+    }
+    public var getMaxHungerScore: Int {
+        get { return _maxHungerScore }
     }
     
     lazy var pauseButton: UIButton = {
@@ -43,6 +46,14 @@ class InGameUIView: UIView {
         return hungerMeterBar
     }()
     
+    lazy var hungerScoreLabel: UILabel = {
+        let scoreLabel = UILabel()
+        scoreLabel.text = "Score: \(_hungerScore)"
+        scoreLabel.font = UIFont.systemFont(ofSize: 20)
+        scoreLabel.textColor = .white
+        return scoreLabel
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -54,15 +65,17 @@ class InGameUIView: UIView {
     }
     
     public func addToHungerMeter(hungerValue: Int) {
-        if (_hungerProgress < _maxHungerProgress) {
+        if (_hungerScore < _maxHungerScore) {
             // update new hunger value or keep at max
-            let updatedHunger = _hungerProgress + hungerValue
-            _hungerProgress = min(updatedHunger, _maxHungerProgress)
+            let updatedHunger = _hungerScore + hungerValue
+            _hungerScore = min(updatedHunger, _maxHungerScore)
             
             // animate the hunger meter filling up to new value
-            let progress = Float(_hungerProgress) / Float(_maxHungerProgress)
+            let progress = Float(_hungerScore) / Float(_maxHungerScore)
             hungerMeter.setProgress(progress, animated: true)
-            print(_hungerProgress)
+            
+            // update label
+            hungerScoreLabel.text = "Score: \(_hungerScore)"
         }
     }
     
@@ -119,7 +132,7 @@ class InGameUIView: UIView {
     private func setupUI() {
         addSubview(pauseButton)
         addSubview(hungerMeter)
-        
+        addSubview(hungerScoreLabel)
             
         // Layout constraints for pause button
         pauseButton.translatesAutoresizingMaskIntoConstraints = false
@@ -135,9 +148,15 @@ class InGameUIView: UIView {
         NSLayoutConstraint.activate([
             hungerMeter.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             hungerMeter.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            //hungerMeter.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             hungerMeter.widthAnchor.constraint(equalToConstant: 240),
             hungerMeter.heightAnchor.constraint(equalToConstant: 10),
+        ])
+        
+        // Layout constraints for score label
+        hungerScoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hungerScoreLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -5),
+            hungerScoreLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
         ])
         
         //let circlePath = UIBezierPath(ovalIn: bounds)
@@ -164,19 +183,6 @@ class InGameUIView: UIView {
         innerCircleLayer?.isHidden = true
         outerCircleLayer?.isHidden = true
         
-        collectObjects() // remove
-    }
-    // func to test hunger meter
-    func collectObjects() {
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            self.hungerScore += 1
-            let progress = Float(self.hungerScore) / Float(self.maxHungerScore)
-            self.hungerMeter.setProgress(progress, animated: true)
-            
-            if self.hungerScore >= self.maxHungerScore {
-                timer.invalidate()
-            }
-        }
     }
     
     @objc private func pauseButtonTapped() {
