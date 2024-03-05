@@ -157,7 +157,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         
         // Play duck sound if duck is tapped @TODO identify pet more reliably
         if (result.node.name == "Cube-002") {
-            soundManager.playTapSFX(named: "quack-sfx")
+            soundManager.playTapSFX()
         }
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.5

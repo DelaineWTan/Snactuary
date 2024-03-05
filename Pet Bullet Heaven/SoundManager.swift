@@ -1,31 +1,39 @@
-//
-//  SoundManager.swift
-//  Pet Bullet Heaven
-//
-//  Created by Delaine on 2024-03-04.
-//
-
 import AVFoundation
 
-class SoundManager : MonoBehaviour {
+class SoundManager {
     var backgroundMusic: AVAudioPlayer?
-    var tapSFXPlayer: AVAudioPlayer?
-    // We can specify unique eating sounds depending on the pet as a stretch goal
+    var tapSFXPlayer: AVPlayer?
     var eatingSFXFileName: String = "pet-eating-sfx"
-    var eatingSFXPlayers: [AVAudioPlayer] = []
+    var eatingSFXPlayers: [AVPlayer] = []
     var maxEatingSFXPlayers: Int = 4
-    private var lastRefreshTime: TimeInterval = 0
-    private let throttleInterval: TimeInterval = 0.5
-    
     
     init() {
         self.uniqueID = UUID()
-        LifecycleManager.shared.addGameObject(self)
+        
+        // Configure AVAudioSession
+        do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback, mode: .default, options: [])
+            try session.setActive(true)
+        } catch {
+            print("Failed to configure AVAudioSession: \(error.localizedDescription)")
+        }
+        setupAudio()
+        preloadSoundEffects()
     }
     
     var uniqueID: UUID
     
-    func Start() {
+    func setupAudio() {
+        // Configure AVAudioSession
+        do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback, mode: .default, options: [])
+            try session.setActive(true)
+        } catch {
+            print("Failed to configure AVAudioSession: \(error.localizedDescription)")
+        }
+        
         // Load and play background music
         if let musicURL = Bundle.main.url(forResource: "bgm", withExtension: "wav", subdirectory: "art.scnassets") {
             do {
@@ -39,81 +47,56 @@ class SoundManager : MonoBehaviour {
         } else {
             print("Background music file not found")
         }
-        preloadSoundEffects()
-    }
-    
-    func playTapSFX(named fileName: String) {
-        guard let tapSFXURL = Bundle.main.url(forResource: fileName, withExtension: "wav", subdirectory: "art.scnassets") else {
-            print("Tap sound effect file not found")
-            return
-        }
-        
-        // Check if tapSFXPlayer is already playing
-        if let tapSFXPlayer = self.tapSFXPlayer, tapSFXPlayer.isPlaying {
-            print("Tap sound effect is already playing")
-            return
-        }
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            do {
-                self.tapSFXPlayer = try AVAudioPlayer(contentsOf: tapSFXURL)
-                self.tapSFXPlayer?.volume = 0.5 // Adjust volume as needed
-                self.tapSFXPlayer?.prepareToPlay()
-                self.tapSFXPlayer?.play()
-            } catch {
-                print("Error playing tap sound effect: \(error.localizedDescription)")
-            }
-        }
     }
     
     private func preloadSoundEffects() {
-        guard let soundURL = Bundle.main.url(forResource: eatingSFXFileName, withExtension: "wav", subdirectory: "art.scnassets") else {
+        // Preload tap sound effect
+        guard let tapSFXURL = Bundle.main.url(forResource: "quack-sfx", withExtension: "wav", subdirectory: "art.scnassets") else {
+            print("Tap sound effect file 'quack-sfx' not found")
+            return
+        }
+        
+        tapSFXPlayer = AVPlayer(url: tapSFXURL)
+        tapSFXPlayer!.volume = 0.5
+        print("Sound effect 'quack-sfx' preloaded")
+        
+        guard let soundURL = Bundle.main.url(forResource: eatingSFXFileName, withExtension: "aac", subdirectory: "art.scnassets") else {
             print("Sound effect file '\(eatingSFXFileName)' not found")
             return
         }
         
         for _ in 0..<maxEatingSFXPlayers {
-            do {
-                let sfxPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                sfxPlayer.volume = 0.5 // Adjust volume as needed
-                sfxPlayer.numberOfLoops = 1 // Loop indefinitely
-                sfxPlayer.prepareToPlay() // Prepare the player for playback
-                
-                eatingSFXPlayers.append(sfxPlayer)
-                print("Sound effect '\(eatingSFXFileName)' preloaded")
-            } catch {
-                print("Error loading sound effect '\(eatingSFXFileName)': \(error.localizedDescription)")
-            }
+            let sfxPlayer = AVPlayer(url: soundURL)
+            eatingSFXPlayers.append(sfxPlayer)
+        }
+        print("Sound effect '\(eatingSFXFileName)' preloaded")
+    }
+    
+    func playTapSFX() {
+        // Check if tapSFXPlayer is already playing
+        guard let tapSFXPlayer = self.tapSFXPlayer else {
+            print("Tap sound effect is not preloaded")
+            return
+        }
+        
+        if tapSFXPlayer.rate > 0 {
+            print("Tap sound effect is already playing")
+            return
+        }
+        
+        DispatchQueue.main.async {
+            tapSFXPlayer.seek(to: .zero)
+            tapSFXPlayer.play()
         }
     }
     
     func refreshEatingSFX() {
-        let currentTime = Date().timeIntervalSince1970
-        if currentTime - lastRefreshTime >= throttleInterval {
-            // Sufficient time has passed since the last refresh, so proceed
-            performRefreshEatingSFX()
-            lastRefreshTime = currentTime
-        } else {
-            // Throttle: Not enough time has passed since the last refresh
-            print("Throttling refreshEatingSFX. Wait for next available time.")
-        }
-    }
-    
-    private func performRefreshEatingSFX() {
         for player in self.eatingSFXPlayers {
-            if !player.isPlaying {
-                player.currentTime = 0
+            if player.rate == 0 {
+                player.seek(to: .zero)
                 player.play()
                 return
             }
         }
-    }
-    
-    func Update(deltaTime: TimeInterval) {
-    }
-    
-    var onDestroy: (() -> Void)?
-    
-    func onDestroy(after duration: TimeInterval) {
     }
 }
