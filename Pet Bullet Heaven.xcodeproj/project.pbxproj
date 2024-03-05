@@ -364,15 +364,14 @@
 				4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */,
 				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
 				0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */,
+				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
 				FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
 				FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */,
-				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				FB7328982B7D947500557AE6 /* Food.swift in Sources */,
 				0ED95DCA2B9193E5008F010E /* Map.swift in Sources */,
-				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
