@@ -8,10 +8,9 @@
 import UIKit
 import QuartzCore
 import SceneKit
-import AVFoundation
 
 class GameViewController: UIViewController, SCNPhysicsContactDelegate{
-    var backgroundMusic: AVAudioPlayer?
+    let soundManager = SoundManager()
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
@@ -39,6 +38,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         Task {
             await StartLoop()
         }
+        
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -78,27 +78,13 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
-        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 100, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
-        testAbility.ActivateAbility()
+        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
+        _ = testAbility.ActivateAbility()
         
         _ = FoodSpawner(scene: scene)
         
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
-        
-        // Load and play background music
-        if let musicURL = Bundle.main.url(forResource: "bgm", withExtension: "wav", subdirectory: "art.scnassets") {
-            do {
-                backgroundMusic = try AVAudioPlayer(contentsOf: musicURL)
-                backgroundMusic?.numberOfLoops = -1 // Loop indefinitely
-                backgroundMusic?.volume = 0.3 // Hardcode to 0.3 volume for now until volume settings exist
-                backgroundMusic?.play()
-            } catch {
-                print("Error loading background music: \(error.localizedDescription)")
-            }
-        } else {
-            print("Background music file not found")
-        }
     }
     var nodeA : SCNNode? = SCNNode()
     var nodeB : SCNNode? = SCNNode()
@@ -119,6 +105,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             if let food = nodeB as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             }
+            soundManager.refreshEatingSFX()
             nodeB?.removeFromParentNode()
             
             
@@ -168,7 +155,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         // get its material
         let material = result.node.geometry!.firstMaterial!
         
-
+        // Play duck sound if duck is tapped @TODO identify pet more reliably
+        if (result.node.name == "Cube-002") {
+            soundManager.playTapSFX()
+        }
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.5
         

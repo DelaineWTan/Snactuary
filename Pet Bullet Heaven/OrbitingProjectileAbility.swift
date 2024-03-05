@@ -42,7 +42,7 @@ class OrbitingProjectileAbility : Ability {
      */
     override func SpawnProjectile() -> Projectile {
         
-        var _SpawnedProjectile = OrbitingPaw(_InputDamage: 1)
+        let _SpawnedProjectile = OrbitingPaw(_InputDamage: 1)
         _ProjectileList.append(_SpawnedProjectile)
         
         // Add to the rootNode of this SceneGraph
@@ -57,11 +57,11 @@ class OrbitingProjectileAbility : Ability {
     override func ActivateAbility() -> Bool {
         
         // 1. Find the intervals at which I need to spawn projectiles
-        var _Intervals = CalculateProjectileInterval()
+        let _Intervals = CalculateProjectileInterval()
         
         // 2. Initialize all the Projectiles
         while (_ProjectileList.count < _numProjectiles!){
-            SpawnProjectile() // Throw if this returns null, something wrong happened
+            _ = SpawnProjectile() // Throw if this returns null, something wrong happened
         }
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
@@ -74,15 +74,13 @@ class OrbitingProjectileAbility : Ability {
             // Rotate them along the Z-Axis accordingly.
             _ProjectileList[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin((_Intervals*Float(_Counter))/2), z:0 , w: cos((_Intervals*Float(_Counter))/2)), aroundTarget: SCNVector3(0,0,0))
             
-            print(_ProjectileList[_Counter].position)
-            
             _Counter+=1
         }
         
-        // Start rotating this Ability, and remove after Ability Duration
-        self.runAction(SCNAction.rotateBy(x: 0, y: _rotationSpeed!, z: 0, duration: _AbilityDuration!)){
-            self.runAction(SCNAction.removeFromParentNode())
-        }
+        // Start rotating this Ability infinitely
+        let rotationAction = SCNAction.rotateBy(x: 0, y: _rotationSpeed!, z: 0, duration: _AbilityDuration!)
+        let repeatForeverAction = SCNAction.repeatForever(rotationAction)
+        self.runAction(repeatForeverAction)
         
         return true
     }
