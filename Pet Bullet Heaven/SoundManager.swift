@@ -14,6 +14,9 @@ class SoundManager : MonoBehaviour {
     var eatingSFXFileName: String = "pet-eating-sfx"
     var eatingSFXPlayers: [AVAudioPlayer] = []
     var maxEatingSFXPlayers: Int = 4
+    private var lastRefreshTime: TimeInterval = 0
+    private let throttleInterval: TimeInterval = 0.5
+    
     
     init() {
         self.uniqueID = UUID()
@@ -84,11 +87,21 @@ class SoundManager : MonoBehaviour {
         }
     }
     
-    
     func refreshEatingSFX() {
-        for player in eatingSFXPlayers {
+        let currentTime = Date().timeIntervalSince1970
+        if currentTime - lastRefreshTime >= throttleInterval {
+            // Sufficient time has passed since the last refresh, so proceed
+            performRefreshEatingSFX()
+            lastRefreshTime = currentTime
+        } else {
+            // Throttle: Not enough time has passed since the last refresh
+            print("Throttling refreshEatingSFX. Wait for next available time.")
+        }
+    }
+    
+    private func performRefreshEatingSFX() {
+        for player in self.eatingSFXPlayers {
             if !player.isPlaying {
-                print("Found available player, playing eating SFX")
                 player.currentTime = 0
                 player.play()
                 return
