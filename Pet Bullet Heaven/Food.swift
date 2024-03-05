@@ -79,9 +79,6 @@ class Food : SCNNode, MonoBehaviour {
     
     var count = 0
     func Update(deltaTime: TimeInterval) {
-        //print("deltatime: \(deltaTime)")
-        //print("counter in food: \(count)")
-        //count += 1
         move(deltaTime: deltaTime)
     }
     

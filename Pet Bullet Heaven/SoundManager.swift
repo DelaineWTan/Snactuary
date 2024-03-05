@@ -10,7 +10,10 @@ import AVFoundation
 class SoundManager : MonoBehaviour {
     var backgroundMusic: AVAudioPlayer?
     var tapSFXPlayer: AVAudioPlayer?
-    var sfxPlayers: [AVAudioPlayer] = []
+    // We can specify unique eating sounds depending on the pet as a stretch goal
+    var eatingSFXFileName: String = "pet-eating-sfx"
+    var eatingSFXPlayers: [AVAudioPlayer] = []
+    var maxEatingSFXPlayers: Int = 4
     
     init() {
         self.uniqueID = UUID()
@@ -33,6 +36,7 @@ class SoundManager : MonoBehaviour {
         } else {
             print("Background music file not found")
         }
+        preloadSoundEffects()
     }
     
     func playTapSFX(named fileName: String) {
@@ -59,27 +63,40 @@ class SoundManager : MonoBehaviour {
         }
     }
     
-    
-    func playSoundEffect(named fileName: String) {
-        guard let soundURL = Bundle.main.url(forResource: fileName, withExtension: "wav", subdirectory: "art.scnassets") else {
-            print("Sound effect file '\(fileName)' not found")
+    private func preloadSoundEffects() {
+        guard let soundURL = Bundle.main.url(forResource: eatingSFXFileName, withExtension: "wav", subdirectory: "art.scnassets") else {
+            print("Sound effect file '\(eatingSFXFileName)' not found")
             return
         }
         
-        do {
-            let sfxPlayer = try AVAudioPlayer(contentsOf: soundURL)
-            sfxPlayer.volume = 0.5 // Adjust volume as needed
-            sfxPlayer.play()
-            print("playSoundEffect played")
-            sfxPlayers.append(sfxPlayer)
-        } catch {
-            print("Error playing sound effect '\(fileName)': \(error.localizedDescription)")
+        for _ in 0..<maxEatingSFXPlayers {
+            do {
+                let sfxPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                sfxPlayer.volume = 0.5 // Adjust volume as needed
+                sfxPlayer.numberOfLoops = 1 // Loop indefinitely
+                sfxPlayer.prepareToPlay() // Prepare the player for playback
+                
+                eatingSFXPlayers.append(sfxPlayer)
+                print("Sound effect '\(eatingSFXFileName)' preloaded")
+            } catch {
+                print("Error loading sound effect '\(eatingSFXFileName)': \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    
+    func refreshEatingSFX() {
+        for player in eatingSFXPlayers {
+            if !player.isPlaying {
+                print("Found available player, playing eating SFX")
+                player.currentTime = 0
+                player.play()
+                return
+            }
         }
     }
     
     func Update(deltaTime: TimeInterval) {
-        // Check for completion of sound effects and remove them from the list
-        sfxPlayers = sfxPlayers.filter { $0.isPlaying }
     }
     
     var onDestroy: (() -> Void)?

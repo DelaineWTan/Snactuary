@@ -105,7 +105,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             if let food = nodeB as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             }
-            soundManager.playSoundEffect(named: "pet-eating-sfx")
+            soundManager.refreshEatingSFX()
             nodeB?.removeFromParentNode()
             
             
