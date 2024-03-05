@@ -15,7 +15,7 @@ class FoodSpawner: MonoBehaviour {
     let mainScene: SCNScene
     
     var elapsedTime: TimeInterval = 0
-    var spawnInterval: TimeInterval = 1 // Adjust depending on desired spawn rate
+    var spawnInterval: TimeInterval = 0.5 // Adjust depending on desired spawn rate
     
     init(scene: SCNScene) {
         
@@ -28,12 +28,9 @@ class FoodSpawner: MonoBehaviour {
     func spawn() {
         
         // TODO: make A, B, I, and J (maybe even foodCount) be easily modifiable
-        let foodCount = 10
+        let randomFromAtoB = Float(Int.random(in: -20...20))
         
-        
-        let randomFromAtoB = Float(Int.random(in: -10...10))
-        
-        let randomIorJ = Float(Bool.random() ? 10 : -10)
+        let randomIorJ = Float(Bool.random() ? 20 : -20)
         
         // Randomly set the X or Z food position to I or J, then set the other a random number between A and B
         let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)

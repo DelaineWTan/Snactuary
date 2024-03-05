@@ -20,9 +20,9 @@ class OrbitingPaw : Projectile {
         super.init()
         
         _Damage = _InputDamage
-        _Mesh = loadFromFile(_AssetName: "Penguin.002", _FileType: "dae") // Dummy Mesh
-//        _Mesh = SCNNode(geometry: SCNBox(width: 2, height: 2, length: 2, chamferRadius: 0))
-        
+        _Mesh = loadFromFile(_AssetName: "Paw 4", _FileType: "dae")
+        self.position.y += 1
+        //self.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5) // changing the scale does not change the hitbox
         self.addChildNode(_Mesh!)
         
     }
