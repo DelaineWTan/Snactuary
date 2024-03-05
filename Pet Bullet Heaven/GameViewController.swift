@@ -8,10 +8,9 @@
 import UIKit
 import QuartzCore
 import SceneKit
-import AVFoundation
 
 class GameViewController: UIViewController, SCNPhysicsContactDelegate{
-    var backgroundMusic: AVAudioPlayer?
+    let soundManager = SoundManager()
     let overlayView = GameUIView()
     // Camera node
     let cameraNode = SCNNode()
@@ -39,6 +38,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         Task {
             await StartLoop()
         }
+        
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -85,20 +85,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
-        
-        // Load and play background music
-        if let musicURL = Bundle.main.url(forResource: "bgm", withExtension: "wav", subdirectory: "art.scnassets") {
-            do {
-                backgroundMusic = try AVAudioPlayer(contentsOf: musicURL)
-                backgroundMusic?.numberOfLoops = -1 // Loop indefinitely
-                backgroundMusic?.volume = 0.3 // Hardcode to 0.3 volume for now until volume settings exist
-                backgroundMusic?.play()
-            } catch {
-                print("Error loading background music: \(error.localizedDescription)")
-            }
-        } else {
-            print("Background music file not found")
-        }
     }
     var nodeA : SCNNode? = SCNNode()
     var nodeB : SCNNode? = SCNNode()
