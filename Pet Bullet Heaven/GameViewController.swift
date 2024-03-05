@@ -105,6 +105,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             if let food = nodeB as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             }
+            soundManager.playSoundEffect(named: "pet-eating-sfx")
             nodeB?.removeFromParentNode()
             
             
@@ -154,7 +155,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         // get its material
         let material = result.node.geometry!.firstMaterial!
         
-
+        // Play duck sound if duck is tapped @TODO identify pet more reliably
+        if (result.node.name == "Cube-002") {
+            soundManager.playTapSFX(named: "quack-sfx")
+        }
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.5
         
