@@ -27,13 +27,15 @@ class Food : SCNNode, MonoBehaviour {
     
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
+    var hungerValue: Int = 1
     
     let foodCategory: Int = 0b010
 
-    init(spawnLocation: SCNVector3, speed: Float) {
+    init(spawnLocation: SCNVector3, speed: Float, hungerValue: Int) {
         
         self.spawnLocation = spawnLocation
         self.speed = speed
+        self.hungerValue = hungerValue
         self.uniqueID = UUID() // make sure every class that has an Updatable
         super.init()
         

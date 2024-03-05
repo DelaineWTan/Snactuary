@@ -35,7 +35,7 @@ class FoodSpawner: MonoBehaviour {
         // Randomly set the X or Z food position to I or J, then set the other a random number between A and B
         let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
         
-        let food = Food(spawnLocation: randomPosition, speed: 1)
+        let food = Food(spawnLocation: randomPosition, speed: 1, hungerValue: 2)
         food.position = randomPosition
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node

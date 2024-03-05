@@ -10,8 +10,20 @@ import UIKit
 class InGameUIView: UIView {
     var pauseButtonTappedHandler: (() -> Void)?
     var isStickVisible = false
-    var innerCircleLayer: CAShapeLayer?
-    var outerCircleLayer: CAShapeLayer?
+    private var innerCircleLayer: CAShapeLayer?
+    private var outerCircleLayer: CAShapeLayer?
+    
+    // review this implementation of private vars and public getters if we want to do it like this
+    private var _hungerScore: Int = 0
+    private var _maxHungerScore: Int = 100
+    
+    // variable getters
+    public var getHungerScore: Int {
+        get { return _hungerScore }
+    }
+    public var getMaxHungerScore: Int {
+        get { return _maxHungerScore }
+    }
     
     lazy var pauseButton: UIButton = {
         let button = UIButton(type: .system)
@@ -24,6 +36,24 @@ class InGameUIView: UIView {
         return button
     }()
     
+    lazy var hungerMeter: UIProgressView = {
+        let hungerMeterBar = UIProgressView(progressViewStyle: .bar)
+        hungerMeterBar.progress = 0
+        hungerMeterBar.layer.cornerRadius = 5
+        hungerMeterBar.layer.masksToBounds = true
+        hungerMeterBar.progressTintColor = .yellow
+        hungerMeterBar.trackTintColor = .darkGray
+        return hungerMeterBar
+    }()
+    
+    lazy var hungerScoreLabel: UILabel = {
+        let scoreLabel = UILabel()
+        scoreLabel.text = "Score: \(_hungerScore)"
+        scoreLabel.font = UIFont.systemFont(ofSize: 20)
+        scoreLabel.textColor = .white
+        return scoreLabel
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -32,6 +62,21 @@ class InGameUIView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
+    }
+    
+    public func addToHungerMeter(hungerValue: Int) {
+        if (_hungerScore < _maxHungerScore) {
+            // update new hunger value or keep at max
+            let updatedHunger = _hungerScore + hungerValue
+            _hungerScore = min(updatedHunger, _maxHungerScore)
+            
+            // animate the hunger meter filling up to new value
+            let progress = Float(_hungerScore) / Float(_maxHungerScore)
+            hungerMeter.setProgress(progress, animated: true)
+            
+            // update label
+            hungerScoreLabel.text = "Score: \(_hungerScore)"
+        }
     }
     
     public func setStickPosition(location: CGPoint) {
@@ -86,7 +131,8 @@ class InGameUIView: UIView {
     
     private func setupUI() {
         addSubview(pauseButton)
-        
+        addSubview(hungerMeter)
+        addSubview(hungerScoreLabel)
             
         // Layout constraints for pause button
         pauseButton.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +141,23 @@ class InGameUIView: UIView {
             pauseButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             pauseButton.widthAnchor.constraint(equalToConstant: 100),
             pauseButton.heightAnchor.constraint(equalToConstant: 40)
-        ]) 
+        ])
+        
+        // Layout constraints for hunger meter
+        hungerMeter.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hungerMeter.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            hungerMeter.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            hungerMeter.widthAnchor.constraint(equalToConstant: 240),
+            hungerMeter.heightAnchor.constraint(equalToConstant: 10),
+        ])
+        
+        // Layout constraints for score label
+        hungerScoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hungerScoreLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -5),
+            hungerScoreLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
+        ])
         
         //let circlePath = UIBezierPath(ovalIn: bounds)
         let innerCirclePath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX+200, y: bounds.midY+400), radius: 30, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
@@ -120,6 +182,7 @@ class InGameUIView: UIView {
         layer.addSublayer(outerCircleLayer!)
         innerCircleLayer?.isHidden = true
         outerCircleLayer?.isHidden = true
+        
     }
     
     @objc private func pauseButtonTapped() {

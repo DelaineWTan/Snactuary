@@ -29,9 +29,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
-    
-    var score = 0
-    let scoreLabel = UILabel(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
 
     // create a new scene
     let scene = SCNScene(named: "art.scnassets/main.scn")!
@@ -84,11 +81,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 100, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
         testAbility.ActivateAbility()
         
-        scoreLabel.text = "Score: \(score)"
-        scoreLabel.font = UIFont.systemFont(ofSize: 20)
-        scoreLabel.textColor = .white
-        view.addSubview(scoreLabel)
-        
         _ = FoodSpawner(scene: scene)
         
         // Tentative, add to rootNode. Add to player in order to see Ability
@@ -123,21 +115,25 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         // Check if player collides with food or vice versa
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory)
         {
+            // downcast as food obj and use its hunger value for score
+            if let food = nodeB as? Food {
+                overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+            }
             nodeB?.removeFromParentNode()
-            score += 1
+            
             
         }
         else if(nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory)
         {
+            // downcast as food obj and use its hunger value for score
+            if let food = nodeA as? Food {
+                overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+            }
             nodeA?.removeFromParentNode()
-            score += 1
             
         }
         nodeA = nil
         nodeB = nil
-        DispatchQueue.main.async {
-            self.scoreLabel.text = "Score: \(self.score)"
-        }
     }
     
     func StartLoop() async {
@@ -218,7 +214,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         case .ended:
             Globals.playerIsMoving = false
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
-            // add other logic
+            // hunger test, delete after proper implementation on food colision
+            overlayView.inGameUIView.addToHungerMeter(hungerValue: 3)
             
         default:
             break
