@@ -60,7 +60,7 @@ class SoundManager {
         tapSFXPlayer!.volume = 0.5
         print("Sound effect 'quack-sfx' preloaded")
         
-        guard let soundURL = Bundle.main.url(forResource: eatingSFXFileName, withExtension: "aac", subdirectory: "art.scnassets") else {
+        guard let soundURL = Bundle.main.url(forResource: eatingSFXFileName, withExtension: "wav", subdirectory: "art.scnassets") else {
             print("Sound effect file '\(eatingSFXFileName)' not found")
             return
         }
