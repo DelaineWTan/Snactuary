@@ -79,10 +79,10 @@ class OrbitingProjectileAbility : Ability {
             _Counter+=1
         }
         
-        // Start rotating this Ability, and remove after Ability Duration
-        self.runAction(SCNAction.rotateBy(x: 0, y: _rotationSpeed!, z: 0, duration: _AbilityDuration!)){
-            self.runAction(SCNAction.removeFromParentNode())
-        }
+        // Start rotating this Ability infinitely
+        let rotationAction = SCNAction.rotateBy(x: 0, y: _rotationSpeed!, z: 0, duration: _AbilityDuration!)
+        let repeatForeverAction = SCNAction.repeatForever(rotationAction)
+        self.runAction(repeatForeverAction)
         
         return true
     }
