@@ -14,7 +14,14 @@ public class Pet {
     init (petName: String, petId: Int) {
         id = petId;
         name = petName;
-        imageName = "art/chicken.png"
+        imageName = "art.scnassets/chicken.png"
     }
+    
+    init (petName: String, petId: Int, petImageName: String) {
+        id = petId;
+        name = petName;
+        imageName = petImageName;
+    }
+
 
 }
