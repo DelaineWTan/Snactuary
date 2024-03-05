@@ -26,10 +26,11 @@ public class Globals {
     ]
     public static let cameraZIndex : Float = 30;
     
-    public static var rawInputX : CGFloat = 0
-    public static var rawInputZ : CGFloat = 0
+    public static var inputX : CGFloat = 0
+    public static var inputZ : CGFloat = 0
     
     public static var playerIsMoving : Bool = false
+    public static var playerMovementSpeed : Float = 20
 }
 
 extension Comparable {
