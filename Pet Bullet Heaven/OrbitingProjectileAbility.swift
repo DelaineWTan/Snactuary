@@ -42,7 +42,7 @@ class OrbitingProjectileAbility : Ability {
      */
     override func SpawnProjectile() -> Projectile {
         
-        var _SpawnedProjectile = OrbitingPaw(_InputDamage: 1)
+        let _SpawnedProjectile = OrbitingPaw(_InputDamage: 1)
         _ProjectileList.append(_SpawnedProjectile)
         
         // Add to the rootNode of this SceneGraph
@@ -57,11 +57,11 @@ class OrbitingProjectileAbility : Ability {
     override func ActivateAbility() -> Bool {
         
         // 1. Find the intervals at which I need to spawn projectiles
-        var _Intervals = CalculateProjectileInterval()
+        let _Intervals = CalculateProjectileInterval()
         
         // 2. Initialize all the Projectiles
         while (_ProjectileList.count < _numProjectiles!){
-            SpawnProjectile() // Throw if this returns null, something wrong happened
+            _ = SpawnProjectile() // Throw if this returns null, something wrong happened
         }
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
