@@ -10,6 +10,8 @@ import Combine
 class PetSelectionUIView: UIView {
     var selectedPanel: UIView?
     var selectedPet: Pet?
+    private var activePanelTag: Int? = nil
+    private var collectionPanelTag: Int? = nil
     
     var mainMenuButtonTappedHandler: (() -> Void)?
     
@@ -35,18 +37,24 @@ class PetSelectionUIView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        addSubview(mainMenuButton)
+        setupUI() // rerun everytime pets are sweapped
         setupCollectionPanels()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        addSubview(mainMenuButton)
         setupUI()
         setupCollectionPanels()
     }
     
     private func setupUI() {
-        addSubview(mainMenuButton)
+        // Clear existing views from stackView
+        topLeftPanel.subviews.forEach { $0.removeFromSuperview() }
+        topRightPanel.subviews.forEach { $0.removeFromSuperview() }
+        bottomLeftPanel.subviews.forEach { $0.removeFromSuperview() }
+        bottomRightPanel.subviews.forEach { $0.removeFromSuperview() }
         
         // Layout constraints for buttons
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +110,7 @@ class PetSelectionUIView: UIView {
         }
         
         // Adding active pet panels
-        for (index, pet) in Globals.pets.prefix(4).enumerated() {
+        for (index, pet) in Globals.activePets.enumerated() {
            if let image = UIImage(named: pet.imageName) {
                let imageView = UIImageView(image: image)
                imageView.contentMode = .scaleAspectFit
@@ -115,6 +123,12 @@ class PetSelectionUIView: UIView {
                
                let container = UIView()
                container.translatesAutoresizingMaskIntoConstraints = false
+               
+               // add the tap gesture
+               let tapGesture = UITapGestureRecognizer(target: self, action: #selector(activePanelTapped(_:)))
+               container.addGestureRecognizer(tapGesture)
+               
+               container.tag = index
                
                container.addSubview(imageView)
                container.addSubview(nameLabel)
@@ -176,7 +190,7 @@ class PetSelectionUIView: UIView {
            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor, constant: -2 * spacing)
        ])
         
-        for pet in Globals.pets {
+        for (index,pet) in Globals.pets.enumerated() {
             if let image = UIImage(named: pet.imageName) {
                 let imageView = UIImageView(image: image)
                 imageView.contentMode = .scaleAspectFit
@@ -210,16 +224,12 @@ class PetSelectionUIView: UIView {
                     nameLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor),
                     nameLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor)
                 ])
+                
+                // Add tap gesture recognizer to the container view
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(collectionPanelTapped(_:)))
+                container.addGestureRecognizer(tapGesture)
+                container.tag = index
             }
-        }
-        
-        // Add tap gesture recognizers to each panel
-        for (index, pet) in Globals.pets.enumerated() {
-            let container = createPanelView(for: pet)
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(panelTapped(_:)))
-            container.addGestureRecognizer(tapGesture)
-            container.tag = index
-            stackView.addArrangedSubview(container)
         }
     }
     
@@ -233,45 +243,94 @@ class PetSelectionUIView: UIView {
         ])
     }
     
-    @objc private func panelTapped(_ sender: UITapGestureRecognizer) {
-        guard let tappedPanel = sender.view else { return }
-                
-        if let selectedPanel = selectedPanel {
-            // Reset background color of previously selected panel
-            selectedPanel.backgroundColor = .clear
-        }
-        
-        // Set the background color of the tapped panel to indicate selection
-        tappedPanel.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
-        
-        // Update the selected panel
-        selectedPanel = tappedPanel
-    
-        guard let index = sender.view?.tag else { return }
-        
-        let tappedPet = Globals.pets[index]
-        if let selectedPet = selectedPet, selectedPet.name == tappedPet.name {
-            // If the same pet is tapped again, do nothing
+    @objc private func collectionPanelTapped(_ sender: UITapGestureRecognizer) {
+        guard let tappedView = sender.view else {
             return
         }
-        
-        // Set the selected pet
-        selectedPet = tappedPet
-        
-        // Update UI to reflect selection
-        updateUI()
+
+        // Print the tag of the tapped view
+        print("Tapped collection view tag: \(tappedView.tag)")
+
+        guard let index = sender.view?.tag else { return }
+        let tappedPet = Globals.pets[index]
+
+        // If an active panel is already selected
+        // Swap the pets between active and collection panels
+        if let activePanelTag = activePanelTag {
+            let activePetIndex = activePanelTag
+            let activePet = Globals.pets[activePetIndex]
+            Globals.activePets[activePetIndex] = tappedPet
+            Globals.pets[index] = activePet
+
+            // Update the view
+            setupUI()
+
+            // Deselect both buttons
+            self.activePanelTag = nil
+            self.collectionPanelTag = nil
+        } else {
+            // Toggle highlighting for collection panel
+            if let tappedPanel = sender.view {
+                if let selectedPanel = selectedPanel {
+                    // Reset background color of previously selected panel
+                    selectedPanel.backgroundColor = .lightGray
+                }
+
+                // Set the background color of the tapped panel to indicate selection
+                tappedPanel.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
+
+                // Update the selected panel
+                selectedPanel = tappedPanel
+
+                // Update the collection panel tag
+                collectionPanelTag = tappedView.tag
+            }
+        }
     }
-        
-        private func updateUI() {
-            // Implement the update UI logic here
+    @objc private func activePanelTapped(_ sender: UITapGestureRecognizer) {
+        guard let tappedView = sender.view else {
+            return
         }
-        
-        private func createPanelView(for pet: Pet) -> UIView {
-            // Create and configure panel view for the pet
-            let panelView = UIView()
-            // Add image view, label, etc., and layout them within the panel view
-            return panelView
+
+        // Print the tag of the tapped view
+        print("Tapped active view tag: \(tappedView.tag)")
+
+        // If a collection panel is already selected, do nothing
+        guard collectionPanelTag == nil else {
+            return
         }
+
+        // Toggle highlighting for active panel
+        if tappedView.tag == activePanelTag {
+            // Deselect the active panel
+            tappedView.backgroundColor = .lightGray
+            activePanelTag = nil
+        } else {
+            // Highlight the tapped active panel
+            tappedView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
+            activePanelTag = tappedView.tag
+        }
+
+        // Update the view if both panels are highlighted
+        updateViewIfBothPanelsHighlighted()
+    }
+    
+    private func updateViewIfBothPanelsHighlighted() {
+        // Check if both an active panel and a collection panel are highlighted
+        if let _ = activePanelTag, let _ = collectionPanelTag {
+            // Update Globals.activePets with Globals.pets
+            Globals.activePets[activePanelTag!] = Globals.pets[collectionPanelTag!]
+            
+            print("swapped")
+            // Update the view
+            setupUI()
+
+            // Deselect both buttons
+            activePanelTag = nil
+            collectionPanelTag = nil
+            
+        }
+    }
     
     @objc private func mainMenuButtonTapped() {
         mainMenuButtonTappedHandler?()
