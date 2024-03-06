@@ -15,7 +15,7 @@ class InGameUIView: UIView {
     
     // review this implementation of private vars and public getters if we want to do it like this
     private var _hungerScore: Int = 0
-    private var _maxHungerScore: Int = 100
+    private var _maxHungerScore: Int = 300
     
     // variable getters
     public var getHungerScore: Int {

@@ -67,7 +67,7 @@ class SoundManager {
         
         for _ in 0..<maxEatingSFXPlayers {
             let sfxPlayer = AVPlayer(url: soundURL)
-            sfxPlayer.volume = 0.3
+            sfxPlayer.volume = 0.1
             eatingSFXPlayers.append(sfxPlayer)
         }
         print("Sound effect '\(eatingSFXFileName)' preloaded")
