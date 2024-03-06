@@ -89,25 +89,25 @@ vertex SimpleVertex cloudVertex(MyVertexInput in [[ stage_in ]],
     SimpleVertex vert;
 
     // Get the texture coordinates
-//    float2 texCoords = in.texCoords;
-//    
-//    // Sample the noise texture at the current texture coordinates
-//    float noiseValue = pNoise(in.texCoords, 4);
-//    
-//    
-//    // Define the displacement direction based on the normal vector and noise value
-//    float3 displacementDirection = in.normal * noiseValue * 10;
-//    
-//    // Displace the vertex position along the displacement direction
-//    vert.position = scn_node.modelViewProjectionTransform * float4(in.position + displacementDirection, 1.0);
-//    
-//    // Pass through texture coordinates
-//    vert.texCoords = texCoords;
+    float2 texCoords = in.texCoords;
+    
+    // Sample the noise texture at the current texture coordinates
+    float noiseValue = pNoise(in.texCoords, 4);
+    
+    
+    // Define the displacement direction based on the normal vector and noise value
+    float3 displacementDirection = in.normal * noiseValue * 10;
+    
+    // Displace the vertex position along the displacement direction
+    vert.position = scn_node.modelViewProjectionTransform * float4(in.position + displacementDirection, 1.0);
+    
+    // Pass through texture coordinates
+    vert.texCoords = texCoords;
     
     /// ONE PIECE
-    // Pass through vertex position
-    vert.position = scn_node.modelViewProjectionTransform * float4(in.position, 1.0);
-    vert.texCoords = in.texCoords;
+//    // Pass through vertex position
+//    vert.position = scn_node.modelViewProjectionTransform * float4(in.position, 1.0);
+//    vert.texCoords = in.texCoords;
     
     return vert;
 }
@@ -116,13 +116,13 @@ vertex SimpleVertex cloudVertex(MyVertexInput in [[ stage_in ]],
 fragment half4 cloudFragment(SimpleVertex in [[stage_in]],
                           texture2d<float, access::sample> diffuseTexture [[texture(0)]])
 {
-    constexpr sampler sampler2d(coord::normalized, filter::linear, address::repeat);
-    float4 color = diffuseTexture.sample(sampler2d, in.texCoords);
+//    constexpr sampler sampler2d(coord::normalized, filter::linear, address::repeat);
+//    float4 color = diffuseTexture.sample(sampler2d, in.texCoords);
     
-//    float noiseValue = pNoise(in.texCoords, 4);
-//    float intensity = noiseValue;
-//    
-//    float4 color = float4(intensity, intensity, intensity, 1.0);
+    float noiseValue = pNoise(in.texCoords, 4);
+    float intensity = noiseValue;
+    
+    float4 color = float4(intensity, intensity, intensity, 1.0);
     
     color.a = 0.5;
     return half4(color);

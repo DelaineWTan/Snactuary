@@ -44,7 +44,8 @@ class GameViewControllerShip: UIViewController {
         let planeGeometry = createPlaneGeometry(width: 50.0, height: 50.0, widthSegments: 500, heightSegments: 500)
         let planeNode = SCNNode(geometry: planeGeometry)
         planeNode.eulerAngles.x = .pi / -2
-        //scene.rootNode.addChildNode(planeNode)
+        scene.rootNode.addChildNode(planeNode)
+        
         
         // get player
         let ship = scene.rootNode.childNode(withName: "ship", recursively: true)
@@ -56,7 +57,13 @@ class GameViewControllerShip: UIViewController {
         program.fragmentFunctionName = "cloudFragment"
         shipMaterial?.program = program
 
+        let test = scene.rootNode.childNode(withName: "planeTest", recursively: true)
+        test?.geometry?.firstMaterial?.program = program
+        
         let image = UIImage(named: "art.scnassets/goldblock")
+        
+        
+        
         let imageProperty = SCNMaterialProperty(contents: image)
         // The name you supply here should match the texture parameter name in the fragment shader
         shipMaterial?.setValue(imageProperty, forKey: "diffuseTexture")
