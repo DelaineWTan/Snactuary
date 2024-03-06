@@ -65,17 +65,14 @@ class InGameUIView: UIView {
     }
     
     public func addToHungerMeter(hungerValue: Int) {
+        _hungerScore += hungerValue
+        // update label
+        hungerScoreLabel.text = "Score: \(_hungerScore)"
+        // fill hunger meter (up to full at maxHungerScore)
         if (_hungerScore < _maxHungerScore) {
-            // update new hunger value or keep at max
-            let updatedHunger = _hungerScore + hungerValue
-            _hungerScore = min(updatedHunger, _maxHungerScore)
-            
             // animate the hunger meter filling up to new value
-            let progress = Float(_hungerScore) / Float(_maxHungerScore)
+            let progress = Float(min(_hungerScore, _maxHungerScore)) / Float(_maxHungerScore)
             hungerMeter.setProgress(progress, animated: true)
-            
-            // update label
-            hungerScoreLabel.text = "Score: \(_hungerScore)"
         }
     }
     
