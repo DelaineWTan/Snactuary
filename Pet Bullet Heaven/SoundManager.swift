@@ -39,7 +39,7 @@ class SoundManager {
             do {
                 backgroundMusic = try AVAudioPlayer(contentsOf: musicURL)
                 backgroundMusic?.numberOfLoops = -1 // Loop indefinitely
-                backgroundMusic?.volume = 0.3 // Hardcode to 0.3 volume for now until volume settings exist
+                backgroundMusic?.volume = 0.5 // Hardcode to 0.3 volume for now until volume settings exist
                 backgroundMusic?.play()
             } catch {
                 print("Error loading background music: \(error.localizedDescription)")
@@ -67,6 +67,7 @@ class SoundManager {
         
         for _ in 0..<maxEatingSFXPlayers {
             let sfxPlayer = AVPlayer(url: soundURL)
+            sfxPlayer.volume = 0.3
             eatingSFXPlayers.append(sfxPlayer)
         }
         print("Sound effect '\(eatingSFXFileName)' preloaded")
