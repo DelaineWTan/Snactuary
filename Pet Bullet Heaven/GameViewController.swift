@@ -8,6 +8,7 @@
 import UIKit
 import QuartzCore
 import SceneKit
+import AVFoundation
 
 class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     let soundManager = SoundManager()
@@ -80,6 +81,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
         _ = testAbility.ActivateAbility()
+        
+        _ = FoodSpawner(scene: scene)
         
         _ = FoodSpawner(scene: scene)
         
