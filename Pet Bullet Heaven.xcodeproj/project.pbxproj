@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D2F2EDE2B8D80B800F2F1F4 /* Penguin.002.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0D2F2EDD2B8D80B800F2F1F4 /* Penguin.002.dae */; };
 		0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */; };
 		0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409352B71FBD00047847B /* AppDelegate.swift */; };
 		0D6409382B71FBD00047847B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6409372B71FBD00047847B /* art.scnassets */; };
@@ -62,7 +61,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D2F2EDD2B8D80B800F2F1F4 /* Penguin.002.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Penguin.002.dae; sourceTree = "<group>"; };
 		0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		0D6409322B71FBD00047847B /* Pet Bullet Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pet Bullet Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409352B71FBD00047847B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -202,7 +200,6 @@
 			children = (
 				4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */,
 				FBE60A542B92D484009B3E7E /* Paw 4.dae */,
-				0D2F2EDD2B8D80B800F2F1F4 /* Penguin.002.dae */,
 				FBE60A572B92E51F009B3E7E /* Cat.001.dae */,
 				FBE60A562B92E51F009B3E7E /* Cat.001.png */,
 				FBE60A5B2B92E52A009B3E7E /* Duck.001.dae */,
@@ -318,7 +315,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D8DB43C2B7AC9AB008D2AE8 /* .gitignore in Resources */,
-				0D2F2EDE2B8D80B800F2F1F4 /* Penguin.002.dae in Resources */,
 				FBE60A5D2B92E52A009B3E7E /* Duck.001.dae in Resources */,
 				FBE60A592B92E51F009B3E7E /* Cat.001.dae in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,

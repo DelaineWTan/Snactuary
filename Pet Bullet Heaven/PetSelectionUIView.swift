@@ -248,12 +248,12 @@ class PetSelectionUIView: UIView {
             return
         }
 
-        // Print the tag of the tapped view
-        print("Tapped collection view tag: \(tappedView.tag)")
-
         guard let index = sender.view?.tag else { return }
         let tappedPet = Globals.pets[index]
 
+        // Print the tag of the tapped view
+        print("Tapped collection view tag: \(tappedPet.name)")
+        
         // If an active panel is already selected
         // Swap the pets between active and collection panels
         if let activePanelTag = activePanelTag {
@@ -293,7 +293,7 @@ class PetSelectionUIView: UIView {
         }
 
         // Print the tag of the tapped view
-        print("Tapped active view tag: \(tappedView.tag)")
+        print("Tapped collection view tag: \(Globals.pets[tappedView.tag].name)")
 
         // If a collection panel is already selected, do nothing
         guard collectionPanelTag == nil else {
