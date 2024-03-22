@@ -69,7 +69,7 @@ class InGameUIView: UIView {
         // update label
         hungerScoreLabel.text = "Score: \(_hungerScore)"
         // fill hunger meter (up to full at maxHungerScore)
-        if (_hungerScore < _maxHungerScore) {
+        if (_hungerScore <= _maxHungerScore) {
             // animate the hunger meter filling up to new value
             let progress = Float(min(_hungerScore, _maxHungerScore)) / Float(_maxHungerScore)
             hungerMeter.setProgress(progress, animated: true)
