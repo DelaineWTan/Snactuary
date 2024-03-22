@@ -35,7 +35,7 @@ class SoundManager {
         }
         
         // Load and play background music
-        if let musicURL = Bundle.main.url(forResource: "bgm", withExtension: "wav", subdirectory: "art.scnassets") {
+        if let musicURL = Bundle.main.url(forResource: "bgm", withExtension: "wav", subdirectory: "art.scnassets/SFX") {
             do {
                 backgroundMusic = try AVAudioPlayer(contentsOf: musicURL)
                 backgroundMusic?.numberOfLoops = -1 // Loop indefinitely
@@ -51,7 +51,7 @@ class SoundManager {
     
     private func preloadSoundEffects() {
         // Preload tap sound effect
-        guard let tapSFXURL = Bundle.main.url(forResource: "quack-sfx", withExtension: "wav", subdirectory: "art.scnassets") else {
+        guard let tapSFXURL = Bundle.main.url(forResource: "quack-sfx", withExtension: "wav", subdirectory: "art.scnassets/SFX") else {
             print("Tap sound effect file 'quack-sfx' not found")
             return
         }
@@ -60,7 +60,7 @@ class SoundManager {
         tapSFXPlayer!.volume = 0.5
         print("Sound effect 'quack-sfx' preloaded")
         
-        guard let soundURL = Bundle.main.url(forResource: eatingSFXFileName, withExtension: "wav", subdirectory: "art.scnassets") else {
+        guard let soundURL = Bundle.main.url(forResource: eatingSFXFileName, withExtension: "wav", subdirectory: "art.scnassets/SFX") else {
             print("Sound effect file '\(eatingSFXFileName)' not found")
             return
         }

@@ -89,9 +89,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
     }
+    
+    
     var nodeA : SCNNode? = SCNNode()
     var nodeB : SCNNode? = SCNNode()
-    
     // Update score and destroy food on collision
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         nodeA = contact.nodeA
@@ -100,17 +101,15 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     
     func doPhysics() {
         
-        // TODO: remove eaten food from LifeCycleManager dictionary
         // Check if player collides with food or vice versa
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory)
         {
             // downcast as food obj and use its hunger value for score
             if let food = nodeB as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+                food.onDestroy(after: 0)
             }
             soundManager.refreshEatingSFX()
-            nodeB?.removeFromParentNode()
-            
             
         }
         else if(nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory)
@@ -118,6 +117,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             // downcast as food obj and use its hunger value for score
             if let food = nodeA as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+                food.onDestroy(after: 0)
             }
             nodeA?.removeFromParentNode()
             
