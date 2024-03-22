@@ -22,7 +22,7 @@ class Map : MonoBehaviour {
         self.stageNode = stageNode
         self.playerNode = playerNode
         self.uniqueID = UUID()
-        LifecycleManager.shared.addGameObject(self)
+        LifecycleManager.Instance.addGameObject(self)
     }
     
     func Start() {

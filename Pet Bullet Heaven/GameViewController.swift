@@ -134,7 +134,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     func ContinuousLoop() async {
         
         // read from thread-safe queue of to-be-deleted UUIDs
-        LifecycleManager.shared.update()
+        LifecycleManager.Instance.update()
         doPhysics()
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)

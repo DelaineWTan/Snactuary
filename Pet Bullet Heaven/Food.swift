@@ -39,7 +39,7 @@ class Food : SCNNode, MonoBehaviour {
         self.uniqueID = UUID() // make sure every class that has an Updatable
         super.init()
         
-        LifecycleManager.shared.addGameObject(self)
+        LifecycleManager.Instance.addGameObject(self)
         
         let cubeGeometry = SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2)
         

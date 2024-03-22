@@ -10,7 +10,7 @@ import Foundation
 public class LifecycleManager {
     
     // Singleton (not again) instance
-    static let shared = LifecycleManager()
+    static let Instance = LifecycleManager()
     
     private init() {}
     

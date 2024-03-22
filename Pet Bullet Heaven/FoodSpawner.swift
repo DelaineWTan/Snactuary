@@ -21,7 +21,7 @@ class FoodSpawner: MonoBehaviour {
         
         self.mainScene = scene
         self.uniqueID = UUID()
-        LifecycleManager.shared.addGameObject(self)
+        LifecycleManager.Instance.addGameObject(self)
     }
     
     // Spawns food nodes, for now it's set to spawn just 3 food. Will eventually spawn food in set intervals

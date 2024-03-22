@@ -22,7 +22,7 @@ extension MonoBehaviour where Self: SCNNode {
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
             self?.destroy()
             if let self = self {
-                        LifecycleManager.shared.deleteGameObject(gameObject: self)
+                        LifecycleManager.Instance.deleteGameObject(gameObject: self)
                         self.removeFromParentNode()
                     }
         }
