@@ -207,9 +207,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         case .ended:
             Globals.playerIsMoving = false
             overlayView.inGameUIView.stickVisibilty(isVisible: false)
-            // hunger test, delete after proper implementation on food colision
-            overlayView.inGameUIView.addToHungerMeter(hungerValue: 3)
-            
         default:
             break
         }
