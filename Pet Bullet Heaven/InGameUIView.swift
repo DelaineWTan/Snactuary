@@ -9,6 +9,7 @@ import UIKit
 
 class InGameUIView: UIView {
     var pauseButtonTappedHandler: (() -> Void)?
+    var nextStageButtonTappedHandler: (() -> Void)?
     var isStickVisible = false
     private var innerCircleLayer: CAShapeLayer?
     private var outerCircleLayer: CAShapeLayer?
@@ -33,6 +34,18 @@ class InGameUIView: UIView {
         button.backgroundColor = .blue
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(pauseButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var nextStageButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Go to Next Stage", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.tintColor = .white
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 8
+        button.addTarget(self, action: #selector(nextStageButtonTapped), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     
@@ -64,16 +77,18 @@ class InGameUIView: UIView {
         setupUI()
     }
     
+    // Adds a given hunger value to the hunger score
     public func addToHungerMeter(hungerValue: Int) {
         _hungerScore += hungerValue
-        // update label
         hungerScoreLabel.text = "Score: \(_hungerScore)"
+        
         // fill hunger meter (up to full at maxHungerScore)
         if (_hungerScore <= _maxHungerScore) {
             // animate the hunger meter filling up to new value
             let progress = Float(min(_hungerScore, _maxHungerScore)) / Float(_maxHungerScore)
             hungerMeter.setProgress(progress, animated: true)
         }
+        stageProgressCheck()
     }
     
     public func setStickPosition(location: CGPoint) {
@@ -126,8 +141,17 @@ class InGameUIView: UIView {
         return sqrt(dx * dx + dy * dy)
     }
     
+    // Makes stage progression button visible if hunger is at max
+    private func stageProgressCheck() {
+        if (_hungerScore >= _maxHungerScore && nextStageButton.isHidden == true) {
+            // maybe have a fade-in animation?
+            nextStageButton.isHidden = false
+        }
+    }
+    
     private func setupUI() {
         addSubview(pauseButton)
+        addSubview(nextStageButton)
         addSubview(hungerMeter)
         addSubview(hungerScoreLabel)
             
@@ -147,6 +171,15 @@ class InGameUIView: UIView {
             hungerMeter.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             hungerMeter.widthAnchor.constraint(equalToConstant: 240),
             hungerMeter.heightAnchor.constraint(equalToConstant: 10),
+        ]) 
+        
+        // Layout constraints for next stage button
+        nextStageButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nextStageButton.topAnchor.constraint(equalTo: hungerMeter.bottomAnchor, constant: 20),
+            nextStageButton.centerXAnchor.constraint(equalTo: hungerMeter.centerXAnchor),
+            nextStageButton.widthAnchor.constraint(equalToConstant: 170),
+            nextStageButton.heightAnchor.constraint(equalToConstant: 40),
         ])
         
         // Layout constraints for score label
@@ -184,5 +217,9 @@ class InGameUIView: UIView {
     
     @objc private func pauseButtonTapped() {
         pauseButtonTappedHandler?()
+    }
+    
+    @objc private func nextStageButtonTapped() {
+        nextStageButtonTappedHandler?()
     }
 }
