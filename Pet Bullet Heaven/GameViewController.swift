@@ -106,10 +106,14 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         {
             // downcast as food obj and use its hunger value for score
             if let food = nodeB as? Food {
-                overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
-                food.onDestroy(after: 0)
+                food._Health -= 1
+                if food._Health <= 0{
+                    overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+                    food.onDestroy(after: 0)
+                    soundManager.refreshEatingSFX()
+                }
             }
-            soundManager.refreshEatingSFX()
+            
             
         }
         else if(nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory)
