@@ -16,7 +16,7 @@ class InGameUIView: UIView {
     
     // review this implementation of private vars and public getters if we want to do it like this
     private var _hungerScore: Int = 0
-    private var _maxHungerScore: Int = 300
+    private var _maxHungerScore: Int = 3
     
     // variable getters
     public var getHungerScore: Int {
@@ -86,6 +86,9 @@ class InGameUIView: UIView {
         if (_hungerScore <= _maxHungerScore) {
             // animate the hunger meter filling up to new value
             let progress = Float(min(_hungerScore, _maxHungerScore)) / Float(_maxHungerScore)
+            hungerMeter.setProgress(progress, animated: true)
+        } else {
+            let progress = Float(min(_maxHungerScore, _maxHungerScore)) / Float(_maxHungerScore)
             hungerMeter.setProgress(progress, animated: true)
         }
         stageProgressCheck()
@@ -220,6 +223,14 @@ class InGameUIView: UIView {
     }
     
     @objc private func nextStageButtonTapped() {
+        // change stage
+        // increase food health and maxHungerScore
+        
+        // save current hungerScore unto a player variable
+        // reset current hungerScore on stage
+        // reset hungerMeter
+        
+        nextStageButton.isHidden = true
         nextStageButtonTappedHandler?()
     }
 }
