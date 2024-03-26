@@ -6,9 +6,16 @@
 import UIKit
 import SwiftUI
 import Combine
+import SceneKit
+
+protocol PetSelectionDelegate: AnyObject {
+    func swapSceneNode(with petModel: Pet, position: Int)
+}
 
 class PetSelectionUIView: UIView {
-    var selectedPanel: UIView?
+    weak var delegate: PetSelectionDelegate?
+    var selectedCollectionPanel: UIView?
+    var selectedActivePanel: UIView?
     var selectedPet: Pet?
     private var activePanelTag: Int? = nil
     private var collectionPanelTag: Int? = nil
@@ -247,43 +254,41 @@ class PetSelectionUIView: UIView {
         guard let tappedView = sender.view else {
             return
         }
-
-        // Print the tag of the tapped view
-        print("Tapped collection view tag: \(tappedView.tag)")
-
-        guard let index = sender.view?.tag else { return }
-        let tappedPet = Globals.pets[index]
-
-        // If an active panel is already selected
-        // Swap the pets between active and collection panels
-        if let activePanelTag = activePanelTag {
-            let activePetIndex = activePanelTag
-            let activePet = Globals.pets[activePetIndex]
-            Globals.activePets[activePetIndex] = tappedPet
-            Globals.pets[index] = activePet
+        
+        // Update the collection panel tag
+        collectionPanelTag = tappedView.tag
+        
+        // If an active and collection panel selected
+        if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
+            // Swap the pets between active and collection panels
+            let collectionPet = Globals.pets[collectionPanelTag]
+            Globals.activePets[activePanelTag] = collectionPet
 
             // Update the view
             setupUI()
+            
+            // delegate to swap 3D models
+            delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
 
             // Deselect both buttons
             self.activePanelTag = nil
             self.collectionPanelTag = nil
-        } else {
+            // Reset collection panel color
+            if let selectedCollectionPanel = selectedCollectionPanel {
+                // Reset background color of previously selected panel
+                selectedCollectionPanel.backgroundColor = .lightGray
+            }
+        } else { // no collection panels selected
             // Toggle highlighting for collection panel
             if let tappedPanel = sender.view {
-                if let selectedPanel = selectedPanel {
+                if let selectedCollectionPanel = selectedCollectionPanel {
                     // Reset background color of previously selected panel
-                    selectedPanel.backgroundColor = .lightGray
+                    selectedCollectionPanel.backgroundColor = .lightGray
                 }
-
                 // Set the background color of the tapped panel to indicate selection
                 tappedPanel.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
-
                 // Update the selected panel
-                selectedPanel = tappedPanel
-
-                // Update the collection panel tag
-                collectionPanelTag = tappedView.tag
+                selectedCollectionPanel = tappedPanel
             }
         }
     }
@@ -291,28 +296,44 @@ class PetSelectionUIView: UIView {
         guard let tappedView = sender.view else {
             return
         }
+        
+        // Update the collection panel tag
+        activePanelTag = tappedView.tag
+        
+        // If an active and collection panel selected
+        //if  (collectionPanelSelected){
+        if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
+            // Swap the pets between active and collection panels
+            let collectionPet = Globals.pets[collectionPanelTag]
+            Globals.activePets[activePanelTag] = collectionPet
 
-        // Print the tag of the tapped view
-        print("Tapped active view tag: \(tappedView.tag)")
+            // Update the view
+            setupUI()
+            
+            // delegate to swap 3D models
+            delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
 
-        // If a collection panel is already selected, do nothing
-        guard collectionPanelTag == nil else {
-            return
+            // Deselect both buttons
+            self.activePanelTag = nil
+            self.collectionPanelTag = nil
+            // Reset collection panel color
+            if let selectedCollectionPanel = selectedCollectionPanel {
+                // Reset background color of previously selected panel
+                selectedCollectionPanel.backgroundColor = .lightGray
+            }
+        } else { // no collection panels selected
+            // Toggle highlighting for collection panel
+            if let tappedPanel = sender.view {
+                if let selectedActivePanel = selectedActivePanel {
+                    // Reset background color of previously selected panel
+                    selectedActivePanel.backgroundColor = .lightGray
+                }
+                // Set the background color of the tapped panel to indicate selection
+                tappedPanel.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
+                // Update the selected panel
+                selectedActivePanel = tappedPanel
+            }
         }
-
-        // Toggle highlighting for active panel
-        if tappedView.tag == activePanelTag {
-            // Deselect the active panel
-            tappedView.backgroundColor = .lightGray
-            activePanelTag = nil
-        } else {
-            // Highlight the tapped active panel
-            tappedView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
-            activePanelTag = tappedView.tag
-        }
-
-        // Update the view if both panels are highlighted
-        updateViewIfBothPanelsHighlighted()
     }
     
     private func updateViewIfBothPanelsHighlighted() {

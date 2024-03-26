@@ -10,9 +10,10 @@ import QuartzCore
 import SceneKit
 import AVFoundation
 
-class GameViewController: UIViewController, SCNPhysicsContactDelegate{
+class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProvider{
     let soundManager = SoundManager()
     let overlayView = GameUIView()
+
     // Camera node
     let cameraNode = SCNNode()
     
@@ -31,7 +32,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     var joyStickClampedDistance: CGFloat = 100
 
     // create a new scene
-    let scene = SCNScene(named: "art.scnassets/main.scn")!
+    let mainScene = SCNScene(named: "art.scnassets/main.scn")!
+    
+    // Floating damage text
+    let floatingText = FloatingDamageText()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,9 +49,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         let scnView = self.view as! SCNView
         
         // set the scene to the view
-        scnView.scene = scene
+        scnView.scene = mainScene
         
-        scene.physicsWorld.contactDelegate = self
+        // set delegate to GameUIView
+        overlayView.delegate = self
+        
+        mainScene.physicsWorld.contactDelegate = self
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
@@ -74,18 +81,18 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         scnView.addGestureRecognizer(panGesture)
         
         // get player
-        playerNode = scene.rootNode.childNode(withName: "mainPlayer", recursively: true)
+        playerNode = mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         
         // get stage plane
-        stageNode = scene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        stageNode = mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
         _ = testAbility.ActivateAbility()
         
-        _ = FoodSpawner(scene: scene)
+        _ = FoodSpawner(scene: mainScene)
         
-        _ = FoodSpawner(scene: scene)
+        _ = FoodSpawner(scene: mainScene)
         
         // btn handler for progressing to next stage
         overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
@@ -124,6 +131,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
+        
+        // Add floating damage text
+        scnView.addSubview(floatingText)
     }
     
     
@@ -145,6 +155,16 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
                 food.onDestroy(after: 0)
                 print(food._Health)
+                
+                // Convert food node's position to screen coordinates
+                let scnView = self.view as! SCNView
+                let foodPosition = scnView.projectPoint(food.presentation.position)
+                
+                // Instantiate and show floating damage text
+                let floatingText = FloatingDamageText()
+                scnView.addSubview(floatingText)
+                // @TODO replace the floating  text with actual damage numbers
+                floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: food.hungerValue)
             }
             soundManager.refreshEatingSFX()
             
@@ -162,6 +182,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         }
         nodeA = nil
         nodeB = nil
+        
     }
     
     func StartLoop() async {
@@ -267,4 +288,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         // add anymore keys to reset
     }
 
+    func getSceneNode() -> SCNNode? {
+        return mainScene.rootNode
+    }
+}
+
+protocol SceneProvider: AnyObject {
+    func getSceneNode() -> SCNNode?
 }

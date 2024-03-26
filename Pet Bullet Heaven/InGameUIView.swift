@@ -153,6 +153,9 @@ class InGameUIView: UIView {
     }
     
     private func setupUI() {
+        // Load hunger score from persistent storage
+        let savedHungerScore = UserDefaults.standard.integer(forKey: "hungerScore")
+        addToHungerMeter(hungerValue: savedHungerScore)
         addSubview(pauseButton)
         addSubview(nextStageButton)
         addSubview(hungerMeter)
@@ -226,6 +229,8 @@ class InGameUIView: UIView {
     private func updateHunger(newHungerValue: Int) {
         _hungerScore = newHungerValue
         hungerScoreLabel.text = "\(_hungerScore) / \(_maxHungerScore)"
+        // Save hunger score persistently
+        UserDefaults.standard.set(_hungerScore, forKey: "hungerScore")
     }
     
     ///
