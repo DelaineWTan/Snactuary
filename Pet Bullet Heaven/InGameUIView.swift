@@ -62,7 +62,7 @@ class InGameUIView: UIView {
     
     lazy var hungerScoreLabel: UILabel = {
         let scoreLabel = UILabel()
-        scoreLabel.text = "Score: \(_hungerScore)"
+        scoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
         scoreLabel.font = UIFont.systemFont(ofSize: 20)
         scoreLabel.textColor = .white
         return scoreLabel
@@ -225,7 +225,7 @@ class InGameUIView: UIView {
     ///
     private func updateHunger(newHungerValue: Int) {
         _hungerScore = newHungerValue
-        hungerScoreLabel.text = "Score: \(_hungerScore)"
+        hungerScoreLabel.text = "\(_hungerScore) / \(_maxHungerScore)"
     }
     
     ///
@@ -237,6 +237,7 @@ class InGameUIView: UIView {
     ///
     public func increaseMaxHungerScore() {
         _maxHungerScore *= Int(ceil(Globals.maxHungerScoreMultiplier))
+        updateHunger(newHungerValue: 0)
     }
     
     @objc private func nextStageButtonTapped() {

@@ -91,17 +91,19 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
             self?.overlayView.inGameUIView.nextStageButton.isHidden = true
             
-            // save current hungerScore onto a player variable
             // reset current hungerScore on stage & hungerMeter
             self?.overlayView.inGameUIView.resetHunger()
             
             // clear food objects
             //LifecycleManager.Instance.removeAllOfType()
             
-            // change stage (layout, bg, music, etc...)
-            Globals.stageProgressCount += 1
+            // Increment stage count
+            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+            stageCount += 1
+            UserDefaults.standard.setValue(stageCount, forKey: Globals.stageCountKey)
             
-            // Generate random RGB values
+            // change stage (layout, bg, music, etc...)
+            
             let randomRed = CGFloat.random(in: 0.0...1.0)
             let randomGreen = CGFloat.random(in: 0.0...1.0)
             let randomBlue = CGFloat.random(in: 0.0...1.0)
@@ -115,7 +117,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             self?.overlayView.inGameUIView.increaseMaxHungerScore()
             
             // increase food health
-            let newHealth = ceil(Float(Globals.stageProgressCount) * Globals.foodHealthMultiplier)
+            let newHealth = ceil(Float(stageCount) * Globals.foodHealthMultiplier)
+            //UserDefaults.standard.setValue(Int(newHealth), forKey: Globals.foodHealthKey)
             Globals.currStageFoodHealth = Int(newHealth)
         }
         
@@ -257,6 +260,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         } else {
             return .all
         }
+    }
+    
+    private func resetUserData() {
+        UserDefaults.standard.setValue(0, forKey: Globals.stageCountKey)
+        // add anymore keys to reset
     }
 
 }

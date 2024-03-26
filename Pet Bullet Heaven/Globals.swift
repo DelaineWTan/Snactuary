@@ -44,8 +44,12 @@ public class Globals {
     
     public static var maxHungerScoreMultiplier : Float = 1.5
     public static var foodHealthMultiplier : Float = 1.2
-    public static var stageProgressCount : Int = 1
     public static var currStageFoodHealth : Int = 1
+    
+    // Persistent User Data Keys
+    public static let scoreKey : String = "Score"
+    public static let stageCountKey : String = "Stage Count"
+    public static let foodHealthKey : String = "Food Health"
 }
 
 extension Comparable {
