@@ -11,7 +11,7 @@ import SceneKit
 ///
 /// Rudimentary Food Class
 ///
-class Food : SCNNode, MonoBehaviour {
+public class Food : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
     

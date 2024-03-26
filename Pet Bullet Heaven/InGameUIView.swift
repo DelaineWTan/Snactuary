@@ -236,7 +236,7 @@ class InGameUIView: UIView {
     
     ///
     public func increaseMaxHungerScore() {
-        _maxHungerScore *= Int(ceil(Globals.maxHungerScoreGrowth))
+        _maxHungerScore *= Int(ceil(Globals.maxHungerScoreMultiplier))
     }
     
     @objc private func nextStageButtonTapped() {

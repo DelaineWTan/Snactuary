@@ -96,8 +96,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             self?.overlayView.inGameUIView.resetHunger()
             
             // clear food objects
+            //LifecycleManager.Instance.removeAllOfType()
             
             // change stage (layout, bg, music, etc...)
+            Globals.stageProgressCount += 1
             
             // Generate random RGB values
             let randomRed = CGFloat.random(in: 0.0...1.0)
@@ -113,8 +115,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             self?.overlayView.inGameUIView.increaseMaxHungerScore()
             
             // increase food health
-            let newHealth = ceil(Float(Globals.currHealth) * Globals.foodHealthGrowth)
-            Globals.currHealth = Int(newHealth)
+            let newHealth = ceil(Float(Globals.stageProgressCount) * Globals.foodHealthMultiplier)
+            Globals.currStageFoodHealth = Int(newHealth)
         }
         
         // Tentative, add to rootNode. Add to player in order to see Ability
