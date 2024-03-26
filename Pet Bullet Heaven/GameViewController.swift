@@ -30,8 +30,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
 
-    // create a new scene
     let scene = SCNScene(named: "art.scnassets/main.scn")!
+    
+    // Floating damage text
+    let floatingText = FloatingDamageText()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +90,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
+        
+        // Add floating damage text
+        scnView.addSubview(floatingText)
+        floatingText.showDamageText(at: CGPoint(x: 100, y: 100), with: 20)
     }
     
     
@@ -108,6 +114,15 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             if let food = nodeB as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
                 food.onDestroy(after: 0)
+                
+                // Convert food node's position to screen coordinates
+                let scnView = self.view as! SCNView
+                let foodPosition = scnView.projectPoint(food.presentation.position)
+                
+                // Instantiate and show floating damage text
+                let floatingText = FloatingDamageText()
+                scnView.addSubview(floatingText)
+                floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: food.hungerValue)
             }
             soundManager.refreshEatingSFX()
             
@@ -124,6 +139,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         }
         nodeA = nil
         nodeB = nil
+        
     }
     
     func StartLoop() async {
