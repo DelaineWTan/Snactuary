@@ -130,8 +130,8 @@ class InGameUIView: UIView {
     
     private func setupUI() {
         // Load hunger score from persistent storage
-        _hungerScore = UserDefaults.standard.integer(forKey: "hungerScore");
-        print(_hungerScore)
+        let savedHungerScore = UserDefaults.standard.integer(forKey: "hungerScore")
+        addToHungerMeter(hungerValue: savedHungerScore)
         addSubview(pauseButton)
         addSubview(hungerMeter)
         addSubview(hungerScoreLabel)
