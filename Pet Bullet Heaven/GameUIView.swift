@@ -5,15 +5,15 @@
 //  Created by Delaine on 2024-02-08.
 //  This is the UI that overlays the game scene.
 //
-
-
 import UIKit
+import SceneKit
 
-class GameUIView: UIView {
+class GameUIView: UIView, PetSelectionDelegate {
     let mainMenuUIView = MainMenuUIView()
     let petSelectionUIView = PetSelectionUIView()
     let pauseMenuUIView = PauseMenuUIView()
     let inGameUIView = InGameUIView()
+    weak var delegate: SceneProvider?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,6 +57,7 @@ class GameUIView: UIView {
         
         // Layout constraints for pet selection view
         petSelectionUIView.translatesAutoresizingMaskIntoConstraints = false
+        petSelectionUIView.delegate = self
         NSLayoutConstraint.activate([
             petSelectionUIView.centerXAnchor.constraint(equalTo: centerXAnchor),
             petSelectionUIView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -117,5 +118,53 @@ class GameUIView: UIView {
             self?.inGameUIView.isHidden = true
         }
     }
-}
+    
+    // Implement the delegate method
+    func swapSceneNode(with petModel: Pet, position: Int) {
+        print(petModel.modelName)
+        // load current Pet Model
+        let petNode = SCNNode()
+        if let petModelScene = SCNScene(named: petModel.modelName) {
+            // Iterate through all child nodes in the loaded scene and add them to the scene node
+            for childNode in petModelScene.rootNode.childNodes {
+                petNode.addChildNode(childNode)
+            }
+        } else {
+            print("Failed to load pet scene from file.")
+        }
+        
+        // Replace current pet at position with new pet node
+        var node = SCNNode()
+        if let sceneNode = delegate?.getSceneNode() {
+            if let mainPlayerNode = sceneNode.childNode(withName: "mainPlayer", recursively: true) {
+                switch position {
+                case 0:
+                    node = mainPlayerNode.childNode(withName: "Frog.001 reference", recursively: true)!
+                    break;
+                case 1:
+                    node = mainPlayerNode.childNode(withName: "Penguin.001 reference", recursively: true)!
+                    break;
 
+                case 2:
+                    node = mainPlayerNode.childNode(withName: "Cat.001 reference", recursively: true)!
+                    break;
+
+                case 3:
+                    node = mainPlayerNode.childNode(withName: "Duck.001 reference", recursively: true)!
+                    break;
+
+                default:
+                    print("Position is not in the range 0-3")
+                }
+                mainPlayerNode.addChildNode(petNode)
+                petNode.position = node.position
+                petNode.orientation = node.orientation
+                petNode.scale = node.scale
+                petNode.name = node.name // TODO: change node names to like pet1 instead of Cat.001 reference when initializing
+                node.removeFromParentNode()
+            }
+        } else {
+            print("Failed to load the scene.")
+        }
+    }
+}

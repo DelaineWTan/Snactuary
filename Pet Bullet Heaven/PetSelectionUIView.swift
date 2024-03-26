@@ -6,8 +6,14 @@
 import UIKit
 import SwiftUI
 import Combine
+import SceneKit
+
+protocol PetSelectionDelegate: AnyObject {
+    func swapSceneNode(with petModel: Pet, position: Int)
+}
 
 class PetSelectionUIView: UIView {
+    weak var delegate: PetSelectionDelegate?
     var selectedCollectionPanel: UIView?
     var selectedActivePanel: UIView?
     var selectedPet: Pet?
@@ -248,8 +254,6 @@ class PetSelectionUIView: UIView {
         guard let tappedView = sender.view else {
             return
         }
-        guard let index = sender.view?.tag else { return }
-        let tappedPet = Globals.pets[index]
         
         // Update the collection panel tag
         collectionPanelTag = tappedView.tag
@@ -257,12 +261,14 @@ class PetSelectionUIView: UIView {
         // If an active and collection panel selected
         if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
             // Swap the pets between active and collection panels
-            let activePet = Globals.pets[activePanelTag]
             let collectionPet = Globals.pets[collectionPanelTag]
             Globals.activePets[activePanelTag] = collectionPet
 
             // Update the view
             setupUI()
+            
+            // delegate to swap 3D models
+            delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
 
             // Deselect both buttons
             self.activePanelTag = nil
@@ -290,7 +296,6 @@ class PetSelectionUIView: UIView {
         guard let tappedView = sender.view else {
             return
         }
-        guard let index = sender.view?.tag else { return }
         
         // Update the collection panel tag
         activePanelTag = tappedView.tag
@@ -299,12 +304,14 @@ class PetSelectionUIView: UIView {
         //if  (collectionPanelSelected){
         if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
             // Swap the pets between active and collection panels
-            let activePet = Globals.pets[activePanelTag]
             let collectionPet = Globals.pets[collectionPanelTag]
             Globals.activePets[activePanelTag] = collectionPet
 
             // Update the view
             setupUI()
+            
+            // delegate to swap 3D models
+            delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
 
             // Deselect both buttons
             self.activePanelTag = nil
