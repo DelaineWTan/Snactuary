@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class InGameUIView: UIView {
     var pauseButtonTappedHandler: (() -> Void)?
@@ -79,8 +80,7 @@ class InGameUIView: UIView {
     
     // Adds a given hunger value to the hunger score
     public func addToHungerMeter(hungerValue: Int) {
-        _hungerScore += hungerValue
-        hungerScoreLabel.text = "Score: \(_hungerScore)"
+        updateHunger(newHungerValue: _hungerScore + hungerValue)
         
         // fill hunger meter (up to full at maxHungerScore)
         if (_hungerScore <= _maxHungerScore) {
@@ -222,15 +222,24 @@ class InGameUIView: UIView {
         pauseButtonTappedHandler?()
     }
     
+    ///
+    private func updateHunger(newHungerValue: Int) {
+        _hungerScore = newHungerValue
+        hungerScoreLabel.text = "Score: \(_hungerScore)"
+    }
+    
+    ///
+    public func resetHunger() {
+        updateHunger(newHungerValue: 0)
+        hungerMeter.progress = 0
+    }
+    
+    ///
+    public func increaseMaxHungerScore() {
+        _maxHungerScore *= Int(ceil(Globals.maxHungerScoreGrowth))
+    }
+    
     @objc private func nextStageButtonTapped() {
-        // change stage
-        // increase food health and maxHungerScore
-        
-        // save current hungerScore unto a player variable
-        // reset current hungerScore on stage
-        // reset hungerMeter
-        
-        nextStageButton.isHidden = true
         nextStageButtonTappedHandler?()
     }
 }

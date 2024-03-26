@@ -41,6 +41,11 @@ public class Globals {
     
     public static var playerIsMoving : Bool = false
     public static var playerMovementSpeed : Float = 20
+    
+    public static var maxHungerScoreGrowth : Float = 1.5
+    public static var foodHealthGrowth : Float = 1.1
+    public static var baseHealth : Int = 1
+    public static var currHealth : Int = 1
 }
 
 extension Comparable {

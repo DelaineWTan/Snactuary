@@ -62,6 +62,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         overlayView.frame = scnView.bounds
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scnView.addSubview(overlayView)
+        
         // add self rendering every frame logic
                 
         // add a tap gesture recognizer
@@ -86,6 +87,36 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         
         _ = FoodSpawner(scene: scene)
         
+        // btn handler for progressing to next stage
+        overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
+            self?.overlayView.inGameUIView.nextStageButton.isHidden = true
+            
+            // save current hungerScore onto a player variable
+            // reset current hungerScore on stage & hungerMeter
+            self?.overlayView.inGameUIView.resetHunger()
+            
+            // clear food objects
+            
+            // change stage (layout, bg, music, etc...)
+            
+            // Generate random RGB values
+            let randomRed = CGFloat.random(in: 0.0...1.0)
+            let randomGreen = CGFloat.random(in: 0.0...1.0)
+            let randomBlue = CGFloat.random(in: 0.0...1.0)
+
+            // Create a UIColor with the random RGB values
+            let randomColor = CGColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
+            //scnView.scene?.lightingEnvironment.contents = randomColor
+            self?.stageNode?.light?.color = randomColor
+            
+            // increase max HungerScore
+            self?.overlayView.inGameUIView.increaseMaxHungerScore()
+            
+            // increase food health
+            let newHealth = ceil(Float(Globals.currHealth) * Globals.foodHealthGrowth)
+            Globals.currHealth = Int(newHealth)
+        }
+        
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
     }
@@ -108,6 +139,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             if let food = nodeB as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
                 food.onDestroy(after: 0)
+                print(food._Health)
             }
             soundManager.refreshEatingSFX()
             
@@ -118,6 +150,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
             if let food = nodeA as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
                 food.onDestroy(after: 0)
+                print(food._Health)
             }
             nodeA?.removeFromParentNode()
             
