@@ -93,7 +93,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         
         // Add floating damage text
         scnView.addSubview(floatingText)
-        floatingText.showDamageText(at: CGPoint(x: 100, y: 100), with: 20)
     }
     
     
@@ -122,6 +121,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
                 // Instantiate and show floating damage text
                 let floatingText = FloatingDamageText()
                 scnView.addSubview(floatingText)
+                // @TODO replace the floating  text with actual damage numbers
                 floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: food.hungerValue)
             }
             soundManager.refreshEatingSFX()
