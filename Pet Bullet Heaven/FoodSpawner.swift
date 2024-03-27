@@ -40,7 +40,7 @@ class FoodSpawner: MonoBehaviour {
         let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
         
         
-        let food = Food(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), hungerValue: 2, health: Globals.currStageFoodHealth)
+        let food = Food(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), hungerValue: 2, health: UserDefaults.standard.integer(forKey: Globals.foodHealthKey))
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node

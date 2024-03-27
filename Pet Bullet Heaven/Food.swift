@@ -17,7 +17,7 @@ public class Food : SCNNode, MonoBehaviour {
     
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
     
-    var _Health : Int = 1
+    var _Health : Int = Globals.defaultFoodHealth
     
     var _Mesh : SCNBox?
     
@@ -26,7 +26,7 @@ public class Food : SCNNode, MonoBehaviour {
     
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
-    var hungerValue: Int = 1
+    var hungerValue: Int = Globals.defaultFoodHungerValue
     
     let foodCategory: Int = 0b010
 

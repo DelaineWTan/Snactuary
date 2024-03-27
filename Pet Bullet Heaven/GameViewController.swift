@@ -44,7 +44,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             await StartLoop()
         }
         
-        
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
@@ -104,29 +103,27 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             // clear food objects
             //LifecycleManager.Instance.removeAllOfType()
             
-            // Increment stage count
+            // increase food health
             var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+            let newHealth = ceil(Float(stageCount) * Globals.foodHealthMultiplier)
+            UserDefaults.standard.setValue(Int(newHealth), forKey: Globals.foodHealthKey)
+            
+            // Increment stage count
             stageCount += 1
-            UserDefaults.standard.setValue(stageCount, forKey: Globals.stageCountKey)
+            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
             
             // change stage (layout, bg, music, etc...)
-            
             let randomRed = CGFloat.random(in: 0.0...1.0)
             let randomGreen = CGFloat.random(in: 0.0...1.0)
             let randomBlue = CGFloat.random(in: 0.0...1.0)
 
             // Create a UIColor with the random RGB values
             let randomColor = CGColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
-            //scnView.scene?.lightingEnvironment.contents = randomColor
+            scnView.scene?.lightingEnvironment.contents = randomColor
             self?.stageNode?.light?.color = randomColor
             
             // increase max HungerScore
             self?.overlayView.inGameUIView.increaseMaxHungerScore()
-            
-            // increase food health
-            let newHealth = ceil(Float(stageCount) * Globals.foodHealthMultiplier)
-            //UserDefaults.standard.setValue(Int(newHealth), forKey: Globals.foodHealthKey)
-            Globals.currStageFoodHealth = Int(newHealth)
         }
         
         // Tentative, add to rootNode. Add to player in order to see Ability
@@ -195,6 +192,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // read from thread-safe queue of to-be-deleted UUIDs
         LifecycleManager.Instance.update()
         doPhysics()
+        self.printAllUserData()
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
         await ContinuousLoop()
@@ -283,9 +281,25 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
     }
     
-    private func resetUserData() {
-        UserDefaults.standard.setValue(0, forKey: Globals.stageCountKey)
+    /// Resets persistent user data
+    public static func resetUserData() {
+        UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
+        UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
+        UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
+        UserDefaults.standard.set(Globals.defaultFoodHealth, forKey: Globals.foodHealthKey)
+        UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
         // add anymore keys to reset
+    }
+    
+    /// Prints all user data to console
+    private func printAllUserData() {
+        print("total score: \(UserDefaults.standard.integer(forKey: Globals.totalScoreKey))")
+        print("stage score: \(UserDefaults.standard.integer(forKey: Globals.stageScoreKey))")
+        print("stage count: \(UserDefaults.standard.integer(forKey: Globals.stageCountKey))")
+        print("stage max score: \(UserDefaults.standard.integer(forKey: Globals.stageMaxScorekey))")
+        print("food health: \(UserDefaults.standard.integer(forKey: Globals.foodHealthKey))")
+        
+        print("\n")
     }
 
     func getSceneNode() -> SCNNode? {

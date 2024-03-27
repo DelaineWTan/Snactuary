@@ -17,7 +17,7 @@ class InGameUIView: UIView {
     
     // review this implementation of private vars and public getters if we want to do it like this
     private var _hungerScore: Int = 0
-    private var _maxHungerScore: Int = 3
+    private var _maxHungerScore: Int = Globals.defaultMaxHungerScore
     
     // variable getters
     public var getHungerScore: Int {
@@ -81,6 +81,9 @@ class InGameUIView: UIView {
     // Adds a given hunger value to the hunger score
     public func addToHungerMeter(hungerValue: Int) {
         updateHunger(newHungerValue: _hungerScore + hungerValue)
+        var totalScore = UserDefaults.standard.integer(forKey: Globals.totalScoreKey)
+        totalScore += hungerValue
+        UserDefaults.standard.set(totalScore, forKey: Globals.totalScoreKey)
         
         // fill hunger meter (up to full at maxHungerScore)
         if (_hungerScore <= _maxHungerScore) {
@@ -153,9 +156,16 @@ class InGameUIView: UIView {
     }
     
     private func setupUI() {
+        //GameViewController.resetUserData()
+        
         // Load hunger score from persistent storage
-        let savedHungerScore = UserDefaults.standard.integer(forKey: "hungerScore")
+        let savedHungerScore = UserDefaults.standard.integer(forKey: Globals.stageScoreKey)
+        let currMaxScore = UserDefaults.standard.integer(forKey: Globals.stageMaxScorekey)
+        if (currMaxScore != 0) {
+            _maxHungerScore = currMaxScore
+        }
         addToHungerMeter(hungerValue: savedHungerScore)
+        
         addSubview(pauseButton)
         addSubview(nextStageButton)
         addSubview(hungerMeter)
@@ -229,8 +239,8 @@ class InGameUIView: UIView {
     private func updateHunger(newHungerValue: Int) {
         _hungerScore = newHungerValue
         hungerScoreLabel.text = "\(_hungerScore) / \(_maxHungerScore)"
-        // Save hunger score persistently
-        UserDefaults.standard.set(_hungerScore, forKey: "hungerScore")
+        // Save stage and total hunger score persistently
+        UserDefaults.standard.set(_hungerScore, forKey: Globals.stageScoreKey)
     }
     
     ///
@@ -243,6 +253,7 @@ class InGameUIView: UIView {
     public func increaseMaxHungerScore() {
         _maxHungerScore *= Int(ceil(Globals.maxHungerScoreMultiplier))
         updateHunger(newHungerValue: 0)
+        UserDefaults.standard.set(_maxHungerScore, forKey: Globals.stageMaxScorekey)
     }
     
     @objc private func nextStageButtonTapped() {
