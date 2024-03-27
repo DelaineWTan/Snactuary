@@ -63,9 +63,17 @@ class InGameUIView: UIView {
     lazy var hungerScoreLabel: UILabel = {
         let scoreLabel = UILabel()
         scoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
-        scoreLabel.font = UIFont.systemFont(ofSize: 20)
+        scoreLabel.font = UIFont.systemFont(ofSize: 18)
         scoreLabel.textColor = .white
         return scoreLabel
+    }()
+    
+    lazy var stageCountLabel: UILabel = {
+        let stageCountLabel = UILabel()
+        stageCountLabel.text = "Stage: \(UserDefaults.standard.integer(forKey: Globals.stageCountKey))"
+        stageCountLabel.font = UIFont.systemFont(ofSize: 18)
+        stageCountLabel.textColor = .white
+        return stageCountLabel
     }()
     
     override init(frame: CGRect) {
@@ -171,6 +179,7 @@ class InGameUIView: UIView {
         addSubview(nextStageButton)
         addSubview(hungerMeter)
         addSubview(hungerScoreLabel)
+        addSubview(stageCountLabel)
             
         // Layout constraints for pause button
         pauseButton.translatesAutoresizingMaskIntoConstraints = false
@@ -180,15 +189,6 @@ class InGameUIView: UIView {
             pauseButton.widthAnchor.constraint(equalToConstant: 100),
             pauseButton.heightAnchor.constraint(equalToConstant: 40)
         ])
-        
-        // Layout constraints for hunger meter
-        hungerMeter.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            hungerMeter.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            hungerMeter.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            hungerMeter.widthAnchor.constraint(equalToConstant: 240),
-            hungerMeter.heightAnchor.constraint(equalToConstant: 10),
-        ]) 
         
         // Layout constraints for next stage button
         nextStageButton.translatesAutoresizingMaskIntoConstraints = false
@@ -206,7 +206,22 @@ class InGameUIView: UIView {
             hungerScoreLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
         ])
         
-        //let circlePath = UIBezierPath(ovalIn: bounds)
+        // Layout constraints for stage label
+        stageCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stageCountLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -5),
+            stageCountLabel.leadingAnchor.constraint(equalTo: hungerScoreLabel.leadingAnchor, constant: 150),
+        ])
+        
+        // Layout constraints for hunger meter
+        hungerMeter.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hungerMeter.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            hungerMeter.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            hungerMeter.widthAnchor.constraint(equalToConstant: 240),
+            hungerMeter.heightAnchor.constraint(equalToConstant: 10),
+        ])
+        
         let innerCirclePath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX+200, y: bounds.midY+400), radius: 30, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
         
         // inner circle
@@ -239,7 +254,7 @@ class InGameUIView: UIView {
     ///
     private func updateHunger(newHungerValue: Int) {
         _hungerScore = newHungerValue
-        hungerScoreLabel.text = "\(_hungerScore) / \(_maxHungerScore)"
+        hungerScoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
         // Save stage and total hunger score persistently
         UserDefaults.standard.set(_hungerScore, forKey: Globals.stageScoreKey)
     }
