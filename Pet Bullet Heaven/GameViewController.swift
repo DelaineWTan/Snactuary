@@ -107,7 +107,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             // increase food health
             var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
             let newHealth = ceil(Float(stageCount) * Globals.foodHealthMultiplier)
-            UserDefaults.standard.setValue(Int(newHealth), forKey: Globals.foodHealthKey)
             
             // Increment stage count
             stageCount += 1
@@ -129,7 +128,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             
             if let stageMat = self?.stageNode?.geometry?.firstMaterial {
                 stageMat.diffuse.contents = MapAppearanceEditor.iterateStageVariation()
-                //print("modulo: \(0 % 4)")
                 
 //                stageMat.lightingModel = .constant
 //                stageMat.diffuse.contents = randomColor
@@ -192,7 +190,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             if let food = nodeB as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
                 food.onDestroy(after: 0)
-                print(food._Health)
+                print("Health: \(food._Health)")
                 
                 // Convert food node's position to screen coordinates
                 let scnView = self.view as! SCNView
@@ -330,9 +328,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
         UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
         UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
-        UserDefaults.standard.set(Globals.defaultFoodHealth, forKey: Globals.foodHealthKey)
         UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
-        UserDefaults.standard.set(Globals.defaultFoodHealth, forKey: Globals.foodHealthMultiplierKey)
+        UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
         // add anymore keys to reset
     }
     
@@ -342,7 +339,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         print("stage score: \(UserDefaults.standard.integer(forKey: Globals.stageScoreKey))")
         print("stage count: \(UserDefaults.standard.integer(forKey: Globals.stageCountKey))")
         print("stage max score: \(UserDefaults.standard.integer(forKey: Globals.stageMaxScorekey))")
-        print("food health: \(UserDefaults.standard.integer(forKey: Globals.foodHealthKey))")
         print("food health multiplier: \(UserDefaults.standard.integer(forKey: Globals.foodHealthMultiplierKey))")
         
         print("\n")
