@@ -84,6 +84,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // get stage plane
         stageNode = mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        stageNode?.geometry?.firstMaterial?.lightingModel = .constant
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
@@ -112,18 +113,58 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             stageCount += 1
             UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
             
-            // change stage (layout, bg, music, etc...)
+            // Generate random RGB values
             let randomRed = CGFloat.random(in: 0.0...1.0)
             let randomGreen = CGFloat.random(in: 0.0...1.0)
             let randomBlue = CGFloat.random(in: 0.0...1.0)
 
             // Create a UIColor with the random RGB values
-            let randomColor = CGColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
-            scnView.scene?.lightingEnvironment.contents = randomColor
-            self?.stageNode?.light?.color = randomColor
+            let randomColor = CGColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 0.3)
+            
+            // change stage visual aesthetics
+//            if let stageMat = self?.stageNode?.geometry?.firstMaterial {
+//                stageMat.lightingModel = .constant
+//                stageMat.diffuse.contents = randomColor
+//            }
+            
+            if let stageMat = self?.stageNode?.geometry?.firstMaterial {
+                stageMat.diffuse.contents = MapAppearanceEditor.iterateStageVariation()
+                //print("modulo: \(0 % 4)")
+                
+//                stageMat.lightingModel = .constant
+//                stageMat.diffuse.contents = randomColor
+//                stageMat.diffuse.intensity = 0.5 // Adjust intensity as needed
+//                stageMat.diffuse.wrapS = .repeat // Adjust wrap mode if necessary
+//                stageMat.diffuse.wrapT = .repeat // Adjust wrap mode if necessary
+//                stageMat.diffuse.contentsTransform = SCNMatrix4MakeScale(2, 2, 1) // Adjust scale if necessary
+//                stageMat.isDoubleSided = true // Ensure the material is double-sided if necessary
+            }
+
+
+            
+//            if let stageMat = self?.stageNode?.geometry?.firstMaterial,
+//               let textureString = stageMat.diffuse.contents as? String,
+//               let originalImage = UIImage(named: textureString) {
+//                
+//                // Apply the tint color to the image
+//                let tintedImg = MapAppearanceEditor.tintImage(image: originalImage, withColor: .red) // Replace .red with your desired color
+//                
+//                // Convert the UIImage back to UIImage
+//                if let modifiedImage = UIImage(data: tintedImg!.pngData()!) {
+//                    // Convert the UIImage to SCNMaterialProperty
+//                    let modifiedTexture = SCNMaterialProperty(contents: modifiedImage)
+//                    
+//                    // Set the modified texture to the stageNode's material
+//                    stageMat.diffuse.contents = modifiedTexture
+//                }
+//            }
+            
             
             // increase max HungerScore
             self?.overlayView.inGameUIView.increaseMaxHungerScore()
+            
+            // save stage's food health multiplier
+            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
         }
         
         // Tentative, add to rootNode. Add to player in order to see Ability
@@ -192,7 +233,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // read from thread-safe queue of to-be-deleted UUIDs
         LifecycleManager.Instance.update()
         doPhysics()
+        
+        // debug
         self.printAllUserData()
+        
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
         await ContinuousLoop()
@@ -288,6 +332,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
         UserDefaults.standard.set(Globals.defaultFoodHealth, forKey: Globals.foodHealthKey)
         UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
+        UserDefaults.standard.set(Globals.defaultFoodHealth, forKey: Globals.foodHealthMultiplierKey)
         // add anymore keys to reset
     }
     
@@ -298,6 +343,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         print("stage count: \(UserDefaults.standard.integer(forKey: Globals.stageCountKey))")
         print("stage max score: \(UserDefaults.standard.integer(forKey: Globals.stageMaxScorekey))")
         print("food health: \(UserDefaults.standard.integer(forKey: Globals.foodHealthKey))")
+        print("food health multiplier: \(UserDefaults.standard.integer(forKey: Globals.foodHealthMultiplierKey))")
         
         print("\n")
     }

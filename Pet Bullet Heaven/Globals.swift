@@ -58,6 +58,7 @@ public class Globals {
     public static let stageMaxScorekey : String = "Max Stage Score"
     public static let stageCountKey : String = "Stage Count"
     public static let foodHealthKey : String = "Food Health"
+    public static let foodHealthMultiplierKey : String = "Food Health Multiplier"
 }
 
 extension Comparable {

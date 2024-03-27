@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04FB228F2BB3A44B00B1A519 /* MapAppearanceEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB228E2BB3A44B00B1A519 /* MapAppearanceEditor.swift */; };
 		0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */; };
 		0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409352B71FBD00047847B /* AppDelegate.swift */; };
 		0D6409382B71FBD00047847B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6409372B71FBD00047847B /* art.scnassets */; };
@@ -62,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04FB228E2BB3A44B00B1A519 /* MapAppearanceEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAppearanceEditor.swift; sourceTree = "<group>"; };
 		0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		0D6409322B71FBD00047847B /* Pet Bullet Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pet Bullet Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409352B71FBD00047847B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				4FAE637E2B7C21EE007ED6AA /* Projectile.swift */,
 				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
 				0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */,
+				04FB228E2BB3A44B00B1A519 /* MapAppearanceEditor.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */,
 				FB7328982B7D947500557AE6 /* Food.swift in Sources */,
 				0ED95DCA2B9193E5008F010E /* Map.swift in Sources */,
+				04FB228F2BB3A44B00B1A519 /* MapAppearanceEditor.swift in Sources */,
 				0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */,
 				0DA1A35C2BB27BAC0003544F /* FloatingDamageText.swift in Sources */,
 			);

@@ -35,7 +35,7 @@ public class Food : SCNNode, MonoBehaviour {
         self.spawnLocation = spawnLocation
         self.speed = speed
         self.hungerValue = hungerValue
-        self._Health = health
+        self._Health = health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         super.init()
         self.position = spawnLocation

@@ -156,6 +156,7 @@ class InGameUIView: UIView {
     }
     
     private func setupUI() {
+        // for debugging
         //GameViewController.resetUserData()
         
         // Load hunger score from persistent storage
