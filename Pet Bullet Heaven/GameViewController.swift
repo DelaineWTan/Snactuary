@@ -93,11 +93,22 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
     
     var nodeA : SCNNode? = SCNNode()
     var nodeB : SCNNode? = SCNNode()
+    var eatingFood = false
+    
     // Update score and destroy food on collision
+    // Add a flag to ensure only one collision per contact as a lock
+    // on collision begin, lock the food item
+    // on collision end, unlock the food item
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         nodeA = contact.nodeA
         nodeB = contact.nodeB
+        eatingFood = true
     }
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+        eatingFood = false
+    }
+    
     
     func doPhysics() {
         
@@ -106,12 +117,27 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate{
         {
             // downcast as food obj and use its hunger value for score
             if let food = nodeB as? Food {
-                food._Health -= 1
+                
+//                Ability projectile = nodeA?
+//                projectile._AbilityDamage
+//                let damage = nodeA._Damage
+                
+                //TODO change to a pet specific
+                //do damage
+                if !eatingFood{
+                    food._Health -= 1
+                }
+                
+                //print(nodeA?.name)
+//                print(nodeA)
+//                print(food._Health)
+                
                 if food._Health <= 0{
                     overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
                     food.onDestroy(after: 0)
                     soundManager.refreshEatingSFX()
                 }
+                
             }
             
             

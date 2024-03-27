@@ -18,7 +18,7 @@ class Food : SCNNode, MonoBehaviour {
     
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
     
-    var _Health : Int = 10
+    var _Health : Int = 1
     
     var _Mesh : SCNBox?
     
