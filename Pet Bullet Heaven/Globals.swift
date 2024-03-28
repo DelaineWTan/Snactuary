@@ -9,6 +9,10 @@ import SwiftUI
 import Combine
 
 public class Globals {
+    // @TODO hardcoded for now, need to read from persistent data/update in game
+    public static var currentStage = 2
+    public static var numStagePresets = 3
+    
     public static var pets: [Pet] = [
         // First four pets are the active party pets
         Pet(petName:"Bunni", petId: 1, petImageName: "art.scnassets/bunny.gif"),

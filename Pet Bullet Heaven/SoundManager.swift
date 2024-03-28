@@ -1,7 +1,7 @@
 import AVFoundation
 
 class SoundManager {
-    var backgroundMusic: AVAudioPlayer?
+    var backgroundMusicPlayers: [AVAudioPlayer] = []
     var tapSFXPlayer: AVPlayer?
     var eatingSFXFileName: String = "pet-eating-sfx"
     var eatingSFXPlayers: [AVPlayer] = []
@@ -20,6 +20,7 @@ class SoundManager {
         }
         setupAudio()
         preloadSoundEffects()
+        preloadBackgroundMusic()
     }
     
     var uniqueID: UUID
@@ -33,21 +34,48 @@ class SoundManager {
         } catch {
             print("Failed to configure AVAudioSession: \(error.localizedDescription)")
         }
-        
-        // Load and play background music
-        if let musicURL = Bundle.main.url(forResource: "bgm", withExtension: "wav", subdirectory: "art.scnassets/SFX") {
-            do {
-                backgroundMusic = try AVAudioPlayer(contentsOf: musicURL)
-                backgroundMusic?.numberOfLoops = -1 // Loop indefinitely
-                backgroundMusic?.volume = 0.5 // Hardcode to 0.3 volume for now until volume settings exist
-                backgroundMusic?.play()
-            } catch {
-                print("Error loading background music: \(error.localizedDescription)")
-            }
-        } else {
-            print("Background music file not found")
-        }
     }
+    
+    private func preloadBackgroundMusic() {
+            let bgmFiles = ["meadow-bgm", "beach-bgm", "clouds-bgm"] // Names of your different BGM files
+            
+            for bgmFile in bgmFiles {
+                if let musicURL = Bundle.main.url(forResource: bgmFile, withExtension: "wav", subdirectory: "art.scnassets/SFX") {
+                    do {
+                        let bgmPlayer = try AVAudioPlayer(contentsOf: musicURL)
+                        bgmPlayer.numberOfLoops = -1 // Loop indefinitely
+                        bgmPlayer.volume = 0.5 // Hardcode to 0.5 volume for now until volume settings exist
+                        backgroundMusicPlayers.append(bgmPlayer)
+                    } catch {
+                        print("Error loading background music \(bgmFile): \(error.localizedDescription)")
+                    }
+                } else {
+                    print("Background music file \(bgmFile) not found")
+                }
+            }
+            playCurrentStageBGM()
+        }
+        
+        func playCurrentStageBGM() {
+            guard !backgroundMusicPlayers.isEmpty else {
+                print("No background music loaded")
+                return
+            }
+            
+            var currentBGMIndex = Globals.currentStage % Globals.numStagePresets
+            let nextBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
+            nextBGMPlayer.play()
+        }
+        
+        func stopCurrentBGM() {
+            guard !backgroundMusicPlayers.isEmpty else {
+                print("No background music loaded")
+                return
+            }
+            var currentBGMIndex = Globals.currentStage % Globals.numStagePresets
+            let currentBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
+            currentBGMPlayer.stop()
+        }
     
     private func preloadSoundEffects() {
         // Preload tap sound effect
