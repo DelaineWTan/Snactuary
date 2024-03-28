@@ -30,6 +30,7 @@
 		4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */; };
 		4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637E2B7C21EE007ED6AA /* Projectile.swift */; };
 		4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */; };
+		4FB7D8622BB624D200A3DCF5 /* SpawnProjectileInRangeAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB7D8612BB624D200A3DCF5 /* SpawnProjectileInRangeAbility.swift */; };
 		58861D4C2B7C1084002573D2 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58861D4B2B7C1084002573D2 /* Pet.swift */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* Food.swift */; };
@@ -88,6 +89,7 @@
 		4FAE637E2B7C21EE007ED6AA /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingPaw.swift; sourceTree = "<group>"; };
 		4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Penguin_HandPaint.001.png; sourceTree = "<group>"; };
+		4FB7D8612BB624D200A3DCF5 /* SpawnProjectileInRangeAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnProjectileInRangeAbility.swift; sourceTree = "<group>"; };
 		58861D4B2B7C1084002573D2 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				4FAE637E2B7C21EE007ED6AA /* Projectile.swift */,
 				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
 				0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */,
+				4FB7D8612BB624D200A3DCF5 /* SpawnProjectileInRangeAbility.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				0ED95DCA2B9193E5008F010E /* Map.swift in Sources */,
 				0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */,
 				0DA1A35C2BB27BAC0003544F /* FloatingDamageText.swift in Sources */,
+				4FB7D8622BB624D200A3DCF5 /* SpawnProjectileInRangeAbility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
