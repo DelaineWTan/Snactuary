@@ -15,7 +15,9 @@ class FoodSpawner: MonoBehaviour {
     let mainScene: SCNScene
     
     var elapsedTime: TimeInterval = 0
-    var spawnInterval: TimeInterval = 0.5 // Adjust depending on desired spawn rate
+    var spawnInterval: TimeInterval = 0.3 // Adjust depending on desired spawn rate
+    
+    let centerDist: Int = 55 // 55 seems to be a good distance away from player
     
     init(scene: SCNScene) {
         
@@ -24,22 +26,26 @@ class FoodSpawner: MonoBehaviour {
         LifecycleManager.Instance.addGameObject(self)
     }
     
-    // Spawns food nodes, for now it's set to spawn just 3 food. Will eventually spawn food in set intervals
-    func spawn() {
+    func simpleSpawn() {
         
-        // TODO: make A, B, I, and J (maybe even foodCount) be easily modifiable
-        let randomFromAtoB = Float(Int.random(in: -20...20))
+        let randomFromAtoB = Float(Int.random(in: -centerDist...centerDist))
         
-        let randomIorJ = Float(Bool.random() ? 20 : -20)
+        let randomIorJ = Float(Bool.random() ? -centerDist : centerDist)
         
-        // Randomly set the X or Z food position to I or J, then set the other a random number between A and B
+        // Choose between the X or Z coordinate of the food's spawn location, and set it to either I or J, respectively.
+        // If I is chosen, set it to the negative of the spawn distance from the center; if J is chosen, set it to the spawn distance from the center.
+        // The other coordinate (either Z if I is chosen, or X if J is chosen) is set to a random number between A and B, where:
+        //   - A is the negative spawn distance from the center, and
+        //   - B is the spawn distance from the center.
         let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
         
-        let food = Food(spawnLocation: randomPosition, speed: 1, hungerValue: 2)
-        food.position = randomPosition
+        
+        let food = Food(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), hungerValue: 2)
+        
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node
         }
+        // Destroy the food after 50 seconds
         food.onDestroy(after: 50.0)
         mainScene.rootNode.addChildNode(food)
     }
@@ -51,7 +57,7 @@ class FoodSpawner: MonoBehaviour {
     func Update(deltaTime: TimeInterval) {
         elapsedTime += deltaTime
         if elapsedTime >= spawnInterval {
-            spawn()
+            simpleSpawn()
             elapsedTime = 0
         }
     }

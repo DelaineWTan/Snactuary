@@ -12,17 +12,18 @@ public class Globals {
     public static var pets: [Pet] = [
         // First four pets are the active party pets
         Pet(petName:"Bunni", petId: 1, petImageName: "art.scnassets/bunny.gif"),
-        Pet(petName:"Frogger",petId: 2, petImageName: "art.scnassets/frog.png"),
+        Pet(petName:"Frogger",petId: 2, petImageName: "art.scnassets/frog.png", petModelName: "art.scnassets/Frog.001.scn"),
         Pet(petName:"Ticken",petId: 3, petImageName: "art.scnassets/chicken.png"),
         Pet(petName:"Foxxy",petId: 4, petImageName: "art.scnassets/foxxy.jpeg"),
         // Non-active pets under
-        Pet(petName:"Horze",petId: 5),
+        Pet(petName:"Ducker",petId: 5, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Duck.001.scn"),
         Pet(petName:"Furret",petId: 6),
         Pet(petName:"Krockerdile",petId: 7),
-        Pet(petName:"Pengwin",petId: 8),
+        Pet(petName:"Pengwin",petId: 8, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Penguin.001.scn"),
         Pet(petName:"Axiloto",petId: 9),
         Pet(petName:"Dwagon",petId: 10),
-        Pet(petName:"Doggo",petId: 11)
+        Pet(petName:"Doggo",petId: 11),
+        Pet(petName:"Hello Katt",petId: 12, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Cat.001.scn")
         // Add more pets as needed
     ]
     

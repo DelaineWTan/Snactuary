@@ -36,8 +36,9 @@ class Food : SCNNode, MonoBehaviour {
         self.spawnLocation = spawnLocation
         self.speed = speed
         self.hungerValue = hungerValue
-        self.uniqueID = UUID() // make sure every class that has an Updatable
+        self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         super.init()
+        self.position = spawnLocation
         
         LifecycleManager.Instance.addGameObject(self)
         
@@ -67,7 +68,7 @@ class Food : SCNNode, MonoBehaviour {
         self.physicsBody?.collisionBitMask = -1
         self.physicsBody?.contactTestBitMask = 1
         
-        
+        initializeFoodMovement()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -77,36 +78,50 @@ class Food : SCNNode, MonoBehaviour {
     func Start() {
     }
     
-    var count = 0
     func Update(deltaTime: TimeInterval) {
         move(deltaTime: deltaTime)
+        
+        // Check if the object's distance from the center is greater than 100 meters
+        let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
+        if distanceFromCenter > 100 {
+            // If the object is more than 100 meters away from the center, destroy it
+            self.onDestroy(after: 0)
+        }
     }
     
-    // TODO: add modifiable duration and increment
-    /// Moves the food randomly towards the player and relative to the player's inputs
-    func move(deltaTime: TimeInterval) {
-        
-        // TODO: make it work with new deltaTime
-        var modifierX : Float = 0.0
-        var modifierZ : Float = 0.0
-        
-        // can't tell if working properly or not
-        let randomXVariation = Float.random(in: -3.0...3.0)
-        let randomZVariation = Float.random(in: -3.0...3.0)
+    
+    let rangeLimit = 5
+    var modifierX : Float = 0.0
+    var modifierZ : Float = 0.0
+    func initializeFoodMovement() {
 
         if spawnLocation.x > 0 {
-            modifierX = Float(-2 + randomXVariation)
+            modifierX = Float(Int.random(in: 1...rangeLimit))
         } else {
-            modifierX = Float(2 + randomXVariation)
+            modifierX = Float(Int.random(in: -rangeLimit...1))
         }
         if spawnLocation.z > 0 {
-            modifierZ = Float(-2 + randomZVariation)
+            modifierZ = Float(Int.random(in: 1...rangeLimit))
         } else {
-            modifierZ = Float(2 + randomZVariation)
+            modifierZ = Float(Int.random(in: -rangeLimit...1))
         }
+        
+        // not sure if this works properly
+        let invertChance = 1 // Chance out of 20 to invert modifiers
 
-        self.position.x += Float((self.speed + modifierX) * Float(deltaTime))
-        self.position.z += Float((self.speed + modifierZ) * Float(deltaTime))
+        if Int.random(in: 1...20) <= invertChance {
+            modifierX *= -1
+            modifierZ *= -1
+        }
+    }
+    
+    /// Moves the food randomly away from the player and relative to the player's inputs
+    func move(deltaTime: TimeInterval) {
+
+        self.position.x += modifierX * Float(deltaTime) * self.speed
+        self.position.z += modifierZ * Float(deltaTime) * self.speed
+        
+        
         // Move food relative to the player
         if Globals.playerIsMoving {
             let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
