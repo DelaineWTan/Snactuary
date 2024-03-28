@@ -55,6 +55,9 @@ class OrbitingProjectileAbility : Ability {
      Overriden Function for activating this ability. The majority of the effects will happen here.
      */
     override func ActivateAbility() -> Bool {
+        if _AbilityActivated {
+            return false;
+        }
         
         // 1. Find the intervals at which I need to spawn projectiles
         let _Intervals = CalculateProjectileInterval()
@@ -75,6 +78,8 @@ class OrbitingProjectileAbility : Ability {
             _ProjectileList[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin((_Intervals*Float(_Counter))/2), z:0 , w: cos((_Intervals*Float(_Counter))/2)), aroundTarget: SCNVector3(0,0,0))
             
             _Counter+=1
+        
+            _AbilityActivated = true;
         }
         
         // Start rotating this Ability infinitely

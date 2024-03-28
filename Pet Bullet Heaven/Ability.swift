@@ -9,6 +9,7 @@ import Foundation
 import SceneKit
 
 class Ability : SCNNode {
+    var _AbilityActivated : Bool = false
     
     // Member Variables
     var _AbilityDamage : Int?

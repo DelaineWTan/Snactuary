@@ -86,15 +86,18 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         stageNode = mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
-        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
-        _ = testAbility.ActivateAbility()
-        
+        // spawn the initial attack patterns of active pets to game
+        for petIndex in 0...((Globals.activePets.count) - 1) {
+            // Add attack pattern into scene
+            let testAbility = Globals.activePets[petIndex].attackPattern
+            _ = testAbility.ActivateAbility()
+            testAbility.name = Globals.petAbilityNodeName[petIndex]
+            print(testAbility.name)
+            playerNode?.addChildNode(testAbility)
+        }
+    
         _ = FoodSpawner(scene: mainScene)
-        
         _ = FoodSpawner(scene: mainScene)
-        
-        // Tentative, add to rootNode. Add to player in order to see Ability
-        scnView.scene!.rootNode.addChildNode(testAbility)
         
         // Add floating damage text
         scnView.addSubview(floatingText)
@@ -138,6 +141,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             if let food = nodeA as? Food {
                 overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
                 food.onDestroy(after: 0)
+                // TODO add exp to all party pets
             }
             nodeA?.removeFromParentNode()
             
@@ -220,8 +224,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             // Normalize xz vector so diagonal movement equals 1
             let length = sqrt(pow(x, 2) + pow(z, 2))
-            Globals.inputX = x / length
-            Globals.inputZ = z / length
+            Globals.inputX = x / length * 2 // TODO add speed mod
+            Globals.inputZ = z / length * 2// TODO add speed mod
+            
+            print(Globals.inputX)
+            print(Globals.inputZ)
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)

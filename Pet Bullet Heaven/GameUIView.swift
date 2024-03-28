@@ -121,11 +121,11 @@ class GameUIView: UIView, PetSelectionDelegate {
     
     // Implement the delegate method
     func swapSceneNode(with petModel: Pet, position: Int) {
-        print(petModel.modelName)
-        // load current Pet Model
+        
+        // load current Pet Model and ability
         let petNode = SCNNode()
-        if let petModelScene = SCNScene(named: petModel.modelName) {
-            // Iterate through all child nodes in the loaded scene and add them to the scene node
+        if let petModelScene = SCNScene(named: petModel.modelName) { // Find pet scene from assets file
+            // Iterate and add all objects to form the pet node
             for childNode in petModelScene.rootNode.childNodes {
                 petNode.addChildNode(childNode)
             }
@@ -133,35 +133,53 @@ class GameUIView: UIView, PetSelectionDelegate {
             print("Failed to load pet scene from file.")
         }
         
-        // Replace current pet at position with new pet node
-        var node = SCNNode()
+        // Replace current pet at position with new pet node and ability
+        var oldPetNode = SCNNode()
+        var oldAbilityNode = SCNNode()
         if let sceneNode = delegate?.getSceneNode() {
             if let mainPlayerNode = sceneNode.childNode(withName: "mainPlayer", recursively: true) {
                 switch position {
-                case 0:
-                    node = mainPlayerNode.childNode(withName: "Frog.001 reference", recursively: true)!
-                    break;
-                case 1:
-                    node = mainPlayerNode.childNode(withName: "Penguin.001 reference", recursively: true)!
-                    break;
+                    case 0:
+                        oldPetNode = mainPlayerNode.childNode(withName: "Frog.001 reference", recursively: true)!
+                        oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[0], recursively: true)!
+                        break;
+                    case 1:
+                        oldPetNode = mainPlayerNode.childNode(withName: "Penguin.001 reference", recursively: true)!
+                        oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[1], recursively: true)!
+                        break;
 
-                case 2:
-                    node = mainPlayerNode.childNode(withName: "Cat.001 reference", recursively: true)!
-                    break;
+                    case 2:
+                        oldPetNode = mainPlayerNode.childNode(withName: "Cat.001 reference", recursively: true)!
+                        oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[2], recursively: true)!
+                        break;
 
-                case 3:
-                    node = mainPlayerNode.childNode(withName: "Duck.001 reference", recursively: true)!
-                    break;
+                    case 3:
+                        oldPetNode = mainPlayerNode.childNode(withName: "Duck.001 reference", recursively: true)!
+                        oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[3], recursively: true)!
+                        break;
 
-                default:
-                    print("Position is not in the range 0-3")
+                    default:
+                        print("Position is not in the range 0-3")
                 }
-                mainPlayerNode.addChildNode(petNode)
-                petNode.position = node.position
-                petNode.orientation = node.orientation
-                petNode.scale = node.scale
-                petNode.name = node.name // TODO: change node names to like pet1 instead of Cat.001 reference when initializing
-                node.removeFromParentNode()
+                if (petModel.attackPattern == oldAbilityNode) {
+                    return // Don't swap if the abilities are the same
+                }
+                //print(petNode.orientation)
+                //print(oldPetNode.orientation)
+                
+                petNode.position = oldPetNode.position
+                petNode.orientation = oldPetNode.orientation
+                petNode.scale = oldPetNode.scale
+                petNode.name = oldPetNode.name // TODO: change node names to like pet1 instead of Cat.001 reference when initializing
+                
+                mainPlayerNode.addChildNode(petNode) // add new pet model node
+                oldPetNode.removeFromParentNode()
+                
+                let ability = petModel.attackPattern // add new pet ability node
+                _ = ability.ActivateAbility()
+                ability.name = oldAbilityNode.name
+                mainPlayerNode.addChildNode(ability)
+                oldAbilityNode.removeFromParentNode()
             }
         } else {
             print("Failed to load the scene.")
