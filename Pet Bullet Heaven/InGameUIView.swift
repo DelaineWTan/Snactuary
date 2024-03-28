@@ -18,6 +18,7 @@ class InGameUIView: UIView {
     // review this implementation of private vars and public getters if we want to do it like this
     private var _hungerScore: Int = 0
     private var _maxHungerScore: Int = Globals.defaultMaxHungerScore
+    private var _stageCount: Int = 0
     
     // variable getters
     public var getHungerScore: Int {
@@ -25,6 +26,9 @@ class InGameUIView: UIView {
     }
     public var getMaxHungerScore: Int {
         get { return _maxHungerScore }
+    }
+    public var getStageCount: Int {
+        get { return _stageCount }
     }
     
     lazy var pauseButton: UIButton = {
@@ -70,7 +74,7 @@ class InGameUIView: UIView {
     
     lazy var stageCountLabel: UILabel = {
         let stageCountLabel = UILabel()
-        stageCountLabel.text = "Stage: \(UserDefaults.standard.integer(forKey: Globals.stageCountKey))"
+        stageCountLabel.text = "Stage: \(_stageCount)"
         stageCountLabel.font = UIFont.systemFont(ofSize: 18)
         stageCountLabel.textColor = .white
         return stageCountLabel
@@ -89,6 +93,7 @@ class InGameUIView: UIView {
     // Adds a given hunger value to the hunger score
     public func addToHungerMeter(hungerValue: Int) {
         updateHunger(newHungerValue: _hungerScore + hungerValue)
+        
         var totalScore = UserDefaults.standard.integer(forKey: Globals.totalScoreKey)
         totalScore += hungerValue
         UserDefaults.standard.set(totalScore, forKey: Globals.totalScoreKey)
@@ -103,6 +108,18 @@ class InGameUIView: UIView {
             hungerMeter.setProgress(progress, animated: true)
         }
         stageProgressCheck()
+    }
+    
+    // Sets hunger score to the given hungerValue
+    public func setHungerMeter(hungerValue: Int) {
+        updateHunger(newHungerValue: hungerValue)
+        hungerMeter.setProgress(Float(hungerValue)/Float(_maxHungerScore), animated: false)
+        stageProgressCheck()
+    }
+    
+    public func setStageCount(stageCount: Int) {
+        _stageCount = stageCount
+        stageCountLabel.text = "Stage: \(_stageCount)"
     }
     
     public func setStickPosition(location: CGPoint) {
@@ -173,7 +190,8 @@ class InGameUIView: UIView {
         if (currMaxScore != 0) {
             _maxHungerScore = currMaxScore
         }
-        addToHungerMeter(hungerValue: savedHungerScore)
+        setHungerMeter(hungerValue: savedHungerScore)
+        setStageCount(stageCount: UserDefaults.standard.integer(forKey: Globals.stageCountKey))
         
         addSubview(pauseButton)
         addSubview(nextStageButton)
@@ -257,6 +275,7 @@ class InGameUIView: UIView {
         hungerScoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
         // Save stage and total hunger score persistently
         UserDefaults.standard.set(_hungerScore, forKey: Globals.stageScoreKey)
+        print("User Score: \(UserDefaults.standard.integer(forKey: Globals.stageScoreKey))")
     }
     
     ///
@@ -268,8 +287,8 @@ class InGameUIView: UIView {
     ///
     public func increaseMaxHungerScore() {
         _maxHungerScore *= Int(ceil(Globals.maxHungerScoreMultiplier))
-        updateHunger(newHungerValue: 0)
         UserDefaults.standard.set(_maxHungerScore, forKey: Globals.stageMaxScorekey)
+        hungerScoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
     }
     
     @objc private func nextStageButtonTapped() {
