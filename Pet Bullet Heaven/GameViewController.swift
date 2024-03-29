@@ -135,6 +135,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             // save stage's food health multiplier
             UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
             
+            LifecycleManager.Instance.deleteAllFood()
+            
             UserDefaults.standard.synchronize()
         }
         
