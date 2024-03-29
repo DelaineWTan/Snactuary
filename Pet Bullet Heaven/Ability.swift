@@ -11,8 +11,6 @@ import SceneKit
 class Ability : SCNNode {
     
     // Member Variables
-    var _AbilityDamage : Int?
-    
     var _AbilityDuration : Double?
     
     var _Projectile : () -> Projectile
@@ -26,8 +24,8 @@ class Ability : SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func SpawnProjectile() -> Projectile {
-        return Projectile()
+    func SpawnProjectile() {
+
     }
     
     func ActivateAbility() -> Bool { 

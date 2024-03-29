@@ -13,27 +13,27 @@ class SpawnProjectileInRangeAbility : Ability {
     // Member Variables
     
     // The rate at which to spawn projectils (measured in Seconds)
-    var _SpawnRate : Int?
+    var _SpawnRate : Double?
     
     // The Range with which to limit spawning the projectiles.
     var _Range : Float?
     
     // The amount of time that spawned Projectiles lasts for.
-    var _ProjectileDuration: Int?
+    var _ProjectileDuration: Double?
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // Mutated Constructor
-    init(_InputSpawnRate: Int, _InputRange: Float, _InputProjectile: @escaping () -> Projectile){
+    init(_InputSpawnRate: Double, _InputRange: Float, _InputProjectileDuration: Double, _InputProjectile: @escaping () -> Projectile){
         
         super.init(withProjectile: _InputProjectile)
         
         // Assign the Member Variables
         _SpawnRate = _InputSpawnRate
         _Range = _InputRange
-//        _Projectile = _InputProjectile
+        _ProjectileDuration = _InputProjectileDuration
         
     }
     
@@ -41,18 +41,21 @@ class SpawnProjectileInRangeAbility : Ability {
      Helper function to spawn projectiles. Howeve, we necessarily override for the  implementation of this ability because the Projectiles positions are do not need to be with respect with the Player's position.
      Additionally, we need to terminate the projectiles individually after as well.
      */
-    override func SpawnProjectile() -> Projectile{
+    override func SpawnProjectile() {
         
-        // TODO: Instantiate Projectile and attach to Scene, not the Ability.
+        // TODO: Generate a valid vector along the X,Z Plane
+        let _ProjectilePosition = generateRandomPositionInRange()
+        
+        // TODO: Instantiate Projectile.
         let _SpawnedProjectile = _Projectile()
-        self.parent?.addChildNode(_SpawnedProjectile)
+        _SpawnedProjectile.position = _ProjectilePosition
+        print (_ProjectilePosition)
         
-        // TODO: Wait for duration amount of time
+        // TODO: Attach Projectile to Scene, not the Ability.
+        self.addChildNode(_SpawnedProjectile)
         
         // TODO: Terminate the Projectile after given amount of duration
-        // TerminateProjectile(Projectile)
-        
-        return _SpawnedProjectile
+        TerminateProjectile(_InputProjectile: _SpawnedProjectile)
         
     }
     
@@ -61,14 +64,16 @@ class SpawnProjectileInRangeAbility : Ability {
      */
     override func ActivateAbility() -> Bool {
         
-        // TODO: Generate a valid vector along the X,Z Plane
-        var _ProjectilePosition = generateRandomPositionInRange()
+        print ("Activating Ability")
         
         // TODO: Spawn the Projectile
-        SpawnProjectile()
+        let timer = Timer(timeInterval: _SpawnRate!, repeats: true) { Timer in
+            self.SpawnProjectile()
+        }
+        RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
         
         // Dummy Return
-        return false
+        return true
     }
     
     /**
@@ -79,10 +84,10 @@ class SpawnProjectileInRangeAbility : Ability {
         // TODO: Calculate the Magnitude of the Difference Vector between the current Position and the Chosen Vector against the given Range with which we should limit our spawning.
         
         // Check the X Range
-        var inXRange = (_InputVector3.x <= self.position.x + _Range! && _InputVector3.x >= self.position.x - _Range!)
+        let inXRange = (_InputVector3.x <= self.position.x + _Range! && _InputVector3.x >= self.position.x - _Range!)
         
         // Check the Z Range
-        var inZRange = (_InputVector3.z <= self.position.z + _Range! && _InputVector3.z >= self.position.z - _Range!)
+        let inZRange = (_InputVector3.z <= self.position.z + _Range! && _InputVector3.z >= self.position.z - _Range!)
         
         return (inXRange && inZRange)
     }
@@ -92,13 +97,16 @@ class SpawnProjectileInRangeAbility : Ability {
      */
     func generateRandomPositionInRange() -> SCNVector3 {
         
+        // Parent Node is the Scene, so we'll be able to find the Player.
+        let playerNode = parent?.childNode(withName: "mainPlayer", recursively: true)
+        
         // TODO: Generate a Vector
-        var _GeneratedPosition = randomVectorInRange(_CurrentPosition: self.position)
+        var _GeneratedPosition = randomVectorInRange(_CurrentPosition: playerNode!.position)
         
         // TODO: Check vector for Validity, keep generating until I have a Valid Position
         while (!checkValidPosition(_InputVector3: _GeneratedPosition)){
          
-            _GeneratedPosition = randomVectorInRange(_CurrentPosition: self.position)
+            _GeneratedPosition = randomVectorInRange(_CurrentPosition: playerNode!.position)
          
          }
         
@@ -112,11 +120,13 @@ class SpawnProjectileInRangeAbility : Ability {
     func TerminateProjectile(_InputProjectile: Projectile){
         
         // TODO: Instantiate a SCNAction to wait duration amount of Time.
+        let waitAction = SCNAction.wait(duration: _ProjectileDuration!)
         
         // TODO: Execute the wait
+        self.runAction(waitAction)
         
         // TODO: Actually Terminate the Projectile here.
-        
+        self.removeFromParentNode()
     }
     
     /**
