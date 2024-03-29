@@ -66,6 +66,10 @@ public enum StageAestheticsHelper {
     public static let beachBG : UIImage = UIImage(named: "art.scnassets/beach.jpg")!
     public static let heavenBG : UIImage = UIImage(named: "art.scnassets/clouds.jpg")!
     
+    public static let plantBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(1, 15, 1)
+    public static let beachBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(45, 25, 1)
+    public static let cloudBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(45, 25, 1)
+    
     public static let maxTintCount : Int = 3
     public static let maxTextureCount : Int = 3
     private static var tintCount : Int = 0
@@ -112,7 +116,7 @@ public enum StageAestheticsHelper {
 //        return tintedImage
     }
     
-    public static func setIntialStageImage() -> UIImage? {
+    public static func setInitialStageImage() -> UIImage? {
         if (mapIterCount != 0) {
             for i in 0...mapIterCount{
                 currBG = currBG.next()
@@ -176,6 +180,13 @@ public enum StageAestheticsHelper {
         }
 
         return tintedImage
+    }
+    
+    public static func tileBG(_ material: SCNMaterial) {
+        // Set the tiling properties for the material
+        material.diffuse.wrapS = .repeat // Horizontal tiling
+        material.diffuse.wrapT = .repeat // Vertical tiling
+        material.diffuse.contentsTransform = plantBGTileScale
     }
 
 }

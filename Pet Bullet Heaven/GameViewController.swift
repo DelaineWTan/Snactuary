@@ -104,7 +104,16 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
         
-        stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
+        stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setInitialStageImage()
+        
+        let stageMat = stageNode?.geometry?.firstMaterial
+        
+        // Set the tiling properties for the material
+        stageMat!.diffuse.wrapS = .repeat // Horizontal tiling
+        stageMat!.diffuse.wrapT = .repeat // Vertical tiling
+
+        // Adjust the number of times the texture repeats across the surface
+        stageMat!.diffuse.contentsTransform = SCNMatrix4MakeScale(45, 25, 1) // Adjust the scale as needed
         
         // btn handler for progressing to next stage
         overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
@@ -125,9 +134,19 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
             UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
             self?.soundManager.playCurrentStageBGM()
+            
             // change stage visual aesthetics
             if let stageMat = self?.stageNode?.geometry?.firstMaterial {
                 stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
+                StageAestheticsHelper.tileBG(stageMat)
+                
+                
+//                // Set the tiling properties for the material
+//                stageMat.diffuse.wrapS = .repeat // Horizontal tiling
+//                stageMat.diffuse.wrapT = .repeat // Vertical tiling
+//
+//                // Adjust the number of times the texture repeats across the surface
+//                stageMat.diffuse.contentsTransform = SCNMatrix4MakeScale(45, 25, 1) // Adjust the scale as needed
             }
             
             // increase max HungerScore
