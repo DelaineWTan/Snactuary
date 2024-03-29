@@ -121,6 +121,7 @@ class GameUIView: UIView, PetSelectionDelegate {
     
     // Implement the delegate method
     func swapSceneNode(with petModel: Pet, position: Int) {
+        print(petModel.modelName)
         // load current Pet Model and ability
         let petNode = SCNNode()
         if let petModelScene = SCNScene(named: petModel.modelName) { // Find pet scene from assets file

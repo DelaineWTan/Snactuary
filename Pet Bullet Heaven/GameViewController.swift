@@ -119,11 +119,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
             let newHealth = ceil(Float(stageCount) * Globals.foodHealthMultiplier)
             
-            // Increment stage count
+            // Increment stage count and play new bgm
+            self?.soundManager.stopCurrentBGM()
             stageCount += 1
             self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
             UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
-            
+            self?.soundManager.playCurrentStageBGM()
             // change stage visual aesthetics
             if let stageMat = self?.stageNode?.geometry?.firstMaterial {
                 stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
@@ -239,9 +240,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         LifecycleManager.Instance.update()
         doPhysics()
         
-        // debug
-        //self.printAllUserData()
-        
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
         await ContinuousLoop()
@@ -263,11 +261,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // get its material
         let material = result.node.geometry!.firstMaterial!
-        
-        // Play duck sound if duck is tapped @TODO identify pet more reliably
-        if (result.node.name == "Cube-002") {
-            soundManager.playTapSFX()
-        }
+        soundManager.playTapSFX(result.node.name ?? "")
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.5
         
