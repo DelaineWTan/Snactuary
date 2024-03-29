@@ -96,6 +96,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
         
+        stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
+        
         // btn handler for progressing to next stage
         overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
             self?.overlayView.inGameUIView.nextStageButton.isHidden = true
@@ -114,18 +116,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
             UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
             
-            // Generate random RGB values
-            let randomRed = CGFloat.random(in: 0.0...1.0)
-            let randomGreen = CGFloat.random(in: 0.0...1.0)
-            let randomBlue = CGFloat.random(in: 0.0...1.0)
-
-            // Create a UIColor with the random RGB values
-            let randomColor = CGColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 0.3)
-            
             // change stage visual aesthetics
-            
             if let stageMat = self?.stageNode?.geometry?.firstMaterial {
-                stageMat.diffuse.contents = MapAppearanceEditor.iterateStageVariation()
+                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
             }
             
             // increase max HungerScore

@@ -10,7 +10,7 @@ import SceneKit
 import Foundation
 
 // Static helper class to change the appearance of the map
-public enum MapAppearanceEditor {
+public enum StageAestheticsHelper {
     
     enum tintColor {
         case green
@@ -37,11 +37,11 @@ public enum MapAppearanceEditor {
         var image: UIImage {
             switch self {
             case .plants:
-                return MapAppearanceEditor.plantBG
+                return StageAestheticsHelper.plantBG
             case .beach:
-                return MapAppearanceEditor.beachBG
+                return StageAestheticsHelper.beachBG
             case .clouds:
-                return MapAppearanceEditor.heavenBG
+                return StageAestheticsHelper.heavenBG
             }
         }
         
@@ -70,15 +70,15 @@ public enum MapAppearanceEditor {
     public static let maxTextureCount : Int = 3
     private static var tintCount : Int = 0
     private static var textureCount : Int = 0
-    private static var mapIterCount : Int = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) % maxTextureCount) - 1
+    private static var mapIterCount : Int = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) % maxTextureCount + 1)
     
     private static var currTint : tintColor = tintColor.green
     private static var currBG : mapBG = mapBG.plants
     
     public static func iterateStageVariation() -> UIImage? {
         // iterate tint. loop back to start if reached max
-        tintCount += 1
-        tintCount = tintCount % (maxTintCount + 1)
+//        tintCount += 1
+//        tintCount = tintCount % (maxTintCount + 1)
         
         mapIterCount += 1
         mapIterCount = mapIterCount % (maxTextureCount + 1) // add maxTintCount later
@@ -110,6 +110,19 @@ public enum MapAppearanceEditor {
 //        
 //        let tintedImage = tintImage(image: image, withColor: currTint.!)
 //        return tintedImage
+    }
+    
+    public static func setIntialStageImage() -> UIImage? {
+        print("num: \(mapIterCount)")
+        if (mapIterCount != 0) {
+            for i in 0...mapIterCount{
+                currBG = currBG.next()
+                print(currBG)
+            }
+        }
+        
+        
+        return currBG.image
     }
     
     // Function to apply tint to an image
