@@ -46,6 +46,21 @@ public class Globals {
     public static var playerIsMoving : Bool = false
     public static var playerMovementSpeed : Float = 20
     
+    public static var maxHungerScoreMultiplier : Float = 1.5
+    public static var foodHealthMultiplier : Float = 1.2
+    
+    // default values
+    public static let defaultMaxHungerScore : Int = 4
+    public static let defaultFoodHealth : Int = 1
+    public static let defaultFoodHungerValue : Int = 1
+    public static let defaultStageCount : Int = 1
+    
+    // Persistent User Data Keys
+    public static let totalScoreKey : String = "Total Score"
+    public static let stageScoreKey : String = "Stage Score"
+    public static let stageMaxScorekey : String = "Max Stage Score"
+    public static let stageCountKey : String = "Stage Count"
+    public static let foodHealthMultiplierKey : String = "Food Health Multiplier"
     public static var petModelNodeName: [String] = [
         "Frog.001 reference", "Penguin.001 reference", "Cat.001 reference", "Duck.001 reference"
     ]
