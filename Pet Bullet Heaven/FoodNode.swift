@@ -12,6 +12,7 @@ import SceneKit
 struct FoodData {
     var name: String
     var initialSpeed: Float
+    var health: Int
     var physicsDimensions: SCNVector3
     var hungerValue: Int
     var assetName: String
@@ -19,7 +20,7 @@ struct FoodData {
 ///
 /// Rudimentary Food Class
 ///
-public class Food : SCNNode, MonoBehaviour {
+public class FoodNode : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
     

@@ -22,8 +22,8 @@ class FoodSpawner: MonoBehaviour {
     
     init(scene: SCNScene) {
         foodArray = [
-            FoodData(name: "Carrot", initialSpeed: 1, physicsDimensions: SCNVector3(1.5, 3, 1.5), hungerValue: 1, assetName: "art.scnassets/Food Models/CarrotV2.scn"),
-            FoodData(name: "Donut", initialSpeed: 0.5, physicsDimensions: SCNVector3(3, 3, 3), hungerValue: 10, assetName: "art.scnassets/Food Models/Donut.scn")
+            FoodData(name: "Carrot", initialSpeed: 1, health: 1, physicsDimensions: SCNVector3(1.5, 3, 1.5), hungerValue: 2, assetName: "art.scnassets/Food Models/CarrotV2.scn"),
+            FoodData(name: "Donut", initialSpeed: 0.5, health: 2, physicsDimensions: SCNVector3(3, 3, 3), hungerValue: 10, assetName: "art.scnassets/Food Models/Donut.scn")
         ]
         self.mainScene = scene
         self.uniqueID = UUID()
@@ -43,8 +43,9 @@ class FoodSpawner: MonoBehaviour {
         //   - B is the spawn distance from the center.
         let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
         
+        let foodPos = UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1 % 2
         
-        let food = Food(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), foodData: foodArray[0])
+        let food = FoodNode(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), foodData: foodArray[foodPos])
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node
