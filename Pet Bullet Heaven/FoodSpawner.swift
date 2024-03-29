@@ -43,9 +43,9 @@ class FoodSpawner: MonoBehaviour {
         //   - B is the spawn distance from the center.
         let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
         
-        let foodPos = UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1 % 2
+        let foodIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 2
         
-        let food = FoodNode(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), foodData: foodArray[foodPos])
+        let food = FoodNode(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), foodData: foodArray[foodIndex])
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node

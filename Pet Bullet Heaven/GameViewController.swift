@@ -119,11 +119,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
             let newHealth = ceil(Float(stageCount) * Globals.foodHealthMultiplier)
             
-            // Increment stage count
+            // Increment stage count and play new bgm
+            self?.soundManager.stopCurrentBGM()
             stageCount += 1
             self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
             UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
-            
+            self?.soundManager.playCurrentStageBGM()
             // change stage visual aesthetics
             if let stageMat = self?.stageNode?.geometry?.firstMaterial {
                 stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()

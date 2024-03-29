@@ -62,7 +62,7 @@ class SoundManager {
                 return
             }
             
-            var currentBGMIndex = Globals.currentStage % Globals.numStagePresets
+            let currentBGMIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey)  - 1) % Globals.numStagePresets
             let nextBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
             nextBGMPlayer.play()
         }
@@ -72,7 +72,7 @@ class SoundManager {
                 print("No background music loaded")
                 return
             }
-            var currentBGMIndex = Globals.currentStage % Globals.numStagePresets
+            let currentBGMIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey)  - 1) % Globals.numStagePresets
             let currentBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
             currentBGMPlayer.stop()
         }
@@ -116,11 +116,13 @@ class SoundManager {
     func playTapSFX(_ petName: String) {
         let petType = extractPetTypeFromNode(from: petName)
         // @TODO play the correct sound based on pet type
-        let tapSFXPlayer = tapSFXPlayers[petType]
-        
-        DispatchQueue.main.async {
-            tapSFXPlayer!.seek(to: .zero)
-            tapSFXPlayer!.play()
+        if let tapSFXPlayer = tapSFXPlayers[petType] {
+            DispatchQueue.main.async {
+                tapSFXPlayer.seek(to: .zero)
+                tapSFXPlayer.play()
+            }
+        } else {
+            print("Tap sound effect for \(petType) is not preloaded")
         }
     }
     
