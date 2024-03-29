@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		04FB228F2BB3A44B00B1A519 /* StageAestheticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */; };
 		0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */; };
-		0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409352B71FBD00047847B /* AppDelegate.swift */; };
 		0D6409382B71FBD00047847B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6409372B71FBD00047847B /* art.scnassets */; };
 		0D64093D2B71FBD00047847B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093B2B71FBD00047847B /* Main.storyboard */; };
 		0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093E2B71FBD20047847B /* Assets.xcassets */; };
@@ -33,9 +32,14 @@
 		4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */; };
 		58861D4C2B7C1084002573D2 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58861D4B2B7C1084002573D2 /* Pet.swift */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
-		FB7328982B7D947500557AE6 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* Food.swift */; };
+		FB7328982B7D947500557AE6 /* FoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* FoodNode.swift */; };
 		FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */; };
 		FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */; };
+		FBD518312BB627A300E947E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD518302BB627A300E947E5 /* AppDelegate.swift */; };
+		FBD5183A2BB642C800E947E5 /* berrytext.png in Resources */ = {isa = PBXBuildFile; fileRef = FBD518362BB642C800E947E5 /* berrytext.png */; };
+		FBD5183B2BB642C800E947E5 /* IcingTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FBD518372BB642C800E947E5 /* IcingTexture.png */; };
+		FBD5183C2BB642C800E947E5 /* donutTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FBD518382BB642C800E947E5 /* donutTexture.png */; };
+		FBD5183D2BB642C800E947E5 /* donut.dae in Resources */ = {isa = PBXBuildFile; fileRef = FBD518392BB642C800E947E5 /* donut.dae */; };
 		FBE60A552B92D484009B3E7E /* Paw 4.dae in Resources */ = {isa = PBXBuildFile; fileRef = FBE60A542B92D484009B3E7E /* Paw 4.dae */; };
 		FBE60A582B92E51F009B3E7E /* Cat.001.png in Resources */ = {isa = PBXBuildFile; fileRef = FBE60A562B92E51F009B3E7E /* Cat.001.png */; };
 		FBE60A592B92E51F009B3E7E /* Cat.001.dae in Resources */ = {isa = PBXBuildFile; fileRef = FBE60A572B92E51F009B3E7E /* Cat.001.dae */; };
@@ -66,7 +70,6 @@
 		04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageAestheticsHelper.swift; sourceTree = "<group>"; };
 		0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		0D6409322B71FBD00047847B /* Pet Bullet Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pet Bullet Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0D6409352B71FBD00047847B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D6409372B71FBD00047847B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		0D64093C2B71FBD00047847B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0D64093E2B71FBD20047847B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -92,9 +95,15 @@
 		4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Penguin_HandPaint.001.png; sourceTree = "<group>"; };
 		58861D4B2B7C1084002573D2 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
-		FB7328972B7D947500557AE6 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		FB7328972B7D947500557AE6 /* FoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodNode.swift; sourceTree = "<group>"; };
 		FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoBehaviour.swift; sourceTree = "<group>"; };
 		FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleManager.swift; sourceTree = "<group>"; };
+		FBD518302BB627A300E947E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FBD518352BB63BCC00E947E5 /* CarrotV2.dae */ = {isa = PBXFileReference; lastKnownFileType = text.xml.dae; path = CarrotV2.dae; sourceTree = "<group>"; };
+		FBD518362BB642C800E947E5 /* berrytext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = berrytext.png; sourceTree = "<group>"; };
+		FBD518372BB642C800E947E5 /* IcingTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IcingTexture.png; sourceTree = "<group>"; };
+		FBD518382BB642C800E947E5 /* donutTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donutTexture.png; sourceTree = "<group>"; };
+		FBD518392BB642C800E947E5 /* donut.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = donut.dae; sourceTree = "<group>"; };
 		FBE60A542B92D484009B3E7E /* Paw 4.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paw 4.dae"; sourceTree = "<group>"; };
 		FBE60A562B92E51F009B3E7E /* Cat.001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cat.001.png; sourceTree = "<group>"; };
 		FBE60A572B92E51F009B3E7E /* Cat.001.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Cat.001.dae; sourceTree = "<group>"; };
@@ -155,9 +164,9 @@
 			isa = PBXGroup;
 			children = (
 				4FAE63822B7C483D007ED6AA /* Resources */,
-				0D6409352B71FBD00047847B /* AppDelegate.swift */,
 				0D6409372B71FBD00047847B /* art.scnassets */,
 				4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */,
+				FBD518302BB627A300E947E5 /* AppDelegate.swift */,
 				0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */,
 				0DCB55B82B75937600C18DD0 /* GameUIView.swift */,
 				0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */,
@@ -170,7 +179,7 @@
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
-				FB7328972B7D947500557AE6 /* Food.swift */,
+				FB7328972B7D947500557AE6 /* FoodNode.swift */,
 				FB6306C32B8017DD00E8096D /* FoodSpawner.swift */,
 				FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */,
 				FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */,
@@ -204,6 +213,10 @@
 		4FAE63822B7C483D007ED6AA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FBD518362BB642C800E947E5 /* berrytext.png */,
+				FBD518392BB642C800E947E5 /* donut.dae */,
+				FBD518382BB642C800E947E5 /* donutTexture.png */,
+				FBD518372BB642C800E947E5 /* IcingTexture.png */,
 				4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */,
 				FBE60A542B92D484009B3E7E /* Paw 4.dae */,
 				FBE60A572B92E51F009B3E7E /* Cat.001.dae */,
@@ -212,6 +225,7 @@
 				FBE60A5A2B92E529009B3E7E /* Duck.001.png */,
 				FBE60A5F2B92E533009B3E7E /* Frog.001.png */,
 				FBE60A622B92E7EB009B3E7E /* Frog.001.dae */,
+				FBD518352BB63BCC00E947E5 /* CarrotV2.dae */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -320,14 +334,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBD5183B2BB642C800E947E5 /* IcingTexture.png in Resources */,
 				0D8DB43C2B7AC9AB008D2AE8 /* .gitignore in Resources */,
 				FBE60A5D2B92E52A009B3E7E /* Duck.001.dae in Resources */,
 				FBE60A592B92E51F009B3E7E /* Cat.001.dae in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
+				FBD5183C2BB642C800E947E5 /* donutTexture.png in Resources */,
 				FBE60A612B92E533009B3E7E /* Frog.001.png in Resources */,
 				FBE60A582B92E51F009B3E7E /* Cat.001.png in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
+				FBD5183A2BB642C800E947E5 /* berrytext.png in Resources */,
 				0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */,
+				FBD5183D2BB642C800E947E5 /* donut.dae in Resources */,
 				FBE60A5C2B92E52A009B3E7E /* Duck.001.png in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
 				0D64093D2B71FBD00047847B /* Main.storyboard in Resources */,
@@ -364,7 +382,7 @@
 				4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */,
 				4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */,
 				4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */,
-				0D6409362B71FBD00047847B /* AppDelegate.swift in Sources */,
+				FBD518312BB627A300E947E5 /* AppDelegate.swift in Sources */,
 				0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */,
 				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */,
@@ -372,7 +390,7 @@
 				FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
 				FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */,
-				FB7328982B7D947500557AE6 /* Food.swift in Sources */,
+				FB7328982B7D947500557AE6 /* FoodNode.swift in Sources */,
 				0ED95DCA2B9193E5008F010E /* Map.swift in Sources */,
 				04FB228F2BB3A44B00B1A519 /* StageAestheticsHelper.swift in Sources */,
 				0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */,

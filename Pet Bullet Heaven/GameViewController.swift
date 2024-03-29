@@ -181,17 +181,17 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
     
     //check which node is the food node and return it
-    func checkFoodCollision() -> Food? {
+    func checkFoodCollision() -> FoodNode? {
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
-            return nodeB as? Food
+            return nodeB as? FoodNode
         } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
-            return nodeA as? Food
+            return nodeA as? FoodNode
         }
         return nil
     }
     
     //check if the collided food is currently on cooldown
-    func isFoodOnCooldown(_ food: Food) -> Bool {
+    func isFoodOnCooldown(_ food: FoodNode) -> Bool {
         if let lastHitTime = foodCooldowns[food.uniqueID] {
             return Date().timeIntervalSince1970 - lastHitTime < foodHitCooldown
         }
@@ -199,12 +199,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
     
     //start the cool down for colliding food
-    func startCooldown(for food: Food) {
+    func startCooldown(for food: FoodNode) {
         foodCooldowns[food.uniqueID] = Date().timeIntervalSince1970
     }
 
     //use the ability to deal damage to the colliding food item
-    func applyDamageToFood(_ food: Food) {
+    func applyDamageToFood(_ food: FoodNode) {
         // Convert food node's position to screen coordinates
         let scnView = self.view as! SCNView
         let foodPosition = scnView.projectPoint(food.presentation.position)
@@ -308,8 +308,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             Globals.inputX = x / length * 2 // TODO add speed mod
             Globals.inputZ = z / length * 2// TODO add speed mod
             
-            print(Globals.inputX)
-            print(Globals.inputZ)
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)

@@ -27,12 +27,12 @@ public class LifecycleManager {
     }
     
     func deleteAllFood() {
-        let foodToRemove = gameObjects.filter { $0.value is Food }
+        let foodToRemove = gameObjects.filter { $0.value is FoodNode }
         
         // Remove the filtered objects from the dictionary
         for (id, object) in foodToRemove {
             deleteGameObject(gameObject: object)
-            let food = object as? Food
+            let food = object as? FoodNode
             
             // Perform any additional cleanup or actions as needed
             food?.removeFromParentNode()
