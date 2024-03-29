@@ -30,6 +30,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
+    
+    let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
 
     // create a new scene
     let mainScene = SCNScene(named: "art.scnassets/main.scn")!
@@ -103,53 +105,76 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         scnView.addSubview(floatingText)
     }
     
+    ///
+    ///START OF PHYSICS STUFF (faiz)
+    ///
     
     var nodeA : SCNNode? = SCNNode()
     var nodeB : SCNNode? = SCNNode()
-    // Update score and destroy food on collision
+    
+    // food cooldown duration (in seconds)
+    let foodHitCooldown: TimeInterval = 0.5
+
+    // dictionary to track the cooldown time for each food item using their UUIDs
+    var foodCooldowns: [UUID: TimeInterval] = [:]
+    
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         nodeA = contact.nodeA
         nodeB = contact.nodeB
     }
     
+    //DO PHYSICS
     func doPhysics() {
-        
         // Check if player collides with food or vice versa
-        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory)
-        {
-            // downcast as food obj and use its hunger value for score
-            if let food = nodeB as? Food {
-                overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
-                food.onDestroy(after: 0)
-                
-                // Convert food node's position to screen coordinates
-                let scnView = self.view as! SCNView
-                let foodPosition = scnView.projectPoint(food.presentation.position)
-                
-                // Instantiate and show floating damage text
-                let floatingText = FloatingDamageText()
-                scnView.addSubview(floatingText)
-                // @TODO replace the floating  text with actual damage numbers
-                floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: food.hungerValue)
+        if let food = checkFoodCollision() {
+            // Check if the food item is not on cooldown or the cooldown has expired
+            if !isFoodOnCooldown(food) {
+                applyDamageToFood(food)
+                startCooldown(for: food)
             }
-            soundManager.refreshEatingSFX()
-            
-        }
-        else if(nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory)
-        {
-            // downcast as food obj and use its hunger value for score
-            if let food = nodeA as? Food {
-                overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
-                food.onDestroy(after: 0)
-                // TODO add exp to all party pets
-            }
-            nodeA?.removeFromParentNode()
-            
         }
         nodeA = nil
         nodeB = nil
         
     }
+    
+    //check which node is the food node and return it
+    func checkFoodCollision() -> Food? {
+        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
+            return nodeB as? Food
+        } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
+            return nodeA as? Food
+        }
+        return nil
+    }
+    
+    //check if the collided food is currently on cooldown
+    func isFoodOnCooldown(_ food: Food) -> Bool {
+        if let lastHitTime = foodCooldowns[food.uniqueID] {
+            return Date().timeIntervalSince1970 - lastHitTime < foodHitCooldown
+        }
+        return false
+    }
+    
+    //start the cool down for colliding food
+    func startCooldown(for food: Food) {
+        foodCooldowns[food.uniqueID] = Date().timeIntervalSince1970
+    }
+
+    //use the ability to deal damage to the colliding food item
+    func applyDamageToFood(_ food: Food) {
+        food._Health -= testAbility._AbilityDamage!
+
+        if food._Health <= 0 {
+            overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+            food.onDestroy(after: 0)
+            soundManager.refreshEatingSFX()
+        }
+    }
+    
+    ///
+    ///END OF PHYSICS STUFF
+    ///
     
     func StartLoop() async {
         await ContinuousLoop()
