@@ -46,7 +46,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             await StartLoop()
         }
         
-        
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         
@@ -71,6 +70,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         overlayView.frame = scnView.bounds
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scnView.addSubview(overlayView)
+        
         // add self rendering every frame logic
                 
         // add a tap gesture recognizer
@@ -86,6 +86,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // get stage plane
         stageNode = mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        stageNode?.geometry?.firstMaterial?.lightingModel = .constant
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
         // spawn the initial attack patterns of active pets to game
@@ -100,6 +101,45 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     
         _ = FoodSpawner(scene: mainScene)
         _ = FoodSpawner(scene: mainScene)
+        
+        UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
+        
+        stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
+        
+        // btn handler for progressing to next stage
+        overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
+            self?.overlayView.inGameUIView.nextStageButton.isHidden = true
+            
+            // reset current hungerScore on stage & hungerMeter
+            self?.overlayView.inGameUIView.resetHunger()
+            
+            // clear food objects
+            
+            // increase food health
+            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+            let newHealth = ceil(Float(stageCount) * Globals.foodHealthMultiplier)
+            
+            // Increment stage count
+            stageCount += 1
+            self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
+            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
+            
+            // change stage visual aesthetics
+            if let stageMat = self?.stageNode?.geometry?.firstMaterial {
+                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
+            }
+            
+            // increase max HungerScore
+            self?.overlayView.inGameUIView.increaseMaxHungerScore()
+            
+            // save stage's food health multiplier
+            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
+            
+            UserDefaults.standard.synchronize()
+        }
+        
+        // Tentative, add to rootNode. Add to player in order to see Ability
+        scnView.scene!.rootNode.addChildNode(testAbility)
         
         // Add floating damage text
         scnView.addSubview(floatingText)
@@ -167,6 +207,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
 
         if food._Health <= 0 {
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+            UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
             soundManager.refreshEatingSFX()
         }
@@ -186,6 +227,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // read from thread-safe queue of to-be-deleted UUIDs
         LifecycleManager.Instance.update()
         doPhysics()
+        
+        // debug
+        self.printAllUserData()
+        
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
         await ContinuousLoop()
@@ -275,6 +320,28 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         } else {
             return .all
         }
+    }
+    
+    /// Resets persistent user data
+    public static func resetUserData() {
+        UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
+        UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
+        UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
+        UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
+        UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
+        // add anymore keys to reset
+    }
+    
+    /// Prints all user data to console
+    private func printAllUserData() {
+        print("total score: \(UserDefaults.standard.integer(forKey: Globals.totalScoreKey))")
+        print("stage score: \(UserDefaults.standard.integer(forKey: Globals.stageScoreKey))")
+        print("stage label score: \(overlayView.inGameUIView.getHungerScore)")
+        print("stage count: \(UserDefaults.standard.integer(forKey: Globals.stageCountKey))")
+        print("stage max score: \(UserDefaults.standard.integer(forKey: Globals.stageMaxScorekey))")
+        print("food health multiplier: \(UserDefaults.standard.integer(forKey: Globals.foodHealthMultiplierKey))")
+        
+        print("\n")
     }
 
     func getSceneNode() -> SCNNode? {

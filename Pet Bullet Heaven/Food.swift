@@ -11,14 +11,13 @@ import SceneKit
 ///
 /// Rudimentary Food Class
 ///
-class Food : SCNNode, MonoBehaviour {
+public class Food : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
     
-    
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
     
-    var _Health : Int = 2
+    var _Health : Int = Globals.defaultFoodHealth
     
     var _Mesh : SCNBox?
     
@@ -27,15 +26,16 @@ class Food : SCNNode, MonoBehaviour {
     
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
-    var hungerValue: Int = 1
+    var hungerValue: Int = Globals.defaultFoodHungerValue
     
     let foodCategory: Int = 0b010
 
-    init(spawnLocation: SCNVector3, speed: Float, hungerValue: Int) {
+    init(spawnLocation: SCNVector3, speed: Float, hungerValue: Int, health: Int) {
         
         self.spawnLocation = spawnLocation
         self.speed = speed
         self.hungerValue = hungerValue
+        self._Health = health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         super.init()
         self.position = spawnLocation
