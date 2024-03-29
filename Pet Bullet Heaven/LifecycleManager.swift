@@ -26,6 +26,20 @@ public class LifecycleManager {
         gameObjects.removeValue(forKey: gameObject.uniqueID)
     }
     
+    func deleteAllFood() {
+        let foodToRemove = gameObjects.filter { $0.value is FoodNode }
+        
+        // Remove the filtered objects from the dictionary
+        for (id, object) in foodToRemove {
+            deleteGameObject(gameObject: object)
+            let food = object as? FoodNode
+            
+            // Perform any additional cleanup or actions as needed
+            food?.removeFromParentNode()
+            food!.onDestroy?()
+        }
+    }
+    
     func update() {
         let currentTime = Date.timeIntervalSinceReferenceDate
         let deltaTime = currentTime - lastUpdateTime

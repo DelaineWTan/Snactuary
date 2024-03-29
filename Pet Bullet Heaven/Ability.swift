@@ -9,14 +9,18 @@ import Foundation
 import SceneKit
 
 class Ability : SCNNode {
-    
     // Member Variables
+    var _AbilityDamage : Int?
+    var _AbilityActivated : Bool = false
     var _AbilityDuration : Double?
     
     var _Projectile : () -> Projectile
     
     init(withProjectile: @escaping () -> Projectile) {
         _Projectile = withProjectile
+        _AbilityDamage = 0
+        _AbilityDuration = 0.0
+        _AbilityActivated = false
         super.init()
     }
     

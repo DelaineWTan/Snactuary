@@ -8,7 +8,7 @@
 import Foundation
 import SceneKit
 
-class OrbitingProjectileAbility : Ability {
+class OrbitingProjectileAbility : Ability{
     
     // Member Variables
     var _numProjectiles : Int?
@@ -25,9 +25,8 @@ class OrbitingProjectileAbility : Ability {
     
     // Mutated Constructor
     init(_InputAbilityDamage: Int, _InputAbilityDuration: Double, _InputRotationSpeed : CGFloat, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int, _InputProjectile: @escaping () -> Projectile){
-        
         super.init(withProjectile: _InputProjectile)
-        
+        _AbilityDamage = _InputAbilityDamage
         _AbilityDuration = _InputAbilityDuration
         _rotationSpeed = _InputRotationSpeed
         _distanceFromCenter = _InputDistanceFromCenter
@@ -54,6 +53,9 @@ class OrbitingProjectileAbility : Ability {
      Overriden Function for activating this ability. The majority of the effects will happen here.
      */
     override func ActivateAbility() -> Bool {
+        if _AbilityActivated {
+            return false;
+        }
         
         // 1. Find the intervals at which I need to spawn projectiles
         let _Intervals = CalculateProjectileInterval()
@@ -74,6 +76,8 @@ class OrbitingProjectileAbility : Ability {
             _ProjectileList[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin((_Intervals*Float(_Counter))/2), z:0 , w: cos((_Intervals*Float(_Counter))/2)), aroundTarget: SCNVector3(0,0,0))
             
             _Counter+=1
+        
+            _AbilityActivated = true;
         }
         
         // Start rotating this Ability infinitely
@@ -102,4 +106,15 @@ class OrbitingProjectileAbility : Ability {
         return CGFloat(_InDegrees * CGFloat(Float.pi / 180))
     }
     
+    // Implementing NSCopying protocol
+    override func copy() -> Any {
+        let copy = OrbitingProjectileAbility(_InputAbilityDamage: self._AbilityDamage ?? 0,
+                                             _InputAbilityDuration: self._AbilityDuration ?? 0,
+                                             _InputRotationSpeed: self._rotationSpeed ?? 0,
+                                             _InputDistanceFromCenter: self._distanceFromCenter ?? 0,
+                                             _InputNumProjectiles: self._numProjectiles ?? 0,
+                                             _InputProjectile: self._Projectile)
+        // Copy additional properties if needed
+        return copy
+    }
 }
