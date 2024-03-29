@@ -30,6 +30,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
+    
+    let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
 
     // create a new scene
     let mainScene = SCNScene(named: "art.scnassets/main.scn")!
@@ -43,7 +45,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         Task {
             await StartLoop()
         }
-        
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -69,6 +70,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         overlayView.frame = scnView.bounds
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scnView.addSubview(overlayView)
+        
         // add self rendering every frame logic
                 
         // add a tap gesture recognizer
@@ -84,14 +86,57 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // get stage plane
         stageNode = mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        stageNode?.geometry?.firstMaterial?.lightingModel = .constant
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
-        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
-        _ = testAbility.ActivateAbility()
-        
+        // spawn the initial attack patterns of active pets to game
+        for petIndex in 0...((Globals.activePets.count) - 1) {
+            // Add attack pattern into scene
+            let testAbility = Globals.activePets[petIndex].attackPattern
+            let abilityClone = testAbility.copy() as! Ability
+            _ = abilityClone.ActivateAbility()
+            abilityClone.name = Globals.petAbilityNodeName[petIndex]
+            playerNode?.addChildNode(abilityClone)
+        }
+    
+        _ = FoodSpawner(scene: mainScene)
         _ = FoodSpawner(scene: mainScene)
         
-        _ = FoodSpawner(scene: mainScene)
+        UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
+        
+        stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
+        
+        // btn handler for progressing to next stage
+        overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
+            self?.overlayView.inGameUIView.nextStageButton.isHidden = true
+            
+            // reset current hungerScore on stage & hungerMeter
+            self?.overlayView.inGameUIView.resetHunger()
+            
+            // clear food objects
+            
+            // increase food health
+            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+            let newHealth = ceil(Float(stageCount) * Globals.foodHealthMultiplier)
+            
+            // Increment stage count
+            stageCount += 1
+            self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
+            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
+            
+            // change stage visual aesthetics
+            if let stageMat = self?.stageNode?.geometry?.firstMaterial {
+                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
+            }
+            
+            // increase max HungerScore
+            self?.overlayView.inGameUIView.increaseMaxHungerScore()
+            
+            // save stage's food health multiplier
+            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
+            
+            UserDefaults.standard.synchronize()
+        }
         
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
@@ -100,52 +145,86 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         scnView.addSubview(floatingText)
     }
     
+    ///
+    ///START OF PHYSICS STUFF (faiz)
+    ///
     
     var nodeA : SCNNode? = SCNNode()
     var nodeB : SCNNode? = SCNNode()
-    // Update score and destroy food on collision
+    
+    // food cooldown duration (in seconds)
+    let foodHitCooldown: TimeInterval = 0.1
+
+    // dictionary to track the cooldown time for each food item using their UUIDs
+    var foodCooldowns: [UUID: TimeInterval] = [:]
+    
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         nodeA = contact.nodeA
         nodeB = contact.nodeB
     }
     
+    //DO PHYSICS
     func doPhysics() {
-        
         // Check if player collides with food or vice versa
-        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory)
-        {
-            // downcast as food obj and use its hunger value for score
-            if let food = nodeB as? Food {
-                overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
-                food.onDestroy(after: 0)
-                
-                // Convert food node's position to screen coordinates
-                let scnView = self.view as! SCNView
-                let foodPosition = scnView.projectPoint(food.presentation.position)
-                
-                // Instantiate and show floating damage text
-                let floatingText = FloatingDamageText()
-                scnView.addSubview(floatingText)
-                // @TODO replace the floating  text with actual damage numbers
-                floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: food.hungerValue)
+        if let food = checkFoodCollision() {
+            // Check if the food item is not on cooldown or the cooldown has expired
+            if !isFoodOnCooldown(food) {
+                applyDamageToFood(food)
+                startCooldown(for: food)
             }
-            soundManager.refreshEatingSFX()
-            
-        }
-        else if(nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory)
-        {
-            // downcast as food obj and use its hunger value for score
-            if let food = nodeA as? Food {
-                overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
-                food.onDestroy(after: 0)
-            }
-            nodeA?.removeFromParentNode()
-            
         }
         nodeA = nil
         nodeB = nil
         
     }
+    
+    //check which node is the food node and return it
+    func checkFoodCollision() -> Food? {
+        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
+            return nodeB as? Food
+        } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
+            return nodeA as? Food
+        }
+        return nil
+    }
+    
+    //check if the collided food is currently on cooldown
+    func isFoodOnCooldown(_ food: Food) -> Bool {
+        if let lastHitTime = foodCooldowns[food.uniqueID] {
+            return Date().timeIntervalSince1970 - lastHitTime < foodHitCooldown
+        }
+        return false
+    }
+    
+    //start the cool down for colliding food
+    func startCooldown(for food: Food) {
+        foodCooldowns[food.uniqueID] = Date().timeIntervalSince1970
+    }
+
+    //use the ability to deal damage to the colliding food item
+    func applyDamageToFood(_ food: Food) {
+        // Convert food node's position to screen coordinates
+        let scnView = self.view as! SCNView
+        let foodPosition = scnView.projectPoint(food.presentation.position)
+
+        food._Health -= testAbility._AbilityDamage!
+        // Instantiate and show floating damage text
+        let floatingText = FloatingDamageText()
+        scnView.addSubview(floatingText)
+        floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: testAbility._AbilityDamage!)
+
+        if food._Health <= 0 {
+            overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
+            UserDefaults.standard.synchronize()
+            food.onDestroy(after: 0)
+            soundManager.refreshEatingSFX()
+            
+        }
+    }
+    
+    ///
+    ///END OF PHYSICS STUFF
+    ///
     
     func StartLoop() async {
         await ContinuousLoop()
@@ -157,6 +236,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // read from thread-safe queue of to-be-deleted UUIDs
         LifecycleManager.Instance.update()
         doPhysics()
+        
+        // debug
+        //self.printAllUserData()
+        
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
         await ContinuousLoop()
@@ -220,8 +303,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             // Normalize xz vector so diagonal movement equals 1
             let length = sqrt(pow(x, 2) + pow(z, 2))
-            Globals.inputX = x / length
-            Globals.inputZ = z / length
+            Globals.inputX = x / length * 2 // TODO add speed mod
+            Globals.inputZ = z / length * 2// TODO add speed mod
+            
+            print(Globals.inputX)
+            print(Globals.inputZ)
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
@@ -243,6 +329,28 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         } else {
             return .all
         }
+    }
+    
+    /// Resets persistent user data
+    public static func resetUserData() {
+        UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
+        UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
+        UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
+        UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
+        UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
+        // add anymore keys to reset
+    }
+    
+    /// Prints all user data to console
+    private func printAllUserData() {
+        print("total score: \(UserDefaults.standard.integer(forKey: Globals.totalScoreKey))")
+        print("stage score: \(UserDefaults.standard.integer(forKey: Globals.stageScoreKey))")
+        print("stage label score: \(overlayView.inGameUIView.getHungerScore)")
+        print("stage count: \(UserDefaults.standard.integer(forKey: Globals.stageCountKey))")
+        print("stage max score: \(UserDefaults.standard.integer(forKey: Globals.stageMaxScorekey))")
+        print("food health multiplier: \(UserDefaults.standard.integer(forKey: Globals.foodHealthMultiplierKey))")
+        
+        print("\n")
     }
 
     func getSceneNode() -> SCNNode? {

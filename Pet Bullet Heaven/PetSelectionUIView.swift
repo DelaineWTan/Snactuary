@@ -342,7 +342,6 @@ class PetSelectionUIView: UIView {
             // Update Globals.activePets with Globals.pets
             Globals.activePets[activePanelTag!] = Globals.pets[collectionPanelTag!]
             
-            print("swapped")
             // Update the view
             setupUI()
 

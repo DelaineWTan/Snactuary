@@ -19,21 +19,20 @@ struct FoodData {
 ///
 /// Rudimentary Food Class
 ///
-class Food : SCNNode, MonoBehaviour {
+public class Food : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
     
-    
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
     
-    var _Health : Int = 1
+    var _Health : Int = Globals.defaultFoodHealth
     
     var spawnLocation : SCNVector3
     var speed : Float
     
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
-    var hungerValue: Int = 1
+    var hungerValue: Int = Globals.defaultFoodHungerValue
     
     let foodCategory: Int = 0b010
 
@@ -42,6 +41,7 @@ class Food : SCNNode, MonoBehaviour {
         self.spawnLocation = spawnLocation
         self.speed = speed
         self.hungerValue = foodData.hungerValue
+        self._Health = foodData.health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         super.init()
         self.position = spawnLocation
@@ -64,6 +64,7 @@ class Food : SCNNode, MonoBehaviour {
 
         
         let foodPhysicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: SCNBox(width: CGFloat(foodData.physicsDimensions.x), height: CGFloat(foodData.physicsDimensions.x), length: CGFloat(foodData.physicsDimensions.x), chamferRadius: 0), options: nil)) // Create a dynamic physics body
+        
         foodPhysicsBody.mass = 1.0 // Set the mass of the physics body
         foodPhysicsBody.isAffectedByGravity = false
         
