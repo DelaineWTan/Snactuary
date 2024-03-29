@@ -238,7 +238,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         doPhysics()
         
         // debug
-        self.printAllUserData()
+        //self.printAllUserData()
         
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)

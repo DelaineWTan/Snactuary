@@ -182,7 +182,7 @@ class InGameUIView: UIView {
     
     private func setupUI() {
         // for debugging
-        GameViewController.resetUserData()
+        //GameViewController.resetUserData()
         
         // Load hunger score from persistent storage
         let savedHungerScore = UserDefaults.standard.integer(forKey: Globals.stageScoreKey)
@@ -275,7 +275,6 @@ class InGameUIView: UIView {
         hungerScoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
         // Save stage and total hunger score persistently
         UserDefaults.standard.set(_hungerScore, forKey: Globals.stageScoreKey)
-        print("User Score: \(UserDefaults.standard.integer(forKey: Globals.stageScoreKey))")
     }
     
     ///
