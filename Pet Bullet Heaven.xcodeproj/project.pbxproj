@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		04FB228F2BB3A44B00B1A519 /* StageAestheticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */; };
 		0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */; };
+		0D58FCC52BB783A500488D01 /* SpawnProjectileInRangeAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D58FCC42BB783A500488D01 /* SpawnProjectileInRangeAbility.swift */; };
+		0D58FCC72BB784F100488D01 /* StationaryBomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D58FCC62BB784F100488D01 /* StationaryBomb.swift */; };
 		0D6409382B71FBD00047847B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6409372B71FBD00047847B /* art.scnassets */; };
 		0D64093D2B71FBD00047847B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093B2B71FBD00047847B /* Main.storyboard */; };
 		0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093E2B71FBD20047847B /* Assets.xcassets */; };
@@ -69,6 +71,8 @@
 /* Begin PBXFileReference section */
 		04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageAestheticsHelper.swift; sourceTree = "<group>"; };
 		0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		0D58FCC42BB783A500488D01 /* SpawnProjectileInRangeAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnProjectileInRangeAbility.swift; sourceTree = "<group>"; };
+		0D58FCC62BB784F100488D01 /* StationaryBomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationaryBomb.swift; sourceTree = "<group>"; };
 		0D6409322B71FBD00047847B /* Pet Bullet Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pet Bullet Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409372B71FBD00047847B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		0D64093C2B71FBD00047847B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -185,8 +189,10 @@
 				FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */,
 				4FAE637A2B7C21B3007ED6AA /* Ability.swift */,
 				4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */,
+				0D58FCC42BB783A500488D01 /* SpawnProjectileInRangeAbility.swift */,
 				4FAE637E2B7C21EE007ED6AA /* Projectile.swift */,
 				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
+				0D58FCC62BB784F100488D01 /* StationaryBomb.swift */,
 				0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */,
 				04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */,
 			);
@@ -382,10 +388,12 @@
 				4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */,
 				4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */,
 				4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */,
+				0D58FCC52BB783A500488D01 /* SpawnProjectileInRangeAbility.swift in Sources */,
 				FBD518312BB627A300E947E5 /* AppDelegate.swift in Sources */,
 				0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */,
 				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */,
+				0D58FCC72BB784F100488D01 /* StationaryBomb.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
 				FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,

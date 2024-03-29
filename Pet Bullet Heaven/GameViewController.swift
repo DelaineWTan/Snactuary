@@ -31,7 +31,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
     
-    let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
+    let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 6, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
 
     // create a new scene
     let mainScene = SCNScene(named: "art.scnassets/main.scn")!
@@ -89,6 +89,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         stageNode?.geometry?.firstMaterial?.lightingModel = .constant
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
+        let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})
+
+
         // spawn the initial attack patterns of active pets to game
         for petIndex in 0...((Globals.activePets.count) - 1) {
             // Add attack pattern into scene
@@ -98,8 +101,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             abilityClone.name = Globals.petAbilityNodeName[petIndex]
             playerNode?.addChildNode(abilityClone)
         }
-    
-        _ = FoodSpawner(scene: mainScene)
+
         _ = FoodSpawner(scene: mainScene)
         
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
@@ -143,6 +145,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // Tentative, add to rootNode. Add to player in order to see Ability
         scnView.scene!.rootNode.addChildNode(testAbility)
+        // Tentative attach to the Main Scene
+        mainScene.rootNode.addChildNode(testAbility2)
+        
+        // Important to call abilities after attaching
+        _ = testAbility2.ActivateAbility()
         
         // Add floating damage text
         scnView.addSubview(floatingText)
