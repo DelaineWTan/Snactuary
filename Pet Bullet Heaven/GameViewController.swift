@@ -89,7 +89,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         stageNode?.geometry?.firstMaterial?.lightingModel = .constant
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
-        let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 0.5, _InputRange: 12.0, _InputProjectileDuration: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
+        let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})
 
 
         // spawn the initial attack patterns of active pets to game
