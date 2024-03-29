@@ -113,11 +113,9 @@ public enum StageAestheticsHelper {
     }
     
     public static func setIntialStageImage() -> UIImage? {
-        print("num: \(mapIterCount)")
         if (mapIterCount != 0) {
             for i in 0...mapIterCount{
                 currBG = currBG.next()
-                print(currBG)
             }
         }
         

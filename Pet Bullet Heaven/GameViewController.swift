@@ -237,9 +237,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         LifecycleManager.Instance.update()
         doPhysics()
         
-        // debug
-        //self.printAllUserData()
-        
         // Repeat increment 'reanimate()' every 1/60 of a second (60 frames per second)
         try! await Task.sleep(nanoseconds: 1_000_000_000 / 60)
         await ContinuousLoop()
@@ -302,8 +299,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             Globals.inputX = x / length * 2 // TODO add speed mod
             Globals.inputZ = z / length * 2// TODO add speed mod
             
-            print(Globals.inputX)
-            print(Globals.inputZ)
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
             overlayView.inGameUIView.updateStickPosition(fingerLocation: location)
