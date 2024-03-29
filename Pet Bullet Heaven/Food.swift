@@ -39,7 +39,6 @@ public class Food : SCNNode, MonoBehaviour {
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         super.init()
         self.position = spawnLocation
-        print("Food Health: \(self._Health)")
         
         LifecycleManager.Instance.addGameObject(self)
         
