@@ -35,6 +35,10 @@
 		FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */; };
 		FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */; };
 		FBD518312BB627A300E947E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD518302BB627A300E947E5 /* AppDelegate.swift */; };
+		FBD5183A2BB642C800E947E5 /* berrytext.png in Resources */ = {isa = PBXBuildFile; fileRef = FBD518362BB642C800E947E5 /* berrytext.png */; };
+		FBD5183B2BB642C800E947E5 /* IcingTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FBD518372BB642C800E947E5 /* IcingTexture.png */; };
+		FBD5183C2BB642C800E947E5 /* donutTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FBD518382BB642C800E947E5 /* donutTexture.png */; };
+		FBD5183D2BB642C800E947E5 /* donut.dae in Resources */ = {isa = PBXBuildFile; fileRef = FBD518392BB642C800E947E5 /* donut.dae */; };
 		FBE60A552B92D484009B3E7E /* Paw 4.dae in Resources */ = {isa = PBXBuildFile; fileRef = FBE60A542B92D484009B3E7E /* Paw 4.dae */; };
 		FBE60A582B92E51F009B3E7E /* Cat.001.png in Resources */ = {isa = PBXBuildFile; fileRef = FBE60A562B92E51F009B3E7E /* Cat.001.png */; };
 		FBE60A592B92E51F009B3E7E /* Cat.001.dae in Resources */ = {isa = PBXBuildFile; fileRef = FBE60A572B92E51F009B3E7E /* Cat.001.dae */; };
@@ -94,6 +98,10 @@
 		FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleManager.swift; sourceTree = "<group>"; };
 		FBD518302BB627A300E947E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBD518352BB63BCC00E947E5 /* CarrotV2.dae */ = {isa = PBXFileReference; lastKnownFileType = text.xml.dae; path = CarrotV2.dae; sourceTree = "<group>"; };
+		FBD518362BB642C800E947E5 /* berrytext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = berrytext.png; sourceTree = "<group>"; };
+		FBD518372BB642C800E947E5 /* IcingTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IcingTexture.png; sourceTree = "<group>"; };
+		FBD518382BB642C800E947E5 /* donutTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donutTexture.png; sourceTree = "<group>"; };
+		FBD518392BB642C800E947E5 /* donut.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = donut.dae; sourceTree = "<group>"; };
 		FBE60A542B92D484009B3E7E /* Paw 4.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paw 4.dae"; sourceTree = "<group>"; };
 		FBE60A562B92E51F009B3E7E /* Cat.001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cat.001.png; sourceTree = "<group>"; };
 		FBE60A572B92E51F009B3E7E /* Cat.001.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Cat.001.dae; sourceTree = "<group>"; };
@@ -202,6 +210,10 @@
 		4FAE63822B7C483D007ED6AA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FBD518362BB642C800E947E5 /* berrytext.png */,
+				FBD518392BB642C800E947E5 /* donut.dae */,
+				FBD518382BB642C800E947E5 /* donutTexture.png */,
+				FBD518372BB642C800E947E5 /* IcingTexture.png */,
 				4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */,
 				FBE60A542B92D484009B3E7E /* Paw 4.dae */,
 				FBE60A572B92E51F009B3E7E /* Cat.001.dae */,
@@ -319,14 +331,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBD5183B2BB642C800E947E5 /* IcingTexture.png in Resources */,
 				0D8DB43C2B7AC9AB008D2AE8 /* .gitignore in Resources */,
 				FBE60A5D2B92E52A009B3E7E /* Duck.001.dae in Resources */,
 				FBE60A592B92E51F009B3E7E /* Cat.001.dae in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
+				FBD5183C2BB642C800E947E5 /* donutTexture.png in Resources */,
 				FBE60A612B92E533009B3E7E /* Frog.001.png in Resources */,
 				FBE60A582B92E51F009B3E7E /* Cat.001.png in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
+				FBD5183A2BB642C800E947E5 /* berrytext.png in Resources */,
 				0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */,
+				FBD5183D2BB642C800E947E5 /* donut.dae in Resources */,
 				FBE60A5C2B92E52A009B3E7E /* Duck.001.png in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
 				0D64093D2B71FBD00047847B /* Main.storyboard in Resources */,

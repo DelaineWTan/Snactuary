@@ -18,9 +18,13 @@ class FoodSpawner: MonoBehaviour {
     var spawnInterval: TimeInterval = 0.3 // Adjust depending on desired spawn rate
     
     let centerDist: Int = 55 // 55 seems to be a good distance away from player
+    let foodArray: [FoodData]
     
     init(scene: SCNScene) {
-        
+        foodArray = [
+            FoodData(name: "Carrot", initialSpeed: 1, physicsDimensions: SCNVector3(1.5, 3, 1.5), hungerValue: 1, assetName: "art.scnassets/Food Models/CarrotV2.scn"),
+            FoodData(name: "Donut", initialSpeed: 0.5, physicsDimensions: SCNVector3(3, 3, 3), hungerValue: 10, assetName: "art.scnassets/Food Models/Donut.scn")
+        ]
         self.mainScene = scene
         self.uniqueID = UUID()
         LifecycleManager.Instance.addGameObject(self)
@@ -40,7 +44,7 @@ class FoodSpawner: MonoBehaviour {
         let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
         
         
-        let food = Food(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), hungerValue: 2)
+        let food = Food(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), foodData: foodArray[0])
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node

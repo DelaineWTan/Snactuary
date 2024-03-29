@@ -8,6 +8,14 @@
 import Foundation
 import SceneKit
 
+
+struct FoodData {
+    var name: String
+    var initialSpeed: Float
+    var physicsDimensions: SCNVector3
+    var hungerValue: Int
+    var assetName: String
+}
 ///
 /// Rudimentary Food Class
 ///
@@ -29,11 +37,11 @@ class Food : SCNNode, MonoBehaviour {
     
     let foodCategory: Int = 0b010
 
-    init(spawnLocation: SCNVector3, speed: Float, hungerValue: Int) {
+    init(spawnLocation: SCNVector3, speed: Float, foodData: FoodData) {
         
         self.spawnLocation = spawnLocation
         self.speed = speed
-        self.hungerValue = hungerValue
+        self.hungerValue = foodData.hungerValue
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         super.init()
         self.position = spawnLocation
@@ -41,7 +49,7 @@ class Food : SCNNode, MonoBehaviour {
         LifecycleManager.Instance.addGameObject(self)
 
         let n = SCNNode()
-        if let foodModelSCN = SCNScene(named: "art.scnassets/Food Models/CarrotV2.scn") {
+        if let foodModelSCN = SCNScene(named: foodData.assetName) {
             // Iterate through all child nodes in the loaded scene and add them to the scene node
             for childNode in foodModelSCN.rootNode.childNodes {
                 n.addChildNode(childNode)
@@ -52,10 +60,10 @@ class Food : SCNNode, MonoBehaviour {
         }
         
         //_Mesh = referenceNode
-        self.addChildNode(n )
+        self.addChildNode(n)
 
         
-        let foodPhysicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: SCNBox(width: 1.3, height: 2.5, length: 1.3, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
+        let foodPhysicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: SCNBox(width: CGFloat(foodData.physicsDimensions.x), height: CGFloat(foodData.physicsDimensions.x), length: CGFloat(foodData.physicsDimensions.x), chamferRadius: 0), options: nil)) // Create a dynamic physics body
         foodPhysicsBody.mass = 1.0 // Set the mass of the physics body
         foodPhysicsBody.isAffectedByGravity = false
         
