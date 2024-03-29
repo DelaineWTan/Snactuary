@@ -2,10 +2,10 @@ import AVFoundation
 
 class SoundManager {
     var backgroundMusicPlayers: [AVAudioPlayer] = []
-    var tapSFXPlayer: AVPlayer?
+    var tapSFXPlayers: [String: AVPlayer] = [:]
     var eatingSFXFileName: String = "pet-eating-sfx"
     var eatingSFXPlayers: [AVPlayer] = []
-    var maxEatingSFXPlayers: Int = 4
+    var numPets: Int = 4
     
     init() {
         self.uniqueID = UUID()
@@ -37,7 +37,7 @@ class SoundManager {
     }
     
     private func preloadBackgroundMusic() {
-            let bgmFiles = ["meadow-bgm", "beach-bgm", "clouds-bgm"] // Names of your different BGM files
+            let bgmFiles = ["meadow-bgm", "beach-bgm", "clouds-bgm"]
             
             for bgmFile in bgmFiles {
                 if let musicURL = Bundle.main.url(forResource: bgmFile, withExtension: "wav", subdirectory: "art.scnassets/SFX") {
@@ -78,22 +78,25 @@ class SoundManager {
         }
     
     private func preloadSoundEffects() {
-        // Preload tap sound effect
-        guard let tapSFXURL = Bundle.main.url(forResource: "quack-sfx", withExtension: "wav", subdirectory: "art.scnassets/SFX") else {
-            print("Tap sound effect file 'quack-sfx' not found")
-            return
+        // Preload tapping SFX players
+        let sfxFiles = ["cat-meow-sfx", "frog-croak-sfx", "duck-quack-sfx", "penguin-wenk-sfx"]
+        
+        for sfxFile in sfxFiles {
+            if let sfxURL = Bundle.main.url(forResource: sfxFile, withExtension: "wav", subdirectory: "art.scnassets/SFX") {
+                let petName = extractPetName(from: sfxFile)
+                let sfxPlayer = AVPlayer(url: sfxURL)
+                sfxPlayer.volume = 0.5 // Hardcode to 0.5 volume for now until volume settings exist
+                tapSFXPlayers[petName] = sfxPlayer
+            }
         }
         
-        tapSFXPlayer = AVPlayer(url: tapSFXURL)
-        tapSFXPlayer!.volume = 0.5
-        print("Sound effect 'quack-sfx' preloaded")
-        
+        // Preload eating SFX players
         guard let soundURL = Bundle.main.url(forResource: eatingSFXFileName, withExtension: "wav", subdirectory: "art.scnassets/SFX") else {
             print("Sound effect file '\(eatingSFXFileName)' not found")
             return
         }
         
-        for _ in 0..<maxEatingSFXPlayers {
+        for _ in 0..<numPets {
             let sfxPlayer = AVPlayer(url: soundURL)
             sfxPlayer.volume = 0.1
             eatingSFXPlayers.append(sfxPlayer)
@@ -101,21 +104,19 @@ class SoundManager {
         print("Sound effect '\(eatingSFXFileName)' preloaded")
     }
     
-    func playTapSFX() {
-        // Check if tapSFXPlayer is already playing
-        guard let tapSFXPlayer = self.tapSFXPlayer else {
-            print("Tap sound effect is not preloaded")
-            return
-        }
-        
-        if tapSFXPlayer.rate > 0 {
-            print("Tap sound effect is already playing")
-            return
-        }
+    // Extract pet name from the file name in the format "[pet-name]-..."
+    private func extractPetName(from fileName: String) -> String {
+        return fileName.components(separatedBy: "-").first ?? ""
+    }
+    
+    func playTapSFX(_ petName: String) {
+        print(petName)
+        // @TODO play the correct sound based on pet type
+        let tapSFXPlayer = tapSFXPlayers["duck"]
         
         DispatchQueue.main.async {
-            tapSFXPlayer.seek(to: .zero)
-            tapSFXPlayer.play()
+            tapSFXPlayer!.seek(to: .zero)
+            tapSFXPlayer!.play()
         }
     }
     

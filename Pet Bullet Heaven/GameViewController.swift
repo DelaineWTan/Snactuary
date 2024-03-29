@@ -178,11 +178,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // get its material
         let material = result.node.geometry!.firstMaterial!
-        
-        // Play duck sound if duck is tapped @TODO identify pet more reliably
-        if (result.node.name == "Cube-002") {
-            soundManager.playTapSFX()
-        }
+        soundManager.playTapSFX(result.node.name ?? "")
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.5
         
