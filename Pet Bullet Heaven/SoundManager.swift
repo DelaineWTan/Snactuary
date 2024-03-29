@@ -83,7 +83,7 @@ class SoundManager {
         
         for sfxFile in sfxFiles {
             if let sfxURL = Bundle.main.url(forResource: sfxFile, withExtension: "wav", subdirectory: "art.scnassets/SFX") {
-                let petName = extractPetName(from: sfxFile)
+                let petName = extractPetNameFromFile(from: sfxFile)
                 let sfxPlayer = AVPlayer(url: sfxURL)
                 sfxPlayer.volume = 0.5 // Hardcode to 0.5 volume for now until volume settings exist
                 tapSFXPlayers[petName] = sfxPlayer
@@ -105,14 +105,18 @@ class SoundManager {
     }
     
     // Extract pet name from the file name in the format "[pet-name]-..."
-    private func extractPetName(from fileName: String) -> String {
+    private func extractPetNameFromFile(from fileName: String) -> String {
         return fileName.components(separatedBy: "-").first ?? ""
     }
     
+    private func extractPetTypeFromNode(from nodeName: String) -> String {
+        return nodeName.components(separatedBy: ".").first?.lowercased() ?? ""
+    }
+    
     func playTapSFX(_ petName: String) {
-        print(petName)
+        let petType = extractPetTypeFromNode(from: petName)
         // @TODO play the correct sound based on pet type
-        let tapSFXPlayer = tapSFXPlayers["duck"]
+        let tapSFXPlayer = tapSFXPlayers[petType]
         
         DispatchQueue.main.async {
             tapSFXPlayer!.seek(to: .zero)
