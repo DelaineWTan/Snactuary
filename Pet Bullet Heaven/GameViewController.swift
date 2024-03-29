@@ -90,10 +90,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         for petIndex in 0...((Globals.activePets.count) - 1) {
             // Add attack pattern into scene
             let testAbility = Globals.activePets[petIndex].attackPattern
-            _ = testAbility.ActivateAbility()
-            testAbility.name = Globals.petAbilityNodeName[petIndex]
-            print(testAbility.name)
-            playerNode?.addChildNode(testAbility)
+            let abilityClone = testAbility.copy() as! Ability
+            _ = abilityClone.ActivateAbility()
+            abilityClone.name = Globals.petAbilityNodeName[petIndex]
+            playerNode?.addChildNode(abilityClone)
         }
     
         _ = FoodSpawner(scene: mainScene)

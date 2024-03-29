@@ -8,7 +8,7 @@
 import Foundation
 import SceneKit
 
-class OrbitingProjectileAbility : Ability {
+class OrbitingProjectileAbility : Ability{
     
     // Member Variables
     var _numProjectiles : Int?
@@ -27,9 +27,7 @@ class OrbitingProjectileAbility : Ability {
     
     // Mutated Constructor
     init(_InputAbilityDamage: Int, _InputAbilityDuration: Double, _InputRotationSpeed : CGFloat, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int){
-        
         super.init()
-        
         _AbilityDamage = _InputAbilityDamage
         _AbilityDuration = _InputAbilityDuration
         _rotationSpeed = _InputRotationSpeed
@@ -108,4 +106,14 @@ class OrbitingProjectileAbility : Ability {
         return CGFloat(_InDegrees * CGFloat(Float.pi / 180))
     }
     
+    // Implementing NSCopying protocol
+    override func copy() -> Any {
+        let copy = OrbitingProjectileAbility(_InputAbilityDamage: self._AbilityDamage ?? 0,
+                                             _InputAbilityDuration: self._AbilityDuration ?? 0,
+                                             _InputRotationSpeed: self._rotationSpeed ?? 0,
+                                             _InputDistanceFromCenter: self._distanceFromCenter ?? 0,
+                                             _InputNumProjectiles: self._numProjectiles ?? 0)
+        // Copy additional properties if needed
+        return copy
+    }
 }

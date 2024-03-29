@@ -43,7 +43,7 @@ public class Globals {
     public static var playerMovementSpeed : Float = 20
     
     public static var petModelNodeName: [String] = [
-        "", "", "", ""
+        "Frog.001 reference", "Penguin.001 reference", "Cat.001 reference", "Duck.001 reference"
     ]
     
     public static var petAbilityNodeName: [String] = [
