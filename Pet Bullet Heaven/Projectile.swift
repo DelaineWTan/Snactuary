@@ -8,7 +8,34 @@
 import Foundation
 import SceneKit
 
-class Projectile : SCNNode{
+class Projectile : SCNNode, MonoBehaviour {
+    var uniqueID: UUID
+    
+    func Start() {
+        
+    }
+    
+    func Update(deltaTime: TimeInterval) {
+        if Globals.playerIsMoving {
+            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
+            
+            self.position.x += translationVector.x
+            self.position.z += translationVector.z
+        }
+    }
+    
+    var onDestroy: (() -> Void)?
+    
+    override init() {
+        self.uniqueID = UUID()
+        super.init()
+        LifecycleManager.Instance.addGameObject(self)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+        
+    }
     
     // Member Variables
     var _Damage : Int = 1

@@ -89,8 +89,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 6, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
 //        _ = testAbility.ActivateAbility()
         
-        let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 2.0, _InputRange: 10.0, _InputProjectileDuration: 10, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
-        _ = testAbility2.ActivateAbility()
+        let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 0.5, _InputRange: 12.0, _InputProjectileDuration: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
+//        _ = testAbility2.ActivateAbility()
         
         _ = FoodSpawner(scene: mainScene)
         
@@ -100,6 +100,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         scnView.scene!.rootNode.addChildNode(testAbility)
         // Tentative attach to the Main Scene
         mainScene.rootNode.addChildNode(testAbility2)
+        
+        // Important to call abilities after attaching
+        _ = testAbility2.ActivateAbility()
         
         // Add floating damage text
         scnView.addSubview(floatingText)
