@@ -8,18 +8,25 @@
 import Foundation
 import SceneKit
 
+
+struct FoodData {
+    var name: String
+    var initialSpeed: Float
+    var health: Int
+    var physicsDimensions: SCNVector3
+    var hungerValue: Int
+    var assetName: String
+}
 ///
 /// Rudimentary Food Class
 ///
-public class Food : SCNNode, MonoBehaviour {
+public class FoodNode : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
     
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
     
     var _Health : Int = Globals.defaultFoodHealth
-    
-    var _Mesh : SCNBox?
     
     var spawnLocation : SCNVector3
     var speed : Float
@@ -30,38 +37,41 @@ public class Food : SCNNode, MonoBehaviour {
     
     let foodCategory: Int = 0b010
 
-    init(spawnLocation: SCNVector3, speed: Float, hungerValue: Int, health: Int) {
+    init(spawnLocation: SCNVector3, speed: Float, foodData: FoodData) {
         
         self.spawnLocation = spawnLocation
         self.speed = speed
-        self.hungerValue = hungerValue
-        self._Health = health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+        self.hungerValue = foodData.hungerValue
+        self._Health = foodData.health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         super.init()
         self.position = spawnLocation
         
         LifecycleManager.Instance.addGameObject(self)
+
+        let n = SCNNode()
+        if let foodModelSCN = SCNScene(named: foodData.assetName) {
+            // Iterate through all child nodes in the loaded scene and add them to the scene node
+            for childNode in foodModelSCN.rootNode.childNodes {
+                n.addChildNode(childNode)
+                //print("mesh adding")
+            }
+        } else {
+            print("Failed to load food scene from file.")
+        }
         
-        let cubeGeometry = SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2)
+        //_Mesh = referenceNode
+        self.addChildNode(n)
+
         
-        let cubeNode = SCNNode(geometry: cubeGeometry)
+        let foodPhysicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: SCNBox(width: CGFloat(foodData.physicsDimensions.x), height: CGFloat(foodData.physicsDimensions.x), length: CGFloat(foodData.physicsDimensions.x), chamferRadius: 0), options: nil)) // Create a dynamic physics body
         
-        // will be changed to whatever the model is
-        cubeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/goldblock.png")
-        
-        cubeNode.position = SCNVector3(0, 0.5, 0)
-        
-        let angleInDegrees: Float = 45.0
-        let angleInRadians = angleInDegrees * .pi / 180.0
-        cubeNode.eulerAngles = SCNVector3(0, angleInRadians, 0)
-        self.addChildNode(cubeNode)
-        
-        self._Mesh = cubeGeometry
-        
-        let foodPhysicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
         foodPhysicsBody.mass = 1.0 // Set the mass of the physics body
         foodPhysicsBody.isAffectedByGravity = false
         
+        let angleInDegrees: Float = 45.0
+                let angleInRadians = angleInDegrees * .pi / 180.0
+        self.eulerAngles = SCNVector3(0, angleInRadians, 0)
         //attach physics to food object
         self.physicsBody = foodPhysicsBody
         self.physicsBody?.categoryBitMask = foodCategory
