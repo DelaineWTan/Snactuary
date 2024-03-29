@@ -86,7 +86,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         stageNode = mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
-        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
+        let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 6, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
         _ = testAbility.ActivateAbility()
         
         _ = FoodSpawner(scene: mainScene)

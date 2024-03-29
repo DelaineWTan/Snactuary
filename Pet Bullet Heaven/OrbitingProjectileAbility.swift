@@ -17,8 +17,6 @@ class OrbitingProjectileAbility : Ability {
      
     var _distanceFromCenter : Float?
     
-    var _Projectile : Projectile?
-    
     var _ProjectileList : [Projectile] = []
     
     required init?(coder: NSCoder) {
@@ -26,15 +24,16 @@ class OrbitingProjectileAbility : Ability {
     }
     
     // Mutated Constructor
-    init(_InputAbilityDamage: Int, _InputAbilityDuration: Double, _InputRotationSpeed : CGFloat, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int){
+    init(_InputAbilityDamage: Int, _InputAbilityDuration: Double, _InputRotationSpeed : CGFloat, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int, _InputProjectile: @escaping () -> Projectile){
         
-        super.init()
+        super.init(withProjectile: _InputProjectile)
         
         _AbilityDamage = _InputAbilityDamage
         _AbilityDuration = _InputAbilityDuration
         _rotationSpeed = _InputRotationSpeed
         _distanceFromCenter = _InputDistanceFromCenter
         _numProjectiles = _InputNumProjectiles
+//        _Projectile = _InputProjectile
     }
     
     /*
@@ -42,7 +41,9 @@ class OrbitingProjectileAbility : Ability {
      */
     override func SpawnProjectile() -> Projectile {
         
-        let _SpawnedProjectile = OrbitingPaw(_InputDamage: 1)
+        // Deep Copy the Projectile
+        let _SpawnedProjectile = _Projectile()
+        print(_SpawnedProjectile)
         _ProjectileList.append(_SpawnedProjectile)
         
         // Add to the rootNode of this SceneGraph
@@ -95,9 +96,9 @@ class OrbitingProjectileAbility : Ability {
         return Float(360 / _numProjectiles!) * Float(Float.pi/180)
     }
     
-    func SetSpawnedProjectile(_ProjectileStrategy: Projectile){
-        _Projectile = _ProjectileStrategy
-    }
+//    func SetSpawnedProjectile(_ProjectileStrategy: Projectile){
+//        _Projectile = _ProjectileStrategy
+//    }
     
     func ConvertDegreesToRadian(_InDegrees: CGFloat) -> CGFloat {
         return CGFloat(_InDegrees * CGFloat(Float.pi / 180))
