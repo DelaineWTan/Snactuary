@@ -20,8 +20,6 @@ class Food : SCNNode, MonoBehaviour {
     
     var _Health : Int = 1
     
-    var _Mesh : SCNBox?
-    
     var spawnLocation : SCNVector3
     var speed : Float
     
@@ -41,27 +39,29 @@ class Food : SCNNode, MonoBehaviour {
         self.position = spawnLocation
         
         LifecycleManager.Instance.addGameObject(self)
+
+        let n = SCNNode()
+        if let foodModelSCN = SCNScene(named: "art.scnassets/Food Models/CarrotV2.scn") {
+            // Iterate through all child nodes in the loaded scene and add them to the scene node
+            for childNode in foodModelSCN.rootNode.childNodes {
+                n.addChildNode(childNode)
+                //print("mesh adding")
+            }
+        } else {
+            print("Failed to load food scene from file.")
+        }
         
-        let cubeGeometry = SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2)
+        //_Mesh = referenceNode
+        self.addChildNode(n )
+
         
-        let cubeNode = SCNNode(geometry: cubeGeometry)
-        
-        // will be changed to whatever the model is
-        cubeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/goldblock.png")
-        
-        cubeNode.position = SCNVector3(0, 0.5, 0)
-        
-        let angleInDegrees: Float = 45.0
-        let angleInRadians = angleInDegrees * .pi / 180.0
-        cubeNode.eulerAngles = SCNVector3(0, angleInRadians, 0)
-        self.addChildNode(cubeNode)
-        
-        self._Mesh = cubeGeometry
-        
-        let foodPhysicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: SCNBox(width: 0.7, height: 0.7, length: 0.7, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
+        let foodPhysicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: SCNBox(width: 1.3, height: 2.5, length: 1.3, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
         foodPhysicsBody.mass = 1.0 // Set the mass of the physics body
         foodPhysicsBody.isAffectedByGravity = false
         
+        let angleInDegrees: Float = 45.0
+                let angleInRadians = angleInDegrees * .pi / 180.0
+        self.eulerAngles = SCNVector3(0, angleInRadians, 0)
         //attach physics to food object
         self.physicsBody = foodPhysicsBody
         self.physicsBody?.categoryBitMask = foodCategory
