@@ -24,10 +24,11 @@ class ShootClosestAbility: Ability, MonoBehaviour {
     
     // Member Variable
     var _Range : Float?
-    var _FireRate : Int?
+    var _FireRate : Double?
     var _ProjectileSpeed : Int?
+    var _ProjectileDuration :Double?
     
-    init(_InputRange: Float, _InputFireRate: Int, _InputProjectileSpeed: Int,_InputProjectile: @escaping ()->Projectile){
+    init(_InputRange: Float, _InputFireRate: Double, _InputProjectileSpeed: Int, _InputProjectileDuration: Double,_InputProjectile: @escaping ()->Projectile){
         
         self.uniqueID = UUID()
         super.init(withProjectile: _InputProjectile)
@@ -36,6 +37,7 @@ class ShootClosestAbility: Ability, MonoBehaviour {
         _Range = _InputRange
         _FireRate = _InputFireRate
         _ProjectileSpeed = _InputProjectileSpeed
+        _ProjectileDuration = _InputProjectileDuration
         
         LifecycleManager.Instance.addGameObject(self)
     }
@@ -55,8 +57,11 @@ class ShootClosestAbility: Ability, MonoBehaviour {
         
         print(_SpawnedProjectile._Launched)
         
+        TerminateProjectile(_InputProjectile: _SpawnedProjectile)
+        
         // Heavy assumption that this ability is attached to the Scene
         parent?.addChildNode(_SpawnedProjectile)
+        
         
     }
     
@@ -90,6 +95,22 @@ class ShootClosestAbility: Ability, MonoBehaviour {
      */
     func checkValidRange(_InputDistance: Float) -> Bool{
         return _InputDistance < _Range! ? true : false
+    }
+    
+    /**
+     After duration amount of time, we should terminate the Projectile, using the given reference to Projectile.
+     */
+    func TerminateProjectile(_InputProjectile: Projectile){
+        
+//        // TODO: Instantiate a SCNAction to wait duration amount of Time.
+//        let waitAction = SCNAction.wait(duration: _ProjectileDuration!)
+//
+//        // TODO: Execute the wait
+//        self.runAction(waitAction)
+//
+//        // TODO: Actually Terminate the Projectile here.
+//        _InputProjectile.removeFromParentNode()
+        _InputProjectile.onDestroy(after: _ProjectileDuration!)
     }
     
 }
