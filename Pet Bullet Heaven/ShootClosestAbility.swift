@@ -36,6 +36,8 @@ class ShootClosestAbility: Ability, MonoBehaviour {
         _Range = _InputRange
         _FireRate = _InputFireRate
         _ProjectileSpeed = _InputProjectileSpeed
+        
+        LifecycleManager.Instance.addGameObject(self)
     }
     
     required init?(coder: NSCoder) {
@@ -51,6 +53,8 @@ class ShootClosestAbility: Ability, MonoBehaviour {
         _SpawnedProjectile._Destination = _InputDestination
         _SpawnedProjectile._ProjectileSpeed = _ProjectileSpeed
         
+        print(_SpawnedProjectile._Launched)
+        
         // Heavy assumption that this ability is attached to the Scene
         parent?.addChildNode(_SpawnedProjectile)
         
@@ -58,15 +62,16 @@ class ShootClosestAbility: Ability, MonoBehaviour {
     
     override func ActivateAbility() -> Bool {
         
-        // Get the Closest FoodNode. Tuple containing the closest FoodNode, and the distance to it.
-        let _ClosestFoodNodeTuple = LifecycleManager.Instance.getClosestFood()
-        
         // TODO: Create a timer for the Fire Rate
-        let timer = Timer(timeInterval: Double(1/_FireRate!), repeats: true){ [self]
+        let timer = Timer(timeInterval: Double(_FireRate!), repeats: true){ [self]
             Timer in
+            
+            // Get the Closest FoodNode. Tuple containing the closest FoodNode, and the distance to it.
+            let _ClosestFoodNodeTuple = LifecycleManager.Instance.getClosestFood()
             
             // Check for valid
             if (checkValidRange(_InputDistance: _ClosestFoodNodeTuple.1)){
+                print("Valid Target")
                 SpawnProjectile(_InputDestination: _ClosestFoodNodeTuple.0!.position)
             }
             

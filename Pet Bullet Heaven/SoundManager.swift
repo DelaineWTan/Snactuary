@@ -63,8 +63,8 @@ class SoundManager {
             }
             
             let currentBGMIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey)  - 1) % Globals.numStagePresets
-            let nextBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
-            nextBGMPlayer.play()
+//            let nextBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
+//            nextBGMPlayer.play()
         }
         
         func stopCurrentBGM() {

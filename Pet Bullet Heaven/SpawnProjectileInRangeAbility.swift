@@ -106,7 +106,7 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
      Helper Function for generating a valid position  along the X,Z Plane./
      */
     func generateRandomPositionInRange() -> SCNVector3 {
-        print(playerNode?.position)
+//        print(playerNode?.position)
         // TODO: Generate a Vector
         var _GeneratedPosition = randomVectorInRange(_CurrentPosition: playerNode!.position)
         

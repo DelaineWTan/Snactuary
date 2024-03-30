@@ -91,7 +91,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})
         
-        let testAbility3 = ShootClosestAbility(_InputRange: 4, _InputFireRate: 4, _InputProjectileSpeed: 8, _InputProjectile: {()->Projectile in OrbitingPaw(_InputDamage: 1)})
+        let testAbility3 = ShootClosestAbility(_InputRange: 100, _InputFireRate: 1, _InputProjectileSpeed: 8, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})
 
         // spawn the initial attack patterns of active pets to game
         for petIndex in 0...((Globals.activePets.count) - 1) {
