@@ -114,7 +114,7 @@ public enum StageAestheticsHelper {
     
     public static func setIntialStageImage() -> UIImage? {
         if (mapIterCount != 0) {
-            for i in 0...mapIterCount{
+            for _ in 0...mapIterCount{
                 currBG = currBG.next()
             }
         }
@@ -128,7 +128,7 @@ public enum StageAestheticsHelper {
         UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
         defer { UIGraphicsEndImageContext() }
         
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        guard UIGraphicsGetCurrentContext() != nil else { return nil }
         
         color.setFill()
         
@@ -155,7 +155,7 @@ public enum StageAestheticsHelper {
         UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
         defer { UIGraphicsEndImageContext() }
         
-        guard let context = UIGraphicsGetCurrentContext() else {
+        guard UIGraphicsGetCurrentContext() != nil else {
             return nil
         }
 

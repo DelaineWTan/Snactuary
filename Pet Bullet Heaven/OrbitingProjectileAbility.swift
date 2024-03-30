@@ -41,7 +41,6 @@ class OrbitingProjectileAbility : Ability{
         
         // Deep Copy the Projectile
         let _SpawnedProjectile = _Projectile()
-        print(_SpawnedProjectile)
         _ProjectileList.append(_SpawnedProjectile)
         
         // Add to the rootNode of this SceneGraph

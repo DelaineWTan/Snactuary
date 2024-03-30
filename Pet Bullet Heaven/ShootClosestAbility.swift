@@ -55,8 +55,6 @@ class ShootClosestAbility: Ability, MonoBehaviour {
         _SpawnedProjectile._Destination = _InputDestination
         _SpawnedProjectile._ProjectileSpeed = _ProjectileSpeed
         
-        print(_SpawnedProjectile._Launched)
-        
         TerminateProjectile(_InputProjectile: _SpawnedProjectile)
         
         // Heavy assumption that this ability is attached to the Scene
@@ -76,10 +74,8 @@ class ShootClosestAbility: Ability, MonoBehaviour {
             
             // Check for valid
             if (checkValidRange(_InputDistance: _ClosestFoodNodeTuple.1)){
-                print("Valid Target")
                 SpawnProjectile(_InputDestination: _ClosestFoodNodeTuple.0!.position)
             }
-            
         }
         
         // Add Timer
