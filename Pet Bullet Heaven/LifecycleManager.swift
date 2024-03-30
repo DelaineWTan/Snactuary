@@ -63,6 +63,7 @@ public class LifecycleManager {
             // Compare the distance and keep the lower one.
             if (distanceToFoodNode < closestDistance){
                 closestFoodNode = thisFoodNode
+                closestDistance = distanceToFoodNode
             }
             
         }
