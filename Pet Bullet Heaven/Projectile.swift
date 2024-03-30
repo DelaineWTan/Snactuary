@@ -19,6 +19,11 @@ class Projectile : SCNNode, MonoBehaviour {
     }
     
     func Update(deltaTime: TimeInterval) {
+        
+        if (self._Launched){
+            moveTowardsDestination(deltaTime: deltaTime)
+        }
+        
         if Globals.playerIsMoving {
             let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
             
@@ -44,6 +49,10 @@ class Projectile : SCNNode, MonoBehaviour {
     var _Damage : Int = 1
     let playerCategory: Int = 0b001
     var _Mesh : SCNNode?
+    
+    var _Launched = false
+    var _Destination : SCNVector3?
+    var _ProjectileSpeed : Int?
     
     func OnCollision(){
         
@@ -74,6 +83,11 @@ class Projectile : SCNNode, MonoBehaviour {
         
         return _ReferenceNode!
         
+    }
+    
+    func moveTowardsDestination(deltaTime: TimeInterval){
+        self.position.x += Float(deltaTime) * Float(_ProjectileSpeed!)
+        self.position.z += Float(deltaTime) * Float(_ProjectileSpeed!)
     }
     
 }
