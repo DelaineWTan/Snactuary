@@ -36,4 +36,6 @@ class Ability : SCNNode {
         return false
     }
     
+    
+    
 }

@@ -57,7 +57,6 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
         // TODO: Instantiate Projectile.
         let _SpawnedProjectile = _Projectile()
         _SpawnedProjectile.position = _ProjectilePosition
-        print (_SpawnedProjectile)
         
         // TODO: Attach Projectile to Scene, not the Ability.
         playerNode?.parent?.addChildNode(_SpawnedProjectile)

@@ -9,6 +9,9 @@ import Foundation
 import SceneKit
 
 class Projectile : SCNNode, MonoBehaviour {
+    
+    // TODO: NOTE TO SELF, REFACTOR THIS FILE
+    
     var uniqueID: UUID
     
     func Start() {

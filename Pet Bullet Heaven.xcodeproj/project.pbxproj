@@ -28,6 +28,7 @@
 		0ED95DCA2B9193E5008F010E /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED95DC92B9193E5008F010E /* Map.swift */; };
 		0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */; };
 		4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */; };
+		4F745FA22BB7893A008909FD /* ShootClosestAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */; };
 		4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637A2B7C21B3007ED6AA /* Ability.swift */; };
 		4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */; };
 		4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637E2B7C21EE007ED6AA /* Projectile.swift */; };
@@ -92,6 +93,7 @@
 		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
 		0ED95DC92B9193E5008F010E /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootClosestAbility.swift; sourceTree = "<group>"; };
 		4FAE637A2B7C21B3007ED6AA /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
 		4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingProjectileAbility.swift; sourceTree = "<group>"; };
 		4FAE637E2B7C21EE007ED6AA /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				0D58FCC62BB784F100488D01 /* StationaryBomb.swift */,
 				0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */,
 				04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */,
+				4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				0DCB55AB2B74B7C500C18DD0 /* Globals.swift in Sources */,
 				58861D4C2B7C1084002573D2 /* Pet.swift in Sources */,
 				FBFDBE6C2B8550780071A1F6 /* PetSelectionUIView.swift in Sources */,
+				4F745FA22BB7893A008909FD /* ShootClosestAbility.swift in Sources */,
 				FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */,
 				4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */,
 				4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */,

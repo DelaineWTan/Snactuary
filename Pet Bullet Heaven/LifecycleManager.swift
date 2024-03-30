@@ -40,6 +40,38 @@ public class LifecycleManager {
         }
     }
     
+    func getClosestFood() -> (FoodNode?, Float) {
+        
+        // TODO: Get a list of all the Food in the Scene
+        let _FoodList = gameObjects.filter{ $0.value is FoodNode }
+        
+        // Arbitrary big distance. Can refactor later.
+        var closestDistance = Float(9999)
+        
+        // Food Node to return
+        var closestFoodNode : FoodNode?
+        
+        // TODO: Check all the food at Linear Time for the closest food to (SCNVector3(0,0,0))
+        for (id, object) in _FoodList {
+            
+            // Get the FoodNode
+            let thisFoodNode = object as? FoodNode
+            
+            // Calculate the magnitude from (0,0,0)
+            let distanceToFoodNode = sqrt(pow((thisFoodNode?.position.x)!, 2) + pow((thisFoodNode?.position.z)!, 2))
+            
+            // Compare the distance and keep the lower one.
+            if (distanceToFoodNode < closestDistance){
+                closestFoodNode = thisFoodNode
+            }
+            
+        }
+        
+        // There will always be a closest FoodNode, we're going to check if its range is valid later.
+        return (closestFoodNode, closestDistance)
+        
+    }
+    
     func update() {
         let currentTime = Date.timeIntervalSinceReferenceDate
         let deltaTime = currentTime - lastUpdateTime
