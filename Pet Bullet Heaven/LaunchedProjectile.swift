@@ -44,16 +44,6 @@ class LaunchedProjectile: Projectile {
     func moveTowardsDestination(deltaTime: TimeInterval){
         self.look(at: self._Destination!)
         
-//        var _DifferenceVector = SCNVector3(
-//            (position.x - _Destination!.x),
-//            (position.y - _Destination!.y),
-//            (position.z - _Destination!.z))
-//        _DifferenceVector.x = _DifferenceVector.x / Float(_ProjectileSpeed!)
-//        _DifferenceVector.x = _DifferenceVector.y / Float(_ProjectileSpeed!)
-//        _DifferenceVector.x = _DifferenceVector.z / Float(_ProjectileSpeed!)
-        
-//        self.localTranslate(by: _DifferenceVector)
-        
         localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(deltaTime)))
         
     }

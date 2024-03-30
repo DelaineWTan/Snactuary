@@ -63,8 +63,8 @@ class SoundManager {
             }
             
             let currentBGMIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey)  - 1) % Globals.numStagePresets
-//            let nextBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
-//            nextBGMPlayer.play()
+            let nextBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
+            nextBGMPlayer.play()
         }
         
         func stopCurrentBGM() {
@@ -115,7 +115,6 @@ class SoundManager {
     
     func playTapSFX(_ petName: String) {
         let petType = extractPetTypeFromNode(from: petName)
-        // @TODO play the correct sound based on pet type
         if let tapSFXPlayer = tapSFXPlayers[petType] {
             DispatchQueue.main.async {
                 tapSFXPlayer.seek(to: .zero)

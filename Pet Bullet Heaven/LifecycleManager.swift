@@ -42,11 +42,11 @@ public class LifecycleManager {
     
     func getClosestFood() -> (FoodNode?, Float) {
         
-        // TODO: Get a list of all the Food in the Scene
+        // Get a list of all the Food in the Scene
         let _FoodList = gameObjects.filter{ $0.value is FoodNode }
         
-        // Arbitrary big distance. Can refactor later.
-        var closestDistance = Float(9999)
+        // Track closest distance starting at max float value.
+        var closestDistance = Float.greatestFiniteMagnitude
         
         // Food Node to return
         var closestFoodNode : FoodNode?
@@ -79,8 +79,8 @@ public class LifecycleManager {
         lastUpdateTime = currentTime
         
         if Float(deltaTime) > 2 {
-                    return
-                }
+            return
+        }
         
         for gameObject in gameObjects.values {
             gameObject.Update(deltaTime: deltaTime)
