@@ -23,6 +23,7 @@ class FoodSpawner: MonoBehaviour {
     init(scene: SCNScene) {
         foodArray = [
             FoodData(name: "Carrot", initialSpeed: 1, health: 1, physicsDimensions: SCNVector3(1.5, 3, 1.5), hungerValue: 2, assetName: "art.scnassets/Food Models/CarrotV2.scn"),
+            FoodData(name: "Banana", initialSpeed: 1, health: 1, physicsDimensions: SCNVector3(x: 3, y: 3, z: 3), hungerValue: 2, assetName: "art.scnassets/Banana.scn"),
             FoodData(name: "Donut", initialSpeed: 0.5, health: 2, physicsDimensions: SCNVector3(3, 3, 3), hungerValue: 10, assetName: "art.scnassets/Food Models/Donut.scn")
         ]
         self.mainScene = scene
@@ -43,7 +44,7 @@ class FoodSpawner: MonoBehaviour {
         //   - B is the spawn distance from the center.
         let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
         
-        let foodIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 2
+        let foodIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
         
         let food = FoodNode(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), foodData: foodArray[foodIndex])
         
