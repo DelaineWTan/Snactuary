@@ -54,7 +54,7 @@ class LaunchedProjectile: Projectile {
         
 //        self.localTranslate(by: _DifferenceVector)
         
-        localTranslate(by: SCNVector3(0,0, Float(_ProjectileSpeed!) * Float(deltaTime)))
+        localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(deltaTime)))
         
     }
     
