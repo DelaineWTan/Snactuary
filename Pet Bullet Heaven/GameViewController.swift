@@ -90,7 +90,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
         let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})
-
+        
+        let testAbility3 = ShootClosestAbility(_InputRange: 100, _InputFireRate: 0.5, _InputProjectileSpeed: 8, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})
 
         // spawn the initial attack patterns of active pets to game
         for petIndex in 0...((Globals.activePets.count) - 1) {
@@ -147,9 +148,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         scnView.scene!.rootNode.addChildNode(testAbility)
         // Tentative attach to the Main Scene
         mainScene.rootNode.addChildNode(testAbility2)
+        mainScene.rootNode.addChildNode(testAbility3)
         
         // Important to call abilities after attaching
         _ = testAbility2.ActivateAbility()
+        _ = testAbility3.ActivateAbility()
         
         // Add floating damage text
         scnView.addSubview(floatingText)

@@ -57,7 +57,6 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
         // TODO: Instantiate Projectile.
         let _SpawnedProjectile = _Projectile()
         _SpawnedProjectile.position = _ProjectilePosition
-        print (_SpawnedProjectile)
         
         // TODO: Attach Projectile to Scene, not the Ability.
         playerNode?.parent?.addChildNode(_SpawnedProjectile)
@@ -73,7 +72,6 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
      */
     override func ActivateAbility() -> Bool {
         
-        print ("Activating Ability")
         
         playerNode = parent?.childNode(withName: "mainPlayer", recursively: true)
         
@@ -107,16 +105,15 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
      Helper Function for generating a valid position  along the X,Z Plane./
      */
     func generateRandomPositionInRange() -> SCNVector3 {
-        print(playerNode?.position)
         // TODO: Generate a Vector
         var _GeneratedPosition = randomVectorInRange(_CurrentPosition: playerNode!.position)
         
         // TODO: Check vector for Validity, keep generating until I have a Valid Position
         while (!checkValidPosition(_InputVector3: _GeneratedPosition)){
-         
+            
             _GeneratedPosition = randomVectorInRange(_CurrentPosition: playerNode!.position)
-         
-         }
+            
+        }
         
         // Finally Return Generated Position
         return _GeneratedPosition
@@ -127,14 +124,14 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
      */
     func TerminateProjectile(_InputProjectile: Projectile){
         
-//        // TODO: Instantiate a SCNAction to wait duration amount of Time.
-//        let waitAction = SCNAction.wait(duration: _ProjectileDuration!)
-//        
-//        // TODO: Execute the wait
-//        self.runAction(waitAction)
-//        
-//        // TODO: Actually Terminate the Projectile here.
-//        _InputProjectile.removeFromParentNode()
+        //        // TODO: Instantiate a SCNAction to wait duration amount of Time.
+        //        let waitAction = SCNAction.wait(duration: _ProjectileDuration!)
+        //
+        //        // TODO: Execute the wait
+        //        self.runAction(waitAction)
+        //
+        //        // TODO: Actually Terminate the Projectile here.
+        //        _InputProjectile.removeFromParentNode()
         _InputProjectile.onDestroy(after: _ProjectileDuration!)
     }
     
