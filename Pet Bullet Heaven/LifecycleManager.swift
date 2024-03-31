@@ -30,7 +30,7 @@ public class LifecycleManager {
         let foodToRemove = gameObjects.filter { $0.value is FoodNode }
         
         // Remove the filtered objects from the dictionary
-        for (id, object) in foodToRemove {
+        for (_, object) in foodToRemove {
             deleteGameObject(gameObject: object)
             let food = object as? FoodNode
             
@@ -52,7 +52,7 @@ public class LifecycleManager {
         var closestFoodNode : FoodNode?
         
         // TODO: Check all the food at Linear Time for the closest food to (SCNVector3(0,0,0))
-        for (id, object) in _FoodList {
+        for (_, object) in _FoodList {
             
             // Get the FoodNode
             let thisFoodNode = object as? FoodNode
