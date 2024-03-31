@@ -30,16 +30,10 @@ public class Utilities {
             petSlotNode = mainPlayerNode.childNode(withName: "pos\(position)", recursively: true)!
             oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[position], recursively: true)!
             petSlotNode.enumerateChildNodes { (node, stop) in
-                print("removing")
                 node.removeFromParentNode()
             }
             petSlotNode.addChildNode(petNode)
-            
-            //petNode.name = petPos.name // TODO: change node names to like pet1 instead of Cat.001 reference when initializing
             petNode.name = petModel.modelName
-            
-            //mainPlayerNode.addChildNode(petNode) // add new pet model node
-            
             
             oldAbilityNode.removeFromParentNode()
             

@@ -99,6 +99,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             _ = abilityClone.ActivateAbility()
             abilityClone.name = Globals.petAbilityNodeName[petIndex]
             playerNode?.addChildNode(abilityClone)
+            
+            // Add pets into scene
+            Utilities.swapSceneNode(with: Globals.activePets[petIndex], position: petIndex)
         }
         
         // Initialize the food spawner and load stage health multiplier immediately
