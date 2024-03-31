@@ -49,6 +49,7 @@
 		FB21282F2BB9FB1600CE5066 /* CatPurpleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB21281F2BB9FB1600CE5066 /* CatPurpleTexture.png */; };
 		FB2128302BB9FB1600CE5066 /* FrogGreenTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128202BB9FB1600CE5066 /* FrogGreenTexture.png */; };
 		FB2128312BB9FB1600CE5066 /* FrogLuckyTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */; };
+		FB2128342BB9FE4100CE5066 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2128332BB9FE4100CE5066 /* Utilities.swift */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* FoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* FoodNode.swift */; };
 		FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */; };
@@ -130,6 +131,7 @@
 		FB21281F2BB9FB1600CE5066 /* CatPurpleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CatPurpleTexture.png; sourceTree = "<group>"; };
 		FB2128202BB9FB1600CE5066 /* FrogGreenTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogGreenTexture.png; sourceTree = "<group>"; };
 		FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogLuckyTexture.png; sourceTree = "<group>"; };
+		FB2128332BB9FE4100CE5066 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* FoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodNode.swift; sourceTree = "<group>"; };
 		FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoBehaviour.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				FBFDBE6B2B8550780071A1F6 /* PetSelectionUIView.swift */,
 				58861D4B2B7C1084002573D2 /* Pet.swift */,
 				0DCB55AA2B74B7C500C18DD0 /* Globals.swift */,
+				FB2128332BB9FE4100CE5066 /* Utilities.swift */,
 				0ED95DC92B9193E5008F010E /* Map.swift */,
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
@@ -470,6 +473,7 @@
 				FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
 				FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */,
+				FB2128342BB9FE4100CE5066 /* Utilities.swift in Sources */,
 				FB7328982B7D947500557AE6 /* FoodNode.swift in Sources */,
 				0ED95DCA2B9193E5008F010E /* Map.swift in Sources */,
 				04FB228F2BB3A44B00B1A519 /* StageAestheticsHelper.swift in Sources */,
