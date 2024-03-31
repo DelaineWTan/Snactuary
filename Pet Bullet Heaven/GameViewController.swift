@@ -179,9 +179,22 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     //check which node is the food node and return it
     func checkFoodCollision() -> FoodNode? {
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
+            print("Other node \(nodeA)")
             return nodeB as? FoodNode
+            
         } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
+            print("Other node \(nodeB)")
             return nodeA as? FoodNode
+        }
+        return nil
+    }
+    
+    //check which node is the pet node and return it
+    func checkPetCollision() -> Projectile? {
+        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
+            return nodeB as? Projectile
+        } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
+            return nodeA as? Projectile
         }
         return nil
     }
@@ -200,7 +213,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
 
     //use the ability to deal damage to the colliding food item
-    func applyDamageToFood(_ food: FoodNode) {
+    func applyDamageToFood(_ food: FoodNode) { //, _ pet: Pet
         // Convert food node's position to screen coordinates
         let scnView = self.view as! SCNView
         let foodPosition = scnView.projectPoint(food.presentation.position)
@@ -211,12 +224,23 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         scnView.addSubview(floatingText)
         floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: testAbility._AbilityDamage!)
 
+        //if food killed
         if food._Health <= 0 {
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
             soundManager!.refreshEatingSFX()
             
+            for petIndex in 0...((Globals.activePets.count) - 1) {
+                let pet = Globals.activePets[petIndex]
+                pet.currentExp += 1
+                pet.levelUpCheck()
+                
+                print("Current Exp: \(pet.currentExp)")
+                print("Level Up Exp: \(pet.levelUpExp)")
+                print("Pet Level: \(pet.level)")
+            }
+        
         }
     }
     
