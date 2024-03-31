@@ -12,6 +12,13 @@ class MainMenuUIView: UIView {
     var selectPetsButtonTappedHandler: (() -> Void)?
     var exitButtonTappedHandler: (() -> Void)?
     
+    lazy var titleLabel: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "title_image.png")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     lazy var playButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Play", for: .normal)
@@ -56,9 +63,18 @@ class MainMenuUIView: UIView {
     }
     
     private func setupUI() {
+        addSubview(titleLabel)
         addSubview(playButton)
         addSubview(selectPetsButton)
         addSubview(exitButton)
+        
+        // Layout constraints for title image
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),            titleLabel.widthAnchor.constraint(equalToConstant: 300),
+            titleLabel.heightAnchor.constraint(equalToConstant: 200)
+        ])
         
         // Layout constraints for buttons
         playButton.translatesAutoresizingMaskIntoConstraints = false
