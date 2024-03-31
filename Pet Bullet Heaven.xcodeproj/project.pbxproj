@@ -15,6 +15,7 @@
 		0D58FCCB2BB7943800488D01 /* FrogFroak.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0D58FCCA2BB7943800488D01 /* FrogFroak.dae */; };
 		0D58FCCD2BB794A200488D01 /* FrogFroakTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D58FCCC2BB794A200488D01 /* FrogFroakTexture.png */; };
 		0D58FCD72BB8DED800488D01 /* app_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D58FCD62BB8DED800488D01 /* app_icon.jpg */; };
+		0D58FCD92BB8F00D00488D01 /* logo-color.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D58FCD82BB8F00D00488D01 /* logo-color.png */; };
 		0D6409382B71FBD00047847B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6409372B71FBD00047847B /* art.scnassets */; };
 		0D64093D2B71FBD00047847B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093B2B71FBD00047847B /* Main.storyboard */; };
 		0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093E2B71FBD20047847B /* Assets.xcassets */; };
@@ -83,6 +84,7 @@
 		0D58FCCA2BB7943800488D01 /* FrogFroak.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = FrogFroak.dae; sourceTree = "<group>"; };
 		0D58FCCC2BB794A200488D01 /* FrogFroakTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogFroakTexture.png; sourceTree = "<group>"; };
 		0D58FCD62BB8DED800488D01 /* app_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = app_icon.jpg; sourceTree = "<group>"; };
+		0D58FCD82BB8F00D00488D01 /* logo-color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-color.png"; sourceTree = "<group>"; };
 		0D6409322B71FBD00047847B /* Snactuary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snactuary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409372B71FBD00047847B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		0D64093C2B71FBD00047847B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		0D6409292B71FBD00047847B = {
 			isa = PBXGroup;
 			children = (
+				0D58FCD82BB8F00D00488D01 /* logo-color.png */,
 				0D8DB43B2B7AC9AB008D2AE8 /* .gitignore */,
 				0D6409342B71FBD00047847B /* Pet Bullet Heaven */,
 				0D64094A2B71FBD30047847B /* Pet Bullet HeavenTests */,
@@ -377,6 +380,7 @@
 				FBE60A5C2B92E52A009B3E7E /* Duck.001.png in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
 				0D64093D2B71FBD00047847B /* Main.storyboard in Resources */,
+				0D58FCD92BB8F00D00488D01 /* logo-color.png in Resources */,
 				FBE60A552B92D484009B3E7E /* Paw 4.dae in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,7 +615,7 @@
 				DEVELOPMENT_TEAM = F6447P736M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -639,7 +643,7 @@
 				DEVELOPMENT_TEAM = F6447P736M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
