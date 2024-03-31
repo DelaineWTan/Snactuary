@@ -10,7 +10,7 @@ import SceneKit
 
 public class Utilities {
     // Implement the delegate method
-    static func swapSceneNode(with petModel: Pet, position: Int, rootScene: SCNNode) {
+    static func swapSceneNode(with petModel: Pet, position: Int) {
         print(petModel.modelName)
         // load current Pet Model and ability
         let petNode = SCNNode()
@@ -24,19 +24,21 @@ public class Utilities {
         }
         
         // Replace current pet at position with new pet node and ability
-        var petPos = SCNNode()
+        var petSlotNode = SCNNode()
         var oldAbilityNode = SCNNode()
-        if let mainPlayerNode = rootScene.childNode(withName: "mainPlayer", recursively: true) {
-            petPos = mainPlayerNode.childNode(withName: "pos\(position)", recursively: true)!
+        if let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true) {
+            petSlotNode = mainPlayerNode.childNode(withName: "pos\(position)", recursively: true)!
             oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[position], recursively: true)!
+            petSlotNode.enumerateChildNodes { (node, stop) in
+                print("removing")
+                node.removeFromParentNode()
+            }
+            petSlotNode.addChildNode(petNode)
             
-            petNode.position = petPos.position
-            petNode.orientation = petPos.orientation
-            petNode.scale = petPos.scale
-            petNode.name = petPos.name // TODO: change node names to like pet1 instead of Cat.001 reference when initializing
+            //petNode.name = petPos.name // TODO: change node names to like pet1 instead of Cat.001 reference when initializing
+            petNode.name = petModel.modelName
             
-            mainPlayerNode.addChildNode(petNode) // add new pet model node
-            petPos.removeFromParentNode()
+            //mainPlayerNode.addChildNode(petNode) // add new pet model node
             
             
             oldAbilityNode.removeFromParentNode()

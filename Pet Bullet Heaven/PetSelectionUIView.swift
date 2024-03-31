@@ -269,7 +269,7 @@ class PetSelectionUIView: UIView {
             
             print("active Panel Tag: \(activePanelTag)")
             // delegate to swap 3D models
-            delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
+            Utilities.swapSceneNode(with: collectionPet, position: activePanelTag)
 
             // Deselect both buttons
             self.activePanelTag = nil
@@ -313,7 +313,7 @@ class PetSelectionUIView: UIView {
             
             // delegate to swap 3D models
             print("active Panel Tag: \(activePanelTag)")
-            delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
+            Utilities.swapSceneNode(with: collectionPet, position: activePanelTag)
 
             // Deselect both buttons
             self.activePanelTag = nil

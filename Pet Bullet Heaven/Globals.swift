@@ -13,6 +13,8 @@ public class Globals {
     // This version number is used to ensure local environments have the latest configured user data
     public static var userDataVersion = 1
     
+    public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
+    
     public static var pets: [Pet] = [
         Pet(petName:"Frogger",petId: 1, petImageName: "art.scnassets/frog.png", petModelName: "art.scnassets/Frog.Froak.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 5, _InputDistanceFromCenter: 7.5, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
         Pet(petName:"Pengwin",petId: 2, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Penguin.001.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
