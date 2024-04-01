@@ -235,7 +235,7 @@ class InGameUIView: UIView {
         innerCircleLayer?.opacity = 0.6
         innerCircleLayer?.path = innerCirclePath.cgPath
         
-        innerCircleLayer?.fillColor = UIColor.darkGray.cgColor
+        innerCircleLayer?.fillColor = UIColor.lightGray.cgColor
         
         // outer circle
         let outerCirclePath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX+200, y: bounds.midY+400), radius: 50, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
