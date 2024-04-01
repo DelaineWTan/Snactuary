@@ -82,4 +82,8 @@ class Projectile : SCNNode, MonoBehaviour {
         
     }
     
+    func setDamage(_ damage:Int){
+        _Damage = damage
+    }
+    
 }

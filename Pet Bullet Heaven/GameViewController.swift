@@ -87,7 +87,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // Remove when we no longer need to test new abilities that aren't assigned to any pets yet
         let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})
-        let testAbility3 = ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 8, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})
+        let testAbility3 = ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 20, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})
         Globals.mainScene.rootNode.addChildNode(testAbility)
         Globals.mainScene.rootNode.addChildNode(testAbility2)
         Globals.mainScene.rootNode.addChildNode(testAbility3)
@@ -122,7 +122,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     var nodeB : SCNNode? = SCNNode()
     
     // food cooldown duration (in seconds)
-    let foodHitCooldown: TimeInterval = 0.5
+    let foodHitCooldown: TimeInterval = 0.1
 
     // dictionary to track the cooldown time for each food item using their UUIDs
     var foodCooldowns: [UUID: TimeInterval] = [:]
@@ -150,9 +150,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     func checkFoodCollision() -> FoodNode? {
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {         //print("Other node \(nodeA?.name)")
             return nodeB as? FoodNode
-            
         } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
-            //print("Other node \(nodeB?.name)")
             return nodeA as? FoodNode
         }
         return nil
@@ -188,11 +186,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let foodPosition = scnView.projectPoint(food.presentation.position)
         let attackingNode = checkPetCollision()
         
-        //food._Health -= attackingNode!._Damage
-        
         if let projectile = attackingNode as? Projectile {
             // Handle collision with a projectile node
             food._Health -= projectile._Damage
+            
             // Show floating damage text
             let floatingText = FloatingDamageText()
             scnView.addSubview(floatingText)
@@ -200,11 +197,13 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         else
         {
-//            let petNode = attackingNode as? Pet
-//            food._Health -= (petNode?.attackPattern._AbilityDamage)!
-//            let floatingText = FloatingDamageText()
-//            scnView.addSubview(floatingText)
-//            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: (petNode?.attackPattern._AbilityDamage)!)
+            let petNode = attackingNode as? Pet
+            food._Health -= Int(petNode!.baseAttack)
+            
+            // Show floating damage text
+            let floatingText = FloatingDamageText()
+            scnView.addSubview(floatingText)
+            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode!.baseAttack))
             
         }
 
@@ -233,25 +232,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
                     let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
                     
-                    oldAbilityNode.removeFromParentNode()
-                    // TODO: only swapping the projectile to orbitingPaw with the new baseAttack, not its own projectile.
-                    pet.attackPattern._Projectile = { OrbitingPaw(_InputDamage: Int(pet.baseAttack))}
-                    
-                    let ability = pet.attackPattern.copy() as! Ability
-                    // add new pet ability node, create a duplicate of the reference
-                    _ = ability.ActivateAbility()
-                    //ability { OrbitingPaw(_InputDamage: 1)}
-                    ability.name = oldAbilityNode.name
-                    mainPlayerNode!.addChildNode(ability)
+                    let updatedAbility = oldAbilityNode as! Ability
+                    updatedAbility.setDamage(Int(pet.baseAttack))
                 }
-                
-//                print("Current Exp: \(pet.currentExp)")
-//                print("Level Up Exp: \(pet.levelUpExp)")
-//                print("Pet Level: \(pet.level)")
-//                print("Base Attack: \(pet.baseAttack)")
-                //print("Ability damage: \(pet.attackPattern._AbilityDamage)")
             }
-        
         }
     }
     
@@ -322,7 +306,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         for petIndex in 0...((Globals.activePets.count) - 1) {
             // combine the speed of all the pets
-            speed += Globals.activePets[petIndex].speed
+            speed += Globals.activePets[petIndex].speed/10
         }
         
         switch gestureRecongnize.state {
@@ -335,8 +319,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             // Normalize xz vector so diagonal movement equals 1
             let length = sqrt(pow(x, 2) + pow(z, 2))
-            Globals.inputX = x / length * 2 * CGFloat(speed)// TODO add speed mod
-            Globals.inputZ = z / length * 2 * CGFloat(speed)// TODO add speed mod
+            Globals.inputX = x / length * CGFloat(speed)
+            Globals.inputZ = z / length * CGFloat(speed)
             
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)

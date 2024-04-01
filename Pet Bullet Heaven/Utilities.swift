@@ -11,11 +11,9 @@ import UIKit
 
 public class Utilities {
     // Implement the delegate method
-    static func swapSceneNode(with petModel: Pet, position: Int) {
-        print(petModel.modelName)
-        // load current Pet Model and ability
-        let petNode = SCNNode()
-        if let petModelScene = SCNScene(named: petModel.modelName) { // Find pet scene from assets file
+    static func swapSceneNode(with petNode: Pet, position: Int) {
+
+        if let petModelScene = SCNScene(named: petNode.modelName) { // Find pet scene from assets file
             // Iterate and add all objects to form the pet node
             for childNode in petModelScene.rootNode.childNodes {
                 petNode.addChildNode(childNode)
@@ -34,11 +32,10 @@ public class Utilities {
                 node.removeFromParentNode()
             }
             petSlotNode.addChildNode(petNode)
-            petNode.name = petModel.modelName
             
             oldAbilityNode.removeFromParentNode()
             
-            let ability = petModel.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
+            let ability = petNode.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
             _ = ability.ActivateAbility()
             ability.name = oldAbilityNode.name
             mainPlayerNode.addChildNode(ability)

@@ -234,13 +234,13 @@
 				4FAE637A2B7C21B3007ED6AA /* Ability.swift */,
 				4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */,
 				0D58FCC42BB783A500488D01 /* SpawnProjectileInRangeAbility.swift */,
+				4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */,
 				4FAE637E2B7C21EE007ED6AA /* Projectile.swift */,
-				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
+				4F745FA32BB7BC1A008909FD /* LaunchedProjectile.swift */,
 				0D58FCC62BB784F100488D01 /* StationaryBomb.swift */,
+				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
 				0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */,
 				04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */,
-				4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */,
-				4F745FA32BB7BC1A008909FD /* LaunchedProjectile.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
