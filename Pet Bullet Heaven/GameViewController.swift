@@ -187,7 +187,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         return nil
     }
     
-    //check which node is the pet node and return it
+    //check which node is the projectile node and return it
     func checkPetCollision() -> Projectile? {
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
             return nodeA as? Projectile
