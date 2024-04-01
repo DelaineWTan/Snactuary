@@ -245,6 +245,15 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     pet.speed = Float(pet.level)
                     
                     pet.attackPattern = OrbitingProjectileAbility(_InputAbilityDamage: Int(pet.baseAttack), _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: Int(pet.baseAttack))})
+                    let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
+                    let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
+                    
+                    oldAbilityNode.removeFromParentNode()
+                    
+                    let ability = pet.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
+                    _ = ability.ActivateAbility()
+                    ability.name = oldAbilityNode.name
+                    mainPlayerNode!.addChildNode(ability)
                 }
                 
 //                print("Current Exp: \(pet.currentExp)")
