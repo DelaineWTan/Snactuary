@@ -105,7 +105,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             
             // Add pets into scene
             Utilities.swapSceneNode(with: Globals.activePets[petIndex], position: petIndex)
-            print("attack value: \(Globals.activePets[petIndex].baseAttack)")
         }
         
         // Initialize the food spawner and load stage health multiplier immediately
@@ -151,9 +150,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     func checkFoodCollision() -> FoodNode? {
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {         //print("Other node \(nodeA?.name)")
             return nodeB as? FoodNode
-            
         } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
-            //print("Other node \(nodeB?.name)")
             return nodeA as? FoodNode
         }
         return nil
@@ -192,7 +189,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         if let projectile = attackingNode as? Projectile {
             // Handle collision with a projectile node
             food._Health -= projectile._Damage
-            print("projectile damage: \(projectile._Damage)")
+            
             // Show floating damage text
             let floatingText = FloatingDamageText()
             scnView.addSubview(floatingText)
@@ -225,7 +222,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     pet.currentExp = 0
                     pet.levelUpExp = pet.levelUpExp*2
                     pet.level += 1
-                    print("level up: \(pet.level)")
                     
                     //scaling attack and speed values with level, tweak later
                     pet.baseAttack = Float(pet.level)
@@ -234,22 +230,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     pet.attackPattern._AbilityDamage = Int(pet.baseAttack)
     
                     let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
-                    var oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
+                    let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
                     
                     let updatedAbility = oldAbilityNode as! Ability
                     updatedAbility.setDamage(Int(pet.baseAttack))
-                    
-
-                    
-//                    // TODO: only swapping the projectile to orbitingPaw with the new baseAttack, not its own projectile.
-//                    pet.attackPattern._Projectile = { OrbitingPaw(_InputDamage: Int(pet.baseAttack))}
-//                    
-//                    let ability = pet.attackPattern.copy() as! Ability
-//                    // add new pet ability node, create a duplicate of the reference
-//                    _ = ability.ActivateAbility()
-//                    //ability { OrbitingPaw(_InputDamage: 1)}
-//                    ability.name = oldAbilityNode.name
-//                    mainPlayerNode!.addChildNode(ability)
                 }
             }
         }

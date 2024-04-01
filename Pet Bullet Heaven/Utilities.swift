@@ -12,8 +12,6 @@ import UIKit
 public class Utilities {
     // Implement the delegate method
     static func swapSceneNode(with petNode: Pet, position: Int) {
-        print(petNode.modelName)
-        // load current Pet Model and ability
 
         if let petModelScene = SCNScene(named: petNode.modelName) { // Find pet scene from assets file
             // Iterate and add all objects to form the pet node
@@ -34,7 +32,6 @@ public class Utilities {
                 node.removeFromParentNode()
             }
             petSlotNode.addChildNode(petNode)
-            //petNode.name = petModel.modelName
             
             oldAbilityNode.removeFromParentNode()
             
