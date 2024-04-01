@@ -31,7 +31,7 @@ class OrbitingProjectileAbility : Ability{
         _rotationSpeed = _InputRotationSpeed
         _distanceFromCenter = _InputDistanceFromCenter
         _numProjectiles = _InputNumProjectiles
-
+        
     }
     
     /*
