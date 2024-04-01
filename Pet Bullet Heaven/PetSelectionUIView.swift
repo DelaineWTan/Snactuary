@@ -23,13 +23,7 @@ class PetSelectionUIView: UIView {
     var mainMenuButtonTappedHandler: (() -> Void)?
     
     lazy var mainMenuButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Main Menu", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(mainMenuButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Main Menu", image: UIImage(named: "cloud_pink.png"), backgroundColor: .blue, target: self, action: #selector(mainMenuButtonTapped))
         return button
     }()
 
@@ -68,8 +62,8 @@ class PetSelectionUIView: UIView {
         NSLayoutConstraint.activate([
             mainMenuButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             mainMenuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            mainMenuButton.widthAnchor.constraint(equalToConstant: 100),
-            mainMenuButton.heightAnchor.constraint(equalToConstant: 40)
+            mainMenuButton.widthAnchor.constraint(equalToConstant: 147),
+            mainMenuButton.heightAnchor.constraint(equalToConstant: 98)
         ])
         
         // Create stack views for top and bottom rows

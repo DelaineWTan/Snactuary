@@ -10,13 +10,7 @@ class PauseMenuUIView: UIView {
     var mainMenuButtonTappedHandler: (() -> Void)?
     
     lazy var mainMenuButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Main Menu", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(mainMenuButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Main Menu", image: UIImage(named: "cloud_pink.png"), backgroundColor: .blue, target: self, action: #selector(mainMenuButtonTapped))
         return button
     }()
     
@@ -37,9 +31,9 @@ class PauseMenuUIView: UIView {
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainMenuButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            mainMenuButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20), // Centered vertically
-            mainMenuButton.widthAnchor.constraint(equalToConstant: 100),
-            mainMenuButton.heightAnchor.constraint(equalToConstant: 40)
+            mainMenuButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20),
+            mainMenuButton.widthAnchor.constraint(equalToConstant: 147),
+            mainMenuButton.heightAnchor.constraint(equalToConstant: 98)
         ])
     }
     
