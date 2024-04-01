@@ -32,24 +32,12 @@ class InGameUIView: UIView {
     }
     
     lazy var pauseButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Pause", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(pauseButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Pause", image: UIImage(named: "cloud_yellow.png"), backgroundColor: .blue, target: self, action: #selector(pauseButtonTapped))
         return button
     }()
     
     lazy var nextStageButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Go to Next Stage", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(nextStageButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Next Stage", image: UIImage(named: "cloud_teal.png"), backgroundColor: .blue, target: self, action: #selector(nextStageButtonTapped))
         button.isHidden = true
         return button
     }()
@@ -204,8 +192,8 @@ class InGameUIView: UIView {
         NSLayoutConstraint.activate([
             pauseButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             pauseButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            pauseButton.widthAnchor.constraint(equalToConstant: 100),
-            pauseButton.heightAnchor.constraint(equalToConstant: 40)
+            pauseButton.widthAnchor.constraint(equalToConstant: 99),
+            pauseButton.heightAnchor.constraint(equalToConstant: 66)
         ])
         
         // Layout constraints for next stage button
@@ -213,8 +201,8 @@ class InGameUIView: UIView {
         NSLayoutConstraint.activate([
             nextStageButton.topAnchor.constraint(equalTo: hungerMeter.bottomAnchor, constant: 20),
             nextStageButton.centerXAnchor.constraint(equalTo: hungerMeter.centerXAnchor),
-            nextStageButton.widthAnchor.constraint(equalToConstant: 170),
-            nextStageButton.heightAnchor.constraint(equalToConstant: 40),
+            nextStageButton.widthAnchor.constraint(equalToConstant: 150),
+            nextStageButton.heightAnchor.constraint(equalToConstant: 100),
         ])
         
         // Layout constraints for score label

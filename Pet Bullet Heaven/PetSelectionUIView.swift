@@ -23,13 +23,7 @@ class PetSelectionUIView: UIView {
     var mainMenuButtonTappedHandler: (() -> Void)?
     
     lazy var mainMenuButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Main Menu", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(mainMenuButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Main Menu", image: UIImage(named: "cloud_pink.png"), backgroundColor: .blue, target: self, action: #selector(mainMenuButtonTapped))
         return button
     }()
 
@@ -64,10 +58,10 @@ class PetSelectionUIView: UIView {
         addSubview(mainMenuButton)
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainMenuButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16), // Adjust the top anchor as needed
-            mainMenuButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16), // Adjust the leading anchor as needed
-            mainMenuButton.widthAnchor.constraint(equalToConstant: 100), // Adjust the width as needed
-            mainMenuButton.heightAnchor.constraint(equalToConstant: 40) // Adjust the height as needed
+            mainMenuButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            mainMenuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            mainMenuButton.widthAnchor.constraint(equalToConstant: 147),
+            mainMenuButton.heightAnchor.constraint(equalToConstant: 98)
         ])
         setupTopCenterLabel()
     }
@@ -376,8 +370,9 @@ class PetSelectionUIView: UIView {
             setupActivePanels()
             setupTopCenterLabel()
             
+            print("active Panel Tag: \(activePanelTag)")
             // delegate to swap 3D models
-            delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
+            Utilities.swapSceneNode(with: collectionPet, position: activePanelTag)
 
             // Deselect both buttons
             self.activePanelTag = nil
@@ -421,7 +416,8 @@ class PetSelectionUIView: UIView {
             setupTopCenterLabel()
             
             // delegate to swap 3D models
-            delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
+            print("active Panel Tag: \(activePanelTag)")
+            Utilities.swapSceneNode(with: collectionPet, position: activePanelTag)
 
             // Deselect both buttons
             self.activePanelTag = nil

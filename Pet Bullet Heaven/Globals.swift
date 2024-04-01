@@ -7,10 +7,13 @@
 import UIKit
 import SwiftUI
 import Combine
+import SceneKit
 
 public class Globals {
     // This version number is used to ensure local environments have the latest configured user data
     public static var userDataVersion = 1
+    
+    public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
     
     public static var pets: [Pet] = [
         Pet(petName:"Frogger",petId: 1, petImageName: "art.scnassets/frog.png", petModelName: "art.scnassets/FrogFroak.scn", attack: 2, attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 5, _InputDistanceFromCenter: 7.5, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
@@ -69,10 +72,4 @@ public class Globals {
     public static var petAbilityNodeName: [String] = [
         "PetAbility1", "petAbility2", "petAbility3", "petAbility4"
     ]
-}
-
-extension Comparable {
-    func clamp(min: Self, max: Self) -> Self {
-        return Swift.max(min, Swift.min(self, max))
-    }
 }

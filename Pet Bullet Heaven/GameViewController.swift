@@ -11,7 +11,6 @@ import SceneKit
 import AVFoundation
 
 class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProvider{
-    var soundManager: SoundManager?
     let overlayView = GameUIView()
     
     // Camera node
@@ -33,9 +32,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     
     let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 6, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
     
-    // create a new scene
-    let mainScene = SCNScene(named: "art.scnassets/main.scn")!
-    
     // Add floating damage text
     let floatingText = FloatingDamageText()
     
@@ -51,11 +47,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // retrieve the SCNView
         let scnView = self.view as! SCNView
         // set the scene to the view
-        scnView.scene = mainScene
+        scnView.scene = Globals.mainScene
         
         // Set delegates
         overlayView.delegate = self
-        mainScene.physicsWorld.contactDelegate = self
+        Globals.mainScene.physicsWorld.contactDelegate = self
         
         // show statistics and debug options, remove for production
         scnView.showsStatistics = true
@@ -63,7 +59,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             SCNDebugOptions.showPhysicsShapes
         ]
         // Initialize sound manager
-        soundManager = SoundManager()
+        SoundManager.Instance.playCurrentStageBGM()
         // Add overlay view
         scnView.backgroundColor = UIColor.black
         overlayView.frame = scnView.bounds
@@ -72,9 +68,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Add floating damage text
         scnView.addSubview(floatingText)
         // Add player
-        playerNode = mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
+        playerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
         // Add stage node and init Map
-        stageNode = mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        stageNode = Globals.mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
         stageNode?.geometry?.firstMaterial?.lightingModel = .constant
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
@@ -88,9 +84,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Remove when we no longer need to test new abilities that aren't assigned to any pets yet
         let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})
         let testAbility3 = ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 8, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})
-        mainScene.rootNode.addChildNode(testAbility)
-        mainScene.rootNode.addChildNode(testAbility2)
-        mainScene.rootNode.addChildNode(testAbility3)
+        Globals.mainScene.rootNode.addChildNode(testAbility)
+        Globals.mainScene.rootNode.addChildNode(testAbility2)
+        Globals.mainScene.rootNode.addChildNode(testAbility3)
         _ = testAbility2.ActivateAbility()
         _ = testAbility3.ActivateAbility()
         
@@ -102,45 +98,16 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             _ = abilityClone.ActivateAbility()
             abilityClone.name = Globals.petAbilityNodeName[petIndex]
             playerNode?.addChildNode(abilityClone)
+            
+            // Add pets into scene
+            Utilities.swapSceneNode(with: Globals.activePets[petIndex], position: petIndex)
         }
         
         // Initialize the food spawner and load stage health multiplier immediately
-        _ = FoodSpawner(scene: mainScene)
+        _ = FoodSpawner(scene: Globals.mainScene)
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
         // Load texture corresponding to current stage preset
         stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
-        
-        // btn handler for progressing to next stage
-        overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
-            self?.overlayView.inGameUIView.nextStageButton.isHidden = true
-            
-            // reset current hungerScore on stage & hungerMeter
-            self?.overlayView.inGameUIView.resetHunger()
-            
-            // clear food objects
-            LifecycleManager.Instance.deleteAllFood()
-            // increase food health
-            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
-            
-            // Increment stage count and play new bgm
-            self?.soundManager!.stopCurrentBGM()
-            stageCount += 1
-            self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
-            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
-            self?.soundManager!.playCurrentStageBGM()
-            // change stage visual aesthetics
-            if let stageMat = self?.stageNode?.geometry?.firstMaterial {
-                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
-            }
-            
-            // increase max HungerScore required to progress to next stage
-            self?.overlayView.inGameUIView.increaseMaxHungerScore()
-            
-            // save stage's food health multiplier
-            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
-            
-            UserDefaults.standard.synchronize()
-        }
     }
     
     ///
@@ -215,7 +182,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
-            soundManager!.refreshEatingSFX()
+            SoundManager.Instance.refreshEatingSFX()
             
         }
     }
@@ -256,7 +223,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // get its material
         let material = result.node.geometry!.firstMaterial!
-        soundManager!.playTapSFX(result.node.name ?? "")
+        SoundManager.Instance.playTapSFX(result.node.name ?? "")
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.5
         
@@ -347,7 +314,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
 
     func getSceneNode() -> SCNNode? {
-        return mainScene.rootNode
+        return Globals.mainScene.rootNode
     }
 }
 
