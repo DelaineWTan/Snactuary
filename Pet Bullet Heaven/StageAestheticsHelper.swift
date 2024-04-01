@@ -92,10 +92,6 @@ public enum StageAestheticsHelper {
     private static var currBG : mapBG = mapBG.plants
     
     public static func iterateStageVariation(_ material: SCNMaterial) -> UIImage? {
-        // iterate tint. loop back to start if reached max
-//        tintCount += 1
-//        tintCount = tintCount % (maxTintCount + 1)
-        
         mapIterCount += 1
         mapIterCount = mapIterCount % (maxTextureCount + 1) // add maxTintCount later
         currBG = currBG.next()
@@ -103,32 +99,6 @@ public enum StageAestheticsHelper {
         setTileBG(material, withScale: currBG.background.scale)
         
         return currBG.image
-        
-        
-        // TODO: Use this when adding map tints, maybe.
-//        switch mapIterCount {
-//        case 0:
-//            return
-//        default:
-//            <#code#>
-//        }
-        
-//        switch tintCount {
-//        case 0:
-//            // return the next image texture
-//            return image
-//        case 1:
-//            currTint = tintColor.green
-//        case 2:
-//            currTint = tintColor.blue
-//        case 3:
-//            currTint = tintColor.red
-//        default:
-//            break
-//        }
-//        
-//        let tintedImage = tintImage(image: image, withColor: currTint.!)
-//        return tintedImage
     }
     
     public static func setInitialStageImage(_ material: SCNMaterial) -> UIImage? {
@@ -202,8 +172,6 @@ public enum StageAestheticsHelper {
         material.diffuse.wrapS = .repeat // Horizontal tiling
         material.diffuse.wrapT = .repeat // Vertical tiling
         material.diffuse.contentsTransform = scale
-        
-        print("Scale: \(scale)")
     }
 
 }
