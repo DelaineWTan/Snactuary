@@ -108,38 +108,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
         // Load texture corresponding to current stage preset
         stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
-        
-        // btn handler for progressing to next stage
-        overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
-            self?.overlayView.inGameUIView.nextStageButton.isHidden = true
-            
-            // reset current hungerScore on stage & hungerMeter
-            self?.overlayView.inGameUIView.resetHunger()
-            
-            // clear food objects
-            LifecycleManager.Instance.deleteAllFood()
-            // increase food health
-            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
-            
-            // Increment stage count and play new bgm
-            SoundManager.Instance.stopCurrentBGM()
-            stageCount += 1
-            self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
-            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
-            SoundManager.Instance.playCurrentStageBGM()
-            // change stage visual aesthetics
-            if let stageMat = self?.stageNode?.geometry?.firstMaterial {
-                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
-            }
-            
-            // increase max HungerScore required to progress to next stage
-            self?.overlayView.inGameUIView.increaseMaxHungerScore()
-            
-            // save stage's food health multiplier
-            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
-            
-            UserDefaults.standard.synchronize()
-        }
     }
     
     ///

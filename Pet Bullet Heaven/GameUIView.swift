@@ -117,6 +117,38 @@ class GameUIView: UIView, PetSelectionDelegate {
             self?.pauseMenuUIView.isHidden = false
             self?.inGameUIView.isHidden = true
         }
+        
+        inGameUIView.nextStageButtonTappedHandler = { [weak self] in
+            self?.inGameUIView.nextStageButton.isHidden = true
+            
+            // reset current hungerScore on stage & hungerMeter
+            self?.inGameUIView.resetHunger()
+            
+            // clear food objects
+            LifecycleManager.Instance.deleteAllFood()
+            // increase food health
+            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+            
+            // Increment stage count and play new bgm
+            SoundManager.Instance.stopCurrentBGM()
+            stageCount += 1
+            self?.inGameUIView.setStageCount(stageCount: stageCount)
+            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
+            SoundManager.Instance.playCurrentStageBGM()
+            // change stage visual aesthetics
+            let stageNode = Globals.mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
+            if let stageMat = stageNode?.geometry?.firstMaterial {
+                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
+            }
+            
+            // increase max HungerScore required to progress to next stage
+            self?.inGameUIView.increaseMaxHungerScore()
+            
+            // save stage's food health multiplier
+            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
+            
+            UserDefaults.standard.synchronize()
+        }
     }
     
     // Implement the delegate method
