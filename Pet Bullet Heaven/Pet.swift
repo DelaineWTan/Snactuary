@@ -15,7 +15,7 @@ public class Pet {
     var speed: Float = 1
     var currentExp: Float
     //exp needed to level up
-    var levelUpExp: Float = 10.0
+    var levelUpExp: Float = 1.0
     var level: Float = 1
     
     // might need more properties yea, add more if you see fit DO NOT CHANGE THE EXISTING ONES and update the constructor and Globals define pets as well thx :DDDDDD
@@ -26,7 +26,7 @@ public class Pet {
         imageName = petImageName
         modelName = petModelName
         currentExp = 0
-        levelUpExp = 10
+        levelUpExp = 1
         self.attackPattern = attackPattern
     }
     

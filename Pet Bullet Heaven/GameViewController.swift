@@ -222,7 +222,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Instantiate and show floating damage text
         let floatingText = FloatingDamageText()
         scnView.addSubview(floatingText)
-        floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: testAbility._AbilityDamage!)
+        floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: projectile!._Damage)
 
         //if food killed
         if food._Health <= 0 {
@@ -244,7 +244,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     pet.baseAttack = Float(pet.level)
                     pet.speed = Float(pet.level)
                     
-                    pet.attackPattern = OrbitingProjectileAbility(_InputAbilityDamage: Int(pet.baseAttack), _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: Int(pet.baseAttack))})
+                    pet.attackPattern._AbilityDamage = Int(pet.baseAttack)
+    
                     let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
                     let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
                     
@@ -258,7 +259,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                 
 //                print("Current Exp: \(pet.currentExp)")
 //                print("Level Up Exp: \(pet.levelUpExp)")
-//                print("Pet Level: \(pet.level)")
+                print("Pet Level: \(pet.level)")
+                print("Base Attack: \(pet.baseAttack)")
+                print("Ability damage: \(pet.attackPattern._AbilityDamage)")
             }
         
         }
