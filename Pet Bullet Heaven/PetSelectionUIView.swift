@@ -45,7 +45,7 @@ class PetSelectionUIView: UIView {
             mainMenuButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16), // Adjust the top anchor as needed
             mainMenuButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16), // Adjust the leading anchor as needed
             mainMenuButton.widthAnchor.constraint(equalToConstant: 100), // Adjust the width as needed
-            mainMenuButton.heightAnchor.constraint(equalToConstant: 40) // Adjust the height as needed
+            mainMenuButton.heightAnchor.constraint(equalToConstant: 70) // Adjust the height as needed
         ])
         setupTopCenterLabel()
     }
@@ -103,7 +103,7 @@ class PetSelectionUIView: UIView {
         
         NSLayoutConstraint.activate([
             totalPetLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16), // Adjust the top anchor as needed
-            totalPetLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 40), // Center horizontally
+            totalPetLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 50), // Center horizontally
             topCenterLabel.topAnchor.constraint(equalTo: totalPetLabel.topAnchor, constant: 8), // Adjust the top anchor as needed
             topCenterLabel.leadingAnchor.constraint(equalTo: totalPetLabel.leadingAnchor, constant: 8), // Adjust the leading anchor as needed
             topCenterLabel.trailingAnchor.constraint(equalTo: totalPetLabel.trailingAnchor, constant: -8), // Adjust the trailing anchor as needed
