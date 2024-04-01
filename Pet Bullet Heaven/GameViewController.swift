@@ -219,6 +219,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         //food._Health -= testAbility._AbilityDamage!
         food._Health -= projectile!._Damage
+        print()
         // Instantiate and show floating damage text
         let floatingText = FloatingDamageText()
         scnView.addSubview(floatingText)
@@ -251,17 +252,22 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     
                     oldAbilityNode.removeFromParentNode()
                     
-                    let ability = pet.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
+                    
+                    let ability = pet.attackPattern.copy() as! Ability
+                    // add new pet ability node, create a duplicate of the reference
                     _ = ability.ActivateAbility()
+                    // TODO: CHECK IF IT'S WORKING
+                    ability._Projectile = { OrbitingPaw(_InputDamage: Int(pet.baseAttack))}
+                    //ability { OrbitingPaw(_InputDamage: 1)}
                     ability.name = oldAbilityNode.name
                     mainPlayerNode!.addChildNode(ability)
                 }
                 
 //                print("Current Exp: \(pet.currentExp)")
 //                print("Level Up Exp: \(pet.levelUpExp)")
-                print("Pet Level: \(pet.level)")
-                print("Base Attack: \(pet.baseAttack)")
-                print("Ability damage: \(pet.attackPattern._AbilityDamage)")
+//                print("Pet Level: \(pet.level)")
+//                print("Base Attack: \(pet.baseAttack)")
+                //print("Ability damage: \(pet.attackPattern._AbilityDamage)")
             }
         
         }
