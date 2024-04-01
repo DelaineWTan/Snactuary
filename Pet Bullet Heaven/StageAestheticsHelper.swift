@@ -62,11 +62,11 @@ public enum StageAestheticsHelper {
     public static let blueTint = UIColor.blue
     public static let redTint = UIColor.red
     
-    public static let plantBG : UIImage = UIImage(named: "art.scnassets/stage1.png")!
-    public static let beachBG : UIImage = UIImage(named: "art.scnassets/beach.jpg")!
-    public static let heavenBG : UIImage = UIImage(named: "art.scnassets/clouds.jpg")!
+    public static let plantBG : UIImage = UIImage(named: "art.scnassets/backgrounds/Grass_01.png")!
+    public static let beachBG : UIImage = UIImage(named: "art.scnassets/backgrounds/beach_sand.png")!
+    public static let heavenBG : UIImage = UIImage(named: "art.scnassets/backgrounds/wispy_clouds.png")!
     
-    public static let plantBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(1, 15, 1)
+    public static let plantBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(35, 25, 1)
     public static let beachBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(45, 25, 1)
     public static let cloudBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(45, 25, 1)
     
@@ -116,13 +116,14 @@ public enum StageAestheticsHelper {
 //        return tintedImage
     }
     
-    public static func setInitialStageImage() -> UIImage? {
+    public static func setInitialStageImage(_ material: SCNMaterial) -> UIImage? {
         if (mapIterCount != 0) {
             for _ in 0...mapIterCount{
                 currBG = currBG.next()
             }
         }
         
+        tileBG(material)
         
         return currBG.image
     }
@@ -186,7 +187,20 @@ public enum StageAestheticsHelper {
         // Set the tiling properties for the material
         material.diffuse.wrapS = .repeat // Horizontal tiling
         material.diffuse.wrapT = .repeat // Vertical tiling
-        material.diffuse.contentsTransform = plantBGTileScale
+        
+        switch mapIterCount {
+        case 0:
+            material.diffuse.contentsTransform = plantBGTileScale
+            break
+        case 1:
+            material.diffuse.contentsTransform = beachBGTileScale
+            break
+        case 2:
+            material.diffuse.contentsTransform = cloudBGTileScale
+            break
+        default:
+            break
+        }
     }
 
 }
