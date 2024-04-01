@@ -22,9 +22,29 @@ class FoodSpawner: MonoBehaviour {
     
     init(scene: SCNScene) {
         foodArray = [
-            FoodData(name: "Carrot", initialSpeed: 1, health: 1, physicsDimensions: SCNVector3(1.5, 3, 1.5), hungerValue: 2, assetName: "art.scnassets/Food Models/CarrotV2.scn"),
-            FoodData(name: "Banana", initialSpeed: 1, health: 1, physicsDimensions: SCNVector3(x: 3, y: 3, z: 3), hungerValue: 2, assetName: "art.scnassets/Banana.scn"),
-            FoodData(name: "Donut", initialSpeed: 0.5, health: 2, physicsDimensions: SCNVector3(3, 3, 3), hungerValue: 10, assetName: "art.scnassets/Food Models/Donut.scn")
+            FoodData(
+                name: "Carrot",
+                initialSpeed: 1,
+                health: 1,
+                physicsDimensions: SCNVector3(1.5, 3, 1.5),
+                hungerValue: 2,
+                assetName: "art.scnassets/Food Models/CarrotV2.scn"),
+            
+            FoodData(
+                name: "Banana",
+                initialSpeed: 1,
+                health: 1,
+                physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
+                hungerValue: 2,
+                assetName: "art.scnassets/Banana.scn"),
+            
+            FoodData(
+                name: "Donut",
+                initialSpeed: 0.5,
+                health: 2,
+                physicsDimensions: SCNVector3(3, 3, 3),
+                hungerValue: 10,
+                assetName: "art.scnassets/Food Models/Donut.scn")
         ]
         self.mainScene = scene
         self.uniqueID = UUID()
