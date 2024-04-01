@@ -50,16 +50,22 @@ class ShootClosestAbility: Ability, MonoBehaviour {
         
         // TODO: Spawn the Projectile
         let _SpawnedProjectile = _Projectile()
+        _SpawnedProjectile.setDamage(_AbilityDamage!)
+//        _SpawnedProjectile._Launched = true
+//        _SpawnedProjectile._Destination = _InputDestination
+//        _SpawnedProjectile._ProjectileSpeed = _ProjectileSpeed
         
-        _SpawnedProjectile._Launched = true
-        _SpawnedProjectile._Destination = _InputDestination
-        _SpawnedProjectile._ProjectileSpeed = _ProjectileSpeed
+        _ProjectileList.append(_SpawnedProjectile)
+        _ProjectileList.first!._Launched = true
+        _ProjectileList.first!._Destination = _InputDestination
+        _ProjectileList.first!._ProjectileSpeed = _ProjectileSpeed
         
-        TerminateProjectile(_InputProjectile: _SpawnedProjectile)
+        TerminateProjectile(_InputProjectile:  _ProjectileList.first!)
+        
         
         // Heavy assumption that this ability is attached to the Scene
-        parent?.addChildNode(_SpawnedProjectile)
-        
+        parent?.addChildNode( _ProjectileList.first!)
+        _ProjectileList.removeAll()
         
     }
     

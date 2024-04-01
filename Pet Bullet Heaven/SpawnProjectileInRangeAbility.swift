@@ -56,14 +56,17 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
         
         // TODO: Instantiate Projectile.
         let _SpawnedProjectile = _Projectile()
-        _SpawnedProjectile.position = _ProjectilePosition
+        _SpawnedProjectile.setDamage(_AbilityDamage!)
+        
+        _ProjectileList.append(_SpawnedProjectile)
+        _ProjectileList[0].position = _ProjectilePosition
         
         // TODO: Attach Projectile to Scene, not the Ability.
-        playerNode?.parent?.addChildNode(_SpawnedProjectile)
+        playerNode?.parent?.addChildNode(_ProjectileList[0])
         
         // TODO: Terminate the Projectile after given amount of duration
-        TerminateProjectile(_InputProjectile: _SpawnedProjectile)
-        
+        TerminateProjectile(_InputProjectile: _ProjectileList[0])
+        _ProjectileList.removeAll()
         
     }
     
