@@ -187,12 +187,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         return nil
     }
     
-    //check which node is the projectile node and return it
-    func checkPetCollision() -> Projectile? {
+    //check which node is the projectile or pet node and return it
+    func checkPetCollision() -> SCNNode? {
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
-            return nodeA as? Projectile
+            return nodeA
         } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
-            return nodeB as? Projectile
+            return nodeB
         }
         return nil
     }
@@ -215,15 +215,27 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Convert food node's position to screen coordinates
         let scnView = self.view as! SCNView
         let foodPosition = scnView.projectPoint(food.presentation.position)
-        let projectile = checkPetCollision()
+        let attackingNode = checkPetCollision()
         
-        //food._Health -= testAbility._AbilityDamage!
-        food._Health -= projectile!._Damage
-        print()
-        // Instantiate and show floating damage text
-        let floatingText = FloatingDamageText()
-        scnView.addSubview(floatingText)
-        floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: projectile!._Damage)
+        //food._Health -= attackingNode!._Damage
+        
+        if let projectile = attackingNode as? Projectile {
+            // Handle collision with a projectile node
+            food._Health -= projectile._Damage
+            // Show floating damage text
+            let floatingText = FloatingDamageText()
+            scnView.addSubview(floatingText)
+            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: projectile._Damage)
+        }
+        else
+        {
+//            let petNode = attackingNode as? Pet
+//            food._Health -= (petNode?.attackPattern._AbilityDamage)!
+//            let floatingText = FloatingDamageText()
+//            scnView.addSubview(floatingText)
+//            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: (petNode?.attackPattern._AbilityDamage)!)
+            
+        }
 
         //if food killed
         if food._Health <= 0 {
