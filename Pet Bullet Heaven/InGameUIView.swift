@@ -37,13 +37,7 @@ class InGameUIView: UIView {
     }()
     
     lazy var nextStageButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Go to Next Stage", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(nextStageButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Next Stage", image: UIImage(named: "cloud_teal.png"), backgroundColor: .blue, target: self, action: #selector(nextStageButtonTapped))
         button.isHidden = true
         return button
     }()
@@ -207,8 +201,8 @@ class InGameUIView: UIView {
         NSLayoutConstraint.activate([
             nextStageButton.topAnchor.constraint(equalTo: hungerMeter.bottomAnchor, constant: 20),
             nextStageButton.centerXAnchor.constraint(equalTo: hungerMeter.centerXAnchor),
-            nextStageButton.widthAnchor.constraint(equalToConstant: 170),
-            nextStageButton.heightAnchor.constraint(equalToConstant: 40),
+            nextStageButton.widthAnchor.constraint(equalToConstant: 150),
+            nextStageButton.heightAnchor.constraint(equalToConstant: 100),
         ])
         
         // Layout constraints for score label
