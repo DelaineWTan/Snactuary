@@ -11,7 +11,6 @@ import SceneKit
 import AVFoundation
 
 class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProvider{
-    var soundManager: SoundManager?
     let overlayView = GameUIView()
     
     // Camera node
@@ -60,7 +59,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             SCNDebugOptions.showPhysicsShapes
         ]
         // Initialize sound manager
-        soundManager = SoundManager()
+        SoundManager.Instance.playCurrentStageBGM()
         // Add overlay view
         scnView.backgroundColor = UIColor.black
         overlayView.frame = scnView.bounds
@@ -123,11 +122,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
             
             // Increment stage count and play new bgm
-            self?.soundManager!.stopCurrentBGM()
+            SoundManager.Instance.stopCurrentBGM()
             stageCount += 1
             self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
             UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
-            self?.soundManager!.playCurrentStageBGM()
+            SoundManager.Instance.playCurrentStageBGM()
             // change stage visual aesthetics
             if let stageMat = self?.stageNode?.geometry?.firstMaterial {
                 stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
@@ -215,7 +214,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
-            soundManager!.refreshEatingSFX()
+            SoundManager.Instance.refreshEatingSFX()
             
         }
     }
@@ -256,7 +255,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // get its material
         let material = result.node.geometry!.firstMaterial!
-        soundManager!.playTapSFX(result.node.name ?? "")
+        SoundManager.Instance.playTapSFX(result.node.name ?? "")
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.5
         
