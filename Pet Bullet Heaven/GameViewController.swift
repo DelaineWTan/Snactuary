@@ -41,8 +41,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         Task {
             await StartLoop()
         }
-        // Initialize user data if unsynced
-        //initUserData()
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView

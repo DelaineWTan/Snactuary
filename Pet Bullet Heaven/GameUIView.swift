@@ -138,7 +138,7 @@ class GameUIView: UIView, PetSelectionDelegate {
             // change stage visual aesthetics
             let stageNode = Globals.mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
             if let stageMat = stageNode?.geometry?.firstMaterial {
-                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
+                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation(stageMat)
             }
             
             // increase max HungerScore required to progress to next stage

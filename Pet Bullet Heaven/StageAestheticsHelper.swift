@@ -12,23 +12,6 @@ import Foundation
 // Static helper class to change the appearance of the map
 public enum StageAestheticsHelper {
     
-    enum tintColor {
-        case green
-        case blue
-        case red
-        
-        var nextTint: UIColor {
-            switch self {
-            case .green:
-                return UIColor.green
-            case .blue:
-                return UIColor.blue
-            case .red:
-                return UIColor.red
-            }
-        }
-    }
-    
     enum mapBG {
         case plants
         case beach
@@ -45,6 +28,17 @@ public enum StageAestheticsHelper {
             }
         }
         
+        var background: Background {
+            switch self {
+            case .plants:
+                return Background(imageTexture: StageAestheticsHelper.plantBG, scale: StageAestheticsHelper.plantBGTileScale)
+            case .beach:
+                return Background(imageTexture: StageAestheticsHelper.beachBG, scale: StageAestheticsHelper.beachBGTileScale)
+            case .clouds:
+                return Background(imageTexture: StageAestheticsHelper.heavenBG, scale: StageAestheticsHelper.cloudBGTileScale)
+            }
+        }
+        
         func next() -> mapBG {
             switch self {
             case .plants:
@@ -57,6 +51,24 @@ public enum StageAestheticsHelper {
         }
     }
     
+    public struct Background {
+        //var color: UIColor
+        var imageTexture: UIImage?
+        var scale: SCNMatrix4
+
+        // Initialization with default values
+        init(imageTexture: UIImage? = nil, scale: SCNMatrix4 = SCNMatrix4MakeScale(45, 25, 1)) {
+            self.imageTexture = imageTexture
+            self.scale = scale
+        }
+    }
+    
+    enum Backgrounds {
+        case grassStage(Background)
+        case beachStage(Background)
+        case cloudStage(Background)
+    }
+    
     // Static colors
     public static let greenTint = UIColor.green
     public static let blueTint = UIColor.blue
@@ -66,8 +78,8 @@ public enum StageAestheticsHelper {
     public static let beachBG : UIImage = UIImage(named: "art.scnassets/backgrounds/beach_sand.png")!
     public static let heavenBG : UIImage = UIImage(named: "art.scnassets/backgrounds/wispy_clouds.png")!
     
-    public static let plantBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(35, 25, 1)
-    public static let beachBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(45, 25, 1)
+    public static let plantBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(40, 25, 1)
+    public static let beachBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(5, 5, 1)
     public static let cloudBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(45, 25, 1)
     
     public static let maxTintCount : Int = 3
@@ -76,10 +88,10 @@ public enum StageAestheticsHelper {
     private static var textureCount : Int = 0
     private static var mapIterCount : Int = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) % maxTextureCount + 1)
     
-    private static var currTint : tintColor = tintColor.green
+    //private static var currTint : tintColor = tintColor.green
     private static var currBG : mapBG = mapBG.plants
     
-    public static func iterateStageVariation() -> UIImage? {
+    public static func iterateStageVariation(_ material: SCNMaterial) -> UIImage? {
         // iterate tint. loop back to start if reached max
 //        tintCount += 1
 //        tintCount = tintCount % (maxTintCount + 1)
@@ -87,6 +99,9 @@ public enum StageAestheticsHelper {
         mapIterCount += 1
         mapIterCount = mapIterCount % (maxTextureCount + 1) // add maxTintCount later
         currBG = currBG.next()
+        
+        setTileBG(material, withScale: currBG.background.scale)
+        
         return currBG.image
         
         
@@ -122,8 +137,7 @@ public enum StageAestheticsHelper {
                 currBG = currBG.next()
             }
         }
-        
-        tileBG(material)
+        setTileBG(material, withScale: currBG.background.scale)
         
         return currBG.image
     }
@@ -183,24 +197,13 @@ public enum StageAestheticsHelper {
         return tintedImage
     }
     
-    public static func tileBG(_ material: SCNMaterial) {
+    public static func setTileBG(_ material: SCNMaterial, withScale scale: SCNMatrix4) {
         // Set the tiling properties for the material
         material.diffuse.wrapS = .repeat // Horizontal tiling
         material.diffuse.wrapT = .repeat // Vertical tiling
+        material.diffuse.contentsTransform = scale
         
-        switch mapIterCount {
-        case 0:
-            material.diffuse.contentsTransform = plantBGTileScale
-            break
-        case 1:
-            material.diffuse.contentsTransform = beachBGTileScale
-            break
-        case 2:
-            material.diffuse.contentsTransform = cloudBGTileScale
-            break
-        default:
-            break
-        }
+        print("Scale: \(scale)")
     }
 
 }
