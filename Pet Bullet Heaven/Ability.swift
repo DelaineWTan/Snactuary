@@ -14,7 +14,10 @@ class Ability : SCNNode {
     var _AbilityActivated : Bool = false
     var _AbilityDuration : Double?
     
-    override init() {
+    var _Projectile : () -> Projectile
+    
+    init(withProjectile: @escaping () -> Projectile) {
+        _Projectile = withProjectile
         _AbilityDamage = 0
         _AbilityDuration = 0.0
         _AbilityActivated = false
@@ -25,8 +28,8 @@ class Ability : SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func SpawnProjectile() -> Projectile {
-        return Projectile()
+    func SpawnProjectile() {
+
     }
     
     func ActivateAbility() -> Bool { 

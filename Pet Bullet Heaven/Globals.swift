@@ -7,17 +7,19 @@
 import UIKit
 import SwiftUI
 import Combine
+import SceneKit
 
 public class Globals {
-    // @TODO hardcoded for now, need to read from persistent data/update in game
-    public static var currentStage = 2
-    public static var numStagePresets = 3
+    // This version number is used to ensure local environments have the latest configured user data
+    public static var userDataVersion = 1
+    
+    public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
     
     public static var pets: [Pet] = [
-        Pet(petName:"Frogger",petId: 1, petImageName: "art.scnassets/frog.png", petModelName: "art.scnassets/Frog.001.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 5, _InputDistanceFromCenter: 7.5, _InputNumProjectiles: 5)),
-        Pet(petName:"Pengwin",petId: 2, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Penguin.001.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)),
-        Pet(petName:"Hello Katt",petId: 3, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Cat.001.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 12.5, _InputNumProjectiles: 5)),
-        Pet(petName:"Ducker",petId: 4, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Duck.001.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 15, _InputNumProjectiles: 5)),
+        Pet(petName:"Frogger",petId: 1, petImageName: "art.scnassets/frog.png", petModelName: "art.scnassets/Frog.Froak.scn", attack: 2, attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 5, _InputDistanceFromCenter: 7.5, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        Pet(petName:"Pengwin",petId: 2, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Penguin.001.scn", attack: 3, attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        Pet(petName:"Hello Katt",petId: 3, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Cat.Pink.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 12.5, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        Pet(petName:"Ducker",petId: 4, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Duck.Dolan.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 15, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
         Pet(petName:"Bunni", petId: 5, petImageName: "art.scnassets/bunny.gif"),
         Pet(petName:"Ticken",petId: 6, petImageName: "art.scnassets/chicken.png"),
         Pet(petName:"Foxxy",petId: 7, petImageName: "art.scnassets/foxxy.jpeg"),
@@ -32,10 +34,10 @@ public class Globals {
     
     public static var activePets: [Pet] = [
         // First four pets are the active party pets
-        Pet(petName:"Frogger",petId: 1, petImageName: "art.scnassets/frog.png", petModelName: "art.scnassets/Frog.001.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 5, _InputDistanceFromCenter: 7.5, _InputNumProjectiles: 5)),
-        Pet(petName:"Pengwin",petId: 2, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Penguin.001.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)),
-        Pet(petName:"Hello Katt",petId: 3, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Cat.001.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 12.5, _InputNumProjectiles: 5)),
-        Pet(petName:"Ducker",petId: 4, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Duck.001.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 15, _InputNumProjectiles: 5))
+        Pet(petName:"Frogger",petId: 1, petImageName: "art.scnassets/frog.png", petModelName: "art.scnassets/Frog.Froak.scn", attack: 2, attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 5, _InputDistanceFromCenter: 7.5, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        Pet(petName:"Pengwin",petId: 2, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Penguin.001.scn", attack: 3, attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        Pet(petName:"Hello Katt",petId: 3, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Cat.Pink.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 12.5, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        Pet(petName:"Ducker",petId: 4, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Duck.Dolan.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 15, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
     ]
     
     public static let cameraZIndex : Float = 30;
@@ -49,6 +51,7 @@ public class Globals {
     public static var maxHungerScoreMultiplier : Float = 1.5
     public static var foodHealthMultiplier : Float = 1.2
     
+    public static var numStagePresets = 3
     // default values
     public static let defaultMaxHungerScore : Int = 4
     public static let defaultFoodHealth : Int = 1
@@ -56,6 +59,7 @@ public class Globals {
     public static let defaultStageCount : Int = 1
     
     // Persistent User Data Keys
+    public static let userDataVersionKey = "userDataVersion"
     public static let totalScoreKey : String = "Total Score"
     public static let stageScoreKey : String = "Stage Score"
     public static let stageMaxScorekey : String = "Max Stage Score"
@@ -68,10 +72,4 @@ public class Globals {
     public static var petAbilityNodeName: [String] = [
         "PetAbility1", "petAbility2", "petAbility3", "petAbility4"
     ]
-}
-
-extension Comparable {
-    func clamp(min: Self, max: Self) -> Self {
-        return Swift.max(min, Swift.min(self, max))
-    }
 }

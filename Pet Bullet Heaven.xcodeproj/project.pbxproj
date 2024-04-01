@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		04FB228F2BB3A44B00B1A519 /* StageAestheticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */; };
 		0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */; };
+		0D58FCC52BB783A500488D01 /* SpawnProjectileInRangeAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D58FCC42BB783A500488D01 /* SpawnProjectileInRangeAbility.swift */; };
+		0D58FCC72BB784F100488D01 /* StationaryBomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D58FCC62BB784F100488D01 /* StationaryBomb.swift */; };
+		0D58FCC92BB78DBD00488D01 /* Banana.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0D58FCC82BB78DBD00488D01 /* Banana.dae */; };
+		0D58FCCB2BB7943800488D01 /* FrogFroak.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0D58FCCA2BB7943800488D01 /* FrogFroak.dae */; };
+		0D58FCD72BB8DED800488D01 /* app_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D58FCD62BB8DED800488D01 /* app_icon.jpg */; };
+		0D58FCD92BB8F00D00488D01 /* logo-color.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D58FCD82BB8F00D00488D01 /* logo-color.png */; };
 		0D6409382B71FBD00047847B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6409372B71FBD00047847B /* art.scnassets */; };
 		0D64093D2B71FBD00047847B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093B2B71FBD00047847B /* Main.storyboard */; };
 		0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D64093E2B71FBD20047847B /* Assets.xcassets */; };
@@ -23,14 +29,31 @@
 		0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B82B75937600C18DD0 /* GameUIView.swift */; };
 		0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */; };
 		0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */; };
+		0E052F612BBA304F003BA02D /* title_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F602BBA304F003BA02D /* title_image.png */; };
+		0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F702BBA5363003BA02D /* cloud_yellow.png */; };
+		0E052F742BBA5363003BA02D /* cloud_teal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F712BBA5363003BA02D /* cloud_teal.png */; };
+		0E052F752BBA5363003BA02D /* cloud_pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F722BBA5363003BA02D /* cloud_pink.png */; };
 		0ED95DCA2B9193E5008F010E /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED95DC92B9193E5008F010E /* Map.swift */; };
 		0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */; };
 		4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */; };
+		4F745FA22BB7893A008909FD /* ShootClosestAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */; };
+		4F745FA42BB7BC1A008909FD /* LaunchedProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F745FA32BB7BC1A008909FD /* LaunchedProjectile.swift */; };
 		4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637A2B7C21B3007ED6AA /* Ability.swift */; };
 		4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */; };
 		4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637E2B7C21EE007ED6AA /* Projectile.swift */; };
 		4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */; };
 		58861D4C2B7C1084002573D2 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58861D4B2B7C1084002573D2 /* Pet.swift */; };
+		FB2128232BB9FB1600CE5066 /* CatCursedTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128132BB9FB1600CE5066 /* CatCursedTexture.png */; };
+		FB2128242BB9FB1600CE5066 /* FrogFroakTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128142BB9FB1600CE5066 /* FrogFroakTexture.png */; };
+		FB2128252BB9FB1600CE5066 /* CatPinkTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128152BB9FB1600CE5066 /* CatPinkTexture.png */; };
+		FB2128292BB9FB1600CE5066 /* BaseFrogTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128192BB9FB1600CE5066 /* BaseFrogTexture.png */; };
+		FB21282C2BB9FB1600CE5066 /* DuckDaffyTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB21281C2BB9FB1600CE5066 /* DuckDaffyTexture.png */; };
+		FB21282D2BB9FB1600CE5066 /* DuckYellowTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB21281D2BB9FB1600CE5066 /* DuckYellowTexture.png */; };
+		FB21282E2BB9FB1600CE5066 /* DuckDolanTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB21281E2BB9FB1600CE5066 /* DuckDolanTexture.png */; };
+		FB21282F2BB9FB1600CE5066 /* CatPurpleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB21281F2BB9FB1600CE5066 /* CatPurpleTexture.png */; };
+		FB2128302BB9FB1600CE5066 /* FrogGreenTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128202BB9FB1600CE5066 /* FrogGreenTexture.png */; };
+		FB2128312BB9FB1600CE5066 /* FrogLuckyTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */; };
+		FB2128342BB9FE4100CE5066 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2128332BB9FE4100CE5066 /* Utilities.swift */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* FoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* FoodNode.swift */; };
 		FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */; };
@@ -69,7 +92,13 @@
 /* Begin PBXFileReference section */
 		04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageAestheticsHelper.swift; sourceTree = "<group>"; };
 		0D3AD8E32B96B56D00D4D69A /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
-		0D6409322B71FBD00047847B /* Pet Bullet Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pet Bullet Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D58FCC42BB783A500488D01 /* SpawnProjectileInRangeAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnProjectileInRangeAbility.swift; sourceTree = "<group>"; };
+		0D58FCC62BB784F100488D01 /* StationaryBomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationaryBomb.swift; sourceTree = "<group>"; };
+		0D58FCC82BB78DBD00488D01 /* Banana.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Banana.dae; sourceTree = "<group>"; };
+		0D58FCCA2BB7943800488D01 /* FrogFroak.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = FrogFroak.dae; sourceTree = "<group>"; };
+		0D58FCD62BB8DED800488D01 /* app_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = app_icon.jpg; sourceTree = "<group>"; };
+		0D58FCD82BB8F00D00488D01 /* logo-color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-color.png"; sourceTree = "<group>"; };
+		0D6409322B71FBD00047847B /* Snactuary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snactuary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6409372B71FBD00047847B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		0D64093C2B71FBD00047847B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0D64093E2B71FBD20047847B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,14 +115,31 @@
 		0DCB55B82B75937600C18DD0 /* GameUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUIView.swift; sourceTree = "<group>"; };
 		0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuUIView.swift; sourceTree = "<group>"; };
 		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
+		0E052F602BBA304F003BA02D /* title_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_image.png; sourceTree = "<group>"; };
+		0E052F702BBA5363003BA02D /* cloud_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_yellow.png; sourceTree = "<group>"; };
+		0E052F712BBA5363003BA02D /* cloud_teal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_teal.png; sourceTree = "<group>"; };
+		0E052F722BBA5363003BA02D /* cloud_pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_pink.png; sourceTree = "<group>"; };
 		0ED95DC92B9193E5008F010E /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootClosestAbility.swift; sourceTree = "<group>"; };
+		4F745FA32BB7BC1A008909FD /* LaunchedProjectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchedProjectile.swift; sourceTree = "<group>"; };
 		4FAE637A2B7C21B3007ED6AA /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
 		4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingProjectileAbility.swift; sourceTree = "<group>"; };
 		4FAE637E2B7C21EE007ED6AA /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitingPaw.swift; sourceTree = "<group>"; };
 		4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Penguin_HandPaint.001.png; sourceTree = "<group>"; };
 		58861D4B2B7C1084002573D2 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		FB2128132BB9FB1600CE5066 /* CatCursedTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CatCursedTexture.png; sourceTree = "<group>"; };
+		FB2128142BB9FB1600CE5066 /* FrogFroakTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogFroakTexture.png; sourceTree = "<group>"; };
+		FB2128152BB9FB1600CE5066 /* CatPinkTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CatPinkTexture.png; sourceTree = "<group>"; };
+		FB2128192BB9FB1600CE5066 /* BaseFrogTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BaseFrogTexture.png; sourceTree = "<group>"; };
+		FB21281C2BB9FB1600CE5066 /* DuckDaffyTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DuckDaffyTexture.png; sourceTree = "<group>"; };
+		FB21281D2BB9FB1600CE5066 /* DuckYellowTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DuckYellowTexture.png; sourceTree = "<group>"; };
+		FB21281E2BB9FB1600CE5066 /* DuckDolanTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DuckDolanTexture.png; sourceTree = "<group>"; };
+		FB21281F2BB9FB1600CE5066 /* CatPurpleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CatPurpleTexture.png; sourceTree = "<group>"; };
+		FB2128202BB9FB1600CE5066 /* FrogGreenTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogGreenTexture.png; sourceTree = "<group>"; };
+		FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogLuckyTexture.png; sourceTree = "<group>"; };
+		FB2128332BB9FE4100CE5066 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* FoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodNode.swift; sourceTree = "<group>"; };
 		FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoBehaviour.swift; sourceTree = "<group>"; };
@@ -142,6 +188,7 @@
 		0D6409292B71FBD00047847B = {
 			isa = PBXGroup;
 			children = (
+				0D58FCD82BB8F00D00488D01 /* logo-color.png */,
 				0D8DB43B2B7AC9AB008D2AE8 /* .gitignore */,
 				0D6409342B71FBD00047847B /* Pet Bullet Heaven */,
 				0D64094A2B71FBD30047847B /* Pet Bullet HeavenTests */,
@@ -153,7 +200,7 @@
 		0D6409332B71FBD00047847B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0D6409322B71FBD00047847B /* Pet Bullet Heaven.app */,
+				0D6409322B71FBD00047847B /* Snactuary.app */,
 				0D6409472B71FBD20047847B /* Pet Bullet HeavenTests.xctest */,
 				0D6409512B71FBD30047847B /* Pet Bullet HeavenUITests.xctest */,
 			);
@@ -175,6 +222,7 @@
 				FBFDBE6B2B8550780071A1F6 /* PetSelectionUIView.swift */,
 				58861D4B2B7C1084002573D2 /* Pet.swift */,
 				0DCB55AA2B74B7C500C18DD0 /* Globals.swift */,
+				FB2128332BB9FE4100CE5066 /* Utilities.swift */,
 				0ED95DC92B9193E5008F010E /* Map.swift */,
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
@@ -185,10 +233,14 @@
 				FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */,
 				4FAE637A2B7C21B3007ED6AA /* Ability.swift */,
 				4FAE637C2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift */,
+				0D58FCC42BB783A500488D01 /* SpawnProjectileInRangeAbility.swift */,
 				4FAE637E2B7C21EE007ED6AA /* Projectile.swift */,
 				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
+				0D58FCC62BB784F100488D01 /* StationaryBomb.swift */,
 				0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */,
 				04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */,
+				4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */,
+				4F745FA32BB7BC1A008909FD /* LaunchedProjectile.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -213,6 +265,14 @@
 		4FAE63822B7C483D007ED6AA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FB2128122BB9FB1600CE5066 /* textures */,
+				0D58FCD62BB8DED800488D01 /* app_icon.jpg */,
+				0E052F602BBA304F003BA02D /* title_image.png */,
+				0E052F722BBA5363003BA02D /* cloud_pink.png */,
+				0E052F712BBA5363003BA02D /* cloud_teal.png */,
+				0E052F702BBA5363003BA02D /* cloud_yellow.png */,
+				0D58FCCA2BB7943800488D01 /* FrogFroak.dae */,
+				0D58FCC82BB78DBD00488D01 /* Banana.dae */,
 				FBD518362BB642C800E947E5 /* berrytext.png */,
 				FBD518392BB642C800E947E5 /* donut.dae */,
 				FBD518382BB642C800E947E5 /* donutTexture.png */,
@@ -228,6 +288,23 @@
 				FBD518352BB63BCC00E947E5 /* CarrotV2.dae */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		FB2128122BB9FB1600CE5066 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				FB2128132BB9FB1600CE5066 /* CatCursedTexture.png */,
+				FB2128142BB9FB1600CE5066 /* FrogFroakTexture.png */,
+				FB2128152BB9FB1600CE5066 /* CatPinkTexture.png */,
+				FB2128192BB9FB1600CE5066 /* BaseFrogTexture.png */,
+				FB21281C2BB9FB1600CE5066 /* DuckDaffyTexture.png */,
+				FB21281D2BB9FB1600CE5066 /* DuckYellowTexture.png */,
+				FB21281E2BB9FB1600CE5066 /* DuckDolanTexture.png */,
+				FB21281F2BB9FB1600CE5066 /* CatPurpleTexture.png */,
+				FB2128202BB9FB1600CE5066 /* FrogGreenTexture.png */,
+				FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */,
+			);
+			path = textures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,7 +324,7 @@
 			);
 			name = "Pet Bullet Heaven";
 			productName = "Pet Bullet Heaven";
-			productReference = 0D6409322B71FBD00047847B /* Pet Bullet Heaven.app */;
+			productReference = 0D6409322B71FBD00047847B /* Snactuary.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0D6409462B71FBD20047847B /* Pet Bullet HeavenTests */ = {
@@ -334,22 +411,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E052F612BBA304F003BA02D /* title_image.png in Resources */,
+				FB2128292BB9FB1600CE5066 /* BaseFrogTexture.png in Resources */,
 				FBD5183B2BB642C800E947E5 /* IcingTexture.png in Resources */,
+				0D58FCC92BB78DBD00488D01 /* Banana.dae in Resources */,
 				0D8DB43C2B7AC9AB008D2AE8 /* .gitignore in Resources */,
 				FBE60A5D2B92E52A009B3E7E /* Duck.001.dae in Resources */,
 				FBE60A592B92E51F009B3E7E /* Cat.001.dae in Resources */,
+				FB21282F2BB9FB1600CE5066 /* CatPurpleTexture.png in Resources */,
+				FB2128232BB9FB1600CE5066 /* CatCursedTexture.png in Resources */,
+				0E052F752BBA5363003BA02D /* cloud_pink.png in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
 				FBD5183C2BB642C800E947E5 /* donutTexture.png in Resources */,
+				FB2128252BB9FB1600CE5066 /* CatPinkTexture.png in Resources */,
+				0D58FCD72BB8DED800488D01 /* app_icon.jpg in Resources */,
+				FB21282E2BB9FB1600CE5066 /* DuckDolanTexture.png in Resources */,
 				FBE60A612B92E533009B3E7E /* Frog.001.png in Resources */,
 				FBE60A582B92E51F009B3E7E /* Cat.001.png in Resources */,
+				FB2128312BB9FB1600CE5066 /* FrogLuckyTexture.png in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
 				FBD5183A2BB642C800E947E5 /* berrytext.png in Resources */,
+				FB2128302BB9FB1600CE5066 /* FrogGreenTexture.png in Resources */,
 				0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */,
+				0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */,
+				0D58FCCB2BB7943800488D01 /* FrogFroak.dae in Resources */,
+				FB2128242BB9FB1600CE5066 /* FrogFroakTexture.png in Resources */,
 				FBD5183D2BB642C800E947E5 /* donut.dae in Resources */,
 				FBE60A5C2B92E52A009B3E7E /* Duck.001.png in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
 				0D64093D2B71FBD00047847B /* Main.storyboard in Resources */,
+				0D58FCD92BB8F00D00488D01 /* logo-color.png in Resources */,
+				FB21282D2BB9FB1600CE5066 /* DuckYellowTexture.png in Resources */,
+				0E052F742BBA5363003BA02D /* cloud_teal.png in Resources */,
 				FBE60A552B92D484009B3E7E /* Paw 4.dae in Resources */,
+				FB21282C2BB9FB1600CE5066 /* DuckDaffyTexture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,18 +473,23 @@
 				0DCB55AB2B74B7C500C18DD0 /* Globals.swift in Sources */,
 				58861D4C2B7C1084002573D2 /* Pet.swift in Sources */,
 				FBFDBE6C2B8550780071A1F6 /* PetSelectionUIView.swift in Sources */,
+				4F745FA42BB7BC1A008909FD /* LaunchedProjectile.swift in Sources */,
+				4F745FA22BB7893A008909FD /* ShootClosestAbility.swift in Sources */,
 				FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */,
 				4FAE637F2B7C21EE007ED6AA /* Projectile.swift in Sources */,
 				4FAE637D2B7C21C1007ED6AA /* OrbitingProjectileAbility.swift in Sources */,
 				4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */,
+				0D58FCC52BB783A500488D01 /* SpawnProjectileInRangeAbility.swift in Sources */,
 				FBD518312BB627A300E947E5 /* AppDelegate.swift in Sources */,
 				0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */,
 				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */,
+				0D58FCC72BB784F100488D01 /* StationaryBomb.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
 				FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */,
 				0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */,
 				FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */,
+				FB2128342BB9FE4100CE5066 /* Utilities.swift in Sources */,
 				FB7328982B7D947500557AE6 /* FoodNode.swift in Sources */,
 				0ED95DCA2B9193E5008F010E /* Map.swift in Sources */,
 				04FB228F2BB3A44B00B1A519 /* StageAestheticsHelper.swift in Sources */,
@@ -579,7 +679,7 @@
 				DEVELOPMENT_TEAM = F6447P736M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -589,8 +689,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.Pet-Bullet-Heaven";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.bcit.Snactuary;
+				PRODUCT_NAME = Snactuary;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -607,7 +707,7 @@
 				DEVELOPMENT_TEAM = F6447P736M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -617,8 +717,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ca.bcit.Pet-Bullet-Heaven";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.bcit.Snactuary;
+				PRODUCT_NAME = Snactuary;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

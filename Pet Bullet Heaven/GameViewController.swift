@@ -11,9 +11,8 @@ import SceneKit
 import AVFoundation
 
 class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProvider{
-    let soundManager = SoundManager()
     let overlayView = GameUIView()
-
+    
     // Camera node
     let cameraNode = SCNNode()
     
@@ -31,65 +30,67 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
     
-    let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5)
-
-    // create a new scene
-    let mainScene = SCNScene(named: "art.scnassets/main.scn")!
+    let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 6, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
     
-    // Floating damage text
+    // Add floating damage text
     let floatingText = FloatingDamageText()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // Start game loop for lifecycle methods
         Task {
             await StartLoop()
         }
+        // Initialize user data if unsynced
+        initUserData()
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
-        
         // set the scene to the view
-        scnView.scene = mainScene
+        scnView.scene = Globals.mainScene
         
-        // set delegate to GameUIView
+        // Set delegates
         overlayView.delegate = self
+        Globals.mainScene.physicsWorld.contactDelegate = self
         
-        mainScene.physicsWorld.contactDelegate = self
-        
-        // show statistics such as fps and timing information
+        // show statistics and debug options, remove for production
         scnView.showsStatistics = true
-        // show debug options
         scnView.debugOptions = [
             SCNDebugOptions.showPhysicsShapes
         ]
-        // configure the view
-        scnView.backgroundColor = UIColor.black
-        
+        // Initialize sound manager
+        SoundManager.Instance.playCurrentStageBGM()
         // Add overlay view
+        scnView.backgroundColor = UIColor.black
         overlayView.frame = scnView.bounds
         overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scnView.addSubview(overlayView)
-        
-        // add self rendering every frame logic
-                
-        // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        scnView.addGestureRecognizer(tapGesture)
-        
-        // add panning gesture for pet movement
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
-        scnView.addGestureRecognizer(panGesture)
-        
-        // get player
-        playerNode = mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
-        
-        // get stage plane
-        stageNode = mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
+        // Add floating damage text
+        scnView.addSubview(floatingText)
+        // Add player
+        playerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
+        // Add stage node and init Map
+        stageNode = Globals.mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
         stageNode?.geometry?.firstMaterial?.lightingModel = .constant
         map = Map(stageNode: stageNode!, playerNode: playerNode!)
         
-        // spawn the initial attack patterns of active pets to game
+        // Add gesture recognizers
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        scnView.addGestureRecognizer(tapGesture)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
+        scnView.addGestureRecognizer(panGesture)
+        
+        
+        // Remove when we no longer need to test new abilities that aren't assigned to any pets yet
+        let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})
+        let testAbility3 = ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 8, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})
+        Globals.mainScene.rootNode.addChildNode(testAbility)
+        Globals.mainScene.rootNode.addChildNode(testAbility2)
+        Globals.mainScene.rootNode.addChildNode(testAbility3)
+        _ = testAbility2.ActivateAbility()
+        _ = testAbility3.ActivateAbility()
+        
+        // Add attack patterns for initial active pets to game
         for petIndex in 0...((Globals.activePets.count) - 1) {
             // Add attack pattern into scene
             let testAbility = Globals.activePets[petIndex].attackPattern
@@ -97,74 +98,16 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             _ = abilityClone.ActivateAbility()
             abilityClone.name = Globals.petAbilityNodeName[petIndex]
             playerNode?.addChildNode(abilityClone)
+            
+            // Add pets into scene
+            Utilities.swapSceneNode(with: Globals.activePets[petIndex], position: petIndex)
         }
-    
-        _ = FoodSpawner(scene: mainScene)
-        _ = FoodSpawner(scene: mainScene)
         
+        // Initialize the food spawner and load stage health multiplier immediately
+        _ = FoodSpawner(scene: Globals.mainScene)
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
-        
-        stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setInitialStageImage()
-        
-        let stageMat = stageNode?.geometry?.firstMaterial
-        
-        // Set the tiling properties for the material
-        stageMat!.diffuse.wrapS = .repeat // Horizontal tiling
-        stageMat!.diffuse.wrapT = .repeat // Vertical tiling
-
-        // Adjust the number of times the texture repeats across the surface
-        stageMat!.diffuse.contentsTransform = SCNMatrix4MakeScale(45, 25, 1) // Adjust the scale as needed
-        
-        // btn handler for progressing to next stage
-        overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
-            self?.overlayView.inGameUIView.nextStageButton.isHidden = true
-            
-            // reset current hungerScore on stage & hungerMeter
-            self?.overlayView.inGameUIView.resetHunger()
-            
-            // clear food objects
-            
-            // increase food health
-            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
-            let newHealth = ceil(Float(stageCount) * Globals.foodHealthMultiplier)
-            
-            // Increment stage count and play new bgm
-            self?.soundManager.stopCurrentBGM()
-            stageCount += 1
-            self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
-            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
-            self?.soundManager.playCurrentStageBGM()
-            
-            // change stage visual aesthetics
-            if let stageMat = self?.stageNode?.geometry?.firstMaterial {
-                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
-                StageAestheticsHelper.tileBG(stageMat)
-                
-                
-//                // Set the tiling properties for the material
-//                stageMat.diffuse.wrapS = .repeat // Horizontal tiling
-//                stageMat.diffuse.wrapT = .repeat // Vertical tiling
-//
-//                // Adjust the number of times the texture repeats across the surface
-//                stageMat.diffuse.contentsTransform = SCNMatrix4MakeScale(45, 25, 1) // Adjust the scale as needed
-            }
-            
-            // increase max HungerScore
-            self?.overlayView.inGameUIView.increaseMaxHungerScore()
-            
-            // save stage's food health multiplier
-            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
-            
-            LifecycleManager.Instance.deleteAllFood()
-            
-            UserDefaults.standard.synchronize()
-        }
-        
-        // Tentative, add to rootNode. Add to player in order to see Ability
-        scnView.scene!.rootNode.addChildNode(testAbility)
-        
-        // Add floating damage text
-        scnView.addSubview(floatingText)
+        // Load texture corresponding to current stage preset
+        stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
     }
     
     ///
@@ -239,7 +182,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
-            soundManager.refreshEatingSFX()
+            SoundManager.Instance.refreshEatingSFX()
             
         }
     }
@@ -280,7 +223,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // get its material
         let material = result.node.geometry!.firstMaterial!
-        soundManager.playTapSFX(result.node.name ?? "")
+        SoundManager.Instance.playTapSFX(result.node.name ?? "")
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.5
         
@@ -345,13 +288,17 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
     
     /// Resets persistent user data
-    public static func resetUserData() {
-        UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
-        UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
-        UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
-        UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
-        UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
-        // add anymore keys to reset
+    public func initUserData() {
+        let currentUserDataVersion = UserDefaults.standard.integer(forKey: Globals.userDataVersionKey)
+        let latestUserDataVersion = Globals.userDataVersion
+        if (currentUserDataVersion != latestUserDataVersion) {
+            print("User data version out of date (v\(currentUserDataVersion)), initializing to v\(latestUserDataVersion)...")
+            UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
+            UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
+            UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
+            UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
+            UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
+        }
     }
     
     /// Prints all user data to console
@@ -367,7 +314,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
 
     func getSceneNode() -> SCNNode? {
-        return mainScene.rootNode
+        return Globals.mainScene.rootNode
     }
 }
 

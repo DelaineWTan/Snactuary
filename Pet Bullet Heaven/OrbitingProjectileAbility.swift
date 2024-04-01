@@ -17,8 +17,6 @@ class OrbitingProjectileAbility : Ability{
      
     var _distanceFromCenter : Float?
     
-    var _Projectile : Projectile?
-    
     var _ProjectileList : [Projectile] = []
     
     required init?(coder: NSCoder) {
@@ -26,27 +24,28 @@ class OrbitingProjectileAbility : Ability{
     }
     
     // Mutated Constructor
-    init(_InputAbilityDamage: Int, _InputAbilityDuration: Double, _InputRotationSpeed : CGFloat, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int){
-        super.init()
+    init(_InputAbilityDamage: Int, _InputAbilityDuration: Double, _InputRotationSpeed : CGFloat, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int, _InputProjectile: @escaping () -> Projectile){
+        super.init(withProjectile: _InputProjectile)
         _AbilityDamage = _InputAbilityDamage
         _AbilityDuration = _InputAbilityDuration
         _rotationSpeed = _InputRotationSpeed
         _distanceFromCenter = _InputDistanceFromCenter
         _numProjectiles = _InputNumProjectiles
+
     }
     
     /*
      Helper Function for spawning the projectile, making sure that I've already set my Projectile.
      */
-    override func SpawnProjectile() -> Projectile {
+    override func SpawnProjectile() {
         
-        let _SpawnedProjectile = OrbitingPaw(_InputDamage: 1)
+        // Deep Copy the Projectile
+        let _SpawnedProjectile = _Projectile()
         _ProjectileList.append(_SpawnedProjectile)
         
         // Add to the rootNode of this SceneGraph
         self.addChildNode(_SpawnedProjectile)
         
-        return _SpawnedProjectile
     }
     
     /*
@@ -62,7 +61,7 @@ class OrbitingProjectileAbility : Ability{
         
         // 2. Initialize all the Projectiles
         while (_ProjectileList.count < _numProjectiles!){
-            _ = SpawnProjectile() // Throw if this returns null, something wrong happened
+            SpawnProjectile() // Throw if this returns null, something wrong happened
         }
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
@@ -98,9 +97,9 @@ class OrbitingProjectileAbility : Ability{
         return Float(360 / _numProjectiles!) * Float(Float.pi/180)
     }
     
-    func SetSpawnedProjectile(_ProjectileStrategy: Projectile){
-        _Projectile = _ProjectileStrategy
-    }
+//    func SetSpawnedProjectile(_ProjectileStrategy: Projectile){
+//        _Projectile = _ProjectileStrategy
+//    }
     
     func ConvertDegreesToRadian(_InDegrees: CGFloat) -> CGFloat {
         return CGFloat(_InDegrees * CGFloat(Float.pi / 180))
@@ -112,7 +111,8 @@ class OrbitingProjectileAbility : Ability{
                                              _InputAbilityDuration: self._AbilityDuration ?? 0,
                                              _InputRotationSpeed: self._rotationSpeed ?? 0,
                                              _InputDistanceFromCenter: self._distanceFromCenter ?? 0,
-                                             _InputNumProjectiles: self._numProjectiles ?? 0)
+                                             _InputNumProjectiles: self._numProjectiles ?? 0,
+                                             _InputProjectile: self._Projectile)
         // Copy additional properties if needed
         return copy
     }

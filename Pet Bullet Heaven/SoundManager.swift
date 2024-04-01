@@ -1,13 +1,15 @@
 import AVFoundation
 
-class SoundManager {
+public class SoundManager {
+    static let Instance = SoundManager()
+    
     var backgroundMusicPlayers: [AVAudioPlayer] = []
     var tapSFXPlayers: [String: AVPlayer] = [:]
     var eatingSFXFileName: String = "pet-eating-sfx"
     var eatingSFXPlayers: [AVPlayer] = []
     var numPets: Int = 4
     
-    init() {
+    private init() {
         self.uniqueID = UUID()
         
         // Configure AVAudioSession
@@ -53,10 +55,9 @@ class SoundManager {
                     print("Background music file \(bgmFile) not found")
                 }
             }
-            playCurrentStageBGM()
         }
         
-        func playCurrentStageBGM() {
+        public func playCurrentStageBGM() {
             guard !backgroundMusicPlayers.isEmpty else {
                 print("No background music loaded")
                 return
@@ -67,7 +68,7 @@ class SoundManager {
             nextBGMPlayer.play()
         }
         
-        func stopCurrentBGM() {
+        public func stopCurrentBGM() {
             guard !backgroundMusicPlayers.isEmpty else {
                 print("No background music loaded")
                 return
@@ -113,9 +114,8 @@ class SoundManager {
         return nodeName.components(separatedBy: ".").first?.lowercased() ?? ""
     }
     
-    func playTapSFX(_ petName: String) {
+    public func playTapSFX(_ petName: String) {
         let petType = extractPetTypeFromNode(from: petName)
-        // @TODO play the correct sound based on pet type
         if let tapSFXPlayer = tapSFXPlayers[petType] {
             DispatchQueue.main.async {
                 tapSFXPlayer.seek(to: .zero)
@@ -126,7 +126,7 @@ class SoundManager {
         }
     }
     
-    func refreshEatingSFX() {
+    public func refreshEatingSFX() {
         for player in self.eatingSFXPlayers {
             if player.rate == 0 {
                 player.seek(to: .zero)
