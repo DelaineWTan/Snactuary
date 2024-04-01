@@ -235,7 +235,17 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             for petIndex in 0...((Globals.activePets.count) - 1) {
                 let pet = Globals.activePets[petIndex]
                 pet.currentExp += 1
-                pet.levelUpCheck()
+                if pet.levelUpCheck(){
+                    pet.currentExp = 0
+                    pet.levelUpExp = pet.levelUpExp*2
+                    pet.level += 1
+                    
+                    //scaling attack and speed values with level, tweak later
+                    pet.baseAttack = Float(pet.level)
+                    pet.speed = Float(pet.level)
+                    
+                    pet.attackPattern = OrbitingProjectileAbility(_InputAbilityDamage: Int(pet.baseAttack), _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: Int(pet.baseAttack))})
+                }
                 
 //                print("Current Exp: \(pet.currentExp)")
 //                print("Level Up Exp: \(pet.levelUpExp)")

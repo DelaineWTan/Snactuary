@@ -30,19 +30,10 @@ public class Pet {
         self.attackPattern = attackPattern
     }
     
-    func levelUpCheck(){
-        if currentExp >= levelUpExp{
-            currentExp = 0
-            levelUpExp = levelUpExp*2
-            level += 1
-            
-            //scaling attack and speed values with level, tweak later
-            baseAttack = Float(level)
-            speed = Float(level)
-            
+    func levelUpCheck() -> Bool{
+        return currentExp >= levelUpExp
             
         }
-    }
     
     func getAttack() -> Float{
         return baseAttack * level
