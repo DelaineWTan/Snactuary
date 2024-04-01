@@ -101,6 +101,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             
             // Add pets into scene
             Utilities.swapSceneNode(with: Globals.activePets[petIndex], position: petIndex)
+            print("attack value: \(Globals.activePets[petIndex].baseAttack)")
         }
         
         // Initialize the food spawner and load stage health multiplier immediately
@@ -118,7 +119,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     var nodeB : SCNNode? = SCNNode()
     
     // food cooldown duration (in seconds)
-    let foodHitCooldown: TimeInterval = 0.5
+    let foodHitCooldown: TimeInterval = 0.1
 
     // dictionary to track the cooldown time for each food item using their UUIDs
     var foodCooldowns: [UUID: TimeInterval] = [:]
@@ -184,8 +185,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let foodPosition = scnView.projectPoint(food.presentation.position)
         let attackingNode = checkPetCollision()
         
-        //food._Health -= attackingNode!._Damage
-        
         if let projectile = attackingNode as? Projectile {
             // Handle collision with a projectile node
             food._Health -= projectile._Damage
@@ -196,11 +195,14 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         else
         {
-//            let petNode = attackingNode as? Pet
-//            food._Health -= (petNode?.attackPattern._AbilityDamage)!
-//            let floatingText = FloatingDamageText()
-//            scnView.addSubview(floatingText)
-//            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: (petNode?.attackPattern._AbilityDamage)!)
+            let petNode = attackingNode as? Pet
+            print("pet node base attack: \(petNode?.baseAttack)")
+            food._Health -= Int(petNode!.baseAttack)
+            
+            // Show floating damage text
+            let floatingText = FloatingDamageText()
+            scnView.addSubview(floatingText)
+            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode!.baseAttack))
             
         }
 
@@ -240,14 +242,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     ability.name = oldAbilityNode.name
                     mainPlayerNode!.addChildNode(ability)
                 }
-                
-//                print("Current Exp: \(pet.currentExp)")
-//                print("Level Up Exp: \(pet.levelUpExp)")
-//                print("Pet Level: \(pet.level)")
-//                print("Base Attack: \(pet.baseAttack)")
-                //print("Ability damage: \(pet.attackPattern._AbilityDamage)")
             }
-        
         }
     }
     
@@ -318,7 +313,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         for petIndex in 0...((Globals.activePets.count) - 1) {
             // combine the speed of all the pets
-            speed += Globals.activePets[petIndex].speed
+            speed += Globals.activePets[petIndex].speed/10
         }
         
         switch gestureRecongnize.state {
@@ -331,8 +326,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             // Normalize xz vector so diagonal movement equals 1
             let length = sqrt(pow(x, 2) + pow(z, 2))
-            Globals.inputX = x / length * 2 * CGFloat(speed)// TODO add speed mod
-            Globals.inputZ = z / length * 2 * CGFloat(speed)// TODO add speed mod
+            Globals.inputX = x / length * CGFloat(speed)
+            Globals.inputZ = z / length * CGFloat(speed)
             
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
