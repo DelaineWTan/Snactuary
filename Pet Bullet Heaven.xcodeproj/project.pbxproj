@@ -30,9 +30,9 @@
 		0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */; };
 		0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */; };
 		0E052F612BBA304F003BA02D /* title_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F602BBA304F003BA02D /* title_image.png */; };
-		0E052F6D2BBA422E003BA02D /* cloud_teal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F6A2BBA422E003BA02D /* cloud_teal.png */; };
-		0E052F6E2BBA422E003BA02D /* cloud_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F6B2BBA422E003BA02D /* cloud_yellow.png */; };
-		0E052F6F2BBA422E003BA02D /* cloud_pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F6C2BBA422E003BA02D /* cloud_pink.png */; };
+		0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F702BBA5363003BA02D /* cloud_yellow.png */; };
+		0E052F742BBA5363003BA02D /* cloud_teal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F712BBA5363003BA02D /* cloud_teal.png */; };
+		0E052F752BBA5363003BA02D /* cloud_pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F722BBA5363003BA02D /* cloud_pink.png */; };
 		0ED95DCA2B9193E5008F010E /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED95DC92B9193E5008F010E /* Map.swift */; };
 		0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */; };
 		4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */; };
@@ -116,9 +116,9 @@
 		0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenuUIView.swift; sourceTree = "<group>"; };
 		0DCB55BE2B75957D00C18DD0 /* InGameUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameUIView.swift; sourceTree = "<group>"; };
 		0E052F602BBA304F003BA02D /* title_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_image.png; sourceTree = "<group>"; };
-		0E052F6A2BBA422E003BA02D /* cloud_teal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_teal.png; sourceTree = "<group>"; };
-		0E052F6B2BBA422E003BA02D /* cloud_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_yellow.png; sourceTree = "<group>"; };
-		0E052F6C2BBA422E003BA02D /* cloud_pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_pink.png; sourceTree = "<group>"; };
+		0E052F702BBA5363003BA02D /* cloud_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_yellow.png; sourceTree = "<group>"; };
+		0E052F712BBA5363003BA02D /* cloud_teal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_teal.png; sourceTree = "<group>"; };
+		0E052F722BBA5363003BA02D /* cloud_pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_pink.png; sourceTree = "<group>"; };
 		0ED95DC92B9193E5008F010E /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootClosestAbility.swift; sourceTree = "<group>"; };
@@ -268,9 +268,9 @@
 				FB2128122BB9FB1600CE5066 /* textures */,
 				0D58FCD62BB8DED800488D01 /* app_icon.jpg */,
 				0E052F602BBA304F003BA02D /* title_image.png */,
-				0E052F6C2BBA422E003BA02D /* cloud_pink.png */,
-				0E052F6A2BBA422E003BA02D /* cloud_teal.png */,
-				0E052F6B2BBA422E003BA02D /* cloud_yellow.png */,
+				0E052F722BBA5363003BA02D /* cloud_pink.png */,
+				0E052F712BBA5363003BA02D /* cloud_teal.png */,
+				0E052F702BBA5363003BA02D /* cloud_yellow.png */,
 				0D58FCCA2BB7943800488D01 /* FrogFroak.dae */,
 				0D58FCC82BB78DBD00488D01 /* Banana.dae */,
 				FBD518362BB642C800E947E5 /* berrytext.png */,
@@ -420,7 +420,7 @@
 				FBE60A592B92E51F009B3E7E /* Cat.001.dae in Resources */,
 				FB21282F2BB9FB1600CE5066 /* CatPurpleTexture.png in Resources */,
 				FB2128232BB9FB1600CE5066 /* CatCursedTexture.png in Resources */,
-				0E052F6F2BBA422E003BA02D /* cloud_pink.png in Resources */,
+				0E052F752BBA5363003BA02D /* cloud_pink.png in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
 				FBD5183C2BB642C800E947E5 /* donutTexture.png in Resources */,
 				FB2128252BB9FB1600CE5066 /* CatPinkTexture.png in Resources */,
@@ -433,6 +433,7 @@
 				FBD5183A2BB642C800E947E5 /* berrytext.png in Resources */,
 				FB2128302BB9FB1600CE5066 /* FrogGreenTexture.png in Resources */,
 				0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */,
+				0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */,
 				0D58FCCB2BB7943800488D01 /* FrogFroak.dae in Resources */,
 				FB2128242BB9FB1600CE5066 /* FrogFroakTexture.png in Resources */,
 				FBD5183D2BB642C800E947E5 /* donut.dae in Resources */,
@@ -441,9 +442,8 @@
 				0D64093D2B71FBD00047847B /* Main.storyboard in Resources */,
 				0D58FCD92BB8F00D00488D01 /* logo-color.png in Resources */,
 				FB21282D2BB9FB1600CE5066 /* DuckYellowTexture.png in Resources */,
-				0E052F6D2BBA422E003BA02D /* cloud_teal.png in Resources */,
+				0E052F742BBA5363003BA02D /* cloud_teal.png in Resources */,
 				FBE60A552B92D484009B3E7E /* Paw 4.dae in Resources */,
-				0E052F6E2BBA422E003BA02D /* cloud_yellow.png in Resources */,
 				FB21282C2BB9FB1600CE5066 /* DuckDaffyTexture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
