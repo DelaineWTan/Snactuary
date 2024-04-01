@@ -11,7 +11,6 @@ import SceneKit
 import AVFoundation
 
 class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProvider{
-    var soundManager: SoundManager?
     let overlayView = GameUIView()
     
     // Camera node
@@ -60,7 +59,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             SCNDebugOptions.showPhysicsShapes
         ]
         // Initialize sound manager
-        soundManager = SoundManager()
+        SoundManager.Instance.playCurrentStageBGM()
         // Add overlay view
         scnView.backgroundColor = UIColor.black
         overlayView.frame = scnView.bounds
@@ -109,38 +108,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
         // Load texture corresponding to current stage preset
         stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
-        
-        // btn handler for progressing to next stage
-        overlayView.inGameUIView.nextStageButtonTappedHandler = { [weak self] in
-            self?.overlayView.inGameUIView.nextStageButton.isHidden = true
-            
-            // reset current hungerScore on stage & hungerMeter
-            self?.overlayView.inGameUIView.resetHunger()
-            
-            // clear food objects
-            LifecycleManager.Instance.deleteAllFood()
-            // increase food health
-            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
-            
-            // Increment stage count and play new bgm
-            self?.soundManager!.stopCurrentBGM()
-            stageCount += 1
-            self?.overlayView.inGameUIView.setStageCount(stageCount: stageCount)
-            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
-            self?.soundManager!.playCurrentStageBGM()
-            // change stage visual aesthetics
-            if let stageMat = self?.stageNode?.geometry?.firstMaterial {
-                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation()
-            }
-            
-            // increase max HungerScore required to progress to next stage
-            self?.overlayView.inGameUIView.increaseMaxHungerScore()
-            
-            // save stage's food health multiplier
-            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
-            
-            UserDefaults.standard.synchronize()
-        }
     }
     
     ///
@@ -242,7 +209,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
-            soundManager!.refreshEatingSFX()
+            SoundManager.Instance.refreshEatingSFX()
             
             //increase exp for all active pets
             for petIndex in 0...((Globals.activePets.count) - 1) {
@@ -320,7 +287,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // get its material
         let material = result.node.geometry!.firstMaterial!
-        soundManager!.playTapSFX(result.node.name ?? "")
+        SoundManager.Instance.playTapSFX(result.node.name ?? "")
         SCNTransaction.begin()
         SCNTransaction.animationDuration = 0.5
         
