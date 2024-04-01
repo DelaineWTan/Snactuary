@@ -251,13 +251,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
                     
                     oldAbilityNode.removeFromParentNode()
-                    
+                    // TODO: CHECK IF IT'S WORKING
+                    pet.attackPattern._Projectile = { OrbitingPaw(_InputDamage: Int(pet.baseAttack))}
                     
                     let ability = pet.attackPattern.copy() as! Ability
                     // add new pet ability node, create a duplicate of the reference
                     _ = ability.ActivateAbility()
-                    // TODO: CHECK IF IT'S WORKING
-                    ability._Projectile = { OrbitingPaw(_InputDamage: Int(pet.baseAttack))}
                     //ability { OrbitingPaw(_InputDamage: 1)}
                     ability.name = oldAbilityNode.name
                     mainPlayerNode!.addChildNode(ability)
