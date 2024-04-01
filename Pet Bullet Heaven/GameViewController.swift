@@ -122,7 +122,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     var nodeB : SCNNode? = SCNNode()
     
     // food cooldown duration (in seconds)
-    let foodHitCooldown: TimeInterval = 0.1
+    let foodHitCooldown: TimeInterval = 0.5
 
     // dictionary to track the cooldown time for each food item using their UUIDs
     var foodCooldowns: [UUID: TimeInterval] = [:]
@@ -144,15 +144,26 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         nodeA = nil
         nodeB = nil
-        
     }
     
     //check which node is the food node and return it
     func checkFoodCollision() -> FoodNode? {
-        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
+        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {         //print("Other node \(nodeA?.name)")
             return nodeB as? FoodNode
+            
         } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
+            //print("Other node \(nodeB?.name)")
             return nodeA as? FoodNode
+        }
+        return nil
+    }
+    
+    //check which node is the projectile or pet node and return it
+    func checkPetCollision() -> SCNNode? {
+        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
+            return nodeA
+        } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
+            return nodeB
         }
         return nil
     }
@@ -175,19 +186,72 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Convert food node's position to screen coordinates
         let scnView = self.view as! SCNView
         let foodPosition = scnView.projectPoint(food.presentation.position)
+        let attackingNode = checkPetCollision()
+        
+        //food._Health -= attackingNode!._Damage
+        
+        if let projectile = attackingNode as? Projectile {
+            // Handle collision with a projectile node
+            food._Health -= projectile._Damage
+            // Show floating damage text
+            let floatingText = FloatingDamageText()
+            scnView.addSubview(floatingText)
+            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: projectile._Damage)
+        }
+        else
+        {
+//            let petNode = attackingNode as? Pet
+//            food._Health -= (petNode?.attackPattern._AbilityDamage)!
+//            let floatingText = FloatingDamageText()
+//            scnView.addSubview(floatingText)
+//            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: (petNode?.attackPattern._AbilityDamage)!)
+            
+        }
 
-        food._Health -= testAbility._AbilityDamage!
-        // Instantiate and show floating damage text
-        let floatingText = FloatingDamageText()
-        scnView.addSubview(floatingText)
-        floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: testAbility._AbilityDamage!)
-
+        //if food killed
         if food._Health <= 0 {
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
             SoundManager.Instance.refreshEatingSFX()
             
+            //increase exp for all active pets
+            for petIndex in 0...((Globals.activePets.count) - 1) {
+                let pet = Globals.activePets[petIndex]
+                pet.currentExp += 1
+                if pet.levelUpCheck(){
+                    pet.currentExp = 0
+                    pet.levelUpExp = pet.levelUpExp*2
+                    pet.level += 1
+                    
+                    //scaling attack and speed values with level, tweak later
+                    pet.baseAttack = Float(pet.level)
+                    pet.speed = Float(pet.level)/10
+                    
+                    pet.attackPattern._AbilityDamage = Int(pet.baseAttack)
+    
+                    let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
+                    let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
+                    
+                    oldAbilityNode.removeFromParentNode()
+                    // TODO: only swapping the projectile to orbitingPaw with the new baseAttack, not its own projectile.
+                    pet.attackPattern._Projectile = { OrbitingPaw(_InputDamage: Int(pet.baseAttack))}
+                    
+                    let ability = pet.attackPattern.copy() as! Ability
+                    // add new pet ability node, create a duplicate of the reference
+                    _ = ability.ActivateAbility()
+                    //ability { OrbitingPaw(_InputDamage: 1)}
+                    ability.name = oldAbilityNode.name
+                    mainPlayerNode!.addChildNode(ability)
+                }
+                
+//                print("Current Exp: \(pet.currentExp)")
+//                print("Level Up Exp: \(pet.levelUpExp)")
+//                print("Pet Level: \(pet.level)")
+//                print("Base Attack: \(pet.baseAttack)")
+                //print("Ability damage: \(pet.attackPattern._AbilityDamage)")
+            }
+        
         }
     }
     
@@ -254,6 +318,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Prob need to clamp it, have to create a helper method
         let translation = gestureRecongnize.translation(in: view)
         let location = gestureRecongnize.location(in: view)
+        var speed : Float = 1
+        
+        for petIndex in 0...((Globals.activePets.count) - 1) {
+            // combine the speed of all the pets
+            speed += Globals.activePets[petIndex].speed
+        }
         
         switch gestureRecongnize.state {
         case .began:
@@ -265,8 +335,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             // Normalize xz vector so diagonal movement equals 1
             let length = sqrt(pow(x, 2) + pow(z, 2))
-            Globals.inputX = x / length * 2 // TODO add speed mod
-            Globals.inputZ = z / length * 2// TODO add speed mod
+            Globals.inputX = x / length * 2 * CGFloat(speed)// TODO add speed mod
+            Globals.inputZ = z / length * 2 * CGFloat(speed)// TODO add speed mod
             
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)

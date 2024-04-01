@@ -155,4 +155,12 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
     func Update(deltaTime: TimeInterval) {
         
     }
+    
+//    override func copy() -> Any {
+//        let copy = OrbitingProjectileAbility(_InputAbilityDamage: self._AbilityDamage ?? 0,
+//                                             _InputAbilityDuration: self._AbilityDuration ?? 0,
+//                                             _InputProjectile: self._Projectile)
+//        // Copy additional properties if needed
+//        return copy
+//    }
 }
