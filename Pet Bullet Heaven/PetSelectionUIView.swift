@@ -38,6 +38,8 @@ class PetSelectionUIView: UIView {
     // collection pet panels
     let scrollView = UIScrollView()
     let stackView = UIStackView()
+    // total pet view label
+    let totalPetLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,45 +73,53 @@ class PetSelectionUIView: UIView {
     }
     
     private func setupTopCenterLabel() {
-        let containerView = UIView()
-        containerView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(containerView)
+    totalPetLabel.subviews.forEach { $0.removeFromSuperview() }
+        
+        var totalPow: Int = 0
+        var totalSpeed: Int = 0
+        for pet in Globals.activePets {
+            totalPow += Int(pet.baseAttack)
+            totalSpeed += Int(pet.speed)
+        }
+        
+        totalPetLabel.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
+        totalPetLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(totalPetLabel)
         
         let topCenterLabel = UILabel()
         topCenterLabel.text = "Pet Team Selection"
         topCenterLabel.textColor = .white
         topCenterLabel.textAlignment = .center
         topCenterLabel.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(topCenterLabel)
+        totalPetLabel.addSubview(topCenterLabel)
         
         let firstCenteredLabel = UILabel()
-        firstCenteredLabel.text = "Team Power: 40"
+        firstCenteredLabel.text = "Team Purr-ower: \(totalPow)"
         firstCenteredLabel.textColor = .white
         firstCenteredLabel.textAlignment = .center
         firstCenteredLabel.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(firstCenteredLabel)
+        totalPetLabel.addSubview(firstCenteredLabel)
         
         let secondCenteredLabel = UILabel()
-        secondCenteredLabel.text = "Team Speed: 20"
+        secondCenteredLabel.text = "Team Muwuvement Sweed: \(totalSpeed)"
         secondCenteredLabel.textColor = .white
         secondCenteredLabel.textAlignment = .center
         secondCenteredLabel.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(secondCenteredLabel)
+        totalPetLabel.addSubview(secondCenteredLabel)
         
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16), // Adjust the top anchor as needed
-            containerView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 40), // Center horizontally
-            topCenterLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8), // Adjust the top anchor as needed
-            topCenterLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8), // Adjust the leading anchor as needed
-            topCenterLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8), // Adjust the trailing anchor as needed
+            totalPetLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16), // Adjust the top anchor as needed
+            totalPetLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 40), // Center horizontally
+            topCenterLabel.topAnchor.constraint(equalTo: totalPetLabel.topAnchor, constant: 8), // Adjust the top anchor as needed
+            topCenterLabel.leadingAnchor.constraint(equalTo: totalPetLabel.leadingAnchor, constant: 8), // Adjust the leading anchor as needed
+            topCenterLabel.trailingAnchor.constraint(equalTo: totalPetLabel.trailingAnchor, constant: -8), // Adjust the trailing anchor as needed
             firstCenteredLabel.topAnchor.constraint(equalTo: topCenterLabel.bottomAnchor, constant: 8), // Adjust the top anchor as needed
-            firstCenteredLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8), // Adjust the leading anchor as needed
-            firstCenteredLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8), // Adjust the trailing anchor as needed
+            firstCenteredLabel.leadingAnchor.constraint(equalTo: totalPetLabel.leadingAnchor, constant: 8), // Adjust the leading anchor as needed
+            firstCenteredLabel.trailingAnchor.constraint(equalTo: totalPetLabel.trailingAnchor, constant: -8), // Adjust the trailing anchor as needed
             secondCenteredLabel.topAnchor.constraint(equalTo: firstCenteredLabel.bottomAnchor, constant: 8), // Adjust the top anchor as needed
-            secondCenteredLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8), // Adjust the leading anchor as needed
-            secondCenteredLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8), // Adjust the trailing anchor as needed
-            containerView.bottomAnchor.constraint(equalTo: secondCenteredLabel.bottomAnchor, constant: 8) // Adjust the bottom anchor as needed
+            secondCenteredLabel.leadingAnchor.constraint(equalTo: totalPetLabel.leadingAnchor, constant: 8), // Adjust the leading anchor as needed
+            secondCenteredLabel.trailingAnchor.constraint(equalTo: totalPetLabel.trailingAnchor, constant: -8), // Adjust the trailing anchor as needed
+            totalPetLabel.bottomAnchor.constraint(equalTo: secondCenteredLabel.bottomAnchor, constant: 8) // Adjust the bottom anchor as needed
         ])
     }
     
@@ -159,14 +169,14 @@ class PetSelectionUIView: UIView {
                 nameLabel.translatesAutoresizingMaskIntoConstraints = false
                 
                 let descriptionLabel = UILabel()
-                descriptionLabel.text = "ATK 10, SPD 5"
+                descriptionLabel.text = "ATK \(Int(pet.baseAttack)), SPD \(Int(pet.speed))"
                 descriptionLabel.textAlignment = .center
                 descriptionLabel.textColor = .white
                 descriptionLabel.font = UIFont.systemFont(ofSize: 12) // Adjust font and size as needed
                 descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let additionalTextLabel = UILabel()
-                additionalTextLabel.text = "LVL 1"
+                additionalTextLabel.text = "LVL \(Int(pet.level))"
                 additionalTextLabel.textColor = .white
                 additionalTextLabel.textAlignment = .left
                 additionalTextLabel.font = UIFont.systemFont(ofSize: 12) // Adjust font and size as needed
@@ -277,13 +287,13 @@ class PetSelectionUIView: UIView {
                 nameLabel.font = UIFont.systemFont(ofSize: 14) // Adjust font and size as needed
 
                 let descriptionLabel = UILabel()
-               descriptionLabel.text = "ATK 10, SPD 5"
+                descriptionLabel.text = "ATK \(Int(pet.baseAttack)), SPD \(Int(pet.speed))"
                 descriptionLabel.textAlignment = .center
                descriptionLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
                descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let additionalTextLabel = UILabel()
-               additionalTextLabel.text = "LVL 1"
+                additionalTextLabel.text = "LVL \(Int(pet.level))"
                 additionalTextLabel.textAlignment = .left
                additionalTextLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
                additionalTextLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -364,6 +374,7 @@ class PetSelectionUIView: UIView {
 
             // Update the view
             setupActivePanels()
+            setupTopCenterLabel()
             
             // delegate to swap 3D models
             delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
@@ -407,6 +418,7 @@ class PetSelectionUIView: UIView {
 
             // Update the view
             setupActivePanels()
+            setupTopCenterLabel()
             
             // delegate to swap 3D models
             delegate?.swapSceneNode(with: collectionPet, position: activePanelTag)
