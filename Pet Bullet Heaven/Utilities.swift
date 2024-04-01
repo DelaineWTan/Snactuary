@@ -51,18 +51,22 @@ public class Utilities {
     public static func makeButton(title: String, image: UIImage?, backgroundColor: UIColor, target: Any?, action: Selector) -> UIButton {
         let button = UIButton(type: .system)
         if let image = image {
-            button.setImage(image, for: .normal)
-        } else {
-            button.setTitle(title, for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-            button.tintColor = .white
+            button.setBackgroundImage(image, for: .normal)
+        } else
+        {
+            button.backgroundColor = backgroundColor
         }
-        button.backgroundColor = backgroundColor
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        button.tintColor = .white
+        // Set text shadow for the titleLabel
+        button.titleLabel?.shadowColor = UIColor.black
+        button.titleLabel?.shadowOffset = CGSize(width: 1.0, height: 1.0)
+
         button.layer.cornerRadius = 8
         button.addTarget(target, action: action, for: .touchUpInside)
         return button
     }
-
 }
 
 extension Comparable {

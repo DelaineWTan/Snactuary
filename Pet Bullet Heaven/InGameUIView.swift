@@ -32,7 +32,7 @@ class InGameUIView: UIView {
     }
     
     lazy var pauseButton: UIButton = {
-        let button = Utilities.makeButton(title: "Pause", image: nil, backgroundColor: .blue, target: self, action: #selector(pauseButtonTapped))
+        let button = Utilities.makeButton(title: "Pause", image: UIImage(named: "cloud_yellow.png"), backgroundColor: .blue, target: self, action: #selector(pauseButtonTapped))
         return button
     }()
     
@@ -198,8 +198,8 @@ class InGameUIView: UIView {
         NSLayoutConstraint.activate([
             pauseButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             pauseButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            pauseButton.widthAnchor.constraint(equalToConstant: 100),
-            pauseButton.heightAnchor.constraint(equalToConstant: 40)
+            pauseButton.widthAnchor.constraint(equalToConstant: 99),
+            pauseButton.heightAnchor.constraint(equalToConstant: 66)
         ])
         
         // Layout constraints for next stage button

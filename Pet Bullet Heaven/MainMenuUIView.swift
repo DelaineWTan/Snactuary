@@ -20,17 +20,17 @@ class MainMenuUIView: UIView {
     }()
     
     lazy var playButton: UIButton = {
-        let button = Utilities.makeButton(title: "Play", image: nil, backgroundColor: .blue, target: self, action: #selector(playButtonTapped))
+        let button = Utilities.makeButton(title: "Play", image: UIImage(named: "cloud_teal.png"), backgroundColor: .blue, target: self, action: #selector(playButtonTapped))
         return button
     }()
     
     lazy var selectPetsButton: UIButton = {
-        let button = Utilities.makeButton(title: "Select Pets", image: nil, backgroundColor: .blue, target: self, action: #selector(selectPetsButtonTapped))
+        let button = Utilities.makeButton(title: "Select Pets", image: UIImage(named: "cloud_yellow.png"), backgroundColor: .blue, target: self, action: #selector(selectPetsButtonTapped))
         return button
     }()
     
     lazy var exitButton: UIButton = {
-        let button = Utilities.makeButton(title: "Exit", image: nil, backgroundColor: .red, target: self, action: #selector(exitButtonTapped))
+        let button = Utilities.makeButton(title: "Exit", image: UIImage(named: "cloud_pink.png"), backgroundColor: .red, target: self, action: #selector(exitButtonTapped))
         return button
     }()
     
@@ -62,25 +62,25 @@ class MainMenuUIView: UIView {
         playButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             playButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            playButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -40), // Shifted up by 40 points
-            playButton.widthAnchor.constraint(equalToConstant: 100),
-            playButton.heightAnchor.constraint(equalToConstant: 40)
+            playButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -60), // Shifted up by 40 points
+            playButton.widthAnchor.constraint(equalToConstant: 147),
+            playButton.heightAnchor.constraint(equalToConstant: 98)
         ])
         
         selectPetsButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             selectPetsButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            selectPetsButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20), // Centered vertically
-            selectPetsButton.widthAnchor.constraint(equalToConstant: 100),
-            selectPetsButton.heightAnchor.constraint(equalToConstant: 40)
+            selectPetsButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 60), // Centered vertically
+            selectPetsButton.widthAnchor.constraint(equalToConstant: 147),
+            selectPetsButton.heightAnchor.constraint(equalToConstant: 98)
         ])
         
         exitButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             exitButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            exitButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 80), // Shifted down by 40 points
-            exitButton.widthAnchor.constraint(equalToConstant: 100),
-            exitButton.heightAnchor.constraint(equalToConstant: 40)
+            exitButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 180), // Shifted down by 40 points
+            exitButton.widthAnchor.constraint(equalToConstant: 147),
+            exitButton.heightAnchor.constraint(equalToConstant: 98)
         ])
     }
     
