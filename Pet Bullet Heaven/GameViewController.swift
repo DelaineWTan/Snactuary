@@ -151,7 +151,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     var nodeB : SCNNode? = SCNNode()
     
     // food cooldown duration (in seconds)
-    let foodHitCooldown: TimeInterval = 0.1
+    let foodHitCooldown: TimeInterval = 0.5
 
     // dictionary to track the cooldown time for each food item using their UUIDs
     var foodCooldowns: [UUID: TimeInterval] = [:]
@@ -211,7 +211,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
 
     //use the ability to deal damage to the colliding food item
-    func applyDamageToFood(_ food: FoodNode) { //, _ pet: Pet
+    func applyDamageToFood(_ food: FoodNode) {
         // Convert food node's position to screen coordinates
         let scnView = self.view as! SCNView
         let foodPosition = scnView.projectPoint(food.presentation.position)
