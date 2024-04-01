@@ -170,7 +170,7 @@ class InGameUIView: UIView {
     
     private func setupUI() {
         // for debugging
-        // GameViewController.resetUserData()
+        //Utilities.initUserData()
         
         // Load hunger score from persistent storage
         let savedHungerScore = UserDefaults.standard.integer(forKey: Globals.stageScoreKey)
