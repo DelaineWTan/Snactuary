@@ -23,13 +23,7 @@ class PetSelectionUIView: UIView {
     var mainMenuButtonTappedHandler: (() -> Void)?
     
     lazy var mainMenuButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Main Menu", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(mainMenuButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Main Menu", image: nil, backgroundColor: .blue, target: self, action: #selector(mainMenuButtonTapped))
         return button
     }()
 

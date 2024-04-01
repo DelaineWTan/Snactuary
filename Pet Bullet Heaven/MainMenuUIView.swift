@@ -20,35 +20,17 @@ class MainMenuUIView: UIView {
     }()
     
     lazy var playButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Play", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Play", image: nil, backgroundColor: .blue, target: self, action: #selector(playButtonTapped))
         return button
     }()
     
     lazy var selectPetsButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Select Pets", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(selectPetsButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Select Pets", image: nil, backgroundColor: .blue, target: self, action: #selector(selectPetsButtonTapped))
         return button
     }()
     
     lazy var exitButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Exit", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .red
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Exit", image: nil, backgroundColor: .red, target: self, action: #selector(exitButtonTapped))
         return button
     }()
     

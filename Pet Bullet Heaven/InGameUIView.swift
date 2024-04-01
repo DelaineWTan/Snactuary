@@ -32,13 +32,7 @@ class InGameUIView: UIView {
     }
     
     lazy var pauseButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Pause", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        button.tintColor = .white
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(pauseButtonTapped), for: .touchUpInside)
+        let button = Utilities.makeButton(title: "Pause", image: nil, backgroundColor: .blue, target: self, action: #selector(pauseButtonTapped))
         return button
     }()
     
