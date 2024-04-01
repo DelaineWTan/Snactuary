@@ -9,7 +9,6 @@ import SceneKit
 
 public class Pet : SCNNode{
     let id: Int
-    //var name: String
     var imageName: String
     var modelName: String // name of the .scn file of the 3D model for the pet
     var attackPattern: Ability
@@ -25,7 +24,6 @@ public class Pet : SCNNode{
     
     init(petName: String, petId: Int, petImageName: String = "art.scnassets/locked.png", petModelName: String = "art.scnassets/Paw 4.scn", attack: Float = 1, attackPattern: Ability = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})) {
         id = petId
-        //name = petName
         imageName = petImageName
         modelName = petModelName
         currentExp = 0

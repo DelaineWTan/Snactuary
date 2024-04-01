@@ -196,7 +196,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         else
         {
             let petNode = attackingNode as? Pet
-            print("pet node base attack: \(petNode?.baseAttack)")
             food._Health -= Int(petNode!.baseAttack)
             
             // Show floating damage text
