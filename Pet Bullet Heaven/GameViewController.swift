@@ -255,7 +255,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     
                     //scaling attack and speed values with level, tweak later
                     pet.baseAttack = Float(pet.level)
-                    pet.speed = Float(pet.level)
+                    pet.speed = Float(pet.level)/10
                     
                     pet.attackPattern._AbilityDamage = Int(pet.baseAttack)
     
@@ -347,6 +347,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Prob need to clamp it, have to create a helper method
         let translation = gestureRecongnize.translation(in: view)
         let location = gestureRecongnize.location(in: view)
+        var speed : Float = 1
+        
+        for petIndex in 0...((Globals.activePets.count) - 1) {
+            // combine the speed of all the pets
+            speed += Globals.activePets[petIndex].speed
+        }
         
         switch gestureRecongnize.state {
         case .began:
@@ -358,8 +364,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             let z = translation.y.clamp(min: -joyStickClampedDistance, max: joyStickClampedDistance) / joyStickClampedDistance
             // Normalize xz vector so diagonal movement equals 1
             let length = sqrt(pow(x, 2) + pow(z, 2))
-            Globals.inputX = x / length * 2 // TODO add speed mod
-            Globals.inputZ = z / length * 2// TODO add speed mod
+            Globals.inputX = x / length * 2 * CGFloat(speed)// TODO add speed mod
+            Globals.inputZ = z / length * 2 * CGFloat(speed)// TODO add speed mod
             
             // Stick UI
             overlayView.inGameUIView.stickVisibilty(isVisible: true)
