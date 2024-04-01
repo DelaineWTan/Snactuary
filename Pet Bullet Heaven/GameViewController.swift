@@ -173,17 +173,15 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         nodeA = nil
         nodeB = nil
-        
     }
     
     //check which node is the food node and return it
     func checkFoodCollision() -> FoodNode? {
-        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
-            print("Other node \(nodeA)")
+        if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {         //print("Other node \(nodeA?.name)")
             return nodeB as? FoodNode
             
         } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
-            print("Other node \(nodeB)")
+            //print("Other node \(nodeB?.name)")
             return nodeA as? FoodNode
         }
         return nil
@@ -217,8 +215,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Convert food node's position to screen coordinates
         let scnView = self.view as! SCNView
         let foodPosition = scnView.projectPoint(food.presentation.position)
-
-        food._Health -= testAbility._AbilityDamage!
+        let projectile = checkPetCollision()
+        
+        //food._Health -= testAbility._AbilityDamage!
+        food._Health -= projectile!._Damage
         // Instantiate and show floating damage text
         let floatingText = FloatingDamageText()
         scnView.addSubview(floatingText)
@@ -231,14 +231,15 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             food.onDestroy(after: 0)
             soundManager!.refreshEatingSFX()
             
+            //increase exp for all active pets
             for petIndex in 0...((Globals.activePets.count) - 1) {
                 let pet = Globals.activePets[petIndex]
                 pet.currentExp += 1
                 pet.levelUpCheck()
                 
-                print("Current Exp: \(pet.currentExp)")
-                print("Level Up Exp: \(pet.levelUpExp)")
-                print("Pet Level: \(pet.level)")
+//                print("Current Exp: \(pet.currentExp)")
+//                print("Level Up Exp: \(pet.levelUpExp)")
+//                print("Pet Level: \(pet.level)")
             }
         
         }

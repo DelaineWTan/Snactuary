@@ -39,6 +39,8 @@ public class Pet {
             //scaling attack and speed values with level, tweak later
             baseAttack = Float(level)
             speed = Float(level)
+            
+            
         }
     }
     
