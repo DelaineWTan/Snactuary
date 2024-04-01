@@ -62,7 +62,9 @@ public class Utilities {
         // Set text shadow for the titleLabel
         button.titleLabel?.shadowColor = UIColor.black
         button.titleLabel?.shadowOffset = CGSize(width: 1.0, height: 1.0)
-
+        // Allow multiple lines
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.lineBreakMode = .byWordWrapping
         button.layer.cornerRadius = 8
         button.addTarget(target, action: action, for: .touchUpInside)
         return button
