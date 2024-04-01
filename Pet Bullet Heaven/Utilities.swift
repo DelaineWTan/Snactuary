@@ -69,6 +69,32 @@ public class Utilities {
         button.addTarget(target, action: action, for: .touchUpInside)
         return button
     }
+    
+    /// Resets persistent user data
+    public static func initUserData() {
+        let currentUserDataVersion = UserDefaults.standard.integer(forKey: Globals.userDataVersionKey)
+        let latestUserDataVersion = Globals.userDataVersion
+        if (currentUserDataVersion != latestUserDataVersion) {
+            print("User data version out of date (v\(currentUserDataVersion)), initializing to v\(latestUserDataVersion)...")
+            UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
+            UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
+            UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
+            UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
+            UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
+        }
+    }
+    
+    /// Prints all user data to console
+    public static func printAllUserData() {
+        print("total score: \(UserDefaults.standard.integer(forKey: Globals.totalScoreKey))")
+        print("stage score: \(UserDefaults.standard.integer(forKey: Globals.stageScoreKey))")
+        //print("stage label score: \(overlayView.inGameUIView.getHungerScore)")
+        print("stage count: \(UserDefaults.standard.integer(forKey: Globals.stageCountKey))")
+        print("stage max score: \(UserDefaults.standard.integer(forKey: Globals.stageMaxScorekey))")
+        print("food health multiplier: \(UserDefaults.standard.integer(forKey: Globals.foodHealthMultiplierKey))")
+        
+        print("\n")
+    }
 }
 
 extension Comparable {
