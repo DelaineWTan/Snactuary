@@ -89,10 +89,55 @@ public class Globals {
     
     public static var activePets: [Pet] = [
         // First four pets are the active party pets
-        Pet(petName:"Froaker",petId: 1, petImageName: "art.scnassets/frog.png", petModelName: "art.scnassets/Frog.Froak.scn", attack: 2, attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 5, _InputDistanceFromCenter: 7.5, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
-        Pet(petName:"Pengwin",petId: 2, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Penguin.001.scn", attack: 3, attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 10, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
-        Pet(petName:"P Katt",petId: 3, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Cat.Pink.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 12.5, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
-        Pet(petName:"Dol Ducker",petId: 4, petImageName: "art.scnassets/locked.png", petModelName: "art.scnassets/Duck.Dolan.scn", attackPattern: OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 15, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        Pet(petName:"Froaker",
+            petId: 1,
+            petImageName: "art.scnassets/frog.png",
+            petModelName: "art.scnassets/Frog.Froak.scn",
+            attack: 2,
+            attackPattern: OrbitingProjectileAbility(
+                _InputAbilityDamage: 1,
+                _InputAbilityDuration: 10,
+                _InputRotationSpeed: 5,
+                _InputDistanceFromCenter: 7.5,
+                _InputNumProjectiles: 5,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        
+        Pet(petName:"Pengwin",
+            petId: 2,
+            petImageName: "art.scnassets/locked.png",
+            petModelName: "art.scnassets/Penguin.001.scn",
+            attack: 3,
+            attackPattern: OrbitingProjectileAbility(
+                _InputAbilityDamage: 1,
+                _InputAbilityDuration: 10,
+                _InputRotationSpeed: 10,
+                _InputDistanceFromCenter: 10,
+                _InputNumProjectiles: 5,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        
+        Pet(petName:"P Katt",
+            petId: 3,
+            petImageName: "art.scnassets/locked.png",
+            petModelName: "art.scnassets/Cat.Pink.scn",
+            attackPattern: OrbitingProjectileAbility(
+                _InputAbilityDamage: 1,
+                _InputAbilityDuration: 10,
+                _InputRotationSpeed: 15,
+                _InputDistanceFromCenter: 12.5,
+                _InputNumProjectiles: 5,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+        
+        Pet(petName:"Dol Ducker",
+            petId: 4,
+            petImageName: "art.scnassets/locked.png",
+            petModelName: "art.scnassets/Duck.Dolan.scn",
+            attackPattern: OrbitingProjectileAbility(
+                _InputAbilityDamage: 1,
+                _InputAbilityDuration: 10,
+                _InputRotationSpeed: 20,
+                _InputDistanceFromCenter: 15,
+                _InputNumProjectiles: 5,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
     ]
     
     public static let cameraZIndex : Float = 30;
