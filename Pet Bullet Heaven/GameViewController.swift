@@ -190,9 +190,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     //check which node is the pet node and return it
     func checkPetCollision() -> Projectile? {
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {
-            return nodeB as? Projectile
-        } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
             return nodeA as? Projectile
+        } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
+            return nodeB as? Projectile
         }
         return nil
     }
