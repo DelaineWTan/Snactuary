@@ -76,7 +76,7 @@ class PetSelectionUIView: UIView {
             totalSpeed += Int(pet.speed)
         }
         
-        totalPetLabel.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
+        totalPetLabel.backgroundColor = Globals.petSelectionUIColors.selectedHalf
         totalPetLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(totalPetLabel)
         
@@ -134,7 +134,7 @@ class PetSelectionUIView: UIView {
             activePetView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             activePetView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 200) // spacing between panel and screen bottom
         ])
-        activePetView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
+        activePetView.backgroundColor = Globals.petSelectionUIColors.selectedHalf
         activePetView.spacing = panelSpacing
         
         // Add label to the top left corner of activePetView
@@ -143,7 +143,7 @@ class PetSelectionUIView: UIView {
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         activePetView.addSubview(label)
-        label.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
+        label.backgroundColor = Globals.petSelectionUIColors.selectedHalf
         
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: activePetView.leadingAnchor),
@@ -183,7 +183,7 @@ class PetSelectionUIView: UIView {
                 container.addSubview(nameLabel)
                 container.addSubview(descriptionLabel)
                 container.addSubview(additionalTextLabel)
-                container.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5);
+                container.backgroundColor = Globals.petSelectionUIColors.neutralHalf;
                 
                 activePetView.addArrangedSubview(container)
                 
@@ -240,7 +240,7 @@ class PetSelectionUIView: UIView {
             scrollView.heightAnchor.constraint(equalToConstant: panelSize * 1.25) // Adjust as needed
         ])
         
-        scrollView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        scrollView.backgroundColor = Globals.petSelectionUIColors.neutralHalf
         scrollView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -261,8 +261,8 @@ class PetSelectionUIView: UIView {
 //        collabel.textColor = .white
 //        collabel.translatesAutoresizingMaskIntoConstraints = false
 //        stackView.addSubview(collabel)
-//        collabel.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
-//        
+//        collabel.backgroundColor = Globals.petSelectionUIColors.neutralHalf
+//
 //        NSLayoutConstraint.activate([
 //            collabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: spacing),
 //            collabel.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 0)
@@ -299,7 +299,7 @@ class PetSelectionUIView: UIView {
                 container.addSubview(nameLabel)
                 container.addSubview(descriptionLabel)
                 container.addSubview(additionalTextLabel)
-                container.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5);
+                container.backgroundColor = Globals.petSelectionUIColors.neutralHalf;
                 
                 stackView.addArrangedSubview(container)
                 
@@ -357,8 +357,35 @@ class PetSelectionUIView: UIView {
             return
         }
         
+        // Store the original color
+        let originalColor = sender.view?.backgroundColor
+
+        // If selecting locked or duplicate pet, exit
+        for pet in Globals.activePets {
+            if(!Globals.pets[tappedView.tag].unlocked) {
+                // Animate the color change
+                UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+                    // Change the button's background color to the highlight color
+                    sender.view?.backgroundColor = Globals.petSelectionUIColors.error
+                }) { (_) in
+                    // After the animation completes, restore the original color after a delay
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        UIView.animate(withDuration: 0.25) {
+                            // Restore the original color
+                            sender.view?.backgroundColor = originalColor
+                        }
+                    }
+                }
+                return
+            }
+        }
         // Update the collection panel tag
         collectionPanelTag = tappedView.tag
+        
+        // Animate the background color change
+        UIView.animate(withDuration: 0.5, animations: {
+            tappedView.backgroundColor = Globals.petSelectionUIColors.selected
+        })
         
         // If an active and collection panel selected
         if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
@@ -370,7 +397,6 @@ class PetSelectionUIView: UIView {
             setupActivePanels()
             setupTopCenterLabel()
             
-            print("active Panel Tag: \(activePanelTag)")
             // delegate to swap 3D models
             Utilities.swapSceneNode(with: collectionPet, position: activePanelTag)
 
@@ -387,10 +413,10 @@ class PetSelectionUIView: UIView {
             if let tappedPanel = sender.view {
                 if let selectedCollectionPanel = selectedCollectionPanel {
                     // Reset background color of previously selected panel
-                    selectedCollectionPanel.backgroundColor = .lightGray
+                    selectedCollectionPanel.backgroundColor = Globals.petSelectionUIColors.neutralHalf
                 }
                 // Set the background color of the tapped panel to indicate selection
-                tappedPanel.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
+                tappedPanel.backgroundColor = Globals.petSelectionUIColors.selectedHalf
                 // Update the selected panel
                 selectedCollectionPanel = tappedPanel
             }
@@ -404,8 +430,12 @@ class PetSelectionUIView: UIView {
         // Update the collection panel tag
         activePanelTag = tappedView.tag
         
+        // Animate the background color change
+        UIView.animate(withDuration: 0.5, animations: {
+            tappedView.backgroundColor = Globals.petSelectionUIColors.selected
+        })
+        
         // If an active and collection panel selected
-        //if  (collectionPanelSelected){
         if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
             // Swap the pets between active and collection panels
             let collectionPet = Globals.pets[collectionPanelTag]
@@ -425,17 +455,18 @@ class PetSelectionUIView: UIView {
             // Reset collection panel color
             if let selectedCollectionPanel = selectedCollectionPanel {
                 // Reset background color of previously selected panel
-                selectedCollectionPanel.backgroundColor = .lightGray
+                selectedCollectionPanel.backgroundColor = Globals.petSelectionUIColors.neutralHalf
             }
         } else { // no collection panels selected
             // Toggle highlighting for collection panel
             if let tappedPanel = sender.view {
                 if let selectedActivePanel = selectedActivePanel {
                     // Reset background color of previously selected panel
-                    selectedActivePanel.backgroundColor = .lightGray
+                    selectedActivePanel.backgroundColor = Globals.petSelectionUIColors.neutralHalf
                 }
                 // Set the background color of the tapped panel to indicate selection
-                tappedPanel.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.5)
+                tappedPanel.backgroundColor = Globals.petSelectionUIColors.selectedHalf
+            
                 // Update the selected panel
                 selectedActivePanel = tappedPanel
             }
