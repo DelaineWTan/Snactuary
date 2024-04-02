@@ -193,7 +193,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             
         }
 
-        //if food killed
+        // if food killed
         if food._Health <= 0 {
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             UserDefaults.standard.synchronize()

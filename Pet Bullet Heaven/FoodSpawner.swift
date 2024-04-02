@@ -41,7 +41,7 @@ class FoodSpawner: MonoBehaviour {
             FoodData(
                 name: "Donut",
                 initialSpeed: 2.5,
-                health: 12,
+                health: 10,
                 physicsDimensions: SCNVector3(3, 3, 3),
                 hungerValue: 8,
                 assetName: "art.scnassets/Food Models/Donut.scn")

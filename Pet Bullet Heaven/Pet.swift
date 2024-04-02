@@ -16,12 +16,16 @@ public class Pet : SCNNode{
     var speed: Float = 1
     var currentExp: Float
     //exp needed to level up
-    var levelUpExp: Float = 20.0
+    var levelUpExp: Float = 15.0
     var level: Float = 1
     var unlocked: Bool
     
     
     // might need more properties yea, add more if you see fit DO NOT CHANGE THE EXISTING ONES and update the constructor and Globals define pets as well thx :DDDDDD
+    
+    var healthGrowth = 1
+    var attackGrowth = 1
+    var speedGrowth = 1
     
     init(petName: String, petId: Int, petImageName: String = "art.scnassets/locked.png", petModelName: String = "art.scnassets/Paw 4.scn", attack: Float = 1, attackPattern: Ability = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}), unlockedInput: Bool = true) {
         id = petId
@@ -56,6 +60,6 @@ public class Pet : SCNNode{
     func levelUpCheck() -> Bool{
         return currentExp >= levelUpExp
             
-        }
+    }
     
 }

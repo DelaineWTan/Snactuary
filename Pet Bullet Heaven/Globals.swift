@@ -24,8 +24,8 @@ public class Globals {
             attackPattern: ShootClosestAbility(
                 _InputRange: 170,
                 _InputFireRate: 3,
-                _InputProjectileSpeed: 50,
-                _InputProjectileDuration: 3,
+                _InputProjectileSpeed: 15,
+                _InputProjectileDuration: 2,
                 _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
         
         Pet(petName:"Pengwin",
@@ -34,54 +34,101 @@ public class Globals {
             petModelName: "art.scnassets/Penguin.001.scn",
             attack: 3,
             attackPattern: OrbitingProjectileAbility(
-                _InputAbilityDamage: 1,
+                _InputAbilityDamage: 2,
                 _InputAbilityDuration: 10,
-                _InputRotationSpeed: 10,
-                _InputDistanceFromCenter: 10,
-                _InputNumProjectiles: 5,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
-        Pet(petName:"Pink Katt",
+                _InputRotationSpeed: 7,
+                _InputDistanceFromCenter: 11,
+                _InputNumProjectiles: 2,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2)})),
+        
+        Pet(petName:"P Katt",
             petId: 3,
             petImageName: "art.scnassets/locked.png",
             petModelName: "art.scnassets/Cat.Pink.scn",
             attackPattern: OrbitingProjectileAbility(
                 _InputAbilityDamage: 1,
                 _InputAbilityDuration: 10,
-                _InputRotationSpeed: 15,
-                _InputDistanceFromCenter: 12.5,
-                _InputNumProjectiles: 5,
+                _InputRotationSpeed: 19,
+                _InputDistanceFromCenter: 6,
+                _InputNumProjectiles: 3,
                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
         
         Pet(petName:"Dol Ducker",
             petId: 4,
             petImageName: "art.scnassets/locked.png",
             petModelName: "art.scnassets/Duck.Dolan.scn",
-            attackPattern: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})),
+            attackPattern: SpawnProjectileInRangeAbility(
+                _InputSpawnRate: 3,
+                _InputRange: 32.0,
+                _InputProjectileDuration: 3,
+                _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 3)})),
         
+        // bomb pounce
         Pet(petName:"Purp Katt",
             petId: 5,
             petModelName: "art.scnassets/Cat.Purple.scn"),
         
+        // orbit
         Pet(petName:"Daf Ducker",
             petId: 6,
-            petModelName: "art.scnassets/Duck.Daffy.scn"),
+            petModelName: "art.scnassets/Duck.Daffy.scn",
+            attackPattern: OrbitingProjectileAbility(
+                _InputAbilityDamage: 3,
+                _InputAbilityDuration: 10,
+                _InputRotationSpeed: 4.5,
+                _InputDistanceFromCenter: 13,
+                _InputNumProjectiles: 3,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 3)})),
         
+        // shoot a GUN
         Pet(petName:"Rub Ducker",
             petId: 7,
-            petModelName: "art.scnassets/Duck.Yellow.scn"),
+            petModelName: "art.scnassets/Duck.Yellow.scn",
+            attackPattern: ShootClosestAbility(
+                _InputRange: 100,
+                _InputFireRate: 5.5,
+                _InputProjectileSpeed: 15,
+                _InputProjectileDuration: 2,
+                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 4)})
+            ),
         
+        // orbit
         Pet(petName:"Lucky Froaker",
             petId: 8,
-            petModelName: "art.scnassets/Frog.Lucky.scn"),
+            petModelName: "art.scnassets/Frog.Lucky.scn",
+            attackPattern: OrbitingProjectileAbility(
+                _InputAbilityDamage: 2,
+                _InputAbilityDuration: 10,
+                _InputRotationSpeed: 5.5,
+                _InputDistanceFromCenter: 16,
+                _InputNumProjectiles: 2,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2)})),
         
+        // shoot water shuriken
         Pet(petName:"G Froaker",
             petId: 9,
-            petModelName: "art.scnassets/Frog.Green.scn"),
+            petModelName: "art.scnassets/Frog.Green.scn",
+            attackPattern: ShootClosestAbility(
+                _InputRange: 200,
+                _InputFireRate: 2.75,
+                _InputProjectileSpeed: 30,
+                _InputProjectileDuration: 1,
+                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
         
+        // orbit
         Pet(petName:"Bear",
             petId: 10,
-            unlockedInput: false),
+            attackPattern: OrbitingProjectileAbility(
+                _InputAbilityDamage: 4,
+                _InputAbilityDuration: 10,
+                _InputRotationSpeed: 4,
+                _InputDistanceFromCenter: 5,
+                _InputNumProjectiles: 1,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}), 
+                unlockedInput: false),
+            
         
+        // bomb
         Pet(petName:"Doig",
             petId: 11,
             unlockedInput: false),
@@ -98,7 +145,7 @@ public class Globals {
                 _InputRange: 170,
                 _InputFireRate: 3,
                 _InputProjectileSpeed: 15,
-                _InputProjectileDuration: 3,
+                _InputProjectileDuration: 2,
                 _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
         
         Pet(petName:"Pengwin",
@@ -107,12 +154,12 @@ public class Globals {
             petModelName: "art.scnassets/Penguin.001.scn",
             attack: 3,
             attackPattern: OrbitingProjectileAbility(
-                _InputAbilityDamage: 1,
+                _InputAbilityDamage: 2,
                 _InputAbilityDuration: 10,
-                _InputRotationSpeed: 10,
-                _InputDistanceFromCenter: 10,
-                _InputNumProjectiles: 5,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+                _InputRotationSpeed: 7,
+                _InputDistanceFromCenter: 11,
+                _InputNumProjectiles: 2,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2)})),
         
         Pet(petName:"P Katt",
             petId: 3,
@@ -121,9 +168,9 @@ public class Globals {
             attackPattern: OrbitingProjectileAbility(
                 _InputAbilityDamage: 1,
                 _InputAbilityDuration: 10,
-                _InputRotationSpeed: 15,
-                _InputDistanceFromCenter: 12.5,
-                _InputNumProjectiles: 5,
+                _InputRotationSpeed: 19,
+                _InputDistanceFromCenter: 6,
+                _InputNumProjectiles: 3,
                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
         
         Pet(petName:"Dol Ducker",
@@ -132,7 +179,7 @@ public class Globals {
             petModelName: "art.scnassets/Duck.Dolan.scn",
             attackPattern: SpawnProjectileInRangeAbility(
                 _InputSpawnRate: 3,
-                _InputRange: 12.0,
+                _InputRange: 32.0,
                 _InputProjectileDuration: 3,
                 _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})),
     ]
