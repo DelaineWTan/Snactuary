@@ -66,7 +66,7 @@ public class Globals {
         
         3: Pet(petName:"Dol Ducker",
               petId: 4,
-              petImageName: "art.scnassets/locked.png",
+              petImageName: "duck2.png",
               petModelName: "art.scnassets/Duck.Dolan.scn",
               attackPattern: SpawnProjectileInRangeAbility(
                   _InputSpawnRate: 3,
@@ -209,5 +209,6 @@ public class Globals {
         static let neutral = UIColor.lightGray
         static let neutralHalf = UIColor.lightGray.withAlphaComponent(0.5)
         static let error = UIColor.systemRed
+        static let locked = UIColor.gray
     }
 }
