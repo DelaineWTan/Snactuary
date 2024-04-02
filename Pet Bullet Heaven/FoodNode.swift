@@ -87,8 +87,8 @@ public class FoodNode : SCNNode, MonoBehaviour {
     func Start() {
     }
     
-    func Update(deltaTime: TimeInterval) {
-        move(deltaTime: deltaTime)
+    func Update() {
+        move()
         
         // Check if the object's distance from the center is greater than 100 meters
         let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
@@ -125,15 +125,15 @@ public class FoodNode : SCNNode, MonoBehaviour {
     }
     
     /// Moves the food randomly away from the player and relative to the player's inputs
-    func move(deltaTime: TimeInterval) {
+    func move() {
         
-        self.position.x += modifierX * Float(deltaTime) * self.speed
-        self.position.z += modifierZ * Float(deltaTime) * self.speed
+        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
+        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
         
         
         // Move food relative to the player
         if Globals.playerIsMoving {
-            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
+            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
             
             self.position.x += translationVector.x
             self.position.z += translationVector.z

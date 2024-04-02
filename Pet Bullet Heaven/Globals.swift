@@ -14,13 +14,16 @@ public class Globals {
     public static var userDataVersion = 1
     
     public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
-    public static var gameIsPaused = true
+    
+    public static var inMainMenu = true
+    public static var deltaTime: TimeInterval = 0
+    public static var timeScale: Double = 1
     
     public static var pets: [Pet] = [
-        Pet(petName:"Froaker",
+        Pet(petName:"Vin",
             petId: 1,
-            petImageName: "art.scnassets/frog.png",
-            petModelName: "art.scnassets/Frog.Froak.scn",
+            petImageName: "frog1.png",
+            petModelName: "art.scnassets/Frog.Green.scn",
             attack: 2,
             attackPattern: ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 20, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)}),
             currentExp: 0,
@@ -29,7 +32,7 @@ public class Globals {
         
         Pet(petName:"Pengwin",
             petId: 2,
-            petImageName: "art.scnassets/locked.png",
+            petImageName: "penguin1.png",
             petModelName: "art.scnassets/Penguin.001.scn",
             attack: 3,
             attackPattern: OrbitingProjectileAbility(
@@ -45,7 +48,7 @@ public class Globals {
        
         Pet(petName:"Pink Katt",
             petId: 3,
-            petImageName: "art.scnassets/locked.png",
+            petImageName: "cat2.png",
             petModelName: "art.scnassets/Cat.Pink.scn",
             attackPattern: OrbitingProjectileAbility(
                 _InputAbilityDamage: 1,
@@ -60,7 +63,7 @@ public class Globals {
         
         Pet(petName:"Dol Ducker",
             petId: 4,
-            petImageName: "art.scnassets/locked.png",
+            petImageName: "duck1.png",
             petModelName: "art.scnassets/Duck.Dolan.scn",
             attackPattern: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)}),
             currentExp: 0,
@@ -69,49 +72,50 @@ public class Globals {
         
         Pet(petName:"Purp Katt", 
             petId: 5,
+            petImageName: "cat1.png",
             petModelName: "art.scnassets/Cat.Purple.scn"),
         
         Pet(petName:"Daf Ducker",
             petId: 6,
+            petImageName: "duck1.png",
             petModelName: "art.scnassets/Duck.Daffy.scn"),
         
         Pet(petName:"Rub Ducker",
             petId: 7,
+            petImageName: "duck3.png",
             petModelName: "art.scnassets/Duck.Yellow.scn"),
         
         Pet(petName:"Lucky Froaker", 
             petId: 8,
+            petImageName: "frog2.png",
             petModelName: "art.scnassets/Frog.Lucky.scn"),
         
         Pet(petName:"G Froaker",
             petId: 9,
-            petModelName: "art.scnassets/Frog.Green.scn"),
+            petImageName: "frog3.png",
+            petModelName: "art.scnassets/Frog.Froak.scn"),
         Pet(petName:"Bear",
-        petId: 10,
-        unlockedInput: false),
+            petId: 10,
+            petImageName: "bear1.png",
+            unlockedInput: false),
         Pet(petName:"Doig",
-        petId: 11, 
-        unlockedInput: false),
+            petId: 11,
+            petImageName: "dog1.png",
+            unlockedInput: false),
     ]
     
     public static var activePets: [Pet] = [
         // First four pets are the active party pets
-        Pet(petName:"Froaker",
+        Pet(petName:"Vin",
             petId: 1,
-            petImageName: "art.scnassets/frog.png",
-            petModelName: "art.scnassets/Frog.Froak.scn",
+            petImageName: "frog1.png",
+            petModelName: "art.scnassets/Frog.Green.scn",
             attack: 2,
-            attackPattern: OrbitingProjectileAbility(
-                _InputAbilityDamage: 1,
-                _InputAbilityDuration: 10,
-                _InputRotationSpeed: 5,
-                _InputDistanceFromCenter: 7.5,
-                _InputNumProjectiles: 5,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+            attackPattern: ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 20, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
         
         Pet(petName:"Pengwin",
             petId: 2,
-            petImageName: "art.scnassets/locked.png",
+            petImageName: "penguin1.png"	,
             petModelName: "art.scnassets/Penguin.001.scn",
             attack: 3,
             attackPattern: OrbitingProjectileAbility(
@@ -121,10 +125,9 @@ public class Globals {
                 _InputDistanceFromCenter: 10,
                 _InputNumProjectiles: 5,
                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
-        
-        Pet(petName:"P Katt",
+        Pet(petName:"Pink Katt",
             petId: 3,
-            petImageName: "art.scnassets/locked.png",
+            petImageName: "cat2.png",
             petModelName: "art.scnassets/Cat.Pink.scn",
             attackPattern: OrbitingProjectileAbility(
                 _InputAbilityDamage: 1,
@@ -136,15 +139,10 @@ public class Globals {
         
         Pet(petName:"Dol Ducker",
             petId: 4,
-            petImageName: "art.scnassets/locked.png",
+            petImageName: "duck1.png",
             petModelName: "art.scnassets/Duck.Dolan.scn",
-            attackPattern: OrbitingProjectileAbility(
-                _InputAbilityDamage: 1,
-                _InputAbilityDuration: 10,
-                _InputRotationSpeed: 20,
-                _InputDistanceFromCenter: 15,
-                _InputNumProjectiles: 5,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+            attackPattern: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})),
+        
     ]
     
     public static let cameraZIndex : Float = 30;

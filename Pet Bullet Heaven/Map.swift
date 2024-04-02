@@ -28,12 +28,12 @@ class Map : MonoBehaviour {
     func Start() {
     }
     
-    func Update(deltaTime: TimeInterval) {
-        scrollStage(deltaTime)
+    func Update() {
+        scrollStage()
     }
     
     
-    func scrollStage(_ deltaTime: TimeInterval) {
+    func scrollStage() {
         if (!Globals.playerIsMoving)
         {
             return
@@ -47,7 +47,7 @@ class Map : MonoBehaviour {
         let stageZ: Float = 1000
         
         // Calculate the translation vector based on player movement
-        let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
+        let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
         
         // Apply the translation to the stage plane
         stageNode.position.x += translationVector.x

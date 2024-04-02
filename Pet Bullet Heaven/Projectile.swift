@@ -18,10 +18,10 @@ class Projectile : SCNNode, MonoBehaviour {
         
     }
     
-    func Update(deltaTime: TimeInterval) {
+    func Update() {
         
         if Globals.playerIsMoving {
-            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
+            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
             
             self.position.x += translationVector.x
             self.position.z += translationVector.z
