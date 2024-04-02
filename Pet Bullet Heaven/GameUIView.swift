@@ -82,8 +82,6 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide main menu and show in-game overlay
             self?.mainMenuUIView.isHidden = true
             self?.inGameUIView.isHidden = false
-//            Globals.inMainMenu = false
-//            Globals.timeScale = 1
             Utilities.changeGameState(gameState: "inGame")
         }
         
@@ -111,8 +109,6 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide in pause menu and show game ui
             self?.pauseMenuUIView.isHidden = true
             self?.inGameUIView.isHidden = false
-//            Globals.inMainMenu = false
-//            Globals.timeScale = 1
             Utilities.changeGameState(gameState: "inGame")
         }
         
@@ -129,9 +125,6 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide in game ui and show pause menu
             self?.pauseMenuUIView.isHidden = false
             self?.inGameUIView.isHidden = true
-//            Globals.inMainMenu = true
-//            Globals.timeScale = 0
-//            LifecycleManager.Instance.deleteAllFood()
             Utilities.changeGameState(gameState: "paused")
         }
         
