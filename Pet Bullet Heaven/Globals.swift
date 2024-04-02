@@ -61,7 +61,7 @@ public class Globals {
         
         3: Pet(petName: "Dol Ducker",
                petId: 3,
-               petImageName: "duck1.png",
+               petImageName: "duck2.png",
                petModelName: "art.scnassets/Duck.Dolan.scn",
                attackPattern: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)}),
                currentExp: 0,
@@ -106,8 +106,8 @@ public class Globals {
 
     public static var activePets: [Int] = [
         // First four pets are the active party pets
-        0, 1, 2, 3 // Use the new ids starting from 0
-    ]    
+        0, 1, 2, 3
+    ]
     
     public static let cameraZIndex : Float = 30;
     
@@ -148,5 +148,6 @@ public class Globals {
         static let neutral = UIColor.lightGray
         static let neutralHalf = UIColor.lightGray.withAlphaComponent(0.5)
         static let error = UIColor.systemRed
+        static let locked = UIColor.gray
     }
 }
