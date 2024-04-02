@@ -35,15 +35,8 @@ class OrbitingProjectileAbility : Ability{
     /*
      Helper Function for spawning the projectile, making sure that I've already set my Projectile.
      */
-    override func SpawnProjectile() {
-        
-        // Deep Copy the Projectile
-        let _SpawnedProjectile = createProjectile()
-        projectiles.append(_SpawnedProjectile)
-        
-        // Add to the rootNode of this SceneGraph
-        self.addChildNode(_SpawnedProjectile)
-        
+    override func SpawnProjectile() -> Projectile {
+        return super.SpawnProjectile()
     }
     
     /*
@@ -59,7 +52,7 @@ class OrbitingProjectileAbility : Ability{
         
         // 2. Initialize all the Projectiles
         while (projectiles.count < _numProjectiles!){
-            SpawnProjectile() // Throw if this returns null, something wrong happened
+            _ = SpawnProjectile() // Throw if this returns null, something wrong happened
         }
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles

@@ -29,13 +29,13 @@ class Ability : SCNNode {
         
         playerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
     }
-
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDamage(_ damage:Int){
+    func setDamage(_ damage:Int) {
         self.damage = damage
         
         for projectile in projectiles {
@@ -43,11 +43,16 @@ class Ability : SCNNode {
         }
     }
     
-    func SpawnProjectile() {
-
+    func SpawnProjectile() -> Projectile {
+        let newProjectile = createProjectile()
+        projectiles.append(newProjectile)
+        
+        // Add to SceneGraph as child of this ability
+        self.addChildNode(newProjectile)
+        return newProjectile
     }
     
-    func ActivateAbility() -> Bool { 
+    func ActivateAbility() -> Bool {
         return false
     }
     
