@@ -39,25 +39,17 @@ class SpawnProjectileInRangeAbility : Ability {
      Helper function to spawn projectiles. Howeve, we necessarily override for the  implementation of this ability because the Projectiles positions are do not need to be with respect with the Player's position.
      Additionally, we need to terminate the projectiles individually after as well.
      */
-    override func SpawnProjectile() {
-        
+    override func SpawnProjectile() -> Projectile {
+        let newProjectile = super.SpawnProjectile()
         // TODO: Generate a valid vector along the X,Z Plane
-        let _ProjectilePosition = generateRandomPositionInRange()
-        
-        // TODO: Instantiate Projectile.
-        let _SpawnedProjectile = createProjectile()
-        _SpawnedProjectile.setDamage(damage!)
-        
-        projectiles.append(_SpawnedProjectile)
-        projectiles[0].position = _ProjectilePosition
-        
-        // TODO: Attach Projectile to Scene, not the Ability.
-        playerNode?.parent?.addChildNode(projectiles[0])
+        newProjectile.setDamage(damage!)
+        newProjectile.position = generateRandomPositionInRange()
         
         // TODO: Terminate the Projectile after given amount of duration
         TerminateProjectile(_InputProjectile: projectiles[0])
         projectiles.removeAll()
         
+        return newProjectile
     }
     
     /**
@@ -67,7 +59,7 @@ class SpawnProjectileInRangeAbility : Ability {
         
         // TODO: Spawn the Projectile
         let timer = Timer(timeInterval: _SpawnRate!, repeats: true) { Timer in
-            self.SpawnProjectile()
+            _ = self.SpawnProjectile()
         }
         RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
         

@@ -111,6 +111,15 @@ public class Utilities {
             Globals.timeScale = 1
         }
     }
+    
+    // Calculate the distance between the two positions
+    static func distanceBetween(vector1: SCNVector3, vector2: SCNVector3) -> Float {
+        let dx = vector2.x - vector1.x
+        let dy = vector2.y - vector1.y
+        let dz = vector2.z - vector1.z
+        
+        return sqrt(dx*dx + dy*dy + dz*dz)
+    }
 }
 
 extension Comparable {

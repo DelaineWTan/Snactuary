@@ -25,6 +25,8 @@ class LaunchedProjectile: Projectile {
             
             self.position.x += translationVector.x
             self.position.z += translationVector.z
+            self._Destination!.x += translationVector.x
+            self._Destination!.z += translationVector.z
         }
     }
     
@@ -38,14 +40,18 @@ class LaunchedProjectile: Projectile {
         self.position.y += 1
         //self.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5) // changing the scale does not change the hitbox
         self.addChildNode(_Mesh!)
-        
     }
     
     func moveTowardsDestination(){
-        self.look(at: self._Destination!)
-        
-        localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(Globals.deltaTime)))
-        
+        let distance = Utilities.distanceBetween(vector1: self.position, vector2: self._Destination!)
+        print(distance.rounded())
+        if (distance.rounded() > 0) {
+            self.look(at: self._Destination!)
+            
+            localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(Globals.deltaTime)))
+        } else {
+            print("reached dest, destroying")
+            self.onDestroy(after: 0)
+        }
     }
-    
 }

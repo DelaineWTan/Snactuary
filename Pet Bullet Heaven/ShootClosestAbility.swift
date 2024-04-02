@@ -30,7 +30,7 @@ class ShootClosestAbility: Ability {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func SpawnProjectile(_InputDestination: SCNVector3){
+    func shootProjectileAtDestination(_InputDestination: SCNVector3){
         
         // TODO: Spawn the Projectile
         let _SpawnedProjectile = createProjectile()
@@ -58,10 +58,10 @@ class ShootClosestAbility: Ability {
             
             // Get the Closest FoodNode. Tuple containing the closest FoodNode, and the distance to it.
             let _ClosestFoodNodeTuple = LifecycleManager.Instance.getClosestFood()
-            
+
             // Check for valid
             if (checkValidRange(_InputDistance: _ClosestFoodNodeTuple.1)){
-                SpawnProjectile(_InputDestination: _ClosestFoodNodeTuple.0!.position)
+                shootProjectileAtDestination(_InputDestination: _ClosestFoodNodeTuple.0!.position)
             }
         }
         
