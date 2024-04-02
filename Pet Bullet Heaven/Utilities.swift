@@ -28,7 +28,6 @@ public class Utilities {
         if let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true) {
             petSlotNode = mainPlayerNode.childNode(withName: "pos\(position)", recursively: true)!
             oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[position], recursively: true)!
-            print("oldAbilityNode.name:", oldAbilityNode.name)
             petSlotNode.enumerateChildNodes { (node, stop) in
                 node.removeFromParentNode()
             }
@@ -46,7 +45,6 @@ public class Utilities {
             print("Failed to load the scene.")
         }
         print("Scene Graph Hierarchy:")
-        printNodeHierarchy(Globals.mainScene.rootNode)
     }
     // Create a UI button with a standardized appearance
     public static func makeButton(title: String, image: UIImage?, backgroundColor: UIColor, target: Any?, action: Selector) -> UIButton {
