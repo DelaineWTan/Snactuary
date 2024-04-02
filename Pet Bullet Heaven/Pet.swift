@@ -16,7 +16,7 @@ public class Pet : SCNNode{
     var speed: Float = 1
     var currentExp: Float
     //exp needed to level up
-    var levelUpExp: Float = 1.0
+    var levelUpExp: Float = 30.0
     var level: Float = 1
     
     
@@ -27,7 +27,7 @@ public class Pet : SCNNode{
         imageName = petImageName
         modelName = petModelName
         currentExp = 0
-        levelUpExp = 1
+        levelUpExp = 15
         baseAttack = attack
         self.attackPattern = attackPattern
         

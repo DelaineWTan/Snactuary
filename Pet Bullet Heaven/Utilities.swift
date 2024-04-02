@@ -28,6 +28,7 @@ public class Utilities {
         if let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true) {
             petSlotNode = mainPlayerNode.childNode(withName: "pos\(position)", recursively: true)!
             oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[position], recursively: true)!
+            print("oldAbilityNode.name:", oldAbilityNode.name)
             petSlotNode.enumerateChildNodes { (node, stop) in
                 node.removeFromParentNode()
             }
@@ -44,6 +45,8 @@ public class Utilities {
         } else {
             print("Failed to load the scene.")
         }
+        print("Scene Graph Hierarchy:")
+        printNodeHierarchy(Globals.mainScene.rootNode)
     }
     // Create a UI button with a standardized appearance
     public static func makeButton(title: String, image: UIImage?, backgroundColor: UIColor, target: Any?, action: Selector) -> UIButton {
@@ -92,6 +95,17 @@ public class Utilities {
         print("food health multiplier: \(UserDefaults.standard.integer(forKey: Globals.foodHealthMultiplierKey))")
         
         print("\n")
+    }
+    
+    static func printNodeHierarchy(_ node: SCNNode, level: Int = 0) {
+        // Print the node's name and indent based on the level in the hierarchy
+        let indentation = String(repeating: "  ", count: level)
+        print("\(indentation)\(node.name ?? "Unnamed Node")")
+        
+        // Recursively print the children of this node
+        for child in node.childNodes {
+            printNodeHierarchy(child, level: level + 1)
+        }
     }
 }
 
