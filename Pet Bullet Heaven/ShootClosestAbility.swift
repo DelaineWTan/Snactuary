@@ -18,7 +18,6 @@ class ShootClosestAbility: Ability {
     init(_InputRange: Float, _InputFireRate: Double, _InputProjectileSpeed: Int, _InputProjectileDuration: Double,_InputProjectile: @escaping ()->Projectile){
         
         super.init(withProjectile: _InputProjectile)
-        
         // Assign the Member Variables
         _Range = _InputRange
         _FireRate = _InputFireRate
@@ -30,24 +29,18 @@ class ShootClosestAbility: Ability {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func SpawnProjectile(_InputDestination: SCNVector3){
+    func shootProjectileAtDestination(_InputDestination: SCNVector3){
         
         // TODO: Spawn the Projectile
-        let _SpawnedProjectile = createProjectile()
-        _SpawnedProjectile.setDamage(damage!)
+        let newProjectile = SpawnProjectile()
+        newProjectile.setDamage(damage!)
+        newProjectile._Destination = _InputDestination
+        newProjectile._ProjectileSpeed = _ProjectileSpeed
         
-        projectiles.append(_SpawnedProjectile)
-        projectiles.first!._Launched = true
-        projectiles.first!._Destination = _InputDestination
-        projectiles.first!._ProjectileSpeed = _ProjectileSpeed
-        
-        TerminateProjectile(_InputProjectile:  projectiles.first!)
-        
+        TerminateProjectile(_InputProjectile:  newProjectile)
         
         // Heavy assumption that this ability is attached to the Scene
-        parent?.addChildNode( projectiles.first!)
-        projectiles.removeAll()
-        
+        Globals.mainScene.rootNode.addChildNode(newProjectile)
     }
     
     override func ActivateAbility() -> Bool {
@@ -58,10 +51,10 @@ class ShootClosestAbility: Ability {
             
             // Get the Closest FoodNode. Tuple containing the closest FoodNode, and the distance to it.
             let _ClosestFoodNodeTuple = LifecycleManager.Instance.getClosestFood()
-            
+
             // Check for valid
             if (checkValidRange(_InputDistance: _ClosestFoodNodeTuple.1)){
-                SpawnProjectile(_InputDestination: _ClosestFoodNodeTuple.0!.position)
+                shootProjectileAtDestination(_InputDestination: _ClosestFoodNodeTuple.0!.position)
             }
         }
         
