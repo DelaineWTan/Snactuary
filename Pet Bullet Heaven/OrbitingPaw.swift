@@ -14,7 +14,7 @@ class OrbitingPaw : Projectile {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func Update(deltaTime: TimeInterval) {
+    override func Update() {
         // so nothing lol
     }
     // Mutated Constructor

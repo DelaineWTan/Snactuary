@@ -15,7 +15,7 @@ class ShootClosestAbility: Ability, MonoBehaviour {
         
     }
     
-    func Update(deltaTime: TimeInterval) {
+    func Update() {
         
     }
     

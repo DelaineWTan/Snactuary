@@ -84,7 +84,7 @@ public class LifecycleManager {
         Globals.deltaTime = deltaTime
         print("deltaTime: \(Globals.deltaTime)")
         for gameObject in gameObjects.values {
-            gameObject.Update(deltaTime: deltaTime)
+            gameObject.Update()
         }
     }
 }

@@ -150,7 +150,7 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
         // do start
     }
     
-    func Update(deltaTime: TimeInterval) {
+    func Update() {
         
     }
     
