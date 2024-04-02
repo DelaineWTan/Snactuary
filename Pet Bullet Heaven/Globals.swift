@@ -107,44 +107,7 @@ public class Globals {
     public static var activePets: [Int] = [
         // First four pets are the active party pets
         0, 1, 2, 3 // Use the new ids starting from 0
-    ]
-//        Pet(petName:"Vin",
-//            petId: 1,
-//            petImageName: "frog1.png",
-//            petModelName: "art.scnassets/Frog.Green.scn",
-//            attack: 2,
-//            attackPattern: ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 20, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
-//        
-//        Pet(petName:"Pengwin",
-//            petId: 2,
-//            petImageName: "penguin1.png"	,
-//            petModelName: "art.scnassets/Penguin.001.scn",
-//            attack: 3,
-//            attackPattern: OrbitingProjectileAbility(
-//                _InputAbilityDamage: 1,
-//                _InputAbilityDuration: 10,
-//                _InputRotationSpeed: 10,
-//                _InputDistanceFromCenter: 10,
-//                _InputNumProjectiles: 5,
-//                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
-//        Pet(petName:"Pink Katt",
-//            petId: 3,
-//            petImageName: "cat2.png",
-//            petModelName: "art.scnassets/Cat.Pink.scn",
-//            attackPattern: OrbitingProjectileAbility(
-//                _InputAbilityDamage: 1,
-//                _InputAbilityDuration: 10,
-//                _InputRotationSpeed: 15,
-//                _InputDistanceFromCenter: 12.5,
-//                _InputNumProjectiles: 5,
-//                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
-//        
-//        Pet(petName:"Dol Ducker",
-//            petId: 4,
-//            petImageName: "duck1.png",
-//            petModelName: "art.scnassets/Duck.Dolan.scn",
-//            attackPattern: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})),
-    
+    ]    
     
     public static let cameraZIndex : Float = 30;
     

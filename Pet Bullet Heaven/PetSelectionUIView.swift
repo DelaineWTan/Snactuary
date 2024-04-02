@@ -374,26 +374,6 @@ class PetSelectionUIView: UIView {
         // Store the original color
         _ = sender.view?.backgroundColor
 
-//        // If selecting locked or duplicate pet, exit
-//        for petIndex in Globals.activePets {
-//            let pet = Globals.pets[Globals.activePets[petIndex]]!
-//            if (!Globals.pets[tappedView.tag].unlocked) || (Globals.pets[tappedView.tag].petId == pet.id) {
-//                // Animate the color change
-//                UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
-//                    // Change the button's background color to the highlight color
-//                    sender.view?.backgroundColor = Globals.petSelectionUIColors.error
-//                }) { (_) in
-//                    // After the animation completes, restore the original color after a delay
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        UIView.animate(withDuration: 0.25) {
-//                            // Restore the original color
-//                            sender.view?.backgroundColor = originalColor
-//                        }
-//                    }
-//                }
-//                return
-//            }
-//        }
         // Update the collection panel tag
         collectionPanelTag = tappedView.tag
         
@@ -486,22 +466,6 @@ class PetSelectionUIView: UIView {
             }
         }
     }
-    
-//    private func updateViewIfBothPanelsHighlighted() {
-//        // Check if both an active panel and a collection panel are highlighted
-//        if let _ = activePanelTag, let _ = collectionPanelTag {
-//            // Update Globals.activePets with Globals.pets
-//            Globals.activePets[activePanelTag!] = Globals.pets[collectionPanelTag!]
-//            
-//            // Update the view
-//            //setupUI()
-//
-//            // Deselect both buttons
-//            activePanelTag = nil
-//            collectionPanelTag = nil
-//            
-//        }
-//    }
     
     @objc private func mainMenuButtonTapped() {
         mainMenuButtonTappedHandler?()
