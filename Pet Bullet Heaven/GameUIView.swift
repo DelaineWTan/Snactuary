@@ -91,6 +91,9 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide main menu and show pet selection menu
             self?.mainMenuUIView.isHidden = true
             self?.petSelectionUIView.isHidden = false
+            self?.petSelectionUIView.setupActivePanels()
+            self?.petSelectionUIView.setupCollectionPanels()
+            self?.petSelectionUIView.setupTopCenterLabel()
         }
         
         mainMenuUIView.exitButtonTappedHandler = {
