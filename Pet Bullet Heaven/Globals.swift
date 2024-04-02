@@ -98,7 +98,7 @@ public class Globals {
             petImageName: "frog1.png",
             petModelName: "art.scnassets/Frog.Green.scn",
             attack: 2,
-            attackPattern: ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 20, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
+            attackPattern: ShootClosestAbility(_InputRange: 100, _InputFireRate: 4, _InputProjectileSpeed: 20, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
         
         Pet(petName:"Pengwin",
             petId: 2,

@@ -33,21 +33,16 @@ class ShootClosestAbility: Ability {
     func shootProjectileAtDestination(_InputDestination: SCNVector3){
         
         // TODO: Spawn the Projectile
-        let _SpawnedProjectile = createProjectile()
-        _SpawnedProjectile.setDamage(damage!)
+        let newProjectile = SpawnProjectile()
+        newProjectile.setDamage(damage!)
+        newProjectile._Destination = _InputDestination
+        newProjectile._ProjectileSpeed = _ProjectileSpeed
         
-        projectiles.append(_SpawnedProjectile)
-        projectiles.first!._Launched = true
-        projectiles.first!._Destination = _InputDestination
-        projectiles.first!._ProjectileSpeed = _ProjectileSpeed
-        
-        TerminateProjectile(_InputProjectile:  projectiles.first!)
+        TerminateProjectile(_InputProjectile:  newProjectile)
         
         
         // Heavy assumption that this ability is attached to the Scene
-        parent?.addChildNode( projectiles.first!)
-        projectiles.removeAll()
-        
+        parent?.addChildNode(newProjectile)
     }
     
     override func ActivateAbility() -> Bool {

@@ -32,7 +32,6 @@ class Projectile : SCNNode, MonoBehaviour {
     
     override init() {
         self.uniqueID = UUID()
-        _Launched = false
         super.init()
         LifecycleManager.Instance.addGameObject(self)
     }
@@ -47,13 +46,8 @@ class Projectile : SCNNode, MonoBehaviour {
     let playerCategory: Int = 0b001
     var _Mesh : SCNNode?
     
-    var _Launched = false
     var _Destination : SCNVector3?
     var _ProjectileSpeed : Int?
-    
-    func OnCollision(){
-        
-    }
     
     func loadFromFile(_AssetName: String, _FileType: String) -> SCNReferenceNode {
         
