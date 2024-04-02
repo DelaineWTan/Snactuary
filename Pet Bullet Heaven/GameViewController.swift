@@ -210,7 +210,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                 //check if pet has enough exp to level up
                 if pet.levelUpCheck(){
                     pet.exp = 0
-                    pet.levelUpExp = pet.levelUpExp*2
+                    pet.levelUpExp = Float(pet.petLevel * pet.petLevel) //exp needed to level up is current level^2
                     pet.petLevel += 1
                     
                     //scaling attack and speed values with level, tweak later
