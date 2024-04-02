@@ -21,7 +21,10 @@ public class Globals {
             petImageName: "art.scnassets/frog.png",
             petModelName: "art.scnassets/Frog.Froak.scn",
             attack: 2,
-            attackPattern: ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 20, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
+            attackPattern: ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 20, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)}),
+            currentExp: 0,
+            level: 1
+           ),
         
         Pet(petName:"Pengwin",
             petId: 2,
@@ -34,7 +37,11 @@ public class Globals {
                 _InputRotationSpeed: 10,
                 _InputDistanceFromCenter: 10,
                 _InputNumProjectiles: 5,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}),
+            currentExp: 0,
+            level: 1
+           ),
+       
         Pet(petName:"Pink Katt",
             petId: 3,
             petImageName: "art.scnassets/locked.png",
@@ -45,13 +52,19 @@ public class Globals {
                 _InputRotationSpeed: 15,
                 _InputDistanceFromCenter: 12.5,
                 _InputNumProjectiles: 5,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}),
+            currentExp: 0,
+            level: 1
+           ),
         
         Pet(petName:"Dol Ducker",
             petId: 4,
             petImageName: "art.scnassets/locked.png",
             petModelName: "art.scnassets/Duck.Dolan.scn",
-            attackPattern: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})),
+            attackPattern: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)}),
+            currentExp: 0,
+            level: 1
+           ),
         
         Pet(petName:"Purp Katt", 
             petId: 5,

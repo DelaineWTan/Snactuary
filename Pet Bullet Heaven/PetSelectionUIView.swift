@@ -178,7 +178,7 @@ class PetSelectionUIView: UIView {
                 descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let additionalTextLabel = UILabel()
-                additionalTextLabel.text = "LVL \(Int(pet.level))"
+                additionalTextLabel.text = "LVL \(Int(pet.petLevel))"
                 additionalTextLabel.textColor = .white
                 additionalTextLabel.textAlignment = .left
                 additionalTextLabel.font = UIFont.systemFont(ofSize: 12) // Adjust font and size as needed
@@ -297,7 +297,7 @@ class PetSelectionUIView: UIView {
                 descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let additionalTextLabel = UILabel()
-                additionalTextLabel.text = "LVL \(Int(pet.level))"
+                additionalTextLabel.text = "LVL \(Int(pet.petLevel))"
                 additionalTextLabel.textAlignment = .left
                 additionalTextLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
                 additionalTextLabel.translatesAutoresizingMaskIntoConstraints = false
