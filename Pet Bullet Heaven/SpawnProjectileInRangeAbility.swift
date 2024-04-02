@@ -8,12 +8,7 @@
 import Foundation
 import SceneKit
 
-class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
-    var uniqueID: UUID
-    
-    var onDestroy: (() -> Void)?
-    
-    
+class SpawnProjectileInRangeAbility : Ability {
     // Member Variables
     
     // The rate at which to spawn projectils (measured in Seconds)
@@ -24,7 +19,7 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
     
     // The amount of time that spawned Projectiles lasts for.
     var _ProjectileDuration: Double?
-
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -32,15 +27,12 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
     
     // Mutated Constructor
     init(_InputSpawnRate: Double, _InputRange: Float, _InputProjectileDuration: Double, _InputProjectile: @escaping () -> Projectile){
-        self.uniqueID = UUID()
         super.init(withProjectile: _InputProjectile)
         
         // Assign the Member Variables
         _SpawnRate = _InputSpawnRate
         _Range = _InputRange
         _ProjectileDuration = _InputProjectileDuration
-        
-        LifecycleManager.Instance.addGameObject(self)
     }
     
     /**
@@ -53,18 +45,18 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
         let _ProjectilePosition = generateRandomPositionInRange()
         
         // TODO: Instantiate Projectile.
-        let _SpawnedProjectile = _Projectile()
-        _SpawnedProjectile.setDamage(_AbilityDamage!)
+        let _SpawnedProjectile = createProjectile()
+        _SpawnedProjectile.setDamage(damage!)
         
-        _ProjectileList.append(_SpawnedProjectile)
-        _ProjectileList[0].position = _ProjectilePosition
+        projectiles.append(_SpawnedProjectile)
+        projectiles[0].position = _ProjectilePosition
         
         // TODO: Attach Projectile to Scene, not the Ability.
-        playerNode?.parent?.addChildNode(_ProjectileList[0])
+        playerNode?.parent?.addChildNode(projectiles[0])
         
         // TODO: Terminate the Projectile after given amount of duration
-        TerminateProjectile(_InputProjectile: _ProjectileList[0])
-        _ProjectileList.removeAll()
+        TerminateProjectile(_InputProjectile: projectiles[0])
+        projectiles.removeAll()
         
     }
     
@@ -146,20 +138,12 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
         return SCNVector3(newX,0,newZ)
     }
     
-    func Start() {
-        // do start
-    }
-    
-    func Update(deltaTime: TimeInterval) {
-        
-    }
-    
     override func copy() -> Any {
         let copy = SpawnProjectileInRangeAbility(
             _InputSpawnRate: self._SpawnRate ?? 0,
             _InputRange: self._Range ?? 0,
             _InputProjectileDuration: self._ProjectileDuration ?? 0,
-            _InputProjectile: self._Projectile)
+            _InputProjectile: self.createProjectile)
         // Copy additional properties if needed
         return copy
     }

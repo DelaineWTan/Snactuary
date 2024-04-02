@@ -213,7 +213,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     pet.baseAttack = Float(pet.level)
                     pet.speed = Float(pet.level)/10
                     
-                    pet.attackPattern._AbilityDamage = Int(pet.baseAttack)
+                    pet.attackPattern.damage = Int(pet.baseAttack)
     
                     let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
                     let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!

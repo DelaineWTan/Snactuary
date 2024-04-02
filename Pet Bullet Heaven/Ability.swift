@@ -10,22 +10,21 @@ import SceneKit
 
 class Ability : SCNNode {
     // Member Variables
-    var _AbilityDamage : Int?
-    var _AbilityActivated : Bool = false
-    var _AbilityDuration : Double?
+    var damage : Int?
+    var isActive : Bool = false
+    var duration : Double?
     
-    var _ProjectileList : [Projectile] = []
-    
-    var _Projectile : () -> Projectile
+    var projectiles : [Projectile] = []
+    var createProjectile : () -> Projectile
     
     // Parent Node is the Scene, so we'll be able to find the Player.
     var playerNode : SCNNode?
     
     init(withProjectile: @escaping () -> Projectile) {
-        _Projectile = withProjectile
-        _AbilityDamage = 1
-        _AbilityDuration = 0.0
-        _AbilityActivated = false
+        createProjectile = withProjectile
+        damage = 1
+        duration = 0.0
+        isActive = false
         super.init()
         
         playerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
@@ -37,9 +36,9 @@ class Ability : SCNNode {
     }
     
     func setDamage(_ damage:Int){
-        _AbilityDamage = damage
+        self.damage = damage
         
-        for projectile in _ProjectileList {
+        for projectile in projectiles {
             projectile.setDamage(damage)
         }
     }
