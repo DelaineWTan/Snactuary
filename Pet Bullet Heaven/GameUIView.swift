@@ -105,6 +105,13 @@ class GameUIView: UIView, PetSelectionDelegate {
     }
     
     private func setupPauseMenuHandlers() {
+        pauseMenuUIView.resumeButtonTappedHandler = { [weak self] in
+            // Hide in pause menu and show game ui
+            self?.pauseMenuUIView.isHidden = true
+            self?.inGameUIView.isHidden = false
+            Globals.gameIsPaused = false
+        }
+        
         pauseMenuUIView.mainMenuButtonTappedHandler = { [weak self] in
             // Hide pause menu and show main menu
             self?.pauseMenuUIView.isHidden = true
