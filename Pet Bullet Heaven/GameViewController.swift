@@ -98,8 +98,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Initialize the food spawner and load stage health multiplier immediately
         _ = FoodSpawner(scene: Globals.mainScene)
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
-        // Load texture corresponding to current stage preset
-        //stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
     }
     
     ///
