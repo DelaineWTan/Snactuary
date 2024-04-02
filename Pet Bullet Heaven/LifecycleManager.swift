@@ -75,13 +75,14 @@ public class LifecycleManager {
     
     func update() {
         let currentTime = Date.timeIntervalSinceReferenceDate
-        let deltaTime = currentTime - lastUpdateTime
+        let deltaTime = (currentTime - lastUpdateTime) * Globals.timeScale
         lastUpdateTime = currentTime
-        
         if Float(deltaTime) > 2 {
             return
         }
         
+        Globals.deltaTime = deltaTime
+        print("deltaTime: \(Globals.deltaTime)")
         for gameObject in gameObjects.values {
             gameObject.Update(deltaTime: deltaTime)
         }
