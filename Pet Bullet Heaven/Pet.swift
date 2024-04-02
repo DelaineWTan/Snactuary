@@ -16,7 +16,7 @@ public class Pet : SCNNode{
     var speed: Float = 1
     var currentExp: Float
     //exp needed to level up
-    var levelUpExp: Float = 30.0
+    var levelUpExp: Float = 20.0
     var level: Float = 1
     var unlocked: Bool
     

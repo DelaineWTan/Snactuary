@@ -22,7 +22,7 @@ public class Globals {
             petModelName: "art.scnassets/Frog.Froak.scn",
             attack: 2,
             attackPattern: ShootClosestAbility(
-                _InputRange: 100,
+                _InputRange: 170,
                 _InputFireRate: 3,
                 _InputProjectileSpeed: 50,
                 _InputProjectileDuration: 3,
@@ -77,12 +77,14 @@ public class Globals {
         Pet(petName:"G Froaker",
             petId: 9,
             petModelName: "art.scnassets/Frog.Green.scn"),
+        
         Pet(petName:"Bear",
-        petId: 10,
-        unlockedInput: false),
+            petId: 10,
+            unlockedInput: false),
+        
         Pet(petName:"Doig",
-        petId: 11, 
-        unlockedInput: false),
+            petId: 11,
+            unlockedInput: false),
     ]
     
     public static var activePets: [Pet] = [
@@ -93,9 +95,9 @@ public class Globals {
             petModelName: "art.scnassets/Frog.Froak.scn",
             attack: 2,
             attackPattern: ShootClosestAbility(
-                _InputRange: 100,
+                _InputRange: 170,
                 _InputFireRate: 3,
-                _InputProjectileSpeed: 25,
+                _InputProjectileSpeed: 15,
                 _InputProjectileDuration: 3,
                 _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
         
@@ -148,7 +150,7 @@ public class Globals {
     
     public static var numStagePresets = 3
     // default values
-    public static let defaultMaxHungerScore : Int = 16
+    public static let defaultMaxHungerScore : Int = 32
     public static let defaultFoodHealth : Int = 1
     public static let defaultFoodHungerValue : Int = 1
     public static let defaultStageCount : Int = 1
