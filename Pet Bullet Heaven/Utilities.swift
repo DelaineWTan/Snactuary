@@ -93,6 +93,27 @@ public class Utilities {
         
         print("\n")
     }
+    
+    public static func changeGameState(gameState: String) {
+        
+        switch gameState {
+        case "paused":
+            Globals.timeScale = 0
+            Globals.inMainMenu = false
+            // something
+        case "mainMenu":
+            Globals.timeScale = 0
+            Globals.inMainMenu = true
+            LifecycleManager.Instance.deleteAllFood()
+            // something
+        case "inGame":
+            Globals.timeScale = 1
+            Globals.inMainMenu = false
+        default:
+            Globals.timeScale = 1
+            // something
+        }
+    }
 }
 
 extension Comparable {

@@ -41,6 +41,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         // Initialize user data if unsynced
         Utilities.initUserData()
+        Globals.timeScale = 0
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -54,7 +55,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // show statistics and debug options, remove for production
         scnView.showsStatistics = true
         scnView.debugOptions = [
-            SCNDebugOptions.showPhysicsShapes
+//            SCNDebugOptions.showPhysicsShapes
         ]
         // Initialize sound manager
         SoundManager.Instance.playCurrentStageBGM()
@@ -293,6 +294,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         for petIndex in 0...((Globals.activePets.count) - 1) {
             // combine the speed of all the pets
             speed += Globals.activePets[petIndex].speed/10
+        }
+        if Globals.inMainMenu {
+            return
         }
         
         switch gestureRecongnize.state {

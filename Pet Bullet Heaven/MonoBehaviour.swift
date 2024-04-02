@@ -11,7 +11,7 @@ import SceneKit
 protocol MonoBehaviour {
     var uniqueID: UUID { get set }
     func Start()
-    func Update(deltaTime: TimeInterval)
+    func Update()
     var onDestroy: (() -> Void)? { get set }
     func onDestroy(after duration: TimeInterval)
 }
