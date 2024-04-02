@@ -44,7 +44,7 @@ public class Globals {
                                _InputAbilityDamage: 2,
                                _InputAbilityDuration: 10,
                                _InputRotationSpeed: 7,
-                               _InputDistanceFromCenter: 11,
+                               _InputDistanceFromCenter: 10,
                                _InputNumProjectiles: 2,
                                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2)}),
                currentExp: 0,
@@ -52,8 +52,8 @@ public class Globals {
         ),
         
         2: Pet(petName:"P Katt",
-              petId: 3,
-              petImageName: "art.scnassets/locked.png",
+              petId: 2,
+              petImageName: "cat2.png",
               petModelName: "art.scnassets/Cat.Pink.scn",
               attackPattern: OrbitingProjectileAbility(
                   _InputAbilityDamage: 1,
@@ -65,20 +65,15 @@ public class Globals {
         ),
         
         3: Pet(petName:"Dol Ducker",
-              petId: 4,
+              petId: 3,
               petImageName: "duck2.png",
               petModelName: "art.scnassets/Duck.Dolan.scn",
-              attackPattern: SpawnProjectileInRangeAbility(
-                  _InputSpawnRate: 3,
-                  _InputRange: 32.0,
-                  _InputProjectileDuration: 3,
-                  _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 3)}),
               currentExp: 0,
               level: 1
         ),
         
         4: Pet(petName:"Purp Katt",
-              petId: 5,
+              petId: 4,
               petImageName: "cat1.png",
               petModelName: "art.scnassets/Cat.Purple.scn",
               currentExp: 0,
@@ -86,7 +81,7 @@ public class Globals {
         ),
 
         5: Pet(petName:"Daf Ducker",
-              petId: 6,
+              petId: 5,
               petImageName: "duck1.png",
               petModelName: "art.scnassets/Duck.Daffy.scn",
               attackPattern: OrbitingProjectileAbility(
@@ -101,7 +96,7 @@ public class Globals {
         ),
 
         6: Pet(petName:"Rub Ducker",
-              petId: 7,
+              petId: 6,
               petImageName: "duck3.png",
               petModelName: "art.scnassets/Duck.Yellow.scn",
               attackPattern: ShootClosestAbility(
@@ -115,7 +110,7 @@ public class Globals {
         ),
 
         7: Pet(petName:"Lucky Froaker",
-              petId: 8,
+              petId: 7,
               petImageName: "frog2.png",
               petModelName: "art.scnassets/Frog.Lucky.scn",
               attackPattern: OrbitingProjectileAbility(
@@ -130,9 +125,9 @@ public class Globals {
         ),
 
         8: Pet(petName:"G Froaker",
-              petId: 9,
+              petId: 8,
               petImageName: "frog3.png", // Assuming image from the new dictionary format
-              petModelName: "art.scnassets/Frog.Green.scn",
+              petModelName: "art.scnassets/Frog.Froak.scn",
               attackPattern: ShootClosestAbility(
                   _InputRange: 200,
                   _InputFireRate: 2.5,
@@ -144,7 +139,7 @@ public class Globals {
         ),
 
         9: Pet(petName:"Bear",
-               petId: 10,
+               petId: 9,
                petImageName: "bear1.png",
                attackPattern: OrbitingProjectileAbility(
                    _InputAbilityDamage: 4,
@@ -158,7 +153,7 @@ public class Globals {
         ),
 
         10: Pet(petName:"Doig",
-               petId: 11,
+               petId: 10,
                petImageName: "dog1.png",
                unlockedInput: false, currentExp: 0,
                level: 1 // Assuming from context
