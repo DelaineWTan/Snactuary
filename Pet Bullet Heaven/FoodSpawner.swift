@@ -32,7 +32,7 @@ class FoodSpawner: MonoBehaviour {
             
             FoodData(
                 name: "Banana",
-                initialSpeed: 3.5,
+                initialSpeed: 3,
                 health: 3,
                 physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
                 hungerValue: 4,
@@ -40,7 +40,7 @@ class FoodSpawner: MonoBehaviour {
             
             FoodData(
                 name: "Donut",
-                initialSpeed: 2.5,
+                initialSpeed: 2,
                 health: 10,
                 physicsDimensions: SCNVector3(3, 3, 3),
                 hungerValue: 8,
