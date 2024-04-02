@@ -86,7 +86,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Add attack patterns for initial active pets to game
         for petIndex in 0...((Globals.activePets.count) - 1) {
             // Add pets into scene
-            Utilities.swapSceneNode(with: Globals.activePets[petIndex], position: petIndex)
+            let pet = Globals.pets[Globals.activePets[petIndex]]!
+            Utilities.swapSceneNode(with: pet, position: petIndex)
         }
         
         // Initialize the food spawner and load stage health multiplier immediately
@@ -195,17 +196,21 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             SoundManager.Instance.refreshEatingSFX()
             
             //increase exp for all active pets
-            for petIndex in 0...((Globals.activePets.count) - 1) {
-                let pet = Globals.activePets[petIndex]
-                pet.currentExp += 1
+            for petIndex in 0...Globals.activePets.count - 1 {
+                let pet = Globals.pets[Globals.activePets[petIndex]]!
+                
+                //add exp
+                pet.exp += 1
+               
+                //check if pet has enough exp to level up
                 if pet.levelUpCheck(){
-                    pet.currentExp = 0
-                    pet.levelUpExp = pet.levelUpExp*2
-                    pet.level += 1
+                    pet.exp = 0
+                    pet.levelUpExp = Float(pet.petLevel * pet.petLevel) //exp needed to level up is current level^2
+                    pet.petLevel += 1
                     
                     //scaling attack and speed values with level, tweak later
-                    pet.baseAttack = Float(pet.level)
-                    pet.speed = Float(pet.level)/10
+                    pet.baseAttack = Float(pet.petLevel)
+                    pet.speed += Float(pet.petLevel)/10
                     
                     pet.attackPattern.damage = Int(pet.baseAttack)
     
@@ -284,9 +289,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let location = gestureRecongnize.location(in: view)
         var speed : Float = 1
         
-        for petIndex in 0...((Globals.activePets.count) - 1) {
+        for petIndex in 0...Globals.activePets.count - 1 {
+            let pet = Globals.pets[Globals.activePets[petIndex]]!
             // combine the speed of all the pets
-            speed += Globals.activePets[petIndex].speed/10
+            speed += pet.speed/10
         }
         if Globals.inMainMenu {
             return
