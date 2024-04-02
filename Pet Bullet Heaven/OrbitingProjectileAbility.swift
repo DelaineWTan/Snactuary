@@ -14,7 +14,7 @@ class OrbitingProjectileAbility : Ability{
     var _numProjectiles : Int?
     
     var _rotationSpeed : CGFloat?
-     
+    
     var _distanceFromCenter : Float?
     
     required init?(coder: NSCoder) {
@@ -24,8 +24,8 @@ class OrbitingProjectileAbility : Ability{
     // Mutated Constructor
     init(_InputAbilityDamage: Int, _InputAbilityDuration: Double, _InputRotationSpeed : CGFloat, _InputDistanceFromCenter : Float, _InputNumProjectiles: Int, _InputProjectile: @escaping () -> Projectile){
         super.init(withProjectile: _InputProjectile)
-        _AbilityDamage = _InputAbilityDamage
-        _AbilityDuration = _InputAbilityDuration
+        damage = _InputAbilityDamage
+        duration = _InputAbilityDuration
         _rotationSpeed = _InputRotationSpeed
         _distanceFromCenter = _InputDistanceFromCenter
         _numProjectiles = _InputNumProjectiles
@@ -38,8 +38,8 @@ class OrbitingProjectileAbility : Ability{
     override func SpawnProjectile() {
         
         // Deep Copy the Projectile
-        let _SpawnedProjectile = _Projectile()
-        _ProjectileList.append(_SpawnedProjectile)
+        let _SpawnedProjectile = createProjectile()
+        projectiles.append(_SpawnedProjectile)
         
         // Add to the rootNode of this SceneGraph
         self.addChildNode(_SpawnedProjectile)
@@ -50,7 +50,7 @@ class OrbitingProjectileAbility : Ability{
      Overriden Function for activating this ability. The majority of the effects will happen here.
      */
     override func ActivateAbility() -> Bool {
-        if _AbilityActivated {
+        if isActive {
             return false;
         }
         
@@ -58,27 +58,27 @@ class OrbitingProjectileAbility : Ability{
         let _Intervals = CalculateProjectileInterval()
         
         // 2. Initialize all the Projectiles
-        while (_ProjectileList.count < _numProjectiles!){
+        while (projectiles.count < _numProjectiles!){
             SpawnProjectile() // Throw if this returns null, something wrong happened
         }
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
         var _Counter = 0
-        while _Counter < _ProjectileList.count{
+        while _Counter < projectiles.count{
             
             // Translate them in the forward direction
-            _ProjectileList[_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
+            projectiles[_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
             
             // Rotate them along the Z-Axis accordingly.
-            _ProjectileList[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin((_Intervals*Float(_Counter))/2), z:0 , w: cos((_Intervals*Float(_Counter))/2)), aroundTarget: SCNVector3(0,0,0))
+            projectiles[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin((_Intervals*Float(_Counter))/2), z:0 , w: cos((_Intervals*Float(_Counter))/2)), aroundTarget: SCNVector3(0,0,0))
             
             _Counter+=1
-        
-            _AbilityActivated = true;
+            
+            isActive = true;
         }
         
         // Start rotating this Ability infinitely
-        let rotationAction = SCNAction.rotateBy(x: 0, y: _rotationSpeed!, z: 0, duration: _AbilityDuration!)
+        let rotationAction = SCNAction.rotateBy(x: 0, y: _rotationSpeed!, z: 0, duration: duration!)
         let repeatForeverAction = SCNAction.repeatForever(rotationAction)
         self.runAction(repeatForeverAction)
         
@@ -91,13 +91,13 @@ class OrbitingProjectileAbility : Ability{
      Returns radians
      */
     func CalculateProjectileInterval() -> Float {
-//        return Float(360 / _numProjectiles!) / Float(Float.pi/180)
+        //        return Float(360 / _numProjectiles!) / Float(Float.pi/180)
         return Float(360 / _numProjectiles!) * Float(Float.pi/180)
     }
     
-//    func SetSpawnedProjectile(_ProjectileStrategy: Projectile){
-//        _Projectile = _ProjectileStrategy
-//    }
+    //    func SetSpawnedProjectile(_ProjectileStrategy: Projectile){
+    //        _Projectile = _ProjectileStrategy
+    //    }
     
     func ConvertDegreesToRadian(_InDegrees: CGFloat) -> CGFloat {
         return CGFloat(_InDegrees * CGFloat(Float.pi / 180))
@@ -105,12 +105,12 @@ class OrbitingProjectileAbility : Ability{
     
     // Implementing NSCopying protocol
     override func copy() -> Any {
-        let copy = OrbitingProjectileAbility(_InputAbilityDamage: self._AbilityDamage ?? 0,
-                                             _InputAbilityDuration: self._AbilityDuration ?? 0,
+        let copy = OrbitingProjectileAbility(_InputAbilityDamage: self.damage ?? 0,
+                                             _InputAbilityDuration: self.duration ?? 0,
                                              _InputRotationSpeed: self._rotationSpeed ?? 0,
                                              _InputDistanceFromCenter: self._distanceFromCenter ?? 0,
                                              _InputNumProjectiles: self._numProjectiles ?? 0,
-                                             _InputProjectile: self._Projectile)
+                                             _InputProjectile: self.createProjectile)
         // Copy additional properties if needed
         return copy
     }
