@@ -84,6 +84,8 @@ class PetSelectionUIView: UIView {
         topCenterLabel.text = "Pet Team Selection"
         topCenterLabel.textColor = .white
         topCenterLabel.textAlignment = .center
+        topCenterLabel.adjustsFontSizeToFitWidth = true // Enable auto-shrinking
+        topCenterLabel.minimumScaleFactor = 0.5 // Set the minimum scale factor for auto-shrinking
         topCenterLabel.translatesAutoresizingMaskIntoConstraints = false
         totalPetLabel.addSubview(topCenterLabel)
         
@@ -91,6 +93,8 @@ class PetSelectionUIView: UIView {
         firstCenteredLabel.text = "Team Purr-ower: \(totalPow)"
         firstCenteredLabel.textColor = .white
         firstCenteredLabel.textAlignment = .center
+        firstCenteredLabel.adjustsFontSizeToFitWidth = true // Enable auto-shrinking
+        firstCenteredLabel.minimumScaleFactor = 0.5 // Set the minimum scale factor for auto-shrinking
         firstCenteredLabel.translatesAutoresizingMaskIntoConstraints = false
         totalPetLabel.addSubview(firstCenteredLabel)
         
@@ -98,6 +102,8 @@ class PetSelectionUIView: UIView {
         secondCenteredLabel.text = "Team Muwuvement Sweed: \(totalSpeed)"
         secondCenteredLabel.textColor = .white
         secondCenteredLabel.textAlignment = .center
+        secondCenteredLabel.adjustsFontSizeToFitWidth = true // Enable auto-shrinking
+        secondCenteredLabel.minimumScaleFactor = 0.5 // Set the minimum scale factor for auto-shrinking
         secondCenteredLabel.translatesAutoresizingMaskIntoConstraints = false
         totalPetLabel.addSubview(secondCenteredLabel)
         
@@ -160,6 +166,8 @@ class PetSelectionUIView: UIView {
                 nameLabel.text = pet.name
                 nameLabel.textColor = .white
                 nameLabel.textAlignment = .center
+                nameLabel.adjustsFontSizeToFitWidth = true
+                nameLabel.minimumScaleFactor = 0.5
                 nameLabel.translatesAutoresizingMaskIntoConstraints = false
                 
                 let descriptionLabel = UILabel()
@@ -277,20 +285,22 @@ class PetSelectionUIView: UIView {
                 let nameLabel = UILabel()
                 nameLabel.text = pet.name
                 nameLabel.textAlignment = .center
+                nameLabel.adjustsFontSizeToFitWidth = true
+                nameLabel.minimumScaleFactor = 0.5
                 nameLabel.translatesAutoresizingMaskIntoConstraints = false
                 nameLabel.font = UIFont.systemFont(ofSize: 14) // Adjust font and size as needed
 
                 let descriptionLabel = UILabel()
                 descriptionLabel.text = "ATK \(Int(pet.baseAttack)), SPD \(Int(pet.speed))"
                 descriptionLabel.textAlignment = .center
-               descriptionLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
-               descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+                descriptionLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
+                descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let additionalTextLabel = UILabel()
                 additionalTextLabel.text = "LVL \(Int(pet.level))"
                 additionalTextLabel.textAlignment = .left
-               additionalTextLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
-               additionalTextLabel.translatesAutoresizingMaskIntoConstraints = false
+                additionalTextLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
+                additionalTextLabel.translatesAutoresizingMaskIntoConstraints = false
 
                let container = UIView()
                 container.translatesAutoresizingMaskIntoConstraints = false
@@ -362,7 +372,7 @@ class PetSelectionUIView: UIView {
 
         // If selecting locked or duplicate pet, exit
         for pet in Globals.activePets {
-            if(!Globals.pets[tappedView.tag].unlocked) {
+            if (!Globals.pets[tappedView.tag].unlocked) || (Globals.pets[tappedView.tag].id == pet.id) {
                 // Animate the color change
                 UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                     // Change the button's background color to the highlight color
@@ -404,9 +414,8 @@ class PetSelectionUIView: UIView {
             self.activePanelTag = nil
             self.collectionPanelTag = nil
             // Reset collection panel color
-            if let selectedCollectionPanel = selectedCollectionPanel {
-                // Reset background color of previously selected panel
-                selectedCollectionPanel.backgroundColor = .lightGray
+            if let tappedPanel = sender.view {
+                tappedPanel.backgroundColor = Globals.petSelectionUIColors.neutralHalf
             }
         } else { // no collection panels selected
             // Toggle highlighting for collection panel
