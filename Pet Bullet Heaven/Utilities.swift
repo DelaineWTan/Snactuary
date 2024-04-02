@@ -11,11 +11,9 @@ import UIKit
 
 public class Utilities {
     // Implement the delegate method
-    static func swapSceneNode(with petModel: Pet, position: Int) {
-        print(petModel.modelName)
-        // load current Pet Model and ability
-        let petNode = SCNNode()
-        if let petModelScene = SCNScene(named: petModel.modelName) { // Find pet scene from assets file
+    static func swapSceneNode(with petNode: Pet, position: Int) {
+
+        if let petModelScene = SCNScene(named: petNode.modelName) { // Find pet scene from assets file
             // Iterate and add all objects to form the pet node
             for childNode in petModelScene.rootNode.childNodes {
                 petNode.addChildNode(childNode)
@@ -34,13 +32,13 @@ public class Utilities {
                 node.removeFromParentNode()
             }
             petSlotNode.addChildNode(petNode)
-            petNode.name = petModel.modelName
             
             oldAbilityNode.removeFromParentNode()
             
-            let ability = petModel.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
+            let ability = petNode.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
             _ = ability.ActivateAbility()
-            ability.name = oldAbilityNode.name
+            
+            ability.name = Globals.petAbilityNodeName[position]
             mainPlayerNode.addChildNode(ability)
             
         } else {
@@ -68,6 +66,32 @@ public class Utilities {
         button.layer.cornerRadius = 8
         button.addTarget(target, action: action, for: .touchUpInside)
         return button
+    }
+    
+    /// Resets persistent user data
+    public static func initUserData() {
+        let currentUserDataVersion = UserDefaults.standard.integer(forKey: Globals.userDataVersionKey)
+        let latestUserDataVersion = Globals.userDataVersion
+        if (currentUserDataVersion != latestUserDataVersion) {
+            print("User data version out of date (v\(currentUserDataVersion)), initializing to v\(latestUserDataVersion)...")
+            UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
+            UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
+            UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
+            UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
+            UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
+        }
+    }
+    
+    /// Prints all user data to console
+    public static func printAllUserData() {
+        print("total score: \(UserDefaults.standard.integer(forKey: Globals.totalScoreKey))")
+        print("stage score: \(UserDefaults.standard.integer(forKey: Globals.stageScoreKey))")
+        //print("stage label score: \(overlayView.inGameUIView.getHungerScore)")
+        print("stage count: \(UserDefaults.standard.integer(forKey: Globals.stageCountKey))")
+        print("stage max score: \(UserDefaults.standard.integer(forKey: Globals.stageMaxScorekey))")
+        print("food health multiplier: \(UserDefaults.standard.integer(forKey: Globals.foodHealthMultiplierKey))")
+        
+        print("\n")
     }
 }
 

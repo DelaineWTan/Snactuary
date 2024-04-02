@@ -17,8 +17,6 @@ class OrbitingProjectileAbility : Ability{
      
     var _distanceFromCenter : Float?
     
-    var _ProjectileList : [Projectile] = []
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -37,10 +37,10 @@ public class FoodNode : SCNNode, MonoBehaviour {
     
     let foodCategory: Int = 0b010
     
-    init(spawnLocation: SCNVector3, speed: Float, foodData: FoodData) {
+    init(spawnLocation: SCNVector3, foodData: FoodData) {
         
         self.spawnLocation = spawnLocation
-        self.speed = speed
+        self.speed = foodData.initialSpeed
         self.hungerValue = foodData.hungerValue
         self._Health = foodData.health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
