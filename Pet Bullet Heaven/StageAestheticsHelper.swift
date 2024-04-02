@@ -79,7 +79,7 @@ public enum StageAestheticsHelper {
     public static let heavenBG : UIImage = UIImage(named: "art.scnassets/backgrounds/wispy_clouds.png")!
     
     public static let plantBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(40, 25, 1)
-    public static let beachBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(5, 5, 1)
+    public static let beachBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(10, 10, 1)
     public static let cloudBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(45, 25, 1)
     
     public static let maxTintCount : Int = 3
