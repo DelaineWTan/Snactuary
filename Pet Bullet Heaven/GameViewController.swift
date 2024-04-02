@@ -294,7 +294,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             // combine the speed of all the pets
             speed += Globals.activePets[petIndex].speed/10
         }
-        
+        if Globals.gameIsPaused {
+            return
+        }
         switch gestureRecongnize.state {
         case .began:
             Globals.playerIsMoving = true
