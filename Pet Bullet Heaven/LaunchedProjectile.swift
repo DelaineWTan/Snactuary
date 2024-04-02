@@ -16,9 +16,7 @@ class LaunchedProjectile: Projectile {
     
     override func Update() {
         
-        if (_Launched){
-            moveTowardsDestination()
-        }
+        moveTowardsDestination()
         
         if Globals.playerIsMoving {
             let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
@@ -31,10 +29,9 @@ class LaunchedProjectile: Projectile {
     }
     
     // Mutated Constructor
-    init(_InputDamage: Int){
+    init(_InputDamage: Int) {
         // Call to Super Constructor
         super.init()
-        
         _Damage = _InputDamage
         _Mesh = loadFromFile(_AssetName: "Paw 4", _FileType: "dae")
         self.position.y += 1
@@ -42,15 +39,12 @@ class LaunchedProjectile: Projectile {
         self.addChildNode(_Mesh!)
     }
     
-    func moveTowardsDestination(){
+    func moveTowardsDestination() {
         let distance = Utilities.distanceBetween(vector1: self.position, vector2: self._Destination!)
-        print(distance.rounded())
         if (distance.rounded() > 0) {
             self.look(at: self._Destination!)
-            
             localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(Globals.deltaTime)))
         } else {
-            print("reached dest, destroying")
             self.onDestroy(after: 0)
         }
     }
