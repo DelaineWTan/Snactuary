@@ -14,6 +14,7 @@ public class Globals {
     public static var userDataVersion = 1
     
     public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
+    public static var gameIsPaused = true
     
     public static var pets: [Pet] = [
         Pet(petName:"Froaker",

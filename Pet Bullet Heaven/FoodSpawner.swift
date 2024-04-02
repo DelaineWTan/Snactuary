@@ -83,7 +83,9 @@ class FoodSpawner: MonoBehaviour {
     func Update(deltaTime: TimeInterval) {
         elapsedTime += deltaTime
         if elapsedTime >= spawnInterval {
-            simpleSpawn()
+            if !Globals.gameIsPaused {
+                simpleSpawn()
+            }
             elapsedTime = 0
         }
     }
