@@ -85,13 +85,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         
         // Add attack patterns for initial active pets to game
         for petIndex in 0...((Globals.activePets.count) - 1) {
-            // Add attack pattern into scene
-            let testAbility = Globals.activePets[petIndex].attackPattern
-            let abilityClone = testAbility.copy() as! Ability
-            _ = abilityClone.ActivateAbility()
-            abilityClone.name = Globals.petAbilityNodeName[petIndex]
-            playerNode?.addChildNode(abilityClone)
-            
             // Add pets into scene
             Utilities.swapSceneNode(with: Globals.activePets[petIndex], position: petIndex)
         }
