@@ -37,7 +37,8 @@ public class Utilities {
             
             let ability = petNode.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
             _ = ability.ActivateAbility()
-            ability.name = oldAbilityNode.name
+            
+            ability.name = Globals.petAbilityNodeName[position]
             mainPlayerNode.addChildNode(ability)
             
         } else {

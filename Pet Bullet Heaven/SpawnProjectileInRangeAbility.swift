@@ -24,9 +24,7 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
     
     // The amount of time that spawned Projectiles lasts for.
     var _ProjectileDuration: Double?
-    
-    // Parent Node is the Scene, so we'll be able to find the Player.
-    var playerNode : SCNNode?
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -74,9 +72,6 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
      Overriden Function for Activiating this ability.
      */
     override func ActivateAbility() -> Bool {
-        
-        
-        playerNode = parent?.childNode(withName: "mainPlayer", recursively: true)
         
         // TODO: Spawn the Projectile
         let timer = Timer(timeInterval: _SpawnRate!, repeats: true) { Timer in
@@ -159,11 +154,13 @@ class SpawnProjectileInRangeAbility : Ability, MonoBehaviour {
         
     }
     
-//    override func copy() -> Any {
-//        let copy = OrbitingProjectileAbility(_InputAbilityDamage: self._AbilityDamage ?? 0,
-//                                             _InputAbilityDuration: self._AbilityDuration ?? 0,
-//                                             _InputProjectile: self._Projectile)
-//        // Copy additional properties if needed
-//        return copy
-//    }
+    override func copy() -> Any {
+        let copy = SpawnProjectileInRangeAbility(
+            _InputSpawnRate: self._SpawnRate ?? 0,
+            _InputRange: self._Range ?? 0,
+            _InputProjectileDuration: self._ProjectileDuration ?? 0,
+            _InputProjectile: self._Projectile)
+        // Copy additional properties if needed
+        return copy
+    }
 }

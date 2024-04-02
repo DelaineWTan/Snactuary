@@ -18,12 +18,17 @@ class Ability : SCNNode {
     
     var _Projectile : () -> Projectile
     
+    // Parent Node is the Scene, so we'll be able to find the Player.
+    var playerNode : SCNNode?
+    
     init(withProjectile: @escaping () -> Projectile) {
         _Projectile = withProjectile
         _AbilityDamage = 1
         _AbilityDuration = 0.0
         _AbilityActivated = false
         super.init()
+        
+        playerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
     }
 
     
