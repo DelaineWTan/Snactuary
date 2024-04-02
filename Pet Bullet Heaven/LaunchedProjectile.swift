@@ -48,6 +48,7 @@ class LaunchedProjectile: Projectile {
         if (distance.rounded() > 0) {
             self.look(at: self._Destination!)
             
+//            self.position.x +=
             localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(Globals.deltaTime)))
         } else {
             print("reached dest, destroying")
