@@ -18,7 +18,6 @@ class ShootClosestAbility: Ability {
     init(_InputRange: Float, _InputFireRate: Double, _InputProjectileSpeed: Int, _InputProjectileDuration: Double,_InputProjectile: @escaping ()->Projectile){
         
         super.init(withProjectile: _InputProjectile)
-        
         // Assign the Member Variables
         _Range = _InputRange
         _FireRate = _InputFireRate
