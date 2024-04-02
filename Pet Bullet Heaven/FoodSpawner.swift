@@ -66,7 +66,7 @@ class FoodSpawner: MonoBehaviour {
         
         let foodIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
         
-        let food = FoodNode(spawnLocation: randomPosition, speed: Float(Int.random(in: 1...2)), foodData: foodArray[foodIndex])
+        let food = FoodNode(spawnLocation: randomPosition, foodData: foodArray[foodIndex])
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node
