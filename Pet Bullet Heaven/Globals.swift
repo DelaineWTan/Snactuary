@@ -35,7 +35,6 @@ public class Globals {
                 _InputDistanceFromCenter: 10,
                 _InputNumProjectiles: 5,
                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})),
-        
         Pet(petName:"Pink Katt",
             petId: 3,
             petImageName: "art.scnassets/locked.png",
@@ -73,6 +72,12 @@ public class Globals {
         Pet(petName:"G Froaker",
             petId: 9,
             petModelName: "art.scnassets/Frog.Green.scn"),
+        Pet(petName:"Bear",
+        petId: 10,
+        unlockedInput: false),
+        Pet(petName:"Doig",
+        petId: 11, 
+        unlockedInput: false),
     ]
     
     public static var activePets: [Pet] = [
@@ -160,4 +165,12 @@ public class Globals {
     public static var petAbilityNodeName: [String] = [
         "PetAbility1", "petAbility2", "petAbility3", "petAbility4"
     ]
+    
+    struct petSelectionUIColors {
+        static let selected = UIColor.systemBlue
+        static let selectedHalf = UIColor.systemBlue.withAlphaComponent(0.5)
+        static let neutral = UIColor.lightGray
+        static let neutralHalf = UIColor.lightGray.withAlphaComponent(0.5)
+        static let error = UIColor.systemRed
+    }
 }
