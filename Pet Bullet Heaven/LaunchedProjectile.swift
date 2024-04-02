@@ -14,14 +14,14 @@ class LaunchedProjectile: Projectile {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func Update(deltaTime: TimeInterval) {
+    override func Update() {
         
         if (_Launched){
-            moveTowardsDestination(deltaTime: deltaTime)
+            moveTowardsDestination()
         }
         
         if Globals.playerIsMoving {
-            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(deltaTime))
+            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
             
             self.position.x += translationVector.x
             self.position.z += translationVector.z
@@ -41,10 +41,10 @@ class LaunchedProjectile: Projectile {
         
     }
     
-    func moveTowardsDestination(deltaTime: TimeInterval){
+    func moveTowardsDestination(){
         self.look(at: self._Destination!)
         
-        localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(deltaTime)))
+        localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(Globals.deltaTime)))
         
     }
     

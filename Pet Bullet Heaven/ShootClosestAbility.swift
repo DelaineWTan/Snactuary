@@ -8,20 +8,7 @@
 import Foundation
 import SceneKit
 
-class ShootClosestAbility: Ability, MonoBehaviour {
-    var uniqueID: UUID
-    
-    func Start() {
-        
-    }
-    
-    func Update(deltaTime: TimeInterval) {
-        
-    }
-    
-    var onDestroy: (() -> Void)?
-    
-    
+class ShootClosestAbility: Ability {
     // Member Variable
     var _Range : Float?
     var _FireRate : Double?
@@ -30,7 +17,6 @@ class ShootClosestAbility: Ability, MonoBehaviour {
     
     init(_InputRange: Float, _InputFireRate: Double, _InputProjectileSpeed: Int, _InputProjectileDuration: Double,_InputProjectile: @escaping ()->Projectile){
         
-        self.uniqueID = UUID()
         super.init(withProjectile: _InputProjectile)
         
         // Assign the Member Variables
@@ -38,8 +24,6 @@ class ShootClosestAbility: Ability, MonoBehaviour {
         _FireRate = _InputFireRate
         _ProjectileSpeed = _InputProjectileSpeed
         _ProjectileDuration = _InputProjectileDuration
-        
-        LifecycleManager.Instance.addGameObject(self)
     }
     
     required init?(coder: NSCoder) {
@@ -49,20 +33,20 @@ class ShootClosestAbility: Ability, MonoBehaviour {
     func SpawnProjectile(_InputDestination: SCNVector3){
         
         // TODO: Spawn the Projectile
-        let _SpawnedProjectile = _Projectile()
-        _SpawnedProjectile.setDamage(_AbilityDamage!)
+        let _SpawnedProjectile = createProjectile()
+        _SpawnedProjectile.setDamage(damage!)
         
-        _ProjectileList.append(_SpawnedProjectile)
-        _ProjectileList.first!._Launched = true
-        _ProjectileList.first!._Destination = _InputDestination
-        _ProjectileList.first!._ProjectileSpeed = _ProjectileSpeed
+        projectiles.append(_SpawnedProjectile)
+        projectiles.first!._Launched = true
+        projectiles.first!._Destination = _InputDestination
+        projectiles.first!._ProjectileSpeed = _ProjectileSpeed
         
-        TerminateProjectile(_InputProjectile:  _ProjectileList.first!)
+        TerminateProjectile(_InputProjectile:  projectiles.first!)
         
         
         // Heavy assumption that this ability is attached to the Scene
-        parent?.addChildNode( _ProjectileList.first!)
-        _ProjectileList.removeAll()
+        parent?.addChildNode( projectiles.first!)
+        projectiles.removeAll()
         
     }
     
@@ -101,14 +85,14 @@ class ShootClosestAbility: Ability, MonoBehaviour {
      */
     func TerminateProjectile(_InputProjectile: Projectile){
         
-//        // TODO: Instantiate a SCNAction to wait duration amount of Time.
-//        let waitAction = SCNAction.wait(duration: _ProjectileDuration!)
-//
-//        // TODO: Execute the wait
-//        self.runAction(waitAction)
-//
-//        // TODO: Actually Terminate the Projectile here.
-//        _InputProjectile.removeFromParentNode()
+        //        // TODO: Instantiate a SCNAction to wait duration amount of Time.
+        //        let waitAction = SCNAction.wait(duration: _ProjectileDuration!)
+        //
+        //        // TODO: Execute the wait
+        //        self.runAction(waitAction)
+        //
+        //        // TODO: Actually Terminate the Projectile here.
+        //        _InputProjectile.removeFromParentNode()
         _InputProjectile.onDestroy(after: _ProjectileDuration!)
     }
     
@@ -117,7 +101,7 @@ class ShootClosestAbility: Ability, MonoBehaviour {
                                        _InputFireRate: self._FireRate ?? 0,
                                        _InputProjectileSpeed: self._ProjectileSpeed ?? 0,
                                        _InputProjectileDuration: self._ProjectileDuration ?? 0,
-                                       _InputProjectile: self._Projectile)
+                                       _InputProjectile: self.createProjectile)
         
         return copy
     }

@@ -97,14 +97,21 @@ public class Utilities {
         print("\n")
     }
     
-    static func printNodeHierarchy(_ node: SCNNode, level: Int = 0) {
-        // Print the node's name and indent based on the level in the hierarchy
-        let indentation = String(repeating: "  ", count: level)
-        print("\(indentation)\(node.name ?? "Unnamed Node")")
+    public static func changeGameState(gameState: String) {
         
-        // Recursively print the children of this node
-        for child in node.childNodes {
-            printNodeHierarchy(child, level: level + 1)
+        switch gameState {
+        case "paused":
+            Globals.timeScale = 0
+            Globals.inMainMenu = false
+        case "mainMenu":
+            Globals.timeScale = 0
+            Globals.inMainMenu = true
+            LifecycleManager.Instance.deleteAllFood()
+        case "inGame":
+            Globals.timeScale = 1
+            Globals.inMainMenu = false
+        default:
+            Globals.timeScale = 1
         }
     }
 }

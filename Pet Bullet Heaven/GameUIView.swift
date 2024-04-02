@@ -82,12 +82,16 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide main menu and show in-game overlay
             self?.mainMenuUIView.isHidden = true
             self?.inGameUIView.isHidden = false
+            Utilities.changeGameState(gameState: "inGame")
         }
         
         mainMenuUIView.selectPetsButtonTappedHandler = { [weak self] in
             // Hide main menu and show pet selection menu
             self?.mainMenuUIView.isHidden = true
             self?.petSelectionUIView.isHidden = false
+            self?.petSelectionUIView.setupActivePanels()
+            self?.petSelectionUIView.setupCollectionPanels()
+            self?.petSelectionUIView.setupTopCenterLabel()
         }
         
         mainMenuUIView.exitButtonTappedHandler = {
@@ -104,10 +108,18 @@ class GameUIView: UIView, PetSelectionDelegate {
     }
     
     private func setupPauseMenuHandlers() {
+        pauseMenuUIView.resumeButtonTappedHandler = { [weak self] in
+            // Hide in pause menu and show game ui
+            self?.pauseMenuUIView.isHidden = true
+            self?.inGameUIView.isHidden = false
+            Utilities.changeGameState(gameState: "inGame")
+        }
+        
         pauseMenuUIView.mainMenuButtonTappedHandler = { [weak self] in
             // Hide pause menu and show main menu
             self?.pauseMenuUIView.isHidden = true
             self?.mainMenuUIView.isHidden = false
+            Utilities.changeGameState(gameState: "mainMenu")
         }
     }
     
@@ -116,6 +128,7 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide in game ui and show pause menu
             self?.pauseMenuUIView.isHidden = false
             self?.inGameUIView.isHidden = true
+            Utilities.changeGameState(gameState: "paused")
         }
         
         inGameUIView.nextStageButtonTappedHandler = { [weak self] in

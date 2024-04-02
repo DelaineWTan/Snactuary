@@ -54,7 +54,8 @@ class MainMenuUIView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),            titleLabel.widthAnchor.constraint(equalToConstant: 300),
+            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),            
+            titleLabel.widthAnchor.constraint(equalToConstant: 300),
             titleLabel.heightAnchor.constraint(equalToConstant: 200)
         ])
         

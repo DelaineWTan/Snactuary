@@ -14,10 +14,10 @@ public class Pet : SCNNode{
     var attackPattern: Ability
     var baseAttack: Float = 1
     var speed: Float = 1
-    var currentExp: Float
+    var exp: Float
     //exp needed to level up
-    var levelUpExp: Float = 15.0
-    var level: Float = 1
+    var levelUpExp: Float = 1.0
+    var petLevel: Int = 1
     var unlocked: Bool
     
     
@@ -31,8 +31,9 @@ public class Pet : SCNNode{
         id = petId
         imageName = petImageName
         modelName = petModelName
-        currentExp = 0
+        exp = currentExp
         levelUpExp = 15
+        petLevel = level
         baseAttack = attack
         self.attackPattern = attackPattern
         self.unlocked = unlockedInput
@@ -58,7 +59,7 @@ public class Pet : SCNNode{
     }
     
     func levelUpCheck() -> Bool{
-        return currentExp >= levelUpExp
+        return exp >= levelUpExp
             
     }
     
