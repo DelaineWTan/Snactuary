@@ -112,4 +112,14 @@ class ShootClosestAbility: Ability, MonoBehaviour {
         _InputProjectile.onDestroy(after: _ProjectileDuration!)
     }
     
+    override func copy() -> Any {
+        let copy = ShootClosestAbility(_InputRange: self._Range ?? 0,
+                                       _InputFireRate: self._FireRate ?? 0,
+                                       _InputProjectileSpeed: self._ProjectileSpeed ?? 0,
+                                       _InputProjectileDuration: self._ProjectileDuration ?? 0,
+                                       _InputProjectile: self._Projectile)
+        
+        return copy
+    }
+    
 }

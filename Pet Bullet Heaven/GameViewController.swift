@@ -30,8 +30,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     // radius for the joystick input
     var joyStickClampedDistance: CGFloat = 100
     
-    let testAbility = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 20, _InputDistanceFromCenter: 10, _InputNumProjectiles: 6, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
-    
     // Add floating damage text
     let floatingText = FloatingDamageText()
     
@@ -84,16 +82,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
         scnView.addGestureRecognizer(panGesture)
         
-        
-        // Remove when we no longer need to test new abilities that aren't assigned to any pets yet
-        let testAbility2 = SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 12.0, _InputProjectileDuration: 3, _InputProjectile: { ()->Projectile in StationaryBomb(_InputDamage: 1)})
-        let testAbility3 = ShootClosestAbility(_InputRange: 100, _InputFireRate: 3, _InputProjectileSpeed: 20, _InputProjectileDuration: 3, _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})
-        Globals.mainScene.rootNode.addChildNode(testAbility)
-        Globals.mainScene.rootNode.addChildNode(testAbility2)
-        Globals.mainScene.rootNode.addChildNode(testAbility3)
-        _ = testAbility2.ActivateAbility()
-        _ = testAbility3.ActivateAbility()
-        
         // Add attack patterns for initial active pets to game
         for petIndex in 0...((Globals.activePets.count) - 1) {
             // Add attack pattern into scene
@@ -110,8 +98,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Initialize the food spawner and load stage health multiplier immediately
         _ = FoodSpawner(scene: Globals.mainScene)
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
-        // Load texture corresponding to current stage preset
-        //stageNode?.geometry?.firstMaterial?.diffuse.contents = StageAestheticsHelper.setIntialStageImage()
     }
     
     ///

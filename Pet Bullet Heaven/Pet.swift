@@ -32,7 +32,7 @@ public class Pet : SCNNode{
         self.attackPattern = attackPattern
         
         super.init()
-        
+        name = petName
         // Create a physics body
         let petPhysicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: SCNBox(width: 1.5, height: 5, length: 2.5, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
         petPhysicsBody.mass = 1.0 // Set the mass of the physics body
