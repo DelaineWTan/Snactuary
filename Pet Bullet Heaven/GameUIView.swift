@@ -82,6 +82,7 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide main menu and show in-game overlay
             self?.mainMenuUIView.isHidden = true
             self?.inGameUIView.isHidden = false
+            Globals.gameIsPaused = false
         }
         
         mainMenuUIView.selectPetsButtonTappedHandler = { [weak self] in
@@ -116,6 +117,8 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide in game ui and show pause menu
             self?.pauseMenuUIView.isHidden = false
             self?.inGameUIView.isHidden = true
+            Globals.gameIsPaused = true
+            LifecycleManager.Instance.deleteAllFood()
         }
         
         inGameUIView.nextStageButtonTappedHandler = { [weak self] in
