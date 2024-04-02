@@ -49,6 +49,8 @@ class SpawnProjectileInRangeAbility : Ability {
         TerminateProjectile(_InputProjectile: projectiles[0])
         projectiles.removeAll()
         
+        newProjectile.removeFromParentNode()
+        Globals.mainScene.rootNode.addChildNode(newProjectile)
         return newProjectile
     }
     

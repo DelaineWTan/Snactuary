@@ -39,9 +39,8 @@ class ShootClosestAbility: Ability {
         
         TerminateProjectile(_InputProjectile:  newProjectile)
         
-        
         // Heavy assumption that this ability is attached to the Scene
-        parent?.addChildNode(newProjectile)
+        Globals.mainScene.rootNode.addChildNode(newProjectile)
     }
     
     override func ActivateAbility() -> Bool {
