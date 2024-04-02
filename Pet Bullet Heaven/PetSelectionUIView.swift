@@ -66,14 +66,15 @@ class PetSelectionUIView: UIView {
         setupTopCenterLabel()
     }
     
-    private func setupTopCenterLabel() {
+    public func setupTopCenterLabel() {
     totalPetLabel.subviews.forEach { $0.removeFromSuperview() }
         
         var totalPow: Int = 0
         var totalSpeed: Int = 0
-        for pet in Globals.activePets {
-            totalPow += Int(pet.baseAttack)
-            totalSpeed += Int(pet.speed)
+        for petIndex in 0...Globals.activePets.count - 1  {
+            let pet = Globals.pets[Globals.activePets[petIndex]]
+            totalPow += Int(pet!.baseAttack)
+            totalSpeed += Int(pet!.speed)
         }
         
         totalPetLabel.backgroundColor = Globals.petSelectionUIColors.selectedHalf
@@ -123,7 +124,7 @@ class PetSelectionUIView: UIView {
         ])
     }
     
-    private func setupActivePanels() {
+    public func setupActivePanels() {
         // Clear existing views from stackView
         activePetView.subviews.forEach { $0.removeFromSuperview() }
         
@@ -156,7 +157,8 @@ class PetSelectionUIView: UIView {
             label.topAnchor.constraint(equalTo: activePetView.topAnchor, constant: -20)
         ])
         
-        for (index,pet) in Globals.activePets.enumerated() {
+        for petIndex in 0...Globals.activePets.count - 1 {
+            let pet = Globals.pets[Globals.activePets[petIndex]]!
             if let image = UIImage(named: pet.imageName) {
                 let imageView = UIImageView(image: image)
                 imageView.contentMode = .scaleAspectFit
@@ -178,7 +180,7 @@ class PetSelectionUIView: UIView {
                 descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let additionalTextLabel = UILabel()
-                additionalTextLabel.text = "LVL \(Int(pet.level))"
+                additionalTextLabel.text = "LVL \(Int(pet.petLevel))"
                 additionalTextLabel.textColor = .white
                 additionalTextLabel.textAlignment = .left
                 additionalTextLabel.font = UIFont.systemFont(ofSize: 12) // Adjust font and size as needed
@@ -229,12 +231,14 @@ class PetSelectionUIView: UIView {
                 // Add tap gesture recognizer to the container view
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(activePanelTapped(_:)))
                 container.addGestureRecognizer(tapGesture)
-                container.tag = index
+                container.tag = petIndex
             }
         }
     }
     
-    private func setupCollectionPanels() {
+    public func setupCollectionPanels() {
+        // Clear existing views from stackView
+        stackView.subviews.forEach { $0.removeFromSuperview() }
         addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -276,7 +280,7 @@ class PetSelectionUIView: UIView {
 //            collabel.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 0)
 //        ])
         
-        for (index,pet) in Globals.pets.enumerated() {
+        for pet in Globals.pets.values {
             if let image = UIImage(named: pet.imageName) {
                 let imageView = UIImageView(image: image)
                 imageView.contentMode = .scaleAspectFit
@@ -297,7 +301,7 @@ class PetSelectionUIView: UIView {
                 descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let additionalTextLabel = UILabel()
-                additionalTextLabel.text = "LVL \(Int(pet.level))"
+                additionalTextLabel.text = "LVL \(Int(pet.petLevel))"
                 additionalTextLabel.textAlignment = .left
                 additionalTextLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
                 additionalTextLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -347,7 +351,7 @@ class PetSelectionUIView: UIView {
                 // Add tap gesture recognizer to the container view
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(collectionPanelTapped(_:)))
                 container.addGestureRecognizer(tapGesture)
-                container.tag = index
+                container.tag = pet.id
             }
         }
     }
@@ -368,27 +372,28 @@ class PetSelectionUIView: UIView {
         }
         
         // Store the original color
-        let originalColor = sender.view?.backgroundColor
+        _ = sender.view?.backgroundColor
 
-        // If selecting locked or duplicate pet, exit
-        for pet in Globals.activePets {
-            if (!Globals.pets[tappedView.tag].unlocked) || (Globals.pets[tappedView.tag].id == pet.id) {
-                // Animate the color change
-                UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
-                    // Change the button's background color to the highlight color
-                    sender.view?.backgroundColor = Globals.petSelectionUIColors.error
-                }) { (_) in
-                    // After the animation completes, restore the original color after a delay
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        UIView.animate(withDuration: 0.25) {
-                            // Restore the original color
-                            sender.view?.backgroundColor = originalColor
-                        }
-                    }
-                }
-                return
-            }
-        }
+//        // If selecting locked or duplicate pet, exit
+//        for petIndex in Globals.activePets {
+//            let pet = Globals.pets[Globals.activePets[petIndex]]!
+//            if (!Globals.pets[tappedView.tag].unlocked) || (Globals.pets[tappedView.tag].petId == pet.id) {
+//                // Animate the color change
+//                UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+//                    // Change the button's background color to the highlight color
+//                    sender.view?.backgroundColor = Globals.petSelectionUIColors.error
+//                }) { (_) in
+//                    // After the animation completes, restore the original color after a delay
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                        UIView.animate(withDuration: 0.25) {
+//                            // Restore the original color
+//                            sender.view?.backgroundColor = originalColor
+//                        }
+//                    }
+//                }
+//                return
+//            }
+//        }
         // Update the collection panel tag
         collectionPanelTag = tappedView.tag
         
@@ -400,8 +405,8 @@ class PetSelectionUIView: UIView {
         // If an active and collection panel selected
         if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
             // Swap the pets between active and collection panels
-            let collectionPet = Globals.pets[collectionPanelTag]
-            Globals.activePets[activePanelTag] = collectionPet
+            let collectionPet = Globals.pets[collectionPanelTag]!
+            Globals.activePets[Int(activePanelTag)] = collectionPet.id
 
             // Update the view
             setupActivePanels()
@@ -447,8 +452,8 @@ class PetSelectionUIView: UIView {
         // If an active and collection panel selected
         if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
             // Swap the pets between active and collection panels
-            let collectionPet = Globals.pets[collectionPanelTag]
-            Globals.activePets[activePanelTag] = collectionPet
+            let collectionPet = Globals.pets[collectionPanelTag]!
+            Globals.activePets[Int(activePanelTag)] = collectionPet.id
 
             // Update the view
             setupActivePanels()
@@ -482,21 +487,21 @@ class PetSelectionUIView: UIView {
         }
     }
     
-    private func updateViewIfBothPanelsHighlighted() {
-        // Check if both an active panel and a collection panel are highlighted
-        if let _ = activePanelTag, let _ = collectionPanelTag {
-            // Update Globals.activePets with Globals.pets
-            Globals.activePets[activePanelTag!] = Globals.pets[collectionPanelTag!]
-            
-            // Update the view
-            //setupUI()
-
-            // Deselect both buttons
-            activePanelTag = nil
-            collectionPanelTag = nil
-            
-        }
-    }
+//    private func updateViewIfBothPanelsHighlighted() {
+//        // Check if both an active panel and a collection panel are highlighted
+//        if let _ = activePanelTag, let _ = collectionPanelTag {
+//            // Update Globals.activePets with Globals.pets
+//            Globals.activePets[activePanelTag!] = Globals.pets[collectionPanelTag!]
+//            
+//            // Update the view
+//            //setupUI()
+//
+//            // Deselect both buttons
+//            activePanelTag = nil
+//            collectionPanelTag = nil
+//            
+//        }
+//    }
     
     @objc private func mainMenuButtonTapped() {
         mainMenuButtonTappedHandler?()
@@ -504,8 +509,9 @@ class PetSelectionUIView: UIView {
     
     func updateButtonTitles() {
         // Update active pet buttons
-        for (index, pet) in Globals.pets.enumerated() {
-            if let button = viewWithTag(1000 + index) as? UIButton {
+        for petIndex in 0...Globals.activePets.count - 1 {
+            let pet = Globals.pets[Globals.activePets[petIndex]]!
+            if let button = viewWithTag(1000 + petIndex) as? UIButton {
                 button.setTitle(pet.name, for: .normal)
                 
                 button.removeFromSuperview()
@@ -514,8 +520,9 @@ class PetSelectionUIView: UIView {
         }
         
         // Update collection pet buttons
-        for (index, pet) in Globals.pets.enumerated() {
-            if let button = viewWithTag(2000 + index) as? UIButton {
+        for petIndex in 0...Globals.activePets.count - 1 {
+            let pet = Globals.pets[Globals.activePets[petIndex]]!
+            if let button = viewWithTag(2000 + petIndex) as? UIButton {
                 button.setTitle(pet.name, for: .normal)
                 addSubview(button)
             }
