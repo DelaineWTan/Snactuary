@@ -127,8 +127,8 @@ public class FoodNode : SCNNode, MonoBehaviour {
     /// Moves the food randomly away from the player and relative to the player's inputs
     func move() {
         
-//        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
-//        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
+        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
+        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
         
         
         // Move food relative to the player

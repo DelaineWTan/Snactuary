@@ -44,8 +44,32 @@ class LaunchedProjectile: Projectile {
         if (distance.rounded() > 0) {
             self.look(at: self._Destination!)
             
-//            self.position.x +=
-            localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(Globals.deltaTime)))
+            // Calculate the direction vector from current position to destination
+            let direction = SCNVector3(self._Destination!.x - self.position.x,
+                                        self._Destination!.y - self.position.y,
+                                        self._Destination!.z - self.position.z)
+
+            // Normalize the direction vector
+            let distance = sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z)
+            let normalizedDirection = SCNVector3(direction.x / distance, direction.y / distance, direction.z / distance)
+
+            // Define the speed of movement (adjust as needed)
+            let speed: Float = Float(_ProjectileSpeed!)
+
+            // Move towards the destination by interpolating between current position and destination
+            // Calculate the amount to move along each axis
+            let deltaX = normalizedDirection.x * speed * Float(Globals.deltaTime)
+            let deltaY = normalizedDirection.y * speed * Float(Globals.deltaTime)
+            let deltaZ = normalizedDirection.z * speed * Float(Globals.deltaTime)
+
+            // Calculate the new position
+            let newPositionX = self.position.x + deltaX
+            let newPositionY = self.position.y + deltaY
+            let newPositionZ = self.position.z + deltaZ
+
+            // Update the position
+            self.position = SCNVector3(newPositionX, newPositionY, newPositionZ)
+//            localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(Globals.deltaTime)))
         } else {
             self.onDestroy(after: 0)
         }
