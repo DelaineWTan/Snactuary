@@ -23,10 +23,10 @@ public class Globals {
             attack: 2,
             attackPattern: ShootClosestAbility(
                 _InputRange: 170,
-                _InputFireRate: 3,
-                _InputProjectileSpeed: 15,
-                _InputProjectileDuration: 2,
-                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
+                _InputFireRate: 3.75,
+                _InputProjectileSpeed: 22,
+                _InputProjectileDuration: 1.25,
+                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 2)})),
         
         Pet(petName:"Pengwin",
             petId: 2,
@@ -85,10 +85,10 @@ public class Globals {
             petId: 7,
             petModelName: "art.scnassets/Duck.Yellow.scn",
             attackPattern: ShootClosestAbility(
-                _InputRange: 100,
+                _InputRange: 110,
                 _InputFireRate: 5.5,
-                _InputProjectileSpeed: 15,
-                _InputProjectileDuration: 2,
+                _InputProjectileSpeed: 13,
+                _InputProjectileDuration: 2.75,
                 _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 4)})
             ),
         
@@ -110,7 +110,7 @@ public class Globals {
             petModelName: "art.scnassets/Frog.Green.scn",
             attackPattern: ShootClosestAbility(
                 _InputRange: 200,
-                _InputFireRate: 2.75,
+                _InputFireRate: 2.5,
                 _InputProjectileSpeed: 30,
                 _InputProjectileDuration: 1,
                 _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
@@ -143,10 +143,10 @@ public class Globals {
             attack: 2,
             attackPattern: ShootClosestAbility(
                 _InputRange: 170,
-                _InputFireRate: 3,
-                _InputProjectileSpeed: 15,
-                _InputProjectileDuration: 2,
-                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)})),
+                _InputFireRate: 3.75,
+                _InputProjectileSpeed: 22,
+                _InputProjectileDuration: 1.25,
+                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 2)})),
         
         Pet(petName:"Pengwin",
             petId: 2,
