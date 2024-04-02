@@ -490,22 +490,6 @@ class PetSelectionUIView: UIView {
         }
     }
     
-//    private func updateViewIfBothPanelsHighlighted() {
-//        // Check if both an active panel and a collection panel are highlighted
-//        if let _ = activePanelTag, let _ = collectionPanelTag {
-//            // Update Globals.activePets with Globals.pets
-//            Globals.activePets[activePanelTag!] = Globals.pets[collectionPanelTag!]
-//            
-//            // Update the view
-//            //setupUI()
-//
-//            // Deselect both buttons
-//            activePanelTag = nil
-//            collectionPanelTag = nil
-//            
-//        }
-//    }
-    
     @objc private func mainMenuButtonTapped() {
         mainMenuButtonTappedHandler?()
     }
