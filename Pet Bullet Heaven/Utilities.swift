@@ -24,7 +24,6 @@ public class Utilities {
         
         // Replace current pet at position with new pet node and ability
         var petSlotNode = SCNNode()
-        var oldAbilityNode = SCNNode()
         if let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true) {
             petSlotNode = mainPlayerNode.childNode(withName: "pos\(position)", recursively: true)!
             
@@ -43,10 +42,7 @@ public class Utilities {
             ability.name = Globals.petAbilityNodeName[position]
             mainPlayerNode.addChildNode(ability)
             
-        } else {
-            print("Failed to load the scene.")
         }
-        print("Scene Graph Hierarchy:")
     }
     // Create a UI button with a standardized appearance
     public static func makeButton(title: String, image: UIImage?, backgroundColor: UIColor, target: Any?, action: Selector) -> UIButton {
@@ -75,8 +71,8 @@ public class Utilities {
     public static func initUserData() {
         let currentUserDataVersion = UserDefaults.standard.integer(forKey: Globals.userDataVersionKey)
         let latestUserDataVersion = Globals.userDataVersion
-        if (currentUserDataVersion != latestUserDataVersion) {
-            print("User data version out of date (v\(currentUserDataVersion)), initializing to v\(latestUserDataVersion)...")
+//        if (currentUserDataVersion != latestUserDataVersion) {
+//            print("User data version out of date (v\(currentUserDataVersion)), initializing to v\(latestUserDataVersion)...")
             UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
             UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
             UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
@@ -84,7 +80,7 @@ public class Utilities {
             UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
             
             UserDefaults.standard.set(latestUserDataVersion, forKey: Globals.userDataVersionKey)
-        }
+//        }
     }
     
     /// Prints all user data to console
@@ -130,5 +126,14 @@ public class Utilities {
 extension Comparable {
     func clamp(min: Self, max: Self) -> Self {
         return Swift.max(min, Swift.min(self, max))
+    }
+}
+
+extension UIColor {
+    convenience init(hex: Int, alpha: CGFloat = 1.0) {
+        let red = CGFloat((hex >> 16) & 0xFF) / 255.0
+        let green = CGFloat((hex >> 8) & 0xFF) / 255.0
+        let blue = CGFloat(hex & 0xFF) / 255.0
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }

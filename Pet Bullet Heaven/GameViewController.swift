@@ -39,8 +39,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         Task {
             await StartLoop()
         }
-        // Initialize user data if unsynced
-        Utilities.initUserData()
         Globals.timeScale = 0
         
         // retrieve the SCNView
@@ -53,10 +51,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         Globals.mainScene.physicsWorld.contactDelegate = self
         
         // show statistics and debug options, remove for production
-        scnView.showsStatistics = true
-        scnView.debugOptions = [
+//        scnView.showsStatistics = true
+//        scnView.debugOptions = [
 //            SCNDebugOptions.showPhysicsShapes
-        ]
+//        ]
         // Initialize sound manager
         SoundManager.Instance.playCurrentStageBGM()
         // Add overlay view
@@ -176,16 +174,13 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             scnView.addSubview(floatingText)
             floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: projectile._Damage)
         }
-        else
-        {
-            let petNode = attackingNode as? Pet
-            food._Health -= Int(petNode!.baseAttack)
+        else if let petNode = attackingNode as? Pet {
+            food._Health -= Int(petNode.baseAttack)
             
             // Show floating damage text
             let floatingText = FloatingDamageText()
             scnView.addSubview(floatingText)
-            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode!.baseAttack))
-            
+            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.baseAttack))
         }
 
         // if food killed

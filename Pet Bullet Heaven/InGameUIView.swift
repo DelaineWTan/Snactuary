@@ -191,7 +191,7 @@ class InGameUIView: UIView {
         pauseButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             pauseButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            pauseButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            pauseButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             pauseButton.widthAnchor.constraint(equalToConstant: 99),
             pauseButton.heightAnchor.constraint(equalToConstant: 66)
         ])
@@ -199,7 +199,7 @@ class InGameUIView: UIView {
         // Layout constraints for next stage button
         nextStageButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nextStageButton.topAnchor.constraint(equalTo: hungerMeter.bottomAnchor, constant: 20),
+            nextStageButton.topAnchor.constraint(equalTo: hungerMeter.bottomAnchor, constant: 10),
             nextStageButton.centerXAnchor.constraint(equalTo: hungerMeter.centerXAnchor),
             nextStageButton.widthAnchor.constraint(equalToConstant: 150),
             nextStageButton.heightAnchor.constraint(equalToConstant: 100),
@@ -208,21 +208,21 @@ class InGameUIView: UIView {
         // Layout constraints for score label
         hungerScoreLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            hungerScoreLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -5),
+            hungerScoreLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 5),
             hungerScoreLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 30),
         ])
         
         // Layout constraints for stage label
         stageCountLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stageCountLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -5),
+            stageCountLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 5),
             stageCountLabel.leadingAnchor.constraint(equalTo: hungerScoreLabel.leadingAnchor, constant: 150),
         ])
         
         // Layout constraints for hunger meter
         hungerMeter.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            hungerMeter.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            hungerMeter.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
             hungerMeter.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             hungerMeter.widthAnchor.constraint(equalToConstant: 240),
             hungerMeter.heightAnchor.constraint(equalToConstant: 10),

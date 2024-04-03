@@ -139,7 +139,7 @@ class PetSelectionUIView: UIView {
             activePetView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -panelSpacing),
             activePetView.heightAnchor.constraint(equalToConstant: panelSize * 1.25),
             activePetView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            activePetView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 200) // spacing between panel and screen bottom
+            activePetView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 160) // spacing between panel and screen bottom
         ])
         activePetView.backgroundColor = Globals.petSelectionUIColors.selectedHalf
         activePetView.spacing = panelSpacing
@@ -248,7 +248,7 @@ class PetSelectionUIView: UIView {
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacing),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             scrollView.heightAnchor.constraint(equalToConstant: panelSize * 1.25) // Adjust as needed
         ])
         

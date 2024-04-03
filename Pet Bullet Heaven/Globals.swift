@@ -11,7 +11,7 @@ import SceneKit
 
 public class Globals {
     // This version number is used to ensure local environments have the latest configured user data
-    public static var userDataVersion = 1
+    public static var userDataVersion = 2
     
     public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
     

@@ -26,6 +26,10 @@ class GameUIView: UIView, PetSelectionDelegate {
     }
     
     private func setupUI() {
+        // Initialize user data if unsynced
+        Utilities.initUserData()
+        
+        
         addSubview(mainMenuUIView)
         // Initially the other UI views
         addSubview(petSelectionUIView)
