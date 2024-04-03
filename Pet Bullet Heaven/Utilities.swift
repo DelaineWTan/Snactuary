@@ -82,6 +82,8 @@ public class Utilities {
             UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
             UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
             UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
+            
+            UserDefaults.standard.set(latestUserDataVersion, forKey: Globals.userDataVersionKey)
         }
     }
     

@@ -79,14 +79,14 @@ public enum StageAestheticsHelper {
     public static let heavenBG : UIImage = UIImage(named: "art.scnassets/backgrounds/wispy_clouds.png")!
     
     public static let plantBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(40, 25, 1)
-    public static let beachBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(10, 10, 1)
+    public static let beachBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(6, 6, 1)
     public static let cloudBGTileScale: SCNMatrix4 = SCNMatrix4MakeScale(45, 25, 1)
     
     public static let maxTintCount : Int = 3
     public static let maxTextureCount : Int = 3
     private static var tintCount : Int = 0
     private static var textureCount : Int = 0
-    private static var mapIterCount : Int = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) % maxTextureCount + 1)
+    private static var mapIterCount : Int = UserDefaults.standard.integer(forKey: Globals.stageCountKey) % (maxTextureCount + 1)
     
     //private static var currTint : tintColor = tintColor.green
     private static var currBG : mapBG = mapBG.plants
@@ -103,7 +103,7 @@ public enum StageAestheticsHelper {
     
     public static func setInitialStageImage(_ material: SCNMaterial) -> UIImage? {
         if (mapIterCount != 0) {
-            for _ in 0...mapIterCount{
+            for _ in 1..<mapIterCount{
                 currBG = currBG.next()
             }
         }
