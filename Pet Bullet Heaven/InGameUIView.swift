@@ -273,7 +273,8 @@ class InGameUIView: UIView {
     
     ///
     public func increaseMaxHungerScore() {
-        _maxHungerScore *= Int(ceil(Globals.maxHungerScoreMultiplier))
+        let increasedScore = Float(_maxHungerScore) * Globals.maxHungerScoreMultiplier
+        _maxHungerScore = Int(increasedScore)
         UserDefaults.standard.set(_maxHungerScore, forKey: Globals.stageMaxScorekey)
         hungerScoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
     }

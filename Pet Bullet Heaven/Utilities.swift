@@ -46,6 +46,7 @@ public class Utilities {
         } else {
             print("Failed to load the scene.")
         }
+        print("Scene Graph Hierarchy:")
     }
     // Create a UI button with a standardized appearance
     public static func makeButton(title: String, image: UIImage?, backgroundColor: UIColor, target: Any?, action: Selector) -> UIButton {
@@ -81,6 +82,8 @@ public class Utilities {
             UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
             UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
             UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
+            
+            UserDefaults.standard.set(latestUserDataVersion, forKey: Globals.userDataVersionKey)
         }
     }
     

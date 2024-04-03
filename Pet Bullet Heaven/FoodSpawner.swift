@@ -15,7 +15,7 @@ class FoodSpawner: MonoBehaviour {
     let mainScene: SCNScene
     
     var elapsedTime: TimeInterval = 0
-    var spawnInterval: TimeInterval = 0.3 // Adjust depending on desired spawn rate
+    var spawnInterval: TimeInterval = 0.2 // Adjust depending on desired spawn rate
     
     let centerDist: Int = 55 // 55 seems to be a good distance away from player
     let foodArray: [FoodData]
@@ -24,26 +24,26 @@ class FoodSpawner: MonoBehaviour {
         foodArray = [
             FoodData(
                 name: "Carrot",
-                initialSpeed: 1,
-                health: 1,
+                initialSpeed: 0.5,
+                health: 5,
                 physicsDimensions: SCNVector3(1.5, 3, 1.5),
                 hungerValue: 2,
                 assetName: "art.scnassets/Food Models/CarrotV2.scn"),
             
             FoodData(
                 name: "Banana",
-                initialSpeed: 1,
-                health: 1,
+                initialSpeed: 3,
+                health: 3,
                 physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
-                hungerValue: 2,
+                hungerValue: 4,
                 assetName: "art.scnassets/Banana.scn"),
             
             FoodData(
                 name: "Donut",
-                initialSpeed: 0.5,
-                health: 2,
+                initialSpeed: 2,
+                health: 10,
                 physicsDimensions: SCNVector3(3, 3, 3),
-                hungerValue: 10,
+                hungerValue: 8,
                 assetName: "art.scnassets/Food Models/Donut.scn")
         ]
         self.mainScene = scene
