@@ -24,7 +24,7 @@ class FoodSpawner: MonoBehaviour {
         foodArray = [
             FoodData(
                 name: "Carrot",
-                initialSpeed: 0.5,
+                initialSpeed: 3.5,
                 health: 5,
                 physicsDimensions: SCNVector3(1.5, 3, 1.5),
                 hungerValue: 2,
@@ -32,7 +32,7 @@ class FoodSpawner: MonoBehaviour {
             
             FoodData(
                 name: "Banana",
-                initialSpeed: 3,
+                initialSpeed: 6,
                 health: 3,
                 physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
                 hungerValue: 4,
@@ -40,7 +40,7 @@ class FoodSpawner: MonoBehaviour {
             
             FoodData(
                 name: "Donut",
-                initialSpeed: 2,
+                initialSpeed: 5,
                 health: 10,
                 physicsDimensions: SCNVector3(3, 3, 3),
                 hungerValue: 8,
@@ -66,7 +66,7 @@ class FoodSpawner: MonoBehaviour {
         
         let foodIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
         
-        let food = FoodNode(spawnLocation: randomPosition, foodData: foodArray[foodIndex])
+        let food = GoblinFoodNode(spawnLocation: randomPosition, foodData: foodArray[foodIndex])
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node

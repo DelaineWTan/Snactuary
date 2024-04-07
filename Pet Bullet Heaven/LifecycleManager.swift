@@ -27,12 +27,12 @@ public class LifecycleManager {
     }
     
     func deleteAllFood() {
-        let foodToRemove = gameObjects.filter { $0.value is FoodNode }
+        let foodToRemove = gameObjects.filter { $0.value is BaseFoodNode }
         
         // Remove the filtered objects from the dictionary
         for (_, object) in foodToRemove {
             deleteGameObject(gameObject: object)
-            let food = object as? FoodNode
+            let food = object as? BaseFoodNode
             
             // Perform any additional cleanup or actions as needed
             food?.removeFromParentNode()
@@ -40,22 +40,22 @@ public class LifecycleManager {
         }
     }
     
-    func getClosestFood() -> (FoodNode?, Float) {
+    func getClosestFood() -> (BaseFoodNode?, Float) {
         
         // Get a list of all the Food in the Scene
-        let _FoodList = gameObjects.filter{ $0.value is FoodNode }
+        let _FoodList = gameObjects.filter{ $0.value is BaseFoodNode }
         
         // Track closest distance starting at max float value.
         var closestDistance = Float.greatestFiniteMagnitude
         
         // Food Node to return
-        var closestFoodNode : FoodNode?
+        var closestFoodNode : BaseFoodNode?
         
         // TODO: Check all the food at Linear Time for the closest food to (SCNVector3(0,0,0))
         for (_, object) in _FoodList {
             
             // Get the FoodNode
-            let thisFoodNode = object as? FoodNode
+            let thisFoodNode = object as? BaseFoodNode
             
             // Calculate the magnitude from (0,0,0)
             let distanceToFoodNode = sqrt(pow((thisFoodNode?.position.x)!, 2) + pow((thisFoodNode?.position.z)!, 2))

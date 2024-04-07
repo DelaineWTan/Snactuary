@@ -44,6 +44,20 @@ public class Utilities {
             
         }
     }
+    
+    public static func loadSceneModelNode(name: String) -> SCNNode {
+        let n = SCNNode()
+        if let foodModelSCN = SCNScene(named: name) {
+            // Iterate through all child nodes in the loaded scene and add them to the scene node
+            for childNode in foodModelSCN.rootNode.childNodes {
+                n.addChildNode(childNode)
+            }
+        } else {
+            print("Failed to load food scene from file.")
+        }
+        return n
+    }
+    
     // Create a UI button with a standardized appearance
     public static func makeButton(title: String, image: UIImage?, backgroundColor: UIColor, target: Any?, action: Selector) -> UIButton {
         let button = UIButton(type: .system)
