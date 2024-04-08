@@ -33,11 +33,8 @@ class FoodSpawner: MonoBehaviour {
         let food = GoblinFoodNode(foodData: Globals.basicFoodArray[stageIndex])
         
         
-        
-        
         food.position = findRandomPosition()
-        
-        
+
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node
@@ -48,9 +45,16 @@ class FoodSpawner: MonoBehaviour {
     }
     
     
-    
-    
-    
+    func calculateWeights() {
+        let stageIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
+        let foodGroup = Globals.foodGroups[stageIndex]
+        
+        let totalWeight = foodGroup.values.reduce(0) { (result, tuple) in
+            let (weight, _) = tuple
+            return result + weight
+        }
+        
+    }
     
     func Start() {
         
