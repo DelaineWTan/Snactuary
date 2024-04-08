@@ -28,32 +28,66 @@ class FoodSpawner: MonoBehaviour {
     func simpleSpawn() {
         
         
-        let stageIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
+        var food: BaseFoodNode? = nil
+        let foodData = selectFoodDataUsingWeights()
         
-        let food = GoblinFoodNode(foodData: Globals.basicFoodArray[stageIndex])
+        switch foodData.type {
+        case "basic":
+            food = BaseFoodNode(foodData: foodData)
+        case "goblin":
+            food = GoblinFoodNode(foodData: foodData)
+        default:
+            food = GoblinFoodNode(foodData: FoodData(
+                name: "Carrot",
+                type: "base",
+                initialSpeed: 3.5,
+                health: 5,
+                physicsDimensions: SCNVector3(1.5, 3, 1.5),
+                hungerValue: 2,
+                assetName: "art.scnassets/Food Models/CarrotV2.scn"))
+        }
         
         
-        food.position = findRandomPosition()
+        food!.position = findRandomPosition()
 
         
-        food.onDestroy = {
+        food!.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node
         }
         // Destroy the food after 50 seconds
-        food.onDestroy(after: 50.0)
-        mainScene.rootNode.addChildNode(food)
+        food!.onDestroy(after: 50.0)
+        mainScene.rootNode.addChildNode(food!)
     }
     
     
-    func calculateWeights() {
+    func selectFoodDataUsingWeights() -> FoodData {
         let stageIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
         let foodGroup = Globals.foodGroups[stageIndex]
         
-        let totalWeight = foodGroup.values.reduce(0) { (result, tuple) in
+        let totalWeight = foodGroup.reduce(0) { (result, tuple) in
             let (weight, _) = tuple
             return result + weight
         }
         
+        let randomNumber = Int.random(in: 1...totalWeight)
+        var cumulativeWeight = 0
+
+        for ((weight, foodData)) in foodGroup {
+            cumulativeWeight += weight
+            if cumulativeWeight >= randomNumber {
+                return foodData
+            }
+        }
+        
+        // should never go here!
+        return FoodData(
+            name: "Carrot",
+            type: "base",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/CarrotV2.scn")
     }
     
     func Start() {
