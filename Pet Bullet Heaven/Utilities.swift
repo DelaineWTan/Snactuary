@@ -37,11 +37,10 @@ public class Utilities {
             petSlotNode.addChildNode(petNode)
             petNode.slotPosition = petSlotNode.position
             
-            let ability = petNode.baseAbility.copy() as! Ability // add new pet ability node, create a duplicate of the reference
-            _ = ability.ActivateAbility()
+            _ = petNode.activeAbility.ActivateAbility()
             
-            ability.name = Globals.petAbilityNodeName[position]
-            mainPlayerNode.addChildNode(ability)
+            petNode.activeAbility.name = Globals.petAbilityNodeName[position]
+            mainPlayerNode.addChildNode(petNode.activeAbility)
             
         }
     }

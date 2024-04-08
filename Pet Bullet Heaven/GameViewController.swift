@@ -180,7 +180,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             // Show floating damage text
             let floatingText = FloatingText()
             scnView.addSubview(floatingText)
-            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.baseAttack))
+            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.attack))
         }
 
         // if food killed
@@ -200,6 +200,13 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                 //check if pet has enough exp to level up
                 if pet.hasLeveledUp(){
                     pet.levelUp(pet.level + 1)
+                    //
+                    let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
+                    let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
+                    
+                    let updatedAbility = oldAbilityNode as! Ability
+                    updatedAbility.setDamage(Int(pet.attack))
+                    //
                     let petPosition = scnView.projectPoint(pet.slotPosition)
                     let floatingText = FloatingText()
                     scnView.addSubview(floatingText)

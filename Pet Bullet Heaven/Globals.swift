@@ -41,11 +41,11 @@ public class Globals {
                petModelName: "art.scnassets/Penguin.001.scn",
                baseAttack: 3,
                attackPattern: OrbitingProjectileAbility(
-                               _InputAbilityDamage: 2,
+                               _InputAbilityDamage: 3,
                                _InputAbilityDuration: 10,
                                _InputRotationSpeed: 7,
-                               _InputDistanceFromCenter: 10,
-                               _InputNumProjectiles: 2,
+                               _InputDistanceFromCenter: 15,
+                               _InputNumProjectiles: 10,
                                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2)}),
                currentExp: 0,
                level: 1

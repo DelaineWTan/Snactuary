@@ -81,8 +81,9 @@ public class Pet : SCNNode{
         self.levelUpExp = Float(self.baseExp * Float(self.level))
         // attack increases by level * attackGrowth
         self.attack = self.baseAttack + Float(self.level - 1) * attackGrowth
-        self.baseAbility.setDamage(Int(self.attack))
+        self.activeAbility.setDamage(Int(self.attack))
         // speed increases by level * speedGrowth
         self.speed = self.baseSpeed + Float(self.level - 1) * speedGrowth
+        print(self.attack)
     }
 }
