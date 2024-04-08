@@ -15,7 +15,7 @@ class FoodSpawner: MonoBehaviour {
     let mainScene: SCNScene
     
     var elapsedTime: TimeInterval = 0
-    var spawnInterval: TimeInterval = 0.2 // Adjust depending on desired spawn rate
+    var spawnInterval: TimeInterval = 0.001 // Adjust depending on desired spawn rate
     
     let centerDist: Int = 55 // 55 seems to be a good distance away from player
     let foodArray: [FoodData]
@@ -66,7 +66,7 @@ class FoodSpawner: MonoBehaviour {
         
         let foodIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
         
-        let food = GoblinFoodNode(spawnLocation: randomPosition, foodData: foodArray[foodIndex])
+        let food = BaseFoodNode(spawnLocation: randomPosition, foodData: foodArray[foodIndex])
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node

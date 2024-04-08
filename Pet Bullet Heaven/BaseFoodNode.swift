@@ -33,7 +33,6 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     var spawnLocation : SCNVector3
     var speed : Float
     
-    var previousTimestamp: CFTimeInterval = 0
     var hungerValue: Int = Globals.defaultFoodHungerValue
     
     var foodData: FoodData
@@ -54,7 +53,9 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
         LifecycleManager.Instance.addGameObject(self)
         
         // load scene model
+        // TODO: use .clone() to do object instancing
         self.addChildNode(Utilities.loadSceneModelNode(name: foodData.assetName))
+
         
         // handle all physics and rendering
         initializePhysics()

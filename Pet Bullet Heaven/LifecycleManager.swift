@@ -36,6 +36,9 @@ public class LifecycleManager {
             
             // Perform any additional cleanup or actions as needed
             food?.removeFromParentNode()
+            food?.childNodes.forEach {
+                $0.removeFromParentNode()
+            }
             food!.onDestroy?()
         }
     }

@@ -159,7 +159,7 @@ public class Globals {
                level: 1 // Assuming from context
         )
     ]
-
+    
     public static var activePets: [Int] = [
         // First four pets are the active party pets
         0, 1, 2, 3 // Use the new ids starting from 0
