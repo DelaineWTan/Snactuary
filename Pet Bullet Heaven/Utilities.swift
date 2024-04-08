@@ -45,7 +45,9 @@ public class Utilities {
         }
     }
     
+    // Load an SCN model from a .scn file and add it to a node
     public static func loadSceneModelNode(name: String) -> SCNNode {
+        
         let n = SCNNode()
         if let foodModelSCN = SCNScene(named: name) {
             // Iterate through all child nodes in the loaded scene and add them to the scene node
@@ -134,6 +136,17 @@ public class Utilities {
         let dz = vector2.z - vector1.z
         
         return sqrt(dx*dx + dy*dy + dz*dz)
+    }
+}
+
+extension SCNVector3 {
+    static func - (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+        return SCNVector3(left.x - right.x, left.y - right.y, left.z - right.z)
+    }
+    
+    func normalized() -> SCNVector3 {
+        let length = sqrt(x * x + y * y + z * z)
+        return SCNVector3(x / length, y / length, z / length)
     }
 }
 
