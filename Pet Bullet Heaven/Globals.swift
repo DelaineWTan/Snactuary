@@ -24,7 +24,7 @@ public class Globals {
                petId: 0,
                petImageName: "frog1.png",
                petModelName: "art.scnassets/Frog.Green.scn",
-               attack: 2,
+               baseAttack: 2,
                attackPattern: ShootClosestAbility(
                                _InputRange: 170,
                                _InputFireRate: 3.75,
@@ -39,7 +39,7 @@ public class Globals {
                petId: 1,
                petImageName: "penguin1.png",
                petModelName: "art.scnassets/Penguin.001.scn",
-               attack: 3,
+               baseAttack: 3,
                attackPattern: OrbitingProjectileAbility(
                                _InputAbilityDamage: 2,
                                _InputAbilityDuration: 10,
