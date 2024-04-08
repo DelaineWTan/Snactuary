@@ -84,6 +84,5 @@ public class Pet : SCNNode{
         self.activeAbility.setDamage(Int(self.attack))
         // speed increases by level * speedGrowth
         self.speed = self.baseSpeed + Float(self.level - 1) * speedGrowth
-        print(self.attack)
     }
 }

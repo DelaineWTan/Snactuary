@@ -14,6 +14,7 @@ public class Globals {
     public static var userDataVersion = 2
     
     public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
+    public static var playerNode = mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)!
     
     public static var inMainMenu = true
     public static var deltaTime: TimeInterval = 0
