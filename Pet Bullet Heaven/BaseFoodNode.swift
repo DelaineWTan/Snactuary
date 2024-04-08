@@ -8,16 +8,6 @@
 import Foundation
 import SceneKit
 
-
-struct FoodData {
-    var name: String
-    var initialSpeed: Float
-    var health: Int
-    var physicsDimensions: SCNVector3
-    var hungerValue: Int
-    var assetName: String
-}
-
 ///
 /// Rudimentary Food Class
 ///
@@ -30,7 +20,6 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     
     var _Health : Int = Globals.defaultFoodHealth
     
-    var spawnLocation : SCNVector3
     var speed : Float
     
     var hungerValue: Int = Globals.defaultFoodHungerValue
@@ -39,16 +28,14 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     
     let foodCategory: Int = 0b010
     
-    init(spawnLocation: SCNVector3, foodData: FoodData) {
+    init(foodData: FoodData) {
         
-        self.spawnLocation = spawnLocation
         self.speed = foodData.initialSpeed
         self.hungerValue = foodData.hungerValue
         self._Health = foodData.health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         self.foodData = foodData
         super.init()
-        self.position = spawnLocation
         
         LifecycleManager.Instance.addGameObject(self)
         
@@ -104,12 +91,12 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     var modifierZ : Float = 0.0
     func initializeFoodMovement() {
         
-        if spawnLocation.x > 0 {
+        if self.position.x > 0 {
             modifierX = Float(Int.random(in: 1...rangeLimit))
         } else {
             modifierX = Float(Int.random(in: -rangeLimit...1))
         }
-        if spawnLocation.z > 0 {
+        if self.position.z > 0 {
             modifierZ = Float(Int.random(in: 1...rangeLimit))
         } else {
             modifierZ = Float(Int.random(in: -rangeLimit...1))

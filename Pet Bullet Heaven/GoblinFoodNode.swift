@@ -13,8 +13,8 @@ public class GoblinFoodNode: BaseFoodNode {
     var timeElapsed: TimeInterval = 0.0
     let spawnInterval: TimeInterval = 1.0
     
-    override init(spawnLocation: SCNVector3, foodData: FoodData) {
-        super.init(spawnLocation: spawnLocation, foodData: foodData)
+    override init(foodData: FoodData) {
+        super.init(foodData: foodData)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -48,7 +48,7 @@ public class GoblinFoodNode: BaseFoodNode {
     }
     
     @objc func spawnBabyFoods() {
-        let food = BaseFoodNode(spawnLocation: self.position, foodData: FoodData(name: "baby", initialSpeed: 1, health: 1, physicsDimensions: SCNVector3(x: 1, y: 1, z: 1), hungerValue: 1, assetName: "art.scnassets/Banana.scn"))
+        let food = BaseFoodNode(foodData: FoodData(name: "baby", initialSpeed: 1, health: 1, physicsDimensions: SCNVector3(x: 1, y: 1, z: 1), hungerValue: 1, assetName: "art.scnassets/Banana.scn"))
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node
