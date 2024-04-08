@@ -18,7 +18,7 @@ protocol MonoBehaviour {
 
 extension MonoBehaviour where Self: SCNNode {
     
-    func onDestroy(after duration: TimeInterval) {
+    func onDestroy(after duration: TimeInterval = 0) {
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
             self?.destroy()
             if let self = self {

@@ -35,6 +35,7 @@ public class Utilities {
                 node.removeFromParentNode()
             }
             petSlotNode.addChildNode(petNode)
+            petNode.slotPosition = petSlotNode.position
             
             let ability = petNode.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
             _ = ability.ActivateAbility()

@@ -19,7 +19,8 @@ public class Pet : SCNNode{
     var levelUpExp: Float = 1.0
     var petLevel: Int = 1
     var unlocked: Bool
-    
+    // slot position in scene
+    var slotPosition = SCNVector3(0,0,0)
     
     // might need more properties yea, add more if you see fit DO NOT CHANGE THE EXISTING ONES and update the constructor and Globals define pets as well thx :DDDDDD
     

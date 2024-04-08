@@ -31,7 +31,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     var joyStickClampedDistance: CGFloat = 100
     
     // Add floating damage text
-    let floatingText = FloatingDamageText()
+    let floatingText = FloatingText()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
 //        scnView.debugOptions = [
 //            SCNDebugOptions.showPhysicsShapes
 //        ]
-        // Initialize sound manager
+        // Initialize background music
         SoundManager.Instance.playCurrentStageBGM()
         // Add overlay view
         scnView.backgroundColor = UIColor.black
@@ -170,7 +170,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             food._Health -= projectile._Damage
             
             // Show floating damage text
-            let floatingText = FloatingDamageText()
+            let floatingText = FloatingText()
             scnView.addSubview(floatingText)
             floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: projectile._Damage)
         }
@@ -178,7 +178,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             food._Health -= Int(petNode.baseAttack)
             
             // Show floating damage text
-            let floatingText = FloatingDamageText()
+            let floatingText = FloatingText()
             scnView.addSubview(floatingText)
             floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.baseAttack))
         }
@@ -214,6 +214,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     
                     let updatedAbility = oldAbilityNode as! Ability
                     updatedAbility.setDamage(Int(pet.baseAttack))
+                    let petPosition = scnView.projectPoint(pet.slotPosition)
+                    let floatingText = FloatingText()
+                    scnView.addSubview(floatingText)
+                    floatingText.showLevelUpText(at: CGPoint(x: CGFloat(petPosition.x), y: CGFloat(petPosition.y)), with: Int(pet.petLevel))
                 }
             }
         }
