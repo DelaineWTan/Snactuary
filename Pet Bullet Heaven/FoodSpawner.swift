@@ -47,6 +47,11 @@ class FoodSpawner: MonoBehaviour {
         mainScene.rootNode.addChildNode(food)
     }
     
+    
+    
+    
+    
+    
     func Start() {
         
     }

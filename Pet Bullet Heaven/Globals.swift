@@ -165,6 +165,7 @@ public class Globals {
         0, 1, 2, 3 // Use the new ids starting from 0
     ]
     
+    // each food's position/index relates to which stage they should be on
     public static var basicFoodArray = [
         FoodData(
             name: "Carrot",
@@ -188,6 +189,48 @@ public class Globals {
             hungerValue: 8,
             assetName: "art.scnassets/Food Models/Donut.scn")
     ]
+    public static var stage1Foods: [String: (Int, FoodData)] = [
+        "basic": (100,
+                  FoodData(
+                      name: "Carrot",
+                      initialSpeed: 3.5,
+                      health: 5,
+                      physicsDimensions: SCNVector3(1.5, 3, 1.5),
+                      hungerValue: 2,
+                      assetName: "art.scnassets/Food Models/CarrotV2.scn"))
+    ]
+    
+    public static var stage2Foods: [String: (Int, FoodData)] = [
+        "basic": (100,
+                  FoodData(
+                      name: "Banana",
+                      initialSpeed: 6,
+                      health: 3,
+                      physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
+                      hungerValue: 4,
+                      assetName: "art.scnassets/Banana.scn"))
+    ]
+    
+    public static var stage3Foods: [String: (Int, FoodData)] = [
+        "basic": (100,
+                  FoodData(
+                      name: "Donut",
+                      initialSpeed: 5,
+                      health: 10,
+                      physicsDimensions: SCNVector3(3, 3, 3),
+                      hungerValue: 8,
+                      assetName: "art.scnassets/Food Models/Donut.scn")),
+        "lessBasic": (10,
+                  FoodData(
+                      name: "Donut",
+                      initialSpeed: 5,
+                      health: 10,
+                      physicsDimensions: SCNVector3(3, 3, 3),
+                      hungerValue: 8,
+                      assetName: "art.scnassets/Food Models/Donut.scn"))
+    ]
+    
+    public static var foodGroups = [stage1Foods, stage2Foods, stage3Foods]
     
     public static var stageFoods: [Int: [FoodData]] = [
         0: basicFoodArray

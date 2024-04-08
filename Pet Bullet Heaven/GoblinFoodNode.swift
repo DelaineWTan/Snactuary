@@ -48,7 +48,11 @@ public class GoblinFoodNode: BaseFoodNode {
     }
     
     @objc func spawnBabyFoods() {
-        let food = BaseFoodNode(foodData: FoodData(name: "baby", initialSpeed: 1, health: 1, physicsDimensions: SCNVector3(x: 1, y: 1, z: 1), hungerValue: 1, assetName: "art.scnassets/Banana.scn"))
+        let stageIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
+        
+        let food = BaseFoodNode(foodData: Globals.basicFoodArray[stageIndex])
+        
+        food.position = self.position
         
         food.onDestroy = {
             // Do any cleanup or additional tasks before destroying the node
