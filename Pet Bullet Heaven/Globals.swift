@@ -165,8 +165,8 @@ public class Globals {
         0, 1, 2, 3 // Use the new ids starting from 0
     ]
     
-    public static var stage1FoodsTest: [(Int, FoodData)] = [
-        (10,
+    public static var stage1Foods: [(Int, FoodData)] = [
+        (100,
          FoodData(
             name: "Carrot",
             type: "base",
@@ -175,7 +175,47 @@ public class Globals {
             physicsDimensions: SCNVector3(1.5, 3, 1.5),
             hungerValue: 2,
             assetName: "art.scnassets/Food Models/CarrotV2.scn")),
-        (150,
+        (10,
+         FoodData(
+            name: "Donut",
+            type: "goblin",
+            initialSpeed: 5,
+            health: 10,
+            physicsDimensions: SCNVector3(3, 3, 3),
+            hungerValue: 8,
+            assetName: "art.scnassets/Food Models/Donut.scn"))
+    ]
+    public static var stage2Foods: [(Int, FoodData)] = [
+        (100,
+         FoodData(
+            name: "Banana",
+            type: "base",
+            initialSpeed: 3,
+            health: 3,
+            physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
+            hungerValue: 4,
+            assetName: "art.scnassets/Banana.scn")),
+        (10,
+         FoodData(
+            name: "Donut",
+            type: "goblin",
+            initialSpeed: 5,
+            health: 10,
+            physicsDimensions: SCNVector3(3, 3, 3),
+            hungerValue: 8,
+            assetName: "art.scnassets/Food Models/Donut.scn"))
+    ]
+    public static var stage3Foods: [(Int, FoodData)] = [
+        (100,
+         FoodData(
+            name: "Carrot",
+            type: "base",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/CarrotV2.scn")),
+        (10,
          FoodData(
             name: "Donut",
             type: "goblin",
@@ -186,9 +226,9 @@ public class Globals {
             assetName: "art.scnassets/Food Models/Donut.scn"))
     ]
     
-
     
-    public static var foodGroups = [stage1FoodsTest, stage1FoodsTest, stage1FoodsTest]
+    
+    public static var foodGroups = [stage1Foods, stage1Foods, stage1Foods]
     
     public static let cameraZIndex : Float = 30;
     

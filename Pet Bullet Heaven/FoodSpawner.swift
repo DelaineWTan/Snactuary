@@ -30,9 +30,8 @@ class FoodSpawner: MonoBehaviour {
         
         var food: BaseFoodNode? = nil
         let foodData = selectFoodDataUsingWeights()
-        
         switch foodData.type {
-        case "basic":
+        case "base":
             food = BaseFoodNode(foodData: foodData)
         case "goblin":
             food = GoblinFoodNode(foodData: foodData)
@@ -78,7 +77,7 @@ class FoodSpawner: MonoBehaviour {
                 return foodData
             }
         }
-        
+
         // should never go here!
         return FoodData(
             name: "Carrot",
@@ -108,11 +107,10 @@ class FoodSpawner: MonoBehaviour {
         
     }
     
-    // Choose between the X or Z coordinate of the food's spawn location, and set it to either I or J, respectively.
-    // If I is chosen, set it to the negative of the spawn distance from the center; if J is chosen, set it to the spawn distance from the center.
-    // The other coordinate (either Z if I is chosen, or X if J is chosen) is set to a random number between A and B, where:
-    //   - A is the negative spawn distance from the center, and
-    //   - B is the spawn distance from the center.
+    // Choose either the X or Z coordinate of the food's spawn location and set it to either I or J, respectively.
+    // If I is chosen, set it to the negative spawn distance from the center; if J is chosen, set it to the spawn distance from the center.
+    // The other coordinate (either Z if I is chosen, or X if J is chosen) is set to a random number between A and B.
+    // A is the negative spawn distance from the center, and B is the spawn distance from the center.
     func findRandomPosition() -> SCNVector3 {
         let randomFromAtoB = Float(Int.random(in: -centerDist...centerDist))
         

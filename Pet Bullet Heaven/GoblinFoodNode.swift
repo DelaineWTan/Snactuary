@@ -50,7 +50,7 @@ public class GoblinFoodNode: BaseFoodNode {
     @objc func spawnBabyFoods() {
         let stageIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
         
-        let food = BaseFoodNode(foodData: Globals.stage1FoodsTest[0].1)
+        let food = BaseFoodNode(foodData: Globals.stage1Foods[1].1)
         
         food.position = self.position
         
