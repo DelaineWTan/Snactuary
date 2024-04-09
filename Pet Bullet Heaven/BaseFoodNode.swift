@@ -8,19 +8,11 @@
 import Foundation
 import SceneKit
 
-
-struct FoodData {
-    var name: String
-    var initialSpeed: Float
-    var health: Int
-    var physicsDimensions: SCNVector3
-    var hungerValue: Int
-    var assetName: String
-}
 ///
 /// Rudimentary Food Class
 ///
-public class FoodNode : SCNNode, MonoBehaviour {
+///
+public class BaseFoodNode : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
     
@@ -28,41 +20,41 @@ public class FoodNode : SCNNode, MonoBehaviour {
     
     var _Health : Int = Globals.defaultFoodHealth
     
-    var spawnLocation : SCNVector3
     var speed : Float
     
-    var deltaTime : CFTimeInterval = 0
-    var previousTimestamp: CFTimeInterval = 0
     var hungerValue: Int = Globals.defaultFoodHungerValue
+    
+    var foodData: FoodData
     
     let foodCategory: Int = 0b010
     
-    init(spawnLocation: SCNVector3, foodData: FoodData) {
+    init(foodData: FoodData) {
         
-        self.spawnLocation = spawnLocation
         self.speed = foodData.initialSpeed
         self.hungerValue = foodData.hungerValue
         self._Health = foodData.health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
+        self.foodData = foodData
         super.init()
-        self.position = spawnLocation
         
         LifecycleManager.Instance.addGameObject(self)
         
-        let n = SCNNode()
-        if let foodModelSCN = SCNScene(named: foodData.assetName) {
-            // Iterate through all child nodes in the loaded scene and add them to the scene node
-            for childNode in foodModelSCN.rootNode.childNodes {
-                n.addChildNode(childNode)
-            }
-        } else {
-            print("Failed to load food scene from file.")
-        }
+        // load scene model
+        // TODO: use .clone() to do object instancing
+        self.addChildNode((Globals.foodSCNModels[foodData.assetName]!.clone()))
+
         
-        //_Mesh = referenceNode
-        self.addChildNode(n)
+        // handle all physics and rendering
+        initializeBody()
         
-        
+        initializeFoodMovement()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func initializeBody() {
         let foodPhysicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: SCNBox(width: CGFloat(foodData.physicsDimensions.x), height: CGFloat(foodData.physicsDimensions.x), length: CGFloat(foodData.physicsDimensions.x), chamferRadius: 0), options: nil)) // Create a dynamic physics body
         
         foodPhysicsBody.mass = 1.0 // Set the mass of the physics body
@@ -76,40 +68,35 @@ public class FoodNode : SCNNode, MonoBehaviour {
         self.physicsBody?.categoryBitMask = foodCategory
         self.physicsBody?.collisionBitMask = -1
         self.physicsBody?.contactTestBitMask = 1
-        
-        initializeFoodMovement()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func Start() {
     }
     
     func Update() {
-        move()
+        moveWithWorld()
+        doBehaviour()
         
         // Check if the object's distance from the center is greater than 100 meters
         let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
-        if distanceFromCenter > 100 {
+        if distanceFromCenter > 200 {
             // If the object is more than 100 meters away from the center, destroy it
             self.onDestroy(after: 0)
         }
     }
     
     
-    let rangeLimit = 5
+    let rangeLimit = 1
     var modifierX : Float = 0.0
     var modifierZ : Float = 0.0
     func initializeFoodMovement() {
         
-        if spawnLocation.x > 0 {
+        if self.position.x > 0 {
             modifierX = Float(Int.random(in: 1...rangeLimit))
         } else {
             modifierX = Float(Int.random(in: -rangeLimit...1))
         }
-        if spawnLocation.z > 0 {
+        if self.position.z > 0 {
             modifierZ = Float(Int.random(in: 1...rangeLimit))
         } else {
             modifierZ = Float(Int.random(in: -rangeLimit...1))
@@ -124,13 +111,13 @@ public class FoodNode : SCNNode, MonoBehaviour {
         }
     }
     
-    /// Moves the food randomly away from the player and relative to the player's inputs
-    func move() {
-        
-        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
-        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
-        
-        
+    /// Moves the food away from the player, mindless behaviour -Jun
+    func doBehaviour() {
+//        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
+//        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
+    }
+    
+    func moveWithWorld() {
         // Move food relative to the player
         if Globals.playerIsMoving {
             let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
@@ -138,5 +125,15 @@ public class FoodNode : SCNNode, MonoBehaviour {
             self.position.x += translationVector.x
             self.position.z += translationVector.z
         }
+    }
+}
+
+
+public class MindlessFoodNode: BaseFoodNode {
+    
+    /// Moves the food away from the player, mindless behaviour -Jun
+    override func doBehaviour() {
+        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
+        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
     }
 }
