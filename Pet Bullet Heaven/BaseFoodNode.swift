@@ -111,11 +111,10 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
         }
     }
     
-    /// Moves the food randomly away from the player and relative to the player's inputs
-    /// I call this the mindless behaviour -Jun
+    /// Moves the food away from the player, mindless behaviour -Jun
     func doBehaviour() {
-        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
-        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
+//        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
+//        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
     }
     
     func moveWithWorld() {
@@ -129,3 +128,12 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     }
 }
 
+
+public class MindlessFoodNode: BaseFoodNode {
+    
+    /// Moves the food away from the player, mindless behaviour -Jun
+    override func doBehaviour() {
+        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
+        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
+    }
+}
