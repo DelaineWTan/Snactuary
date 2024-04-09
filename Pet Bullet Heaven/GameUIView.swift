@@ -149,6 +149,7 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Increment stage count and play new bgm
             SoundManager.Instance.stopCurrentBGM()
             stageCount += 1
+            Globals.stagesPassed += 1
             self?.inGameUIView.setStageCount(stageCount: stageCount)
             UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
             SoundManager.Instance.playCurrentStageBGM()

@@ -168,6 +168,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         if let projectile = attackingNode as? Projectile {
             // Handle collision with a projectile node
             food._Health -= projectile._Damage
+            
+            //increment stats
             Globals.damageDone += projectile._Damage
             
             // Show floating damage text
@@ -190,11 +192,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
             SoundManager.Instance.refreshEatingSFX()
+            
+            //Increment stats
             Globals.snacksEaten += 1
             Globals.totalScore += food.hungerValue
-            print(Globals.snacksEaten)
-            print(Globals.totalScore)
-            print(Globals.damageDone)
+
             //increase exp for all active pets
             for petIndex in 0...Globals.activePets.count - 1 {
                 let pet = Globals.pets[Globals.activePets[petIndex]]!
