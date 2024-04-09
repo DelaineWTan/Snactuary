@@ -177,6 +177,13 @@ public class Globals {
     public static var foodHealthMultiplier : Float = 1.2
     
     public static var numStagePresets = 3
+    
+    //statistics
+    public static var snacksEaten = 0
+    public static var damageDone = 0
+    public static var totalScore = 0
+    public static var stagesPassed = 0
+    
     // default values
     public static let defaultMaxHungerScore : Int = 32
     public static let defaultFoodHealth : Int = 1
