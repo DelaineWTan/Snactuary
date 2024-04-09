@@ -21,7 +21,6 @@ public class TreasureFoodNode: BaseFoodNode {
     }
     
     override func doBehaviour() {
-        //super.doBehaviour()
         let directionToCenter = SCNVector3(0, 0, 0) - self.position
             
             // Normalize the direction vector to ensure consistent movement speed
@@ -48,7 +47,6 @@ public class TreasureFoodNode: BaseFoodNode {
     }
     
     @objc func spawnBabyFoods() {
-        let stageIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
         
         let food = BaseFoodNode(foodData: Globals.stage1Foods[1].1)
         

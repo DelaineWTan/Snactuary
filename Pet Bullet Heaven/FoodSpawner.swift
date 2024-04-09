@@ -33,10 +33,12 @@ class FoodSpawner: MonoBehaviour {
         switch foodData.type {
         case "base":
             food = BaseFoodNode(foodData: foodData)
-        case "goblin":
+        case "directional":
+            food = DirectionalFood(foodData: foodData)
+        case "treasure":
             food = TreasureFoodNode(foodData: foodData)
         default:
-            food = TreasureFoodNode(foodData: FoodData(
+            food = BaseFoodNode(foodData: FoodData(
                 name: "Carrot",
                 type: "base",
                 initialSpeed: 3.5,
