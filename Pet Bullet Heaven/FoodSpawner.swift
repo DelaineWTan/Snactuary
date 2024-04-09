@@ -35,9 +35,14 @@ class FoodSpawner: MonoBehaviour {
             food = BaseFoodNode(foodData: foodData)
         case "directional":
             food = DirectionalFood(foodData: foodData)
+        case "flee":
+            food = FleeingFoodNode(foodData: foodData)
+        case "roam":
+            food = RoamingFoodNode(foodData: foodData)
         case "treasure":
             food = TreasureFoodNode(foodData: foodData)
         default:
+            // Maybe have an error model like in GMod XD
             food = BaseFoodNode(foodData: FoodData(
                 name: "Carrot",
                 type: "base",

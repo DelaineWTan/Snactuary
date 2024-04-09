@@ -111,6 +111,10 @@ public class DirectionalFood: BaseFoodNode {
         initializeFoodMovement()
     }
     
+    override func Update() {
+        super.Update()
+        
+    }
     func initializeFoodMovement() {
         
         if self.position.x > 0 {
@@ -152,3 +156,39 @@ public class FleeingFoodNode: BaseFoodNode {
             self.position.z -= normalizedDirection.z * Float(Globals.deltaTime) * self.speed
     }
 }
+
+public class RoamingFoodNode: BaseFoodNode {
+    
+    let rangeLimit: Float = 1
+    var modifierX: Float = 0.0
+    var modifierZ: Float = 0.0
+    var roamInterval: TimeInterval = 5.0 // Interval for changing roam direction
+    var timeSinceLastRoam: TimeInterval = 0.0
+    
+    override func Start() {
+        super.Start()
+        initializeFoodMovement()
+    }
+    
+    override func Update() {
+        super.Update()
+        
+        timeSinceLastRoam += Globals.deltaTime
+        if timeSinceLastRoam >= roamInterval {
+            timeSinceLastRoam = 0.0
+            initializeFoodMovement()
+        }
+    }
+    
+    func initializeFoodMovement() {
+        modifierX = Float.random(in: -rangeLimit...rangeLimit)
+        modifierZ = Float.random(in: -rangeLimit...rangeLimit)
+    }
+    
+    /// Moves the food in a random direction
+    override func doBehaviour() {
+        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
+        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
+    }
+}
+
