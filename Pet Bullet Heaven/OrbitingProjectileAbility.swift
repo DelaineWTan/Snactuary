@@ -42,7 +42,7 @@ class OrbitingProjectileAbility : Ability{
     /*
      Overriden Function for activating this ability. The majority of the effects will happen here.
      */
-    override func ActivateAbility() -> Bool {
+    override func activate() -> Bool {
         if isActive {
             return false;
         }

@@ -52,7 +52,7 @@ class Ability : SCNNode {
         return newProjectile
     }
     
-    func ActivateAbility() -> Bool {
+    func activate() -> Bool {
         return false
     }
     

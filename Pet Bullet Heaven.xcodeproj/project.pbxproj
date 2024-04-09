@@ -23,7 +23,7 @@
 		0D6409562B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409552B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift */; };
 		0D6409582B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6409572B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift */; };
 		0D8DB43C2B7AC9AB008D2AE8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0D8DB43B2B7AC9AB008D2AE8 /* .gitignore */; };
-		0DA1A35C2BB27BAC0003544F /* FloatingDamageText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */; };
+		0DA1A35C2BB27BAC0003544F /* FloatingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1A35B2BB27BAC0003544F /* FloatingText.swift */; };
 		0DCB55AB2B74B7C500C18DD0 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55AA2B74B7C500C18DD0 /* Globals.swift */; };
 		0DCB55BA2B75937600C18DD0 /* MainMenuUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */; };
 		0DCB55BB2B75937600C18DD0 /* GameUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB55B82B75937600C18DD0 /* GameUIView.swift */; };
@@ -123,7 +123,7 @@
 		0D6409552B71FBD30047847B /* Pet_Bullet_HeavenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet_Bullet_HeavenUITests.swift; sourceTree = "<group>"; };
 		0D6409572B71FBD30047847B /* Pet_Bullet_HeavenUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet_Bullet_HeavenUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0D8DB43B2B7AC9AB008D2AE8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingDamageText.swift; sourceTree = "<group>"; };
+		0DA1A35B2BB27BAC0003544F /* FloatingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingText.swift; sourceTree = "<group>"; };
 		0DCB55AA2B74B7C500C18DD0 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		0DCB55B72B75937600C18DD0 /* MainMenuUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuUIView.swift; sourceTree = "<group>"; };
 		0DCB55B82B75937600C18DD0 /* GameUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUIView.swift; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 				4F745FA32BB7BC1A008909FD /* LaunchedProjectile.swift */,
 				0D58FCC62BB784F100488D01 /* StationaryBomb.swift */,
 				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
-				0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */,
+				0DA1A35B2BB27BAC0003544F /* FloatingText.swift */,
 				04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */,
 			);
 			path = "Pet Bullet Heaven";
@@ -558,7 +558,7 @@
 				0ED95DCA2B9193E5008F010E /* Map.swift in Sources */,
 				04FB228F2BB3A44B00B1A519 /* StageAestheticsHelper.swift in Sources */,
 				0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */,
-				0DA1A35C2BB27BAC0003544F /* FloatingDamageText.swift in Sources */,
+				0DA1A35C2BB27BAC0003544F /* FloatingText.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

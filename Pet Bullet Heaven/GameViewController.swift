@@ -31,7 +31,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     var joyStickClampedDistance: CGFloat = 100
     
     // Add floating damage text
-    let floatingText = FloatingDamageText()
+    let floatingText = FloatingText()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
 //        scnView.debugOptions = [
 //            SCNDebugOptions.showPhysicsShapes
 //        ]
-        // Initialize sound manager
+        // Initialize background music
         SoundManager.Instance.playCurrentStageBGM()
         // Add overlay view
         scnView.backgroundColor = UIColor.black
@@ -171,17 +171,17 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             Globals.damageDone += projectile._Damage
             
             // Show floating damage text
-            let floatingText = FloatingDamageText()
+            let floatingText = FloatingText()
             scnView.addSubview(floatingText)
             floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: projectile._Damage)
         }
         else if let petNode = attackingNode as? Pet {
-            food._Health -= Int(petNode.baseAttack)
+            food._Health -= Int(petNode.attack)
             
             // Show floating damage text
-            let floatingText = FloatingDamageText()
+            let floatingText = FloatingText()
             scnView.addSubview(floatingText)
-            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.baseAttack))
+            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.attack))
         }
 
         // if food killed
@@ -203,22 +203,19 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                 pet.exp += 1
                
                 //check if pet has enough exp to level up
-                if pet.levelUpCheck(){
-                    pet.exp = 0
-                    pet.levelUpExp = Float(pet.petLevel * pet.petLevel) //exp needed to level up is current level^2
-                    pet.petLevel += 1
-                    
-                    //scaling attack and speed values with level, tweak later
-                    pet.baseAttack = Float(pet.petLevel)
-                    pet.speed += Float(pet.petLevel)/10
-                    
-                    pet.attackPattern.damage = Int(pet.baseAttack)
-    
+                if pet.hasLeveledUp(){
+                    pet.levelUp(pet.level + 1)
+                    //
                     let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
                     let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
                     
                     let updatedAbility = oldAbilityNode as! Ability
-                    updatedAbility.setDamage(Int(pet.baseAttack))
+                    updatedAbility.setDamage(Int(pet.attack))
+                    //
+                    let petPosition = scnView.projectPoint(pet.slotPosition)
+                    let floatingText = FloatingText()
+                    scnView.addSubview(floatingText)
+                    floatingText.showLevelUpText(at: CGPoint(x: CGFloat(petPosition.x), y: CGFloat(petPosition.y)), with: Int(pet.level))
                 }
             }
         }
