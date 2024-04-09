@@ -14,6 +14,7 @@ public class Globals {
     public static var userDataVersion = 2
     
     public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
+    public static var playerNode = mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)!
     
     public static var inMainMenu = true
     public static var deltaTime: TimeInterval = 0
@@ -24,10 +25,10 @@ public class Globals {
                petId: 0,
                petImageName: "frog1.png",
                petModelName: "art.scnassets/Frog.Green.scn",
-               attack: 2,
+               baseAttack: 2,
                attackPattern: ShootClosestAbility(
                 _InputRange: 170,
-                _InputFireRate: 100,
+                _InputFireRate: 100, // TODO: Fix model memory issue first
                 _InputProjectileSpeed: 22,
                 _InputProjectileDuration: 1.25,
                 _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 2)}),
@@ -39,14 +40,14 @@ public class Globals {
                petId: 1,
                petImageName: "penguin1.png",
                petModelName: "art.scnassets/Penguin.001.scn",
-               attack: 3,
+               baseAttack: 3,
                attackPattern: OrbitingProjectileAbility(
-                _InputAbilityDamage: 2,
-                _InputAbilityDuration: 10,
-                _InputRotationSpeed: 7,
-                _InputDistanceFromCenter: 10,
-                _InputNumProjectiles: 2,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2)}),
+                               _InputAbilityDamage: 3,
+                               _InputAbilityDuration: 10,
+                               _InputRotationSpeed: 7,
+                               _InputDistanceFromCenter: 15,
+                               _InputNumProjectiles: 10,
+                               _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2)}),
                currentExp: 0,
                level: 1
               ),

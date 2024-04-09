@@ -57,7 +57,7 @@ class SpawnProjectileInRangeAbility : Ability {
     /**
      Overriden Function for Activiating this ability.
      */
-    override func ActivateAbility() -> Bool {
+    override func activate() -> Bool {
         
         // TODO: Spawn the Projectile
         let timer = Timer(timeInterval: _SpawnRate!, repeats: true) { Timer in
