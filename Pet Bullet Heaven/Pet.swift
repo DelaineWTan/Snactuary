@@ -85,4 +85,10 @@ public class Pet : SCNNode{
         // speed increases by level * speedGrowth
         self.speed = self.baseSpeed + Float(self.level - 1) * speedGrowth
     }
+    
+    // Activates the pet by enabling its ability
+    func activate() {
+        self.activeAbility = baseAbility.copy() as! Ability
+        _ = self.activeAbility.activate()
+    }
 }

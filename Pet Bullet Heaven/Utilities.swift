@@ -37,7 +37,7 @@ public class Utilities {
             petSlotNode.addChildNode(petNode)
             petNode.slotPosition = petSlotNode.position
             
-            _ = petNode.activeAbility.ActivateAbility()
+            petNode.activate()
             
             petNode.activeAbility.name = Globals.petAbilityNodeName[position]
             mainPlayerNode.addChildNode(petNode.activeAbility)
