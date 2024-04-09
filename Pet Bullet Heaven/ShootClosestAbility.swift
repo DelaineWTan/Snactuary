@@ -43,7 +43,7 @@ class ShootClosestAbility: Ability {
         Globals.mainScene.rootNode.addChildNode(newProjectile)
     }
     
-    override func ActivateAbility() -> Bool {
+    override func activate() -> Bool {
         
         // TODO: Create a timer for the Fire Rate
         let timer = Timer(timeInterval: Double(_FireRate!), repeats: true){ [self]
