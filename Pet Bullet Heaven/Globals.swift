@@ -27,7 +27,7 @@ public class Globals {
                attack: 2,
                attackPattern: ShootClosestAbility(
                 _InputRange: 170,
-                _InputFireRate: 3.75,
+                _InputFireRate: 100,
                 _InputProjectileSpeed: 22,
                 _InputProjectileDuration: 1.25,
                 _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 2)}),
@@ -178,7 +178,7 @@ public class Globals {
         (10,
          FoodData(
             name: "Donut",
-            type: "goblin",
+            type: "treasure",
             initialSpeed: 5,
             health: 10,
             physicsDimensions: SCNVector3(3, 3, 3),
@@ -198,7 +198,7 @@ public class Globals {
         (10,
          FoodData(
             name: "Donut",
-            type: "goblin",
+            type: "treasure",
             initialSpeed: 5,
             health: 10,
             physicsDimensions: SCNVector3(3, 3, 3),
@@ -218,7 +218,7 @@ public class Globals {
         (10,
          FoodData(
             name: "Donut",
-            type: "goblin",
+            type: "treasure",
             initialSpeed: 5,
             health: 10,
             physicsDimensions: SCNVector3(3, 3, 3),
@@ -226,6 +226,7 @@ public class Globals {
             assetName: "art.scnassets/Food Models/Donut.scn"))
     ]
     
+    public static var foodSCNModels: [String: SCNNode] = [:]
     
     
     public static var foodGroups = [stage1Foods, stage1Foods, stage1Foods]

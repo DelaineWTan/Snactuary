@@ -41,11 +41,11 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
         
         // load scene model
         // TODO: use .clone() to do object instancing
-        self.addChildNode(Utilities.loadSceneModelNode(name: foodData.assetName))
+        self.addChildNode((Globals.foodSCNModels[foodData.assetName]!.clone()))
 
         
         // handle all physics and rendering
-        initializePhysics()
+        initializeBody()
         
         initializeFoodMovement()
     }
@@ -54,7 +54,7 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initializePhysics() {
+    func initializeBody() {
         let foodPhysicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: SCNBox(width: CGFloat(foodData.physicsDimensions.x), height: CGFloat(foodData.physicsDimensions.x), length: CGFloat(foodData.physicsDimensions.x), chamferRadius: 0), options: nil)) // Create a dynamic physics body
         
         foodPhysicsBody.mass = 1.0 // Set the mass of the physics body

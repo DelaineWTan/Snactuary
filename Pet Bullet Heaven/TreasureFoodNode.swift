@@ -8,7 +8,7 @@
 import Foundation
 import SceneKit
 
-public class GoblinFoodNode: BaseFoodNode {
+public class TreasureFoodNode: BaseFoodNode {
     
     var timeElapsed: TimeInterval = 0.0
     let spawnInterval: TimeInterval = 1.0

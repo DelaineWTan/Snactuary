@@ -70,7 +70,7 @@
 		FB2128342BB9FE4100CE5066 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2128332BB9FE4100CE5066 /* Utilities.swift */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* BaseFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* BaseFoodNode.swift */; };
-		FBB2DC772BC348AD0096231F /* GoblinFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2DC762BC348AD0096231F /* GoblinFoodNode.swift */; };
+		FBB2DC772BC348AD0096231F /* TreasureFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */; };
 		FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */; };
 		FBC69D7D2B82E6DB0052C572 /* LifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */; };
 		FBD518312BB627A300E947E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD518302BB627A300E947E5 /* AppDelegate.swift */; };
@@ -171,7 +171,7 @@
 		FB2128332BB9FE4100CE5066 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* BaseFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFoodNode.swift; sourceTree = "<group>"; };
-		FBB2DC762BC348AD0096231F /* GoblinFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoblinFoodNode.swift; sourceTree = "<group>"; };
+		FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureFoodNode.swift; sourceTree = "<group>"; };
 		FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoBehaviour.swift; sourceTree = "<group>"; };
 		FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleManager.swift; sourceTree = "<group>"; };
 		FBD518302BB627A300E947E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -257,8 +257,9 @@
 				0D64093B2B71FBD00047847B /* Main.storyboard */,
 				0D64093E2B71FBD20047847B /* Assets.xcassets */,
 				0D6409402B71FBD20047847B /* LaunchScreen.storyboard */,
-				FB7328972B7D947500557AE6 /* BaseFoodNode.swift */,
 				FB6306C32B8017DD00E8096D /* FoodSpawner.swift */,
+				FB7328972B7D947500557AE6 /* BaseFoodNode.swift */,
+				FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */,
 				FBC69D7A2B82DEFB0052C572 /* MonoBehaviour.swift */,
 				FBC69D7C2B82E6DB0052C572 /* LifecycleManager.swift */,
 				4FAE637A2B7C21B3007ED6AA /* Ability.swift */,
@@ -271,7 +272,6 @@
 				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
 				0DA1A35B2BB27BAC0003544F /* FloatingDamageText.swift */,
 				04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */,
-				FBB2DC762BC348AD0096231F /* GoblinFoodNode.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -549,7 +549,7 @@
 				0D58FCC52BB783A500488D01 /* SpawnProjectileInRangeAbility.swift in Sources */,
 				FBD518312BB627A300E947E5 /* AppDelegate.swift in Sources */,
 				0D3AD8E42B96B56D00D4D69A /* SoundManager.swift in Sources */,
-				FBB2DC772BC348AD0096231F /* GoblinFoodNode.swift in Sources */,
+				FBB2DC772BC348AD0096231F /* TreasureFoodNode.swift in Sources */,
 				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */,
 				0D58FCC72BB784F100488D01 /* StationaryBomb.swift in Sources */,

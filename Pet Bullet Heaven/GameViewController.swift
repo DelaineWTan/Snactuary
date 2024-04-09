@@ -88,10 +88,24 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             Utilities.swapSceneNode(with: pet, position: petIndex)
         }
         
+        // Initialize food models
+        initializeFoodSCNModels()
+        
         // Initialize the food spawner and load stage health multiplier immediately
         _ = FoodSpawner(scene: Globals.mainScene)
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
     }
+    
+    
+    func initializeFoodSCNModels() {
+        for foodGroup in Globals.foodGroups {
+            for foodInformation in foodGroup {
+                let foodAssetName = foodInformation.1.assetName
+                Globals.foodSCNModels[foodAssetName] = Utilities.loadSceneModelNode(name: foodAssetName)
+            }
+        }
+    }
+    
     
     ///
     ///START OF PHYSICS STUFF (faiz)
