@@ -195,12 +195,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                 let pet = Globals.pets[Globals.activePets[petIndex]]!
                 
                 //add exp
-                pet.exp += 1
+                pet.exp += food.exp
                
                 //check if pet has enough exp to level up
                 if pet.levelUpCheck(){
                     pet.exp = 0
-                    pet.levelUpExp = Float(pet.petLevel * pet.petLevel) //exp needed to level up is current level^2
+                    pet.levelUpExp = pet.petLevel * pet.petLevel //exp needed to level up is current level^2
                     pet.petLevel += 1
                     
                     //scaling attack and speed values with level, tweak later

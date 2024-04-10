@@ -44,10 +44,10 @@ public class FoodNode : SCNNode, MonoBehaviour {
     init(spawnLocation: SCNVector3, foodData: FoodData) {
         let stageIteration = Utilities.getCurrentStageIteration()
         // calc food stats with base stats and their growths
-        self._Health = FoodNode.finalStatCalculation(stageCount: stageIteration, baseStat: foodData.health, growth: foodData.healthGrowth)
-        self.exp = FoodNode.finalStatCalculation(stageCount: stageIteration, baseStat: foodData.initialEXP, growth: foodData.EXPGrowth)
-        self.speed = FoodNode.finalStatCalculation(stageCount: stageIteration, baseStat: foodData.initialSpeed, growth: foodData.speedGrowth)
-        self.hungerValue = FoodNode.finalStatCalculation(stageCount: stageIteration, baseStat: foodData.hungerValue, growth: foodData.hungerGrowth)
+        self._Health = FoodNode.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.health, growth: foodData.healthGrowth)
+        self.exp = FoodNode.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.initialEXP, growth: foodData.EXPGrowth)
+        self.speed = FoodNode.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.initialSpeed, growth: foodData.speedGrowth)
+        self.hungerValue = FoodNode.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.hungerValue, growth: foodData.hungerGrowth)
         
         self.spawnLocation = spawnLocation
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
@@ -148,13 +148,13 @@ public class FoodNode : SCNNode, MonoBehaviour {
     }
     
     /// Calculates current stat based upon the stage count, base, and growth of a given stat.
-    private static func finalStatCalculation(stageCount: Int, baseStat: Int, growth: Float) -> Int {
-        let calc = (Float(baseStat) * Float(stageCount)) * growth
+    private static func finalStatCalculation(stageCycle: Int, baseStat: Int, growth: Float) -> Int {
+        let calc = (Float(baseStat) * Float(stageCycle)) * growth
         return Int(calc)
     }
     
     /// Calculates current stat based upon the stage count, base, and growth of a given stat.
-    private static func finalStatCalculation(stageCount: Int, baseStat: Float, growth: Float) -> Float {
-        return (baseStat * Float(stageCount)) * growth
+    private static func finalStatCalculation(stageCycle: Int, baseStat: Float, growth: Float) -> Float {
+        return (baseStat * Float(stageCycle)) * growth
     }
 }
