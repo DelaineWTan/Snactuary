@@ -16,6 +16,12 @@ struct FoodData {
     var physicsDimensions: SCNVector3
     var hungerValue: Int
     var assetName: String
+    var initialEXP: Int
+    
+    var EXPGrowth: Float
+    var healthGrowth: Float
+    var hungerGrowth: Float
+    var speedGrowth: Float
 }
 ///
 /// Rudimentary Food Class
@@ -23,26 +29,27 @@ struct FoodData {
 public class FoodNode : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
-    
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
-    
-    var _Health : Int = Globals.defaultFoodHealth
-    
     var spawnLocation : SCNVector3
-    var speed : Float
     
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
-    var hungerValue: Int = Globals.defaultFoodHungerValue
-    
     let foodCategory: Int = 0b010
     
+    var _Health : Int = Globals.defaultFoodHealth
+    var hungerValue: Int = Globals.defaultFoodHungerValue
+    var exp: Int = 1
+    var speed : Float
+    
     init(spawnLocation: SCNVector3, foodData: FoodData) {
+        let stageIteration = Utilities.getCurrentStageIteration()
+        // calc food stats with base stats and their growths
+        self._Health = FoodNode.finalStatCalculation(stageCount: stageIteration, baseStat: foodData.health, growth: foodData.healthGrowth)
+        self.exp = FoodNode.finalStatCalculation(stageCount: stageIteration, baseStat: foodData.initialEXP, growth: foodData.EXPGrowth)
+        self.speed = FoodNode.finalStatCalculation(stageCount: stageIteration, baseStat: foodData.initialSpeed, growth: foodData.speedGrowth)
+        self.hungerValue = FoodNode.finalStatCalculation(stageCount: stageIteration, baseStat: foodData.hungerValue, growth: foodData.hungerGrowth)
         
         self.spawnLocation = spawnLocation
-        self.speed = foodData.initialSpeed
-        self.hungerValue = foodData.hungerValue
-        self._Health = foodData.health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         super.init()
         self.position = spawnLocation
@@ -138,5 +145,16 @@ public class FoodNode : SCNNode, MonoBehaviour {
             self.position.x += translationVector.x
             self.position.z += translationVector.z
         }
+    }
+    
+    /// Calculates current stat based upon the stage count, base, and growth of a given stat.
+    private static func finalStatCalculation(stageCount: Int, baseStat: Int, growth: Float) -> Int {
+        let calc = (Float(baseStat) * Float(stageCount)) * growth
+        return Int(calc)
+    }
+    
+    /// Calculates current stat based upon the stage count, base, and growth of a given stat.
+    private static func finalStatCalculation(stageCount: Int, baseStat: Float, growth: Float) -> Float {
+        return (baseStat * Float(stageCount)) * growth
     }
 }

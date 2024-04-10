@@ -121,6 +121,13 @@ public class Utilities {
         
         return sqrt(dx*dx + dy*dy + dz*dz)
     }
+    
+    // Fetches the current cycle of stages currently. E.g.: With 3 total stages, a cycle is 3. if stage count is 8, we are on the 2nd cycle of the stages.
+    static func getCurrentStageIteration() -> Int {
+        let stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+        let iteration = (stageCount + Globals.numStagePresets - 1) / Globals.numStagePresets // rounds up
+        return iteration
+    }
 }
 
 extension Comparable {

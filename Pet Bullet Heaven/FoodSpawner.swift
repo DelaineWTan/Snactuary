@@ -25,10 +25,15 @@ class FoodSpawner: MonoBehaviour {
             FoodData(
                 name: "Carrot",
                 initialSpeed: 0.5,
-                health: 5,
+                health: 3,
                 physicsDimensions: SCNVector3(1.5, 3, 1.5),
                 hungerValue: 2,
-                assetName: "art.scnassets/Food Models/CarrotV2.scn"),
+                assetName: "art.scnassets/Food Models/CarrotV2.scn",
+                initialEXP: 1,
+                EXPGrowth: 1.0,
+                healthGrowth: 1.0,
+                hungerGrowth: 1.0,
+                speedGrowth: 1.0),
             
             FoodData(
                 name: "Banana",
@@ -36,7 +41,12 @@ class FoodSpawner: MonoBehaviour {
                 health: 3,
                 physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
                 hungerValue: 4,
-                assetName: "art.scnassets/Banana.scn"),
+                assetName: "art.scnassets/Banana.scn",
+                initialEXP: 1,
+                EXPGrowth: 1.0,
+                healthGrowth: 1.0,
+                hungerGrowth: 1.0,
+                speedGrowth: 1.0),
             
             FoodData(
                 name: "Donut",
@@ -44,7 +54,12 @@ class FoodSpawner: MonoBehaviour {
                 health: 10,
                 physicsDimensions: SCNVector3(3, 3, 3),
                 hungerValue: 8,
-                assetName: "art.scnassets/Food Models/Donut.scn")
+                assetName: "art.scnassets/Food Models/Donut.scn",
+                initialEXP: 1,
+                EXPGrowth: 1.0,
+                healthGrowth: 1.0,
+                hungerGrowth: 1.0,
+                speedGrowth: 1.0)
         ]
         self.mainScene = scene
         self.uniqueID = UUID()
