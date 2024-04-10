@@ -45,8 +45,8 @@ public class Globals {
                 _InputAbilityDamage: 3,
                 _InputAbilityDuration: 10,
                 _InputRotationSpeed: 7,
-                _InputDistanceFromCenter: 15,
-                _InputNumProjectiles: 10,
+                _InputDistanceFromCenter: 0,
+                _InputNumProjectiles: 1,
                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2)}),
                currentExp: 0,
                level: 1
@@ -60,8 +60,8 @@ public class Globals {
                 _InputAbilityDamage: 1,
                 _InputAbilityDuration: 10,
                 _InputRotationSpeed: 19,
-                _InputDistanceFromCenter: 6,
-                _InputNumProjectiles: 3,
+                _InputDistanceFromCenter: 0,
+                _InputNumProjectiles: 1,
                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
               ),
         
@@ -69,6 +69,7 @@ public class Globals {
                petId: 3,
                petImageName: "duck2.png",
                petModelName: "art.scnassets/Duck.Dolan.scn",
+               baseAttack: 100,
                currentExp: 0,
                level: 1
               ),
@@ -167,7 +168,7 @@ public class Globals {
     ]
     
     public static var stage1Foods: [(Int, FoodData)] = [
-        (10,
+        (1,
          FoodData(
             name: "StationaryMushroom",
             type: "base",
@@ -176,7 +177,7 @@ public class Globals {
             physicsDimensions: SCNVector3(1.5, 3, 1.5),
             hungerValue: 2,
             assetName: "art.scnassets/Food Models/CarrotV2.scn")),
-        (20,
+        (0,
          FoodData(
             name: "DirectionalCarrot",
             type: "directional",
@@ -185,7 +186,7 @@ public class Globals {
             physicsDimensions: SCNVector3(1.5, 3, 1.5),
             hungerValue: 2,
             assetName: "art.scnassets/Food Models/CarrotV2.scn")),
-        (30,
+        (0,
          FoodData(
             name: "FleeingCarrot",
             type: "flee",
@@ -194,7 +195,7 @@ public class Globals {
             physicsDimensions: SCNVector3(1.5, 3, 1.5),
             hungerValue: 2,
             assetName: "art.scnassets/Food Models/CarrotV2.scn")),
-        (30,
+        (0,
          FoodData(
             name: "RoamingCarrot",
             type: "roam",
@@ -203,7 +204,7 @@ public class Globals {
             physicsDimensions: SCNVector3(1.5, 3, 1.5),
             hungerValue: 2,
             assetName: "art.scnassets/Food Models/CarrotV2.scn")),
-        (5,
+        (10,
          FoodData(
             name: "Muffin",
             type: "treasure",

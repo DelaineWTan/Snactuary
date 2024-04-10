@@ -27,6 +27,7 @@ class FoodSpawner: MonoBehaviour {
     
     func simpleSpawn() {
         
+        var spawnMultiplier: Float = 1
         
         var food: BaseFoodNode? = nil
         let foodData = selectFoodDataUsingWeights()
@@ -41,6 +42,7 @@ class FoodSpawner: MonoBehaviour {
             food = RoamingFoodNode(foodData: foodData)
         case "treasure":
             food = TreasureFoodNode(foodData: foodData)
+            spawnMultiplier = 3
         default:
             // Maybe have an error model like in GMod XD
             food = BaseFoodNode(foodData: FoodData(
@@ -53,8 +55,7 @@ class FoodSpawner: MonoBehaviour {
                 assetName: "art.scnassets/Food Models/CarrotV2.scn"))
         }
         
-        
-        food!.position = findRandomPosition()
+        food!.position = findRandomPosition(spawnMultiplier: spawnMultiplier)
 
         
         food!.onDestroy = {
@@ -118,10 +119,10 @@ class FoodSpawner: MonoBehaviour {
     // If I is chosen, set it to the negative spawn distance from the center; if J is chosen, set it to the spawn distance from the center.
     // The other coordinate (either Z if I is chosen, or X if J is chosen) is set to a random number between A and B.
     // A is the negative spawn distance from the center, and B is the spawn distance from the center.
-    func findRandomPosition() -> SCNVector3 {
-        let randomFromAtoB = Float(Int.random(in: -centerDist...centerDist))
+    func findRandomPosition(spawnMultiplier: Float) -> SCNVector3 {
+        let randomFromAtoB = Float(Int.random(in: -centerDist...centerDist)) * spawnMultiplier
         
-        let randomIorJ = Float(Bool.random() ? -centerDist : centerDist)
+        let randomIorJ = Float(Bool.random() ? -centerDist : centerDist) * spawnMultiplier
         
         let randomPosition = Bool.random() ? SCNVector3(x: randomIorJ, y: 0, z: randomFromAtoB) : SCNVector3(x: randomFromAtoB, y: 0, z: randomIorJ)
         return randomPosition

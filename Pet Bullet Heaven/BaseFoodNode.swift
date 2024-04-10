@@ -74,19 +74,7 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     func Update() {
         moveWithWorld()
         doBehaviour()
-        
-        // Check if the object's distance from the center is greater than 100 meters
-        let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
-        if distanceFromCenter > 200 {
-            // If the object is more than 100 meters away from the center, destroy it
-            self.onDestroy(after: 0)
-        }
-    }
-    
-    
-    /// Moves the food away from the player, mindless behaviour -Jun
-    func doBehaviour() {
-        // no behaviour
+        despawnBehaviour()
     }
     
     func moveWithWorld() {
@@ -96,6 +84,20 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
             
             self.position.x += translationVector.x
             self.position.z += translationVector.z
+        }
+    }
+    
+    /// Moves the food away from the player, mindless behaviour -Jun
+    func doBehaviour() {
+        // no behaviour
+    }
+    
+    func despawnBehaviour() {
+        // Check if the object's distance from the center is greater than 100 meters
+        let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
+        if distanceFromCenter > 200 {
+            // If the object is more than 100 meters away from the center, destroy it
+            self.onDestroy(after: 0)
         }
     }
 }
