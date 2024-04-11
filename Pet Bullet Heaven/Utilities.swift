@@ -128,6 +128,17 @@ public class Utilities {
         let iteration = (stageCount + Globals.numStagePresets - 1) / Globals.numStagePresets // rounds up
         return iteration
     }
+    
+    /// Calculates current stat based upon the stage count, base, and growth of a given stat. Always rounds down.
+    public static func finalStatCalculation(stageCycle: Int, baseStat: Int, growth: Float) -> Int {
+        let calc = (Float(baseStat) * Float(stageCycle)) * growth
+        return Int(calc)
+    }
+    
+    /// Calculates current stat based upon the stage count, base, and growth of a given stat. Always rounds down.
+    public static func finalStatCalculation(stageCycle: Int, baseStat: Float, growth: Float) -> Float {
+        return (baseStat * Float(stageCycle)) * growth
+    }
 }
 
 extension Comparable {

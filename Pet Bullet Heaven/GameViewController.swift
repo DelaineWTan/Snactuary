@@ -175,12 +175,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: projectile._Damage)
         }
         else if let petNode = attackingNode as? Pet {
-            food._Health -= Int(petNode.baseAttack)
+            food._Health -= Int(petNode.attack)
             
             // Show floating damage text
             let floatingText = FloatingDamageText()
             scnView.addSubview(floatingText)
-            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.baseAttack))
+            floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.attack))
         }
 
         // if food killed
@@ -189,6 +189,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
             SoundManager.Instance.refreshEatingSFX()
+            let stageCycle = Utilities.getCurrentStageIteration()
             
             //increase exp for all active pets
             for petIndex in 0...Globals.activePets.count - 1 {
@@ -199,21 +200,28 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                
                 //check if pet has enough exp to level up
                 if pet.levelUpCheck(){
-                    pet.exp = 0
-                    pet.levelUpExp = pet.petLevel * pet.petLevel //exp needed to level up is current level^2
+                    // assign exp over level up threshold to next level's exp
+                    let overflowExp = pet.exp - pet.levelUpExp
+                    pet.exp = overflowExp
+                    
+                    // Calculate new exp level up threshold
+                    pet.levelUpExp = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.levelUpExp, growth: pet.expGrowth) // change this if we want exponential growth back
                     pet.petLevel += 1
+                    print("exp to level: \(pet.levelUpExp)")
                     
-                    //scaling attack and speed values with level, tweak later
-                    pet.baseAttack = Float(pet.petLevel)
-                    pet.speed += Float(pet.petLevel)/10
+                    // scaling attack and speed values with pet growths
+                    pet.attack = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.attack, growth: pet.attackGrowth)
+                    pet.speed += Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.speed, growth: pet.speedGrowth) / 10
+                    print("pet attack: \(pet.attack)")
+                    print("pet speed: \(pet.speed)\n")
                     
-                    pet.attackPattern.damage = Int(pet.baseAttack)
+                    pet.attackPattern.damage = pet.attack
     
                     let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
                     let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
                     
                     let updatedAbility = oldAbilityNode as! Ability
-                    updatedAbility.setDamage(Int(pet.baseAttack))
+                    updatedAbility.setDamage(pet.attack)
                 }
             }
         }

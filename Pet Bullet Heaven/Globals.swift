@@ -19,6 +19,8 @@ public class Globals {
     public static var deltaTime: TimeInterval = 0
     public static var timeScale: Double = 1
     
+    // TODO: Put growths for pet atk, spd, and exp.
+    // TODO: Give values for pets without them (try designing pet values in the spreedsheet before)
     public static var pets: [Int: Pet] = [
         0: Pet(petName: "Vin",
                petId: 0,
@@ -149,14 +151,14 @@ public class Globals {
                 _InputNumProjectiles: 1,
                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}),
                unlockedInput: false, currentExp: 0,
-               level: 1 // Assuming from context
+               level: 1
               ),
         
         10: Pet(petName:"Doig",
                 petId: 10,
                 petImageName: "dog1.png",
                 unlockedInput: false, currentExp: 0,
-                level: 1 // Assuming from context
+                level: 1
                )
     ]
     

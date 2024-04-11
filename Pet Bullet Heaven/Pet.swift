@@ -12,7 +12,7 @@ public class Pet : SCNNode{
     var imageName: String
     var modelName: String // name of the .scn file of the 3D model for the pet
     var attackPattern: Ability
-    var baseAttack: Float = 1
+    var attack: Int = 1
     var speed: Float = 1
     var exp: Int
     //exp needed to level up
@@ -23,16 +23,23 @@ public class Pet : SCNNode{
     
     // might need more properties yea, add more if you see fit DO NOT CHANGE THE EXISTING ONES and update the constructor and Globals define pets as well thx :DDDDDD
     
-    init(petName: String, petId: Int, petImageName: String = "art.scnassets/locked.png", petModelName: String = "art.scnassets/Paw 4.scn", attack: Float = 1, attackPattern: Ability = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}), unlockedInput: Bool = true, currentExp: Int = 0, level: Int = 1) {
+    var attackGrowth: Float
+    var speedGrowth: Float
+    var expGrowth: Float // for control over gradually raising exp cap for levels
+    
+    init(petName: String, petId: Int, petImageName: String = "art.scnassets/locked.png", petModelName: String = "art.scnassets/Paw 4.scn", attack: Int = 1, attackGrowth: Float = 2.0, speedGrowth: Float = 2.0, expGrowth: Float = 2.0, attackPattern: Ability = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}), unlockedInput: Bool = true, currentExp: Int = 0, level: Int = 1) {
         id = petId
         imageName = petImageName
         modelName = petModelName
         exp = currentExp
-        levelUpExp = 1
+        levelUpExp = 5
         petLevel = level
-        baseAttack = attack
+        self.attack = attack
         self.attackPattern = attackPattern
         self.unlocked = unlockedInput
+        self.attackGrowth = attackGrowth
+        self.speedGrowth = speedGrowth
+        self.expGrowth = expGrowth
         
         super.init()
         name = petName
