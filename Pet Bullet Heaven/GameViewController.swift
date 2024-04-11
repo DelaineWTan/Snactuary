@@ -207,13 +207,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     // Calculate new exp level up threshold
                     pet.levelUpExp = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.levelUpExp, growth: pet.expGrowth) // change this if we want exponential growth back
                     pet.petLevel += 1
-                    print("exp to level: \(pet.levelUpExp)")
                     
                     // scaling attack and speed values with pet growths
                     pet.attack = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.attack, growth: pet.attackGrowth)
                     pet.speed += Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.speed, growth: pet.speedGrowth) / 10
-                    print("pet attack: \(pet.attack)")
-                    print("pet speed: \(pet.speed)\n")
                     
                     pet.attackPattern.damage = pet.attack
     

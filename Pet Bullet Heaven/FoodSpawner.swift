@@ -20,6 +20,7 @@ class FoodSpawner: MonoBehaviour {
     let centerDist: Int = 55 // 55 seems to be a good distance away from player
     let foodArray: [FoodData]
     
+    // TODO: Final food balancing sometime
     init(scene: SCNScene) {
         foodArray = [
             FoodData(
