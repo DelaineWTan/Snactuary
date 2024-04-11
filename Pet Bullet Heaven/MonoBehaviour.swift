@@ -24,6 +24,7 @@ extension MonoBehaviour where Self: SCNNode {
             if let self = self {
                 LifecycleManager.Instance.deleteGameObject(gameObject: self)
                 self.removeFromParentNode()
+                self.childNodes.forEach { $0.removeFromParentNode()}
             }
         }
     }

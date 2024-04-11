@@ -88,10 +88,24 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             Utilities.swapSceneNode(with: pet, position: petIndex)
         }
         
+        // Initialize food models
+        initializeFoodSCNModels()
+        
         // Initialize the food spawner and load stage health multiplier immediately
         _ = FoodSpawner(scene: Globals.mainScene)
         UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
     }
+    
+    
+    func initializeFoodSCNModels() {
+        for foodGroup in Globals.foodGroups {
+            for foodInformation in foodGroup {
+                let foodAssetName = foodInformation.1.assetName
+                Globals.foodSCNModels[foodAssetName] = Utilities.loadSceneModelNode(name: foodAssetName)
+            }
+        }
+    }
+    
     
     ///
     ///START OF PHYSICS STUFF (faiz)
@@ -126,11 +140,11 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
     
     //check which node is the food node and return it
-    func checkFoodCollision() -> FoodNode? {
+    func checkFoodCollision() -> BaseFoodNode? {
         if (nodeA?.physicsBody?.categoryBitMask == playerCategory && nodeB?.physicsBody?.categoryBitMask == foodCategory) {         //print("Other node \(nodeA?.name)")
-            return nodeB as? FoodNode
+            return nodeB as? BaseFoodNode
         } else if (nodeA?.physicsBody?.categoryBitMask == foodCategory && nodeB?.physicsBody?.categoryBitMask == playerCategory) {
-            return nodeA as? FoodNode
+            return nodeA as? BaseFoodNode
         }
         return nil
     }
@@ -146,7 +160,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
     
     //check if the collided food is currently on cooldown
-    func isFoodOnCooldown(_ food: FoodNode) -> Bool {
+    func isFoodOnCooldown(_ food: BaseFoodNode) -> Bool {
         if let lastHitTime = foodCooldowns[food.uniqueID] {
             return Date().timeIntervalSince1970 - lastHitTime < foodHitCooldown
         }
@@ -154,12 +168,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     }
     
     //start the cool down for colliding food
-    func startCooldown(for food: FoodNode) {
+    func startCooldown(for food: BaseFoodNode) {
         foodCooldowns[food.uniqueID] = Date().timeIntervalSince1970
     }
 
     //use the ability to deal damage to the colliding food item
-    func applyDamageToFood(_ food: FoodNode) {
+    func applyDamageToFood(_ food: BaseFoodNode) {
         // Convert food node's position to screen coordinates
         let scnView = self.view as! SCNView
         let foodPosition = scnView.projectPoint(food.presentation.position)
