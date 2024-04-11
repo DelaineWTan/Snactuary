@@ -11,6 +11,7 @@ import SceneKit
 class GameUIView: UIView, PetSelectionDelegate {
     let mainMenuUIView = MainMenuUIView()
     let petSelectionUIView = PetSelectionUIView()
+    let statsUIView = StatsUIView()
     let pauseMenuUIView = PauseMenuUIView()
     let inGameUIView = InGameUIView()
     weak var delegate: SceneProvider?
@@ -36,6 +37,8 @@ class GameUIView: UIView, PetSelectionDelegate {
         petSelectionUIView.isHidden = true
         addSubview(pauseMenuUIView)
         pauseMenuUIView.isHidden = true
+        addSubview(statsUIView)
+        statsUIView.isHidden = true
         addSubview(inGameUIView)
         inGameUIView.isHidden = true
         
@@ -70,6 +73,16 @@ class GameUIView: UIView, PetSelectionDelegate {
         ])
         setupPetSelectionMenuHandlers()
         
+        // Layout constraints for stats view
+        statsUIView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            statsUIView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            statsUIView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            statsUIView.widthAnchor.constraint(equalTo: widthAnchor),
+            statsUIView.heightAnchor.constraint(equalTo: heightAnchor)
+        ])
+        setupStatsMenuHandlers()
+        
         // Layout constraints for in game view
         inGameUIView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -98,6 +111,13 @@ class GameUIView: UIView, PetSelectionDelegate {
             self?.petSelectionUIView.setupTopCenterLabel()
         }
         
+        mainMenuUIView.statsButtonTappedHandler = { [weak self] in
+            // Hide main menu and show stat menu
+            self?.mainMenuUIView.isHidden = true
+            self?.statsUIView.isHidden = false
+            self?.statsUIView.updateStatistics()
+        }
+        
         mainMenuUIView.exitButtonTappedHandler = {
             exit(0)
         }
@@ -108,6 +128,14 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide pet selection menu and show main menu
             self?.mainMenuUIView.isHidden = false
             self?.petSelectionUIView.isHidden = true
+        }
+    }
+    
+    private func setupStatsMenuHandlers() {
+        statsUIView.mainMenuButtonTappedHandler = { [weak self] in
+            // Hide stats menu and show main menu
+            self?.mainMenuUIView.isHidden = false
+            self?.statsUIView.isHidden = true
         }
     }
     
