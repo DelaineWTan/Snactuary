@@ -46,8 +46,6 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
         
         // handle all physics and rendering
         initializeBody()
-        
-        initializeFoodMovement()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -76,7 +74,25 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     func Update() {
         moveWithWorld()
         doBehaviour()
-        
+        despawnBehaviour()
+    }
+    
+    func moveWithWorld() {
+        // Move food relative to the player
+        if Globals.playerIsMoving {
+            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
+            
+            self.position.x += translationVector.x
+            self.position.z += translationVector.z
+        }
+    }
+    
+    /// Moves the food away from the player, mindless behaviour -Jun
+    func doBehaviour() {
+        // no behaviour
+    }
+    
+    func despawnBehaviour() {
         // Check if the object's distance from the center is greater than 100 meters
         let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
         if distanceFromCenter > 200 {
@@ -84,11 +100,23 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
             self.onDestroy(after: 0)
         }
     }
-    
+}
+
+
+public class DirectionalFood: BaseFoodNode {
     
     let rangeLimit = 1
     var modifierX : Float = 0.0
     var modifierZ : Float = 0.0
+    
+    override func Start() {
+        initializeFoodMovement()
+    }
+    
+    override func Update() {
+        super.Update()
+        
+    }
     func initializeFoodMovement() {
         
         if self.position.x > 0 {
@@ -111,29 +139,58 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
         }
     }
     
-    /// Moves the food away from the player, mindless behaviour -Jun
-    func doBehaviour() {
-//        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
-//        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
-    }
-    
-    func moveWithWorld() {
-        // Move food relative to the player
-        if Globals.playerIsMoving {
-            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
-            
-            self.position.x += translationVector.x
-            self.position.z += translationVector.z
-        }
-    }
-}
-
-
-public class MindlessFoodNode: BaseFoodNode {
-    
-    /// Moves the food away from the player, mindless behaviour -Jun
+    /// Moves the food away from the player in one direction
     override func doBehaviour() {
         self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
         self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
     }
 }
+
+public class FleeingFoodNode: BaseFoodNode {
+    override func doBehaviour() {
+        let directionToCenter = SCNVector3(0, 0, 0) - self.position
+            
+            // Normalize the direction vector to ensure consistent movement speed
+            let normalizedDirection = directionToCenter.normalized()
+            
+            // Adjust the position based on the direction vector
+            self.position.x -= normalizedDirection.x * Float(Globals.deltaTime) * self.speed
+            self.position.z -= normalizedDirection.z * Float(Globals.deltaTime) * self.speed
+    }
+}
+
+public class RoamingFoodNode: BaseFoodNode {
+    
+    let rangeLimit: Float = 1
+    var modifierX: Float = 0.0
+    var modifierZ: Float = 0.0
+    var roamInterval: TimeInterval = 5.0 // Interval for changing roam direction
+    var timeSinceLastRoam: TimeInterval = 0.0
+    
+    override func Start() {
+        super.Start()
+        initializeFoodMovement()
+    }
+    
+    override func Update() {
+        super.Update()
+        
+        timeSinceLastRoam += Globals.deltaTime
+        if timeSinceLastRoam >= roamInterval {
+            timeSinceLastRoam = 0.0
+            initializeFoodMovement()
+        }
+    }
+    
+    func initializeFoodMovement() {
+        modifierX = Float.random(in: -rangeLimit...rangeLimit)
+        modifierZ = Float.random(in: -rangeLimit...rangeLimit)
+    }
+    
+    /// Moves the food in a random direction
+    override func doBehaviour() {
+        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
+        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
+    }
+}
+
