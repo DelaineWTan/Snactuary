@@ -143,6 +143,7 @@ public class Globals {
         9: Pet(petName:"Bear",
                petId: 9,
                petImageName: "bear1.png",
+               petModelName: "art.scnassets/bear.1.scn",
                attackPattern: OrbitingProjectileAbility(
                 _InputAbilityDamage: 4,
                 _InputAbilityDuration: 10,
@@ -150,7 +151,7 @@ public class Globals {
                 _InputDistanceFromCenter: 5,
                 _InputNumProjectiles: 1,
                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}),
-               unlockedInput: false, currentExp: 0,
+               currentExp: 0,
                level: 1 // Assuming from context
               ),
         
@@ -159,7 +160,22 @@ public class Globals {
                 petImageName: "dog1.png",
                 unlockedInput: false, currentExp: 0,
                 level: 1 // Assuming from context
-               )
+               ),
+        
+        11: Pet(petName:"Gummy Bear",
+                petId: 11,
+                petImageName: "bear-gummy.png",
+                petModelName: "art.scnassets/bear.g.scn",
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
+        12: Pet(petName:"Polar Bear",
+                petId: 12,
+                petImageName: "bear-polar.png",
+                petModelName: "art.scnassets/bear.p.scn",
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
     ]
     
     public static var activePets: [Int] = [
