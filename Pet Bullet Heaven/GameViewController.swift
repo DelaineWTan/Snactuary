@@ -183,6 +183,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             // Handle collision with a projectile node
             food._Health -= projectile._Damage
             
+            //increment stats
+            Globals.damageDone += projectile._Damage
+            
             // Show floating damage text
             let floatingText = FloatingText()
             scnView.addSubview(floatingText)
@@ -190,6 +193,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         else if let petNode = attackingNode as? Pet {
             food._Health -= Int(petNode.attack)
+            Globals.damageDone += petNode.attack
             
             // Show floating damage text
             let floatingText = FloatingText()
@@ -205,6 +209,10 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             SoundManager.Instance.refreshEatingSFX()
             let stageCycle = Utilities.getCurrentStageIteration()
             
+            //Increment stats
+            Globals.snacksEaten += 1
+            Globals.totalScore += food.hungerValue
+
             //increase exp for all active pets
             for petIndex in 0...Globals.activePets.count - 1 {
                 let pet = Globals.pets[Globals.activePets[petIndex]]!
