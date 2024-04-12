@@ -21,46 +21,7 @@ class FoodSpawner: MonoBehaviour {
     
     // TODO: Final food balancing sometime
     init(scene: SCNScene) {
-        foodArray = [
-            FoodData(
-                name: "Carrot",
-                initialSpeed: 0.5,
-                health: 3,
-                physicsDimensions: SCNVector3(1.5, 3, 1.5),
-                hungerValue: 2,
-                assetName: "art.scnassets/Food Models/CarrotV2.scn",
-                initialEXP: 1,
-                EXPGrowth: 1.0,
-                healthGrowth: 1.0,
-                hungerGrowth: 1.0,
-                speedGrowth: 1.0),
-            
-            FoodData(
-                name: "Banana",
-                initialSpeed: 3,
-                health: 3,
-                physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
-                hungerValue: 4,
-                assetName: "art.scnassets/Banana.scn",
-                initialEXP: 1,
-                EXPGrowth: 1.0,
-                healthGrowth: 1.0,
-                hungerGrowth: 1.0,
-                speedGrowth: 1.0),
-            
-            FoodData(
-                name: "Donut",
-                initialSpeed: 2,
-                health: 10,
-                physicsDimensions: SCNVector3(3, 3, 3),
-                hungerValue: 8,
-                assetName: "art.scnassets/Food Models/Donut.scn",
-                initialEXP: 1,
-                EXPGrowth: 1.0,
-                healthGrowth: 1.0,
-                hungerGrowth: 1.0,
-                speedGrowth: 1.0)
-        ]
+
         self.mainScene = scene
         self.uniqueID = UUID()
         LifecycleManager.Instance.addGameObject(self)
@@ -93,7 +54,12 @@ class FoodSpawner: MonoBehaviour {
                 health: 5,
                 physicsDimensions: SCNVector3(1.5, 3, 1.5),
                 hungerValue: 2,
-                assetName: "art.scnassets/Food Models/CarrotV2.scn"))
+                assetName: "art.scnassets/Food Models/CarrotV2.scn",
+                initialEXP: 1,
+                EXPGrowth: 1.0,
+                healthGrowth: 1.0,
+                hungerGrowth: 1.0,
+                speedGrowth: 1.0))
         }
         
         food!.position = findRandomPosition(spawnMultiplier: spawnMultiplier)
@@ -135,7 +101,12 @@ class FoodSpawner: MonoBehaviour {
             health: 5,
             physicsDimensions: SCNVector3(1.5, 3, 1.5),
             hungerValue: 2,
-            assetName: "art.scnassets/Food Models/CarrotV2.scn")
+            assetName: "art.scnassets/Food Models/CarrotV2.scn",
+            initialEXP: 1,
+            EXPGrowth: 1.0,
+            healthGrowth: 1.0,
+            hungerGrowth: 1.0,
+            speedGrowth: 1.0)
     }
     
     func Start() {

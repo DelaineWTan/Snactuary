@@ -9,20 +9,20 @@ import Foundation
 import SceneKit
 
 
-struct FoodData {
-    var name: String
-    var initialSpeed: Float
-    var health: Int
-    var physicsDimensions: SCNVector3
-    var hungerValue: Int
-    var assetName: String
-    var initialEXP: Int
-    
-    var EXPGrowth: Float
-    var healthGrowth: Float
-    var hungerGrowth: Float
-    var speedGrowth: Float
-}
+//struct FoodData {
+//    var name: String
+//    var initialSpeed: Float
+//    var health: Int
+//    var physicsDimensions: SCNVector3
+//    var hungerValue: Int
+//    var assetName: String
+//    var initialEXP: Int
+//    
+//    var EXPGrowth: Float
+//    var healthGrowth: Float
+//    var hungerGrowth: Float
+//    var speedGrowth: Float
+//}
 ///
 /// Rudimentary Food Class
 ///
@@ -31,7 +31,6 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
-    var spawnLocation : SCNVector3
     
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
@@ -42,15 +41,15 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     var exp: Int = 1
     var speed : Float
     
-    init(spawnLocation: SCNVector3, foodData: FoodData) {
+    var foodData: FoodData
+    
+    init(foodData: FoodData) {
         let stageIteration = Utilities.getCurrentStageIteration()
         // calc food stats with base stats and their growths
         self._Health = Utilities.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.health, growth: foodData.healthGrowth)
         self.exp = Utilities.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.initialEXP, growth: foodData.EXPGrowth)
         self.speed = Utilities.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.initialSpeed, growth: foodData.speedGrowth)
         self.hungerValue = Utilities.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.hungerValue, growth: foodData.hungerGrowth)
-        
-        self.spawnLocation = spawnLocation
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         self.foodData = foodData
         super.init()

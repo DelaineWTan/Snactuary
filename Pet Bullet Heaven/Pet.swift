@@ -21,9 +21,6 @@ public class Pet : SCNNode{
     var unlocked: Bool
     // stats affected by level ups
     var activeAbility: Ability
-    var attack: Float = 1
-    var speed: Float = 1
-    var exp: Float = 0
     // slot position in scene
     var slotPosition = SCNVector3(0,0,0)
     
@@ -46,10 +43,10 @@ public class Pet : SCNNode{
         self.attackGrowth = attackGrowth
         self.speedGrowth = speedGrowth
         self.expGrowth = expGrowth
-        
+        self.activeAbility = attackPattern.copy() as! Ability
         super.init()
         // Level the pet up, update stats accordingly and set current exp
-        self.levelUp(self.level)
+        self.levelUp(self.petLevel)
         self.exp = currentExp
         name = petName
         // Create a physics body
@@ -75,21 +72,34 @@ public class Pet : SCNNode{
     
     // Levels up the pet and updates its stats to the given level
     func levelUp(_ level: Int) {
-        self.level = level
-        // no carryover exp for now for simplicity
-        self.exp = 0
-        // exp needed to level up is base exp * level
-        self.levelUpExp = Float(self.baseExp * Float(self.level))
-        // attack increases by level * attackGrowth
-        self.attack = self.baseAttack + Float(self.level - 1) * attackGrowth
-        self.activeAbility.setDamage(Int(self.attack))
-        // speed increases by level * speedGrowth
-        self.speed = self.baseSpeed + Float(self.level - 1) * speedGrowth
+        let stageCycle = Utilities.getCurrentStageIteration()
+        
+        // TODO: Delaine and Lukasz Make sure review level up code
+//        self.petLevel = level
+//        // no carryover exp for now for simplicity
+//        self.exp = 0
+//        // exp needed to level up is base exp * level
+//        self.levelUpExp = self.exp * self.petLevel
+//        // attack increases by level * attackGrowth
+//        self.attack = self.attack + self.petLevel - 1 * Int(attackGrowth)
+//        self.activeAbility.setDamage(Int(self.attack))
+//        // speed increases by level * speedGrowth
+//        
+//        self.speed = self.speed + Float(self.petLevel - 1) * speedGrowth
+//        // Calculate new exp level up threshold
+        self.levelUpExp = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: self.levelUpExp, growth: self.expGrowth) // change this if we want exponential growth back
+        self.petLevel += 1
+        
+        // scaling attack and speed values with pet growths
+        self.attack = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: self.attack, growth: self.attackGrowth)
+        self.speed += Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: self.speed, growth: self.speedGrowth) / 10
+        
+        self.attackPattern.damage = self.attack
     }
     
     // Activates the pet by enabling its ability
     func activate() {
-        self.activeAbility = baseAbility.copy() as! Ability
+        self.activeAbility = attackPattern.copy() as! Ability
         _ = self.activeAbility.activate()
     }
 }

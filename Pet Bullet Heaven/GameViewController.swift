@@ -213,20 +213,22 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                 pet.exp += food.exp
                
                 //check if pet has enough exp to level up
-                if pet.levelUpCheck(){
+                if pet.hasLeveledUp(){
                     // assign exp over level up threshold to next level's exp
+                    pet.levelUp(pet.petLevel+1)
                     let overflowExp = pet.exp - pet.levelUpExp
                     pet.exp = overflowExp
                     
-                    // Calculate new exp level up threshold
-                    pet.levelUpExp = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.levelUpExp, growth: pet.expGrowth) // change this if we want exponential growth back
-                    pet.petLevel += 1
-                    
-                    // scaling attack and speed values with pet growths
-                    pet.attack = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.attack, growth: pet.attackGrowth)
-                    pet.speed += Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.speed, growth: pet.speedGrowth) / 10
-                    
-                    pet.attackPattern.damage = pet.attack
+                    // TODO: Delaine and Lukasz Make sure review level up code
+//                    // Calculate new exp level up threshold
+//                    pet.levelUpExp = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.levelUpExp, growth: pet.expGrowth) // change this if we want exponential growth back
+//                    pet.petLevel += 1
+//                    
+//                    // scaling attack and speed values with pet growths
+//                    pet.attack = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.attack, growth: pet.attackGrowth)
+//                    pet.speed += Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.speed, growth: pet.speedGrowth) / 10
+//                    
+//                    pet.attackPattern.damage = pet.attack
     
                     let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
                     let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
@@ -238,7 +240,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     let petPosition = scnView.projectPoint(pet.slotPosition)
                     let floatingText = FloatingText()
                     scnView.addSubview(floatingText)
-                    floatingText.showLevelUpText(at: CGPoint(x: CGFloat(petPosition.x), y: CGFloat(petPosition.y)), with: Int(pet.level))
+                    floatingText.showLevelUpText(at: CGPoint(x: CGFloat(petPosition.x), y: CGFloat(petPosition.y)), with: Int(pet.petLevel))
                 }
             }
         }
