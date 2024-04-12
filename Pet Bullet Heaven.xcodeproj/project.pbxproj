@@ -55,12 +55,10 @@
 		58B8176F2BBCA5BC00DF8FD8 /* duck1.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B817632BBCA5BC00DF8FD8 /* duck1.png */; };
 		58B817702BBCA5BC00DF8FD8 /* dog1.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B817642BBCA5BC00DF8FD8 /* dog1.png */; };
 		58B817712BBCA5BC00DF8FD8 /* cat1.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B817652BBCA5BC00DF8FD8 /* cat1.png */; };
-		58B817722BBCA5BC00DF8FD8 /* chicken.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B817662BBCA5BC00DF8FD8 /* chicken.png */; };
 		58B817732BBCA5BC00DF8FD8 /* cat2.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B817672BBCA5BC00DF8FD8 /* cat2.png */; };
 		58B817742BBCA5BC00DF8FD8 /* frog3.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B817682BBCA5BC00DF8FD8 /* frog3.png */; };
 		58B817752BBCA5BC00DF8FD8 /* frog2.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B817692BBCA5BC00DF8FD8 /* frog2.png */; };
 		58B817762BBCA5BC00DF8FD8 /* frog1.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B8176A2BBCA5BC00DF8FD8 /* frog1.png */; };
-		58B817772BBCA5BC00DF8FD8 /* frog.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B8176B2BBCA5BC00DF8FD8 /* frog.png */; };
 		58B8177B2BBCA87300DF8FD8 /* bear1.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B8177A2BBCA87300DF8FD8 /* bear1.png */; };
 		58B8177D2BBCA9AB00DF8FD8 /* penguin1.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B8177C2BBCA9AB00DF8FD8 /* penguin1.png */; };
 		FB2128232BB9FB1600CE5066 /* CatCursedTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128132BB9FB1600CE5066 /* CatCursedTexture.png */; };
@@ -162,12 +160,10 @@
 		58B817632BBCA5BC00DF8FD8 /* duck1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = duck1.png; sourceTree = "<group>"; };
 		58B817642BBCA5BC00DF8FD8 /* dog1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dog1.png; sourceTree = "<group>"; };
 		58B817652BBCA5BC00DF8FD8 /* cat1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cat1.png; sourceTree = "<group>"; };
-		58B817662BBCA5BC00DF8FD8 /* chicken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chicken.png; sourceTree = "<group>"; };
 		58B817672BBCA5BC00DF8FD8 /* cat2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cat2.png; sourceTree = "<group>"; };
 		58B817682BBCA5BC00DF8FD8 /* frog3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frog3.png; sourceTree = "<group>"; };
 		58B817692BBCA5BC00DF8FD8 /* frog2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frog2.png; sourceTree = "<group>"; };
 		58B8176A2BBCA5BC00DF8FD8 /* frog1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frog1.png; sourceTree = "<group>"; };
-		58B8176B2BBCA5BC00DF8FD8 /* frog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frog.png; sourceTree = "<group>"; };
 		58B8177A2BBCA87300DF8FD8 /* bear1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bear1.png; sourceTree = "<group>"; };
 		58B8177C2BBCA9AB00DF8FD8 /* penguin1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = penguin1.png; sourceTree = "<group>"; };
 		FB2128132BB9FB1600CE5066 /* CatCursedTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CatCursedTexture.png; sourceTree = "<group>"; };
@@ -348,12 +344,10 @@
 				58B817632BBCA5BC00DF8FD8 /* duck1.png */,
 				58B817642BBCA5BC00DF8FD8 /* dog1.png */,
 				58B817652BBCA5BC00DF8FD8 /* cat1.png */,
-				58B817662BBCA5BC00DF8FD8 /* chicken.png */,
 				58B817672BBCA5BC00DF8FD8 /* cat2.png */,
 				58B817682BBCA5BC00DF8FD8 /* frog3.png */,
 				58B817692BBCA5BC00DF8FD8 /* frog2.png */,
 				58B8176A2BBCA5BC00DF8FD8 /* frog1.png */,
-				58B8176B2BBCA5BC00DF8FD8 /* frog.png */,
 			);
 			path = Sprites;
 			sourceTree = "<group>";
@@ -492,7 +486,6 @@
 				FBE60A5D2B92E52A009B3E7E /* Duck.001.dae in Resources */,
 				FBE60A592B92E51F009B3E7E /* Cat.001.dae in Resources */,
 				FB21282F2BB9FB1600CE5066 /* CatPurpleTexture.png in Resources */,
-				58B817772BBCA5BC00DF8FD8 /* frog.png in Resources */,
 				58B8176E2BBCA5BC00DF8FD8 /* duck3.png in Resources */,
 				585568032BC9E7230018A8D5 /* bear.dae in Resources */,
 				FB2128232BB9FB1600CE5066 /* CatCursedTexture.png in Resources */,
@@ -506,7 +499,6 @@
 				FB21282E2BB9FB1600CE5066 /* DuckDolanTexture.png in Resources */,
 				FBE60A612B92E533009B3E7E /* Frog.001.png in Resources */,
 				FBE60A582B92E51F009B3E7E /* Cat.001.png in Resources */,
-				58B817722BBCA5BC00DF8FD8 /* chicken.png in Resources */,
 				585568012BC9E6EB0018A8D5 /* bear-gummy.png in Resources */,
 				FB2128312BB9FB1600CE5066 /* FrogLuckyTexture.png in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
