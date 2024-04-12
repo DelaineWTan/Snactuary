@@ -193,6 +193,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         else if let petNode = attackingNode as? Pet {
             food._Health -= Int(petNode.attack)
+            Globals.damageDone += petNode.attack
             
             // Show floating damage text
             let floatingText = FloatingText()
