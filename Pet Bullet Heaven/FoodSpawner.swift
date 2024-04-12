@@ -19,7 +19,9 @@ class FoodSpawner: MonoBehaviour {
     
     let centerDist: Int = 55 // 55 seems to be a good distance away from player
     
+    // TODO: Final food balancing sometime
     init(scene: SCNScene) {
+
         self.mainScene = scene
         self.uniqueID = UUID()
         LifecycleManager.Instance.addGameObject(self)
@@ -52,7 +54,12 @@ class FoodSpawner: MonoBehaviour {
                 health: 5,
                 physicsDimensions: SCNVector3(1.5, 3, 1.5),
                 hungerValue: 2,
-                assetName: "art.scnassets/Food Models/CarrotV2.scn"))
+                assetName: "art.scnassets/Food Models/CarrotV2.scn",
+                initialEXP: 1,
+                EXPGrowth: 1.0,
+                healthGrowth: 1.0,
+                hungerGrowth: 1.0,
+                speedGrowth: 1.0))
         }
         
         food!.position = findRandomPosition(spawnMultiplier: spawnMultiplier)
@@ -94,7 +101,12 @@ class FoodSpawner: MonoBehaviour {
             health: 5,
             physicsDimensions: SCNVector3(1.5, 3, 1.5),
             hungerValue: 2,
-            assetName: "art.scnassets/Food Models/CarrotV2.scn")
+            assetName: "art.scnassets/Food Models/CarrotV2.scn",
+            initialEXP: 1,
+            EXPGrowth: 1.0,
+            healthGrowth: 1.0,
+            hungerGrowth: 1.0,
+            speedGrowth: 1.0)
     }
     
     func Start() {
