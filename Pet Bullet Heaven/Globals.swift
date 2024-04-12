@@ -14,6 +14,7 @@ public class Globals {
     public static var userDataVersion = 2
     
     public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
+    public static var playerNode = mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)!
     
     public static var inMainMenu = true
     public static var deltaTime: TimeInterval = 0
@@ -26,10 +27,10 @@ public class Globals {
                petId: 0,
                petImageName: "frog1.png",
                petModelName: "art.scnassets/Frog.Green.scn",
-               attack: 2,
+               baseAttack: 2,
                attackPattern: ShootClosestAbility(
                 _InputRange: 170,
-                _InputFireRate: 3.75,
+                _InputFireRate: 100, // TODO: Fix model memory issue first
                 _InputProjectileSpeed: 22,
                 _InputProjectileDuration: 1.25,
                 _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 2)}),
@@ -41,7 +42,7 @@ public class Globals {
                petId: 1,
                petImageName: "penguin1.png",
                petModelName: "art.scnassets/Penguin.001.scn",
-               attack: 3,
+               baseAttack: 3,
                attackPattern: OrbitingProjectileAbility(
                 _InputAbilityDamage: 2,
                 _InputAbilityDuration: 10,
@@ -167,6 +168,153 @@ public class Globals {
         0, 1, 2, 3 // Use the new ids starting from 0
     ]
     
+    public static var stage1Foods: [(Int, FoodData)] = [
+        (1,
+         FoodData(
+            name: "StationaryMushroom",
+            type: "base",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/CarrotV2.scn")),
+        (0,
+         FoodData(
+            name: "DirectionalCarrot",
+            type: "directional",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/CarrotV2.scn")),
+        (0,
+         FoodData(
+            name: "FleeingCarrot",
+            type: "flee",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/CarrotV2.scn")),
+        (0,
+         FoodData(
+            name: "RoamingCarrot",
+            type: "roam",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/CarrotV2.scn")),
+        (10,
+         FoodData(
+            name: "Muffin",
+            type: "treasure",
+            initialSpeed: 5,
+            health: 10,
+            physicsDimensions: SCNVector3(3, 3, 3),
+            hungerValue: 8,
+            assetName: "art.scnassets/Food Models/Donut.scn"))
+    ]
+    public static var stage2Foods: [(Int, FoodData)] = [
+        (100,
+         FoodData(
+            name: "StationaryKelp",
+            type: "stationary",
+            initialSpeed: 3,
+            health: 3,
+            physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
+            hungerValue: 4,
+            assetName: "art.scnassets/Banana.scn")),
+        (100,
+         FoodData(
+            name: "DirectionalBanana",
+            type: "directional",
+            initialSpeed: 3,
+            health: 3,
+            physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
+            hungerValue: 4,
+            assetName: "art.scnassets/Banana.scn")),
+        (100,
+         FoodData(
+            name: "FleeingBanana",
+            type: "flee",
+            initialSpeed: 3,
+            health: 3,
+            physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
+            hungerValue: 4,
+            assetName: "art.scnassets/Banana.scn")),
+        (100,
+         FoodData(
+            name: "RoamingBanana",
+            type: "roam",
+            initialSpeed: 3,
+            health: 3,
+            physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
+            hungerValue: 4,
+            assetName: "art.scnassets/Banana.scn")),
+        (10,
+         FoodData(
+            name: "Muffin",
+            type: "treasure",
+            initialSpeed: 5,
+            health: 10,
+            physicsDimensions: SCNVector3(3, 3, 3),
+            hungerValue: 8,
+            assetName: "art.scnassets/Food Models/Donut.scn"))
+    ]
+    public static var stage3Foods: [(Int, FoodData)] = [
+        (100,
+         FoodData(
+            name: "StationaryCottonCandy",
+            type: "stationary",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/Donut.scn")),
+        (100,
+         FoodData(
+            name: "DirectionalDonut",
+            type: "directional",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/Donut.scn")),
+        (100,
+         FoodData(
+            name: "FleeingDonut",
+            type: "flee",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/Donut.scn")),
+        (100,
+         FoodData(
+            name: "RoamingDonut",
+            type: "roam",
+            initialSpeed: 3.5,
+            health: 5,
+            physicsDimensions: SCNVector3(1.5, 3, 1.5),
+            hungerValue: 2,
+            assetName: "art.scnassets/Food Models/Donut.scn")),
+        (10,
+         FoodData(
+            name: "Muffin",
+            type: "treasure",
+            initialSpeed: 5,
+            health: 10,
+            physicsDimensions: SCNVector3(3, 3, 3),
+            hungerValue: 8,
+            assetName: "art.scnassets/Food Models/Donut.scn"))
+    ]
+    
+    public static var foodSCNModels: [String: SCNNode] = [:]
+    
+    
+    public static var foodGroups = [stage1Foods, stage1Foods, stage1Foods]
+    
     public static let cameraZIndex : Float = 30;
     
     public static var inputX : CGFloat = 0
@@ -208,4 +356,14 @@ public class Globals {
         static let error = UIColor.systemRed
         static let locked = UIColor.gray
     }
+}
+
+public struct FoodData {
+    var name: String
+    var type: String
+    var initialSpeed: Float
+    var health: Int
+    var physicsDimensions: SCNVector3
+    var hungerValue: Int
+    var assetName: String
 }

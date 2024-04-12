@@ -35,15 +35,31 @@ public class Utilities {
                 node.removeFromParentNode()
             }
             petSlotNode.addChildNode(petNode)
+            petNode.slotPosition = petSlotNode.position
             
-            let ability = petNode.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
-            _ = ability.ActivateAbility()
+            petNode.activate()
             
-            ability.name = Globals.petAbilityNodeName[position]
-            mainPlayerNode.addChildNode(ability)
+            petNode.activeAbility.name = Globals.petAbilityNodeName[position]
+            mainPlayerNode.addChildNode(petNode.activeAbility)
             
         }
     }
+    
+    // Load an SCN model from a .scn file and add it to a node
+    public static func loadSceneModelNode(name: String) -> SCNNode {
+        
+        let n = SCNNode()
+        if let foodModelSCN = SCNScene(named: name) {
+            // Iterate through all child nodes in the loaded scene and add them to the scene node
+            for childNode in foodModelSCN.rootNode.childNodes {
+                n.addChildNode(childNode)
+            }
+        } else {
+            print("Failed to load food scene from file.")
+        }
+        return n
+    }
+    
     // Create a UI button with a standardized appearance
     public static func makeButton(title: String, image: UIImage?, backgroundColor: UIColor, target: Any?, action: Selector) -> UIButton {
         let button = UIButton(type: .system)
@@ -138,6 +154,21 @@ public class Utilities {
     /// Calculates current stat based upon the stage count, base, and growth of a given stat. Always rounds down.
     public static func finalStatCalculation(stageCycle: Int, baseStat: Float, growth: Float) -> Float {
         return (baseStat * Float(stageCycle)) * growth
+    }
+}
+
+extension SCNVector3 {
+    static func - (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+        return SCNVector3(left.x - right.x, left.y - right.y, left.z - right.z)
+    }
+    
+    static func + (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+        return SCNVector3(left.x + right.x, left.y + right.y, left.z + right.z)
+    }
+    
+    func normalized() -> SCNVector3 {
+        let length = sqrt(x * x + y * y + z * z)
+        return SCNVector3(x / length, y / length, z / length)
     }
 }
 

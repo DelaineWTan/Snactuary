@@ -19,7 +19,13 @@ public class Pet : SCNNode{
     var levelUpExp: Int = 1
     var petLevel: Int = 1
     var unlocked: Bool
-    
+    // stats affected by level ups
+    var activeAbility: Ability
+    var attack: Float = 1
+    var speed: Float = 1
+    var exp: Float = 0
+    // slot position in scene
+    var slotPosition = SCNVector3(0,0,0)
     
     // might need more properties yea, add more if you see fit DO NOT CHANGE THE EXISTING ONES and update the constructor and Globals define pets as well thx :DDDDDD
     
@@ -42,6 +48,9 @@ public class Pet : SCNNode{
         self.expGrowth = expGrowth
         
         super.init()
+        // Level the pet up, update stats accordingly and set current exp
+        self.levelUp(self.level)
+        self.exp = currentExp
         name = petName
         // Create a physics body
         let petPhysicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: SCNBox(width: 1.5, height: 5, length: 2.5, chamferRadius: 0.2), options: nil)) // Create a dynamic physics body
@@ -53,17 +62,34 @@ public class Pet : SCNNode{
         self.physicsBody?.categoryBitMask = playerCategory
         self.physicsBody?.collisionBitMask = -1
         self.physicsBody?.contactTestBitMask = 1
-        
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func levelUpCheck() -> Bool{
+    func hasLeveledUp() -> Bool{
         return exp >= levelUpExp
-            
+        
     }
     
+    // Levels up the pet and updates its stats to the given level
+    func levelUp(_ level: Int) {
+        self.level = level
+        // no carryover exp for now for simplicity
+        self.exp = 0
+        // exp needed to level up is base exp * level
+        self.levelUpExp = Float(self.baseExp * Float(self.level))
+        // attack increases by level * attackGrowth
+        self.attack = self.baseAttack + Float(self.level - 1) * attackGrowth
+        self.activeAbility.setDamage(Int(self.attack))
+        // speed increases by level * speedGrowth
+        self.speed = self.baseSpeed + Float(self.level - 1) * speedGrowth
+    }
+    
+    // Activates the pet by enabling its ability
+    func activate() {
+        self.activeAbility = baseAbility.copy() as! Ability
+        _ = self.activeAbility.activate()
+    }
 }

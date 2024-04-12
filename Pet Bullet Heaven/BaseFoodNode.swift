@@ -26,7 +26,8 @@ struct FoodData {
 ///
 /// Rudimentary Food Class
 ///
-public class FoodNode : SCNNode, MonoBehaviour {
+///
+public class BaseFoodNode : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
     var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
@@ -51,25 +52,25 @@ public class FoodNode : SCNNode, MonoBehaviour {
         
         self.spawnLocation = spawnLocation
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
+        self.foodData = foodData
         super.init()
-        self.position = spawnLocation
         
         LifecycleManager.Instance.addGameObject(self)
         
-        let n = SCNNode()
-        if let foodModelSCN = SCNScene(named: foodData.assetName) {
-            // Iterate through all child nodes in the loaded scene and add them to the scene node
-            for childNode in foodModelSCN.rootNode.childNodes {
-                n.addChildNode(childNode)
-            }
-        } else {
-            print("Failed to load food scene from file.")
-        }
+        // load scene model
+        // TODO: use .clone() to do object instancing
+        self.addChildNode((Globals.foodSCNModels[foodData.assetName]!.clone()))
+
         
-        //_Mesh = referenceNode
-        self.addChildNode(n)
-        
-        
+        // handle all physics and rendering
+        initializeBody()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func initializeBody() {
         let foodPhysicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: SCNBox(width: CGFloat(foodData.physicsDimensions.x), height: CGFloat(foodData.physicsDimensions.x), length: CGFloat(foodData.physicsDimensions.x), chamferRadius: 0), options: nil)) // Create a dynamic physics body
         
         foodPhysicsBody.mass = 1.0 // Set the mass of the physics body
@@ -83,40 +84,65 @@ public class FoodNode : SCNNode, MonoBehaviour {
         self.physicsBody?.categoryBitMask = foodCategory
         self.physicsBody?.collisionBitMask = -1
         self.physicsBody?.contactTestBitMask = 1
-        
-        initializeFoodMovement()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func Start() {
     }
     
     func Update() {
-        move()
-        
+        moveWithWorld()
+        doBehaviour()
+        despawnBehaviour()
+    }
+    
+    func moveWithWorld() {
+        // Move food relative to the player
+        if Globals.playerIsMoving {
+            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
+            
+            self.position.x += translationVector.x
+            self.position.z += translationVector.z
+        }
+    }
+    
+    /// Moves the food away from the player, mindless behaviour -Jun
+    func doBehaviour() {
+        // no behaviour
+    }
+    
+    func despawnBehaviour() {
         // Check if the object's distance from the center is greater than 100 meters
         let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
-        if distanceFromCenter > 100 {
+        if distanceFromCenter > 200 {
             // If the object is more than 100 meters away from the center, destroy it
             self.onDestroy(after: 0)
         }
     }
+}
+
+
+public class DirectionalFood: BaseFoodNode {
     
-    
-    let rangeLimit = 5
+    let rangeLimit = 1
     var modifierX : Float = 0.0
     var modifierZ : Float = 0.0
+    
+    override func Start() {
+        initializeFoodMovement()
+    }
+    
+    override func Update() {
+        super.Update()
+        
+    }
     func initializeFoodMovement() {
         
-        if spawnLocation.x > 0 {
+        if self.position.x > 0 {
             modifierX = Float(Int.random(in: 1...rangeLimit))
         } else {
             modifierX = Float(Int.random(in: -rangeLimit...1))
         }
-        if spawnLocation.z > 0 {
+        if self.position.z > 0 {
             modifierZ = Float(Int.random(in: 1...rangeLimit))
         } else {
             modifierZ = Float(Int.random(in: -rangeLimit...1))
@@ -131,19 +157,58 @@ public class FoodNode : SCNNode, MonoBehaviour {
         }
     }
     
-    /// Moves the food randomly away from the player and relative to the player's inputs
-    func move() {
-        
+    /// Moves the food away from the player in one direction
+    override func doBehaviour() {
         self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
         self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
-        
-        
-        // Move food relative to the player
-        if Globals.playerIsMoving {
-            let translationVector = SCNVector3(Float(Globals.inputX) * Globals.playerMovementSpeed * Float(Globals.deltaTime), 0, Float(Globals.inputZ) * Globals.playerMovementSpeed * Float(Globals.deltaTime))
-            
-            self.position.x += translationVector.x
-            self.position.z += translationVector.z
-        }
     }
 }
+
+public class FleeingFoodNode: BaseFoodNode {
+    override func doBehaviour() {
+        let directionToCenter = SCNVector3(0, 0, 0) - self.position
+            
+            // Normalize the direction vector to ensure consistent movement speed
+            let normalizedDirection = directionToCenter.normalized()
+            
+            // Adjust the position based on the direction vector
+            self.position.x -= normalizedDirection.x * Float(Globals.deltaTime) * self.speed
+            self.position.z -= normalizedDirection.z * Float(Globals.deltaTime) * self.speed
+    }
+}
+
+public class RoamingFoodNode: BaseFoodNode {
+    
+    let rangeLimit: Float = 1
+    var modifierX: Float = 0.0
+    var modifierZ: Float = 0.0
+    var roamInterval: TimeInterval = 5.0 // Interval for changing roam direction
+    var timeSinceLastRoam: TimeInterval = 0.0
+    
+    override func Start() {
+        super.Start()
+        initializeFoodMovement()
+    }
+    
+    override func Update() {
+        super.Update()
+        
+        timeSinceLastRoam += Globals.deltaTime
+        if timeSinceLastRoam >= roamInterval {
+            timeSinceLastRoam = 0.0
+            initializeFoodMovement()
+        }
+    }
+    
+    func initializeFoodMovement() {
+        modifierX = Float.random(in: -rangeLimit...rangeLimit)
+        modifierZ = Float.random(in: -rangeLimit...rangeLimit)
+    }
+    
+    /// Moves the food in a random direction
+    override func doBehaviour() {
+        self.position.x += modifierX * Float(Globals.deltaTime) * self.speed
+        self.position.z += modifierZ * Float(Globals.deltaTime) * self.speed
+    }
+}
+

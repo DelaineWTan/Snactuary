@@ -143,6 +143,7 @@ class PetSelectionUIView: UIView {
         ])
         activePetView.backgroundColor = Globals.petSelectionUIColors.selectedHalf
         activePetView.spacing = panelSpacing
+        activePetView.distribution = .fillEqually
         
         // Add label to the top left corner of activePetView
         let label = UILabel()
@@ -180,7 +181,7 @@ class PetSelectionUIView: UIView {
                 descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let additionalTextLabel = UILabel()
-                additionalTextLabel.text = "LVL \(Int(pet.petLevel))"
+                additionalTextLabel.text = "LVL \(Int(pet.level))"
                 additionalTextLabel.textColor = .white
                 additionalTextLabel.textAlignment = .left
                 additionalTextLabel.font = UIFont.systemFont(ofSize: 12) // Adjust font and size as needed
@@ -222,12 +223,6 @@ class PetSelectionUIView: UIView {
                     additionalTextLabel.bottomAnchor.constraint(equalTo: imageView.topAnchor),
                 ])
                 
-                // Set width and height constraint for container
-                NSLayoutConstraint.activate([
-                    container.widthAnchor.constraint(equalToConstant: panelSize),
-                    container.heightAnchor.constraint(equalToConstant: panelSize)
-                ])
-                
                 // Add tap gesture recognizer to the container view
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(activePanelTapped(_:)))
                 container.addGestureRecognizer(tapGesture)
@@ -241,30 +236,28 @@ class PetSelectionUIView: UIView {
         stackView.subviews.forEach { $0.removeFromSuperview() }
         addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         let spacing: CGFloat = 30 // spacing for bottom collection panel scroll
         let panelSize: CGFloat = 75 // Calculate panel size with 3 spacings for 4 panels
-            
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacing),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
-            scrollView.heightAnchor.constraint(equalToConstant: panelSize * 1.25) // Adjust as needed
-        ])
-        
-        scrollView.backgroundColor = Globals.petSelectionUIColors.neutralHalf
-        scrollView.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+         
         stackView.axis = .horizontal
         stackView.spacing = 5
         stackView.distribution = .fillEqually
+        scrollView.backgroundColor = Globals.petSelectionUIColors.neutralHalf
+        scrollView.addSubview(stackView)
+        scrollView.showsHorizontalScrollIndicator = false
         
         NSLayoutConstraint.activate([
            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-           stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+           //stackView.heightAnchor.constraint(equalToConstant: panelSize),
+           scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing),
+           scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacing),
+           scrollView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
+           scrollView.heightAnchor.constraint(equalToConstant: panelSize * 1.25)
        ])
         
 //        // Add label to the top left corner of activePetView
@@ -301,7 +294,7 @@ class PetSelectionUIView: UIView {
                 descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let additionalTextLabel = UILabel()
-                additionalTextLabel.text = "LVL \(Int(pet.petLevel))"
+                additionalTextLabel.text = "LVL \(Int(pet.level))"
                 additionalTextLabel.textAlignment = .left
                 additionalTextLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
                 additionalTextLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -345,12 +338,10 @@ class PetSelectionUIView: UIView {
                     additionalTextLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor),
                     additionalTextLabel.topAnchor.constraint(equalTo: container.topAnchor), // Adjust spacing between imageView and nameLabel
                     additionalTextLabel.bottomAnchor.constraint(equalTo: imageView.topAnchor),
-                ])
-                
-                // Set width and height constraint for container
-                NSLayoutConstraint.activate([
+                    
+                    // Set width and height constraint for container
                     container.widthAnchor.constraint(equalToConstant: panelSize),
-                    container.heightAnchor.constraint(equalToConstant: panelSize * 1.5)
+                    container.heightAnchor.constraint(equalToConstant: panelSize * 1.25)
                 ])
                 
                 // Add tap gesture recognizer to the container view
@@ -463,7 +454,6 @@ class PetSelectionUIView: UIView {
             setupTopCenterLabel()
             
             // delegate to swap 3D models
-            print("active Panel Tag: \(activePanelTag)")
             Utilities.swapSceneNode(with: collectionPet, position: activePanelTag)
 
             // Deselect both buttons
