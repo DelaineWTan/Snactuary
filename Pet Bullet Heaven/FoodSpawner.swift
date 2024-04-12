@@ -69,7 +69,7 @@ class FoodSpawner: MonoBehaviour {
             // Do any cleanup or additional tasks before destroying the node
         }
         // Destroy the food after 50 seconds
-        food!.onDestroy(after: 50.0)
+        food!.onDestroy(after: 5.0)
         mainScene.rootNode.addChildNode(food!)
     }
     

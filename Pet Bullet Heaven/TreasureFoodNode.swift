@@ -15,6 +15,9 @@ public class TreasureFoodNode: BaseFoodNode {
     
     override init(foodData: FoodData) {
         super.init(foodData: foodData)
+        self.onDestroy = {
+            print("I'm dead")
+        }
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
