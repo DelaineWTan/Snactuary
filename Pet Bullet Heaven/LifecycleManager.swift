@@ -23,6 +23,7 @@ public class LifecycleManager {
     }
     
     func deleteGameObject(gameObject: MonoBehaviour) {
+        gameObject.OnDestroy()
         gameObjects.removeValue(forKey: gameObject.uniqueID)
     }
     
@@ -39,7 +40,7 @@ public class LifecycleManager {
             food?.childNodes.forEach {
                 $0.removeFromParentNode()
             }
-            food!.onDestroy?()
+            food!.DestroyExtras?()
         }
     }
     

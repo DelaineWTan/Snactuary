@@ -10,12 +10,15 @@ import SceneKit
 
 class Projectile : SCNNode, MonoBehaviour {
     
+    
     // TODO: NOTE TO SELF, REFACTOR THIS FILE
     
     var uniqueID: UUID
     
     func Start() {
         
+    }
+    func OnDestroy() {
     }
     
     func Update() {
@@ -27,7 +30,7 @@ class Projectile : SCNNode, MonoBehaviour {
         }
     }
     
-    var onDestroy: (() -> Void)?
+    var DestroyExtras: (() -> Void)?
     
     override init() {
         self.uniqueID = UUID()

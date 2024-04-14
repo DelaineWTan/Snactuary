@@ -167,7 +167,7 @@ public class Globals {
     ]
     
     public static var stage1Foods: [(Int, FoodData)] = [
-        (1,
+        (0,
          FoodData(
             name: "StationaryMushroom",
             type: "base",
@@ -227,7 +227,7 @@ public class Globals {
          FoodData(
             name: "Muffin",
             type: "treasure",
-            initialSpeed: 5,
+            initialSpeed: 1,
             health: 10,
             physicsDimensions: SCNVector3(3, 3, 3),
             hungerValue: 8,
@@ -386,7 +386,7 @@ public class Globals {
     public static var foodSCNModels: [String: SCNNode] = [:]
     
     
-    public static var foodGroups = [stage1Foods, stage1Foods, stage1Foods]
+    public static var foodGroups = [stage1Foods, stage2Foods, stage3Foods]
     
     public static let cameraZIndex : Float = 30;
     

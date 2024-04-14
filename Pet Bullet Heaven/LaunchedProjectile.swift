@@ -71,7 +71,7 @@ class LaunchedProjectile: Projectile {
             self.position = SCNVector3(newPositionX, newPositionY, newPositionZ)
 //            localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(Globals.deltaTime)))
         } else {
-            self.onDestroy(after: 0)
+            self.Destroy(after: 0)
         }
     }
 }
