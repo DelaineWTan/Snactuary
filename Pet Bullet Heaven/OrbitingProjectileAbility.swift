@@ -51,19 +51,19 @@ class OrbitingProjectileAbility : Ability{
         let _Intervals = CalculateProjectileInterval()
         
         // 2. Initialize all the Projectiles
-        while (projectiles.count < _numProjectiles!){
+        while (activeProjectiles.count < _numProjectiles!){
             _ = SpawnProjectile() // Throw if this returns null, something wrong happened
         }
         
         // 3. For each projectile, spawn them around Origin, with given _distanceFromCenter and rotate them to appropriate angles
         var _Counter = 0
-        while _Counter < projectiles.count{
+        while _Counter < activeProjectiles.count{
             
             // Translate them in the forward direction
-            projectiles[_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
+            activeProjectiles[_Counter].localTranslate(by: SCNVector3(0,0,_distanceFromCenter!))
             
             // Rotate them along the Z-Axis accordingly.
-            projectiles[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin((_Intervals*Float(_Counter))/2), z:0 , w: cos((_Intervals*Float(_Counter))/2)), aroundTarget: SCNVector3(0,0,0))
+            activeProjectiles[_Counter].rotate(by: SCNQuaternion(x:0 ,y: sin((_Intervals*Float(_Counter))/2), z:0 , w: cos((_Intervals*Float(_Counter))/2)), aroundTarget: SCNVector3(0,0,0))
             
             _Counter+=1
             
