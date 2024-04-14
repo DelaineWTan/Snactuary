@@ -28,8 +28,17 @@ class FoodSpawner: MonoBehaviour {
         LifecycleManager.Instance.addGameObject(self)
     }
     
-    func simpleSpawn() {
-        
+    func Update() {
+        elapsedTime += Globals.deltaTime
+        if elapsedTime >= spawnInterval {
+            if !Globals.inMainMenu {
+                initSpawning()
+            }
+            elapsedTime = 0
+        }
+    }
+    
+    func initSpawning() {
         var spawnLocationMultiplier: Float = 1
         
         var food: BaseFoodNode? = nil
@@ -63,17 +72,30 @@ class FoodSpawner: MonoBehaviour {
                 speedGrowth: 1.0))
         }
         
-        food!.position = findRandomPosition(spawnMultiplier: spawnLocationMultiplier)
+        if Int.random(in: 1...20) <= 1 {
+            herdSpawn()
+            
+        } else {
+            simpleSpawn(spawnLocationMultiplier: spawnLocationMultiplier, food: food!)
+        }
+    }
+    
+    func simpleSpawn(spawnLocationMultiplier: Float, food: BaseFoodNode) {
+        
+        food.position = findRandomPosition(spawnMultiplier: spawnLocationMultiplier)
 
         
-        food!.DestroyExtras = {
+        food.DestroyExtras = {
             // Do any cleanup or additional tasks before destroying the node
         }
         // Destroy the food after 50 seconds
-        food!.Destroy(after: 50.0)
-        mainScene.rootNode.addChildNode(food!)
+        food.Destroy(after: 50.0)
+        mainScene.rootNode.addChildNode(food)
     }
     
+    func herdSpawn() {
+        
+    }
     
     func selectFoodDataUsingWeights() -> FoodData {
         let stageIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey) - 1) % 3
@@ -112,16 +134,6 @@ class FoodSpawner: MonoBehaviour {
     
     func Start() {
         
-    }
-    
-    func Update() {
-        elapsedTime += Globals.deltaTime
-        if elapsedTime >= spawnInterval {
-            if !Globals.inMainMenu {
-                simpleSpawn()
-            }
-            elapsedTime = 0
-        }
     }
     
     func OnDestroy() {
