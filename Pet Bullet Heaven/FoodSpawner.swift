@@ -70,7 +70,7 @@ class FoodSpawner: MonoBehaviour {
             // Do any cleanup or additional tasks before destroying the node
         }
         // Destroy the food after 50 seconds
-        food!.Destroy(after: 5.0)
+        food!.Destroy(after: 50.0)
         mainScene.rootNode.addChildNode(food!)
     }
     

@@ -64,13 +64,6 @@ public class TreasureFoodNode: BaseFoodNode {
         
         food.position = self.position
         
-        if food.physicsBody != nil {
-            let force = SCNVector3(x: 0, y: 10, z: 10)
-            physicsBody?.applyForce(force, asImpulse: true)
-            print("testing")
-            
-        }
-        
         // Destroy the food after 50 seconds
         food.Destroy(after: 50.0)
         Globals.mainScene.rootNode.addChildNode(food)
@@ -112,4 +105,12 @@ public class TreasureFoodNode: BaseFoodNode {
         food.Destroy(after: 50.0)
         Globals.mainScene.rootNode.addChildNode(food)
     }
+}
+
+public class TreasureCrumbsNode: BaseFoodNode {
+    
+}
+
+public class TreasureBitsNode: BaseFoodNode {
+    
 }
