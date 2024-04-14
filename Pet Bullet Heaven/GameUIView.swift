@@ -166,6 +166,14 @@ class GameUIView: UIView, PetSelectionDelegate {
         inGameUIView.nextStageButtonTappedHandler = { [weak self] in
             self?.inGameUIView.nextStageButton.isHidden = true
             
+            // do cutscene here
+            self?.inGameUIView.stageClearLabel.isHidden = false
+            
+            // stop all food, gesture recognizers, and stop button handling
+            
+            //self?.inGameUIView.stageClearLabel.isHidden = true
+            
+            
             // reset current hungerScore on stage & hungerMeter
             self?.inGameUIView.resetHunger()
             
