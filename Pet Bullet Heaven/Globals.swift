@@ -166,7 +166,49 @@ public class Globals {
         0, 1, 2, 3 // Use the new ids starting from 0
     ]
     
+    public static var specialFoods: [FoodData] = [
+        FoodData(
+           name: "MuffinCrumbs",
+           type: "treasure",
+           initialSpeed: 1,
+           health: 10,
+           physicsDimensions: SCNVector3(3, 3, 3),
+           hungerValue: 8,
+           assetName: "art.scnassets/Banana.scn",
+           initialEXP: 1,
+           EXPGrowth: 1.0,
+           healthGrowth: 1.0,
+           hungerGrowth: 1.0,
+           speedGrowth: 1.0),
+        FoodData(
+           name: "MuffinBits",
+           type: "treasure",
+           initialSpeed: 20,
+           health: 10,
+           physicsDimensions: SCNVector3(3, 3, 3),
+           hungerValue: 8,
+           assetName: "art.scnassets/Food Models/CarrotV2.scn",
+           initialEXP: 1,
+           EXPGrowth: 1.0,
+           healthGrowth: 1.0,
+           hungerGrowth: 1.0,
+           speedGrowth: 1.0)
+    ]
     public static var stage1Foods: [(Int, FoodData)] = [
+        (10,
+         FoodData(
+            name: "Muffin",
+            type: "treasure",
+            initialSpeed: 1,
+            health: 10,
+            physicsDimensions: SCNVector3(3, 3, 3),
+            hungerValue: 8,
+            assetName: "art.scnassets/Food Models/Donut.scn",
+            initialEXP: 1,
+            EXPGrowth: 1.0,
+            healthGrowth: 1.0,
+            hungerGrowth: 1.0,
+            speedGrowth: 1.0)),
         (0,
          FoodData(
             name: "StationaryMushroom",
@@ -222,12 +264,14 @@ public class Globals {
             EXPGrowth: 1.0,
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
-            speedGrowth: 1.0)),
+            speedGrowth: 1.0))
+    ]
+    public static var stage2Foods: [(Int, FoodData)] = [
         (10,
          FoodData(
             name: "Muffin",
             type: "treasure",
-            initialSpeed: 1,
+            initialSpeed: 5,
             health: 10,
             physicsDimensions: SCNVector3(3, 3, 3),
             hungerValue: 8,
@@ -236,9 +280,7 @@ public class Globals {
             EXPGrowth: 1.0,
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
-            speedGrowth: 1.0))
-    ]
-    public static var stage2Foods: [(Int, FoodData)] = [
+            speedGrowth: 1.0)),
         (100,
          FoodData(
             name: "StationaryKelp",
@@ -294,7 +336,9 @@ public class Globals {
             EXPGrowth: 1.0,
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
-            speedGrowth: 1.0)),
+            speedGrowth: 1.0))
+    ]
+    public static var stage3Foods: [(Int, FoodData)] = [
         (10,
          FoodData(
             name: "Muffin",
@@ -308,9 +352,7 @@ public class Globals {
             EXPGrowth: 1.0,
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
-            speedGrowth: 1.0))
-    ]
-    public static var stage3Foods: [(Int, FoodData)] = [
+            speedGrowth: 1.0)),
         (100,
          FoodData(
             name: "StationaryCottonCandy",
@@ -361,20 +403,6 @@ public class Globals {
             health: 5,
             physicsDimensions: SCNVector3(1.5, 3, 1.5),
             hungerValue: 2,
-            assetName: "art.scnassets/Food Models/Donut.scn",
-            initialEXP: 1,
-            EXPGrowth: 1.0,
-            healthGrowth: 1.0,
-            hungerGrowth: 1.0,
-            speedGrowth: 1.0)),
-        (10,
-         FoodData(
-            name: "Muffin",
-            type: "treasure",
-            initialSpeed: 5,
-            health: 10,
-            physicsDimensions: SCNVector3(3, 3, 3),
-            hungerValue: 8,
             assetName: "art.scnassets/Food Models/Donut.scn",
             initialEXP: 1,
             EXPGrowth: 1.0,
