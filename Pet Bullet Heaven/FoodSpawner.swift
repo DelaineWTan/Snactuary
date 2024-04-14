@@ -9,15 +9,16 @@ import Foundation
 import SceneKit
 
 class FoodSpawner: MonoBehaviour {
+    
     var uniqueID: UUID
-    var onDestroy: (() -> Void)?
+    var DestroyExtras: (() -> Void)?
     
     let mainScene: SCNScene
     
     var elapsedTime: TimeInterval = 0
-    var spawnInterval: TimeInterval = 0.2 // Adjust depending on desired spawn rate
+    var spawnInterval: TimeInterval = 3 //0.2 // Adjust depending on desired spawn rate
     
-    let centerDist: Int = 55 // 55 seems to be a good distance away from player
+    let centerDist: Int = 20 //55 // 55 seems to be a good distance away from player
     
     // TODO: Final food balancing sometime
     init(scene: SCNScene) {
@@ -29,7 +30,7 @@ class FoodSpawner: MonoBehaviour {
     
     func simpleSpawn() {
         
-        var spawnMultiplier: Float = 1
+        var spawnLocationMultiplier: Float = 1
         
         var food: BaseFoodNode? = nil
         let foodData = selectFoodDataUsingWeights()
@@ -44,7 +45,7 @@ class FoodSpawner: MonoBehaviour {
             food = RoamingFoodNode(foodData: foodData)
         case "treasure":
             food = TreasureFoodNode(foodData: foodData)
-            spawnMultiplier = 3
+            spawnLocationMultiplier = 3
         default:
             // Maybe have an error model like in GMod XD
             food = BaseFoodNode(foodData: FoodData(
@@ -62,14 +63,14 @@ class FoodSpawner: MonoBehaviour {
                 speedGrowth: 1.0))
         }
         
-        food!.position = findRandomPosition(spawnMultiplier: spawnMultiplier)
+        food!.position = findRandomPosition(spawnMultiplier: spawnLocationMultiplier)
 
         
-        food!.onDestroy = {
+        food!.DestroyExtras = {
             // Do any cleanup or additional tasks before destroying the node
         }
         // Destroy the food after 50 seconds
-        food!.onDestroy(after: 5.0)
+        food!.Destroy(after: 5.0)
         mainScene.rootNode.addChildNode(food!)
     }
     
@@ -123,7 +124,10 @@ class FoodSpawner: MonoBehaviour {
         }
     }
     
-    func onDestroy(after duration: TimeInterval) {
+    func OnDestroy() {
+    }
+    
+    func Destroy(after duration: TimeInterval) {
         
     }
     

@@ -9,20 +9,6 @@ import Foundation
 import SceneKit
 
 
-//struct FoodData {
-//    var name: String
-//    var initialSpeed: Float
-//    var health: Int
-//    var physicsDimensions: SCNVector3
-//    var hungerValue: Int
-//    var assetName: String
-//    var initialEXP: Int
-//    
-//    var EXPGrowth: Float
-//    var healthGrowth: Float
-//    var hungerGrowth: Float
-//    var speedGrowth: Float
-//}
 ///
 /// Rudimentary Food Class
 ///
@@ -30,7 +16,7 @@ import SceneKit
 public class BaseFoodNode : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
-    var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
+    var DestroyExtras: (() -> Void)? // Closure to be called when the node is destroyed
     
     var deltaTime : CFTimeInterval = 0
     var previousTimestamp: CFTimeInterval = 0
@@ -88,6 +74,9 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     func Start() {
     }
     
+    func OnDestroy() {
+    }
+    
     func Update() {
         moveWithWorld()
         doBehaviour()
@@ -114,7 +103,7 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
         let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
         if distanceFromCenter > 200 {
             // If the object is more than 100 meters away from the center, destroy it
-            self.onDestroy(after: 0)
+            self.Destroy(after: 0)
         }
     }
 }

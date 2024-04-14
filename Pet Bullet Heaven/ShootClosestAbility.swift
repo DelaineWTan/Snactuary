@@ -86,7 +86,7 @@ class ShootClosestAbility: Ability {
         //
         //        // TODO: Actually Terminate the Projectile here.
         //        _InputProjectile.removeFromParentNode()
-        _InputProjectile.onDestroy(after: _ProjectileDuration!)
+        _InputProjectile.Destroy(after: _ProjectileDuration!)
     }
     
     override func copy() -> Any {

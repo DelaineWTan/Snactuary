@@ -15,7 +15,7 @@ public class TreasureFoodNode: BaseFoodNode {
     
     override init(foodData: FoodData) {
         super.init(foodData: foodData)
-        self.onDestroy = {
+        self.DestroyExtras = {
             print("I'm dead")
         }
     }
@@ -59,6 +59,23 @@ public class TreasureFoodNode: BaseFoodNode {
         intervalBehaviour()
     }
     
+    override func OnDestroy() {
+        let food = BaseFoodNode(foodData: Globals.stage2Foods[1].1)
+        
+        food.position = self.position
+        
+        if food.physicsBody != nil {
+            let force = SCNVector3(x: 0, y: 10, z: 10)
+            physicsBody?.applyForce(force, asImpulse: true)
+            print("testing")
+            
+        }
+        
+        // Destroy the food after 50 seconds
+        food.Destroy(after: 50.0)
+        Globals.mainScene.rootNode.addChildNode(food)
+    }
+    
     func intervalBehaviour() {
         // Increment the time elapsed
         timeElapsed += Globals.deltaTime
@@ -91,12 +108,8 @@ public class TreasureFoodNode: BaseFoodNode {
         let food = BaseFoodNode(foodData: Globals.stage1Foods[1].1)
         
         food.position = self.position
-        
-        food.onDestroy = {
-            // Do any cleanup or additional tasks before destroying the node
-        }
         // Destroy the food after 50 seconds
-        food.onDestroy(after: 50.0)
+        food.Destroy(after: 50.0)
         Globals.mainScene.rootNode.addChildNode(food)
     }
 }

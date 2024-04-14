@@ -205,7 +205,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         if food._Health <= 0 {
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             UserDefaults.standard.synchronize()
-            food.onDestroy(after: 0)
+            food.Destroy(after: 0)
             SoundManager.Instance.refreshEatingSFX()
             let stageCycle = Utilities.getCurrentStageIteration()
             
