@@ -207,7 +207,6 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             UserDefaults.standard.synchronize()
             food.onDestroy(after: 0)
             SoundManager.Instance.refreshEatingSFX()
-            let stageCycle = Utilities.getCurrentStageIteration()
             
             //Increment stats
             Globals.snacksEaten += 1
@@ -223,32 +222,20 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                 //check if pet has enough exp to level up
                 if pet.hasLeveledUp(){
                     // assign exp over level up threshold to next level's exp
-                    pet.levelUp(pet.petLevel+1)
+                    pet.levelUp(pet.level+1)
                     let overflowExp = pet.exp - pet.levelUpExp
                     pet.exp = overflowExp
-                    
-                    // TODO: Delaine and Lukasz Make sure review level up code
-//                    // Calculate new exp level up threshold
-//                    pet.levelUpExp = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.levelUpExp, growth: pet.expGrowth) // change this if we want exponential growth back
-//                    pet.petLevel += 1
-//                    
-//                    // scaling attack and speed values with pet growths
-//                    pet.attack = Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.attack, growth: pet.attackGrowth)
-//                    pet.speed += Utilities.finalStatCalculation(stageCycle: stageCycle, baseStat: pet.speed, growth: pet.speedGrowth) / 10
-//                    
-//                    pet.attackPattern.damage = pet.attack
     
                     let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
                     let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
                     
                     let updatedAbility = oldAbilityNode as! Ability
                     updatedAbility.setDamage(pet.attack)
-                    // updatedAbility.setDamage(Int(pet.attack))
-                    //
+
                     let petPosition = scnView.projectPoint(pet.slotPosition)
                     let floatingText = FloatingText()
                     scnView.addSubview(floatingText)
-                    floatingText.showLevelUpText(at: CGPoint(x: CGFloat(petPosition.x), y: CGFloat(petPosition.y)), with: Int(pet.petLevel))
+                    floatingText.showLevelUpText(at: CGPoint(x: CGFloat(petPosition.x), y: CGFloat(petPosition.y)), with: Int(pet.level))
                 }
             }
         }

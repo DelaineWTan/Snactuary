@@ -253,7 +253,7 @@ class GameUIView: UIView, PetSelectionDelegate {
                 
                 oldAbilityNode.removeFromParentNode()
                 
-                let ability = petModel.attackPattern.copy() as! Ability // add new pet ability node, create a duplicate of the reference
+                let ability = petModel.baseAbility.copy() as! Ability // add new pet ability node, create a duplicate of the reference
                 _ = ability.activate()
                 ability.name = oldAbilityNode.name
                 mainPlayerNode.addChildNode(ability)
