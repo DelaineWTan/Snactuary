@@ -34,19 +34,19 @@ public class Pet : SCNNode{
     var speedGrowth: Float
     var expGrowth: Float // for control over gradually raising exp cap for levels
     
-    init(petName: String, petId: Int, petImageName: String = "art.scnassets/locked.png", petModelName: String = "art.scnassets/Paw 4.scn", attack: Int = 1, attackGrowth: Float = 2.0, speedGrowth: Float = 0.1, expGrowth: Float = 5.0, attackPattern: Ability = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}), unlockedInput: Bool = true, currentExp: Int = 0, level: Int = 1) {
+    init(petName: String, petId: Int, petImageName: String = "art.scnassets/locked.png", petModelName: String = "art.scnassets/Paw 4.scn", attack: Int = 1, attackGrowth: Float = 2.0, speedGrowth: Float = 0.1, expGrowth: Float = 5.0, baseAbility: Ability = OrbitingProjectileAbility(_InputAbilityDamage: 1, _InputAbilityDuration: 10, _InputRotationSpeed: 15, _InputDistanceFromCenter: 10, _InputNumProjectiles: 5, _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}), unlockedInput: Bool = true, currentExp: Int = 0, level: Int = 1) {
         id = petId
         imageName = petImageName
         modelName = petModelName
         levelUpExp = 5
         self.level = level
         self.attack = attack
-        self.baseAbility = attackPattern
+        self.baseAbility = baseAbility
         self.unlocked = unlockedInput
         self.attackGrowth = attackGrowth
         self.speedGrowth = speedGrowth
         self.expGrowth = expGrowth
-        self.activeAbility = attackPattern.copy() as! Ability
+        self.activeAbility = baseAbility.copy() as! Ability
         super.init()
         // Level the pet up, update stats accordingly and set current exp
         self.levelUp(self.level)
@@ -90,6 +90,6 @@ public class Pet : SCNNode{
     // Activates the pet by enabling its ability
     func activate() {
         self.activeAbility = baseAbility.copy() as! Ability
-        _ = self.activeAbility.activate()
+        self.activeAbility.activate()
     }
 }

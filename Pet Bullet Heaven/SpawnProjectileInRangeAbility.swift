@@ -20,7 +20,6 @@ class SpawnProjectileInRangeAbility : Ability {
     // The amount of time that spawned Projectiles lasts for.
     var _ProjectileDuration: Double?
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -35,6 +34,8 @@ class SpawnProjectileInRangeAbility : Ability {
         _ProjectileDuration = _InputProjectileDuration
     }
     
+    
+    
     /**
      Helper function to spawn projectiles. Howeve, we necessarily override for the  implementation of this ability because the Projectiles positions are do not need to be with respect with the Player's position.
      Additionally, we need to terminate the projectiles individually after as well.
@@ -45,10 +46,12 @@ class SpawnProjectileInRangeAbility : Ability {
         newProjectile.setDamage(damage!)
         newProjectile.position = generateRandomPositionInRange()
         
-        // TODO: Terminate the Projectile after given amount of duration
-        TerminateProjectile(_InputProjectile: projectiles[0])
-        projectiles.removeAll()
-        
+        // Schedule the despawning of the projectile after its duration
+        DispatchQueue.main.asyncAfter(deadline: .now() + _ProjectileDuration!) { [weak self] in
+            guard let self = self else { return }
+            self.DespawnProjectile(activeProjectile: newProjectile)
+        }
+
         newProjectile.removeFromParentNode()
         Globals.mainScene.rootNode.addChildNode(newProjectile)
         return newProjectile
@@ -60,10 +63,10 @@ class SpawnProjectileInRangeAbility : Ability {
     override func activate() -> Bool {
         
         // TODO: Spawn the Projectile
-        let timer = Timer(timeInterval: _SpawnRate!, repeats: true) { Timer in
+        timer = Timer(timeInterval: _SpawnRate!, repeats: true) { Timer in
             _ = self.SpawnProjectile()
         }
-        RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
+        RunLoop.current.add(timer!, forMode: RunLoop.Mode.common)
         
         // Dummy Return
         return true
@@ -101,23 +104,6 @@ class SpawnProjectileInRangeAbility : Ability {
         
         // Finally Return Generated Position
         return _GeneratedPosition
-    }
-    
-    /**
-     After duration amount of time, we should terminate the Projectile, using the given reference to Projectile.
-     */
-    func TerminateProjectile(_InputProjectile: Projectile){
-        
-        //        // TODO: Instantiate a SCNAction to wait duration amount of Time.
-        //        let waitAction = SCNAction.wait(duration: _ProjectileDuration!)
-        //
-        //        // TODO: Execute the wait
-        //        self.runAction(waitAction)
-        //
-        //        // TODO: Actually Terminate the Projectile here.
-        //        _InputProjectile.removeFromParentNode()
-        
-        _InputProjectile.Destroy(after: _ProjectileDuration!)
     }
     
     /**

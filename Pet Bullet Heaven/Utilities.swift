@@ -27,8 +27,9 @@ public class Utilities {
         if let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true) {
             petSlotNode = mainPlayerNode.childNode(withName: "pos\(position)", recursively: true)!
             
-            if let oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[position], recursively: true) {
+            if let oldAbilityNode = mainPlayerNode.childNode(withName: Globals.petAbilityNodeName[position], recursively: true) as? Ability {
                 oldAbilityNode.removeFromParentNode()
+                oldAbilityNode.deactivate()
             }
             
             petSlotNode.enumerateChildNodes { (node, stop) in

@@ -37,7 +37,11 @@ class ShootClosestAbility: Ability {
         newProjectile._Destination = _InputDestination
         newProjectile._ProjectileSpeed = _ProjectileSpeed
         
-        TerminateProjectile(_InputProjectile:  newProjectile)
+        // Schedule the despawning of the projectile after its duration
+        DispatchQueue.main.asyncAfter(deadline: .now() + _ProjectileDuration!) { [weak self] in
+            guard let self = self else { return }
+            self.DespawnProjectile(activeProjectile: newProjectile)
+        }
         
         // Heavy assumption that this ability is attached to the Scene
         Globals.mainScene.rootNode.addChildNode(newProjectile)
@@ -71,22 +75,6 @@ class ShootClosestAbility: Ability {
      */
     func checkValidRange(_InputDistance: Float) -> Bool{
         return _InputDistance < _Range! ? true : false
-    }
-    
-    /**
-     After duration amount of time, we should terminate the Projectile, using the given reference to Projectile.
-     */
-    func TerminateProjectile(_InputProjectile: Projectile){
-        
-        //        // TODO: Instantiate a SCNAction to wait duration amount of Time.
-        //        let waitAction = SCNAction.wait(duration: _ProjectileDuration!)
-        //
-        //        // TODO: Execute the wait
-        //        self.runAction(waitAction)
-        //
-        //        // TODO: Actually Terminate the Projectile here.
-        //        _InputProjectile.removeFromParentNode()
-        _InputProjectile.Destroy(after: _ProjectileDuration!)
     }
     
     override func copy() -> Any {
