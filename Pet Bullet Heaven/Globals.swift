@@ -32,7 +32,7 @@ public class Globals {
                 _InputFireRate: 100, // TODO: Fix model memory issue first
                 _InputProjectileSpeed: 22,
                 _InputProjectileDuration: 1.25,
-                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 2)}),
+                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 2, assetName: "Paw 4")}),
                currentExp: 0,
                level: 1
               ),
@@ -42,7 +42,7 @@ public class Globals {
                petImageName: "penguin1.png",
                petModelName: "art.scnassets/Penguin.001.scn",
                baseAbility: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 10, _InputProjectileDuration: 3, _InputProjectile: {
-                   ()-> Projectile in StationaryBomb(_InputDamage: 2)
+                   ()-> Projectile in StationaryBomb(_InputDamage: 2, assetName: "Paw 4")
                }),
                currentExp: 0,
                level: 1
@@ -58,7 +58,7 @@ public class Globals {
                 _InputRotationSpeed: 19,
                 _InputDistanceFromCenter: 6,
                 _InputNumProjectiles: 3,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)})
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Paw 4")})
               ),
         
         3: Pet(petName:"Dol Ducker",
@@ -87,7 +87,7 @@ public class Globals {
                 _InputRotationSpeed: 4.5,
                 _InputDistanceFromCenter: 13,
                 _InputNumProjectiles: 3,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 3)}),
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 3, assetName: "Paw 4")}),
                currentExp: 0,
                level: 1
               ),
@@ -101,7 +101,7 @@ public class Globals {
                 _InputFireRate: 5.5,
                 _InputProjectileSpeed: 13,
                 _InputProjectileDuration: 2.75,
-                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 4)}),
+                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 4, assetName: "Paw 4")}),
                currentExp: 0,
                level: 1
               ),
@@ -116,7 +116,7 @@ public class Globals {
                 _InputRotationSpeed: 5.5,
                 _InputDistanceFromCenter: 16,
                 _InputNumProjectiles: 2,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2)}),
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2, assetName: "Paw 4")}),
                currentExp: 0,
                level: 1
               ),
@@ -130,7 +130,7 @@ public class Globals {
                 _InputFireRate: 2.5,
                 _InputProjectileSpeed: 30,
                 _InputProjectileDuration: 1,
-                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1)}),
+                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1, assetName: "Paw 4")}),
                currentExp: 0,
                level: 1
               ),
@@ -144,7 +144,7 @@ public class Globals {
                 _InputRotationSpeed: 4,
                 _InputDistanceFromCenter: 5,
                 _InputNumProjectiles: 1,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1)}),
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Paw 4")}),
                unlockedInput: false, currentExp: 0,
                level: 1
               ),
