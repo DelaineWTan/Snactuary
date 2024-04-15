@@ -195,7 +195,7 @@ public class Globals {
            speedGrowth: 1.0)
     ]
     public static var stage1Foods: [(Int, FoodData)] = [
-        (10,
+        (1,
          FoodData(
             name: "Muffin",
             type: "treasure",
@@ -209,7 +209,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (0,
+        (40,
          FoodData(
             name: "StationaryMushroom",
             type: "base",
@@ -223,7 +223,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (0,
+        (30,
          FoodData(
             name: "DirectionalCarrot",
             type: "directional",
@@ -237,7 +237,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (0,
+        (9,
          FoodData(
             name: "FleeingCarrot",
             type: "flee",
@@ -251,7 +251,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (0,
+        (20,
          FoodData(
             name: "RoamingCarrot",
             type: "roam",
