@@ -29,7 +29,7 @@ public class Globals {
                petImageName: "frog1.png",
                petModelName: "art.scnassets/Frog.Green.scn",
                baseAbility: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 10, _InputProjectileDuration: 3, _InputProjectile: {
-                   ()-> Projectile in StationaryBomb(_InputDamage: 2, assetName: "IcebergV2")
+                   ()-> Projectile in StationaryBomb(_InputDamage: 2, assetName: "Bubble")
                }),
                currentExp: 0,
                level: 1
@@ -143,8 +143,9 @@ public class Globals {
                 _InputRotationSpeed: 4,
                 _InputDistanceFromCenter: 5,
                 _InputNumProjectiles: 1,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Paw 4")}),
-               unlockedInput: false, currentExp: 0,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Honeypot")}),
+               //unlockedInput: false,
+               currentExp: 0,
                level: 1
               ),
         
@@ -152,6 +153,13 @@ public class Globals {
                 petId: 10,
                 petImageName: "bear-gummy.png",
                 petModelName: "art.scnassets/bear.g.scn",
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Honeypot")}),
                 currentExp: 0,
                 level: 1 // Assuming from context
                ),
@@ -159,7 +167,13 @@ public class Globals {
                 petId: 11,
                 petImageName: "bear-polar.png",
                 petModelName: "art.scnassets/bear.p.scn",
-                unlockedInput: false,
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Honeypot")}),
                 currentExp: 0,
                 level: 1 // Assuming from context
                ),
@@ -167,6 +181,13 @@ public class Globals {
                 petId: 12,
                 petImageName: "dog.png",
                 petModelName: "art.scnassets/dog1.scn",
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Dogbone")}),
                 currentExp: 0,
                 level: 1 // Assuming from context
                ),
@@ -174,6 +195,13 @@ public class Globals {
                 petId: 13,
                 petImageName: "dog2.png",
                 petModelName: "art.scnassets/dog2.scn",
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Dogbone")}),
                 currentExp: 0,
                 level: 1 // Assuming from context
                ),
@@ -181,6 +209,13 @@ public class Globals {
                 petId: 14,
                 petImageName: "dog3.png",
                 petModelName: "art.scnassets/dog3.scn",
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Dogbone")}),
                 currentExp: 0,
                 level: 1 // Assuming from context
                ),
