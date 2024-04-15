@@ -263,7 +263,7 @@ public class Globals {
             speedGrowth: 1.0))
     ]
     public static var stage2Foods: [(Int, FoodData)] = [
-        (10,
+        (1,
          FoodData(
             name: "Muffin",
             type: "treasure",
@@ -277,10 +277,10 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (100,
+        (40,
          FoodData(
             name: "StationaryKelp",
-            type: "stationary",
+            type: "base",
             initialSpeed: 3,
             health: 3,
             physicsDimensions: SCNVector3(x: 3, y: 3, z: 3),
@@ -291,7 +291,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (100,
+        (30,
          FoodData(
             name: "DirectionalBanana",
             type: "directional",
@@ -305,7 +305,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (100,
+        (9,
          FoodData(
             name: "FleeingBanana",
             type: "flee",
@@ -319,7 +319,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (100,
+        (20,
          FoodData(
             name: "RoamingBanana",
             type: "roam",
@@ -335,7 +335,7 @@ public class Globals {
             speedGrowth: 1.0))
     ]
     public static var stage3Foods: [(Int, FoodData)] = [
-        (10,
+        (1,
          FoodData(
             name: "Muffin",
             type: "treasure",
@@ -349,10 +349,10 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (100,
+        (40,
          FoodData(
             name: "StationaryCottonCandy",
-            type: "stationary",
+            type: "base",
             initialSpeed: 3.5,
             health: 5,
             physicsDimensions: SCNVector3(1.5, 3, 1.5),
@@ -363,7 +363,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (100,
+        (30,
          FoodData(
             name: "DirectionalDonut",
             type: "directional",
@@ -377,7 +377,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (100,
+        (9,
          FoodData(
             name: "FleeingDonut",
             type: "flee",
@@ -391,7 +391,7 @@ public class Globals {
             healthGrowth: 1.0,
             hungerGrowth: 1.0,
             speedGrowth: 1.0)),
-        (100,
+        (20,
          FoodData(
             name: "RoamingDonut",
             type: "roam",
