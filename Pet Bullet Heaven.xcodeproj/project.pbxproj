@@ -80,6 +80,10 @@
 		FB41F4C52BCCD0F200A25656 /* PawTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C32BCCD0F200A25656 /* PawTexture.png */; };
 		FB41F4C62BCCD0F200A25656 /* PawV5.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C42BCCD0F200A25656 /* PawV5.dae */; };
 		FB41F4C82BCCD1CE00A25656 /* IcebergV2.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C72BCCD1CE00A25656 /* IcebergV2.dae */; };
+		FB41F4CD2BCCD49E00A25656 /* Honeypot.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C92BCCD49E00A25656 /* Honeypot.dae */; };
+		FB41F4CE2BCCD49E00A25656 /* Dogbone.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4CA2BCCD49E00A25656 /* Dogbone.dae */; };
+		FB41F4CF2BCCD49E00A25656 /* DogBoneTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4CB2BCCD49E00A25656 /* DogBoneTexture.png */; };
+		FB41F4D02BCCD49E00A25656 /* HoneyPotTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4CC2BCCD49E00A25656 /* HoneyPotTexture.png */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* BaseFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* BaseFoodNode.swift */; };
 		FBB2DC772BC348AD0096231F /* TreasureFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */; };
@@ -194,6 +198,10 @@
 		FB41F4C32BCCD0F200A25656 /* PawTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PawTexture.png; sourceTree = "<group>"; };
 		FB41F4C42BCCD0F200A25656 /* PawV5.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = PawV5.dae; sourceTree = "<group>"; };
 		FB41F4C72BCCD1CE00A25656 /* IcebergV2.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IcebergV2.dae; sourceTree = "<group>"; };
+		FB41F4C92BCCD49E00A25656 /* Honeypot.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Honeypot.dae; sourceTree = "<group>"; };
+		FB41F4CA2BCCD49E00A25656 /* Dogbone.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Dogbone.dae; sourceTree = "<group>"; };
+		FB41F4CB2BCCD49E00A25656 /* DogBoneTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DogBoneTexture.png; sourceTree = "<group>"; };
+		FB41F4CC2BCCD49E00A25656 /* HoneyPotTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HoneyPotTexture.png; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* BaseFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFoodNode.swift; sourceTree = "<group>"; };
 		FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureFoodNode.swift; sourceTree = "<group>"; };
@@ -402,6 +410,10 @@
 				FB41F4C02BCCD07600A25656 /* Iceberg.png */,
 				FB41F4C32BCCD0F200A25656 /* PawTexture.png */,
 				FB41F4C42BCCD0F200A25656 /* PawV5.dae */,
+				FB41F4CA2BCCD49E00A25656 /* Dogbone.dae */,
+				FB41F4CB2BCCD49E00A25656 /* DogBoneTexture.png */,
+				FB41F4C92BCCD49E00A25656 /* Honeypot.dae */,
+				FB41F4CC2BCCD49E00A25656 /* HoneyPotTexture.png */,
 			);
 			path = Attack;
 			sourceTree = "<group>";
@@ -538,10 +550,12 @@
 				FBE60A582B92E51F009B3E7E /* Cat.001.png in Resources */,
 				58B817722BBCA5BC00DF8FD8 /* chicken.png in Resources */,
 				FB2128312BB9FB1600CE5066 /* FrogLuckyTexture.png in Resources */,
+				FB41F4CF2BCCD49E00A25656 /* DogBoneTexture.png in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
 				FBD5183A2BB642C800E947E5 /* berrytext.png in Resources */,
 				58B817752BBCA5BC00DF8FD8 /* frog2.png in Resources */,
 				FB2128302BB9FB1600CE5066 /* FrogGreenTexture.png in Resources */,
+				FB41F4CE2BCCD49E00A25656 /* Dogbone.dae in Resources */,
 				FB41F4C82BCCD1CE00A25656 /* IcebergV2.dae in Resources */,
 				0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */,
 				0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */,
@@ -552,6 +566,7 @@
 				FB2128242BB9FB1600CE5066 /* FrogFroakTexture.png in Resources */,
 				58B817762BBCA5BC00DF8FD8 /* frog1.png in Resources */,
 				58B817702BBCA5BC00DF8FD8 /* dog1.png in Resources */,
+				FB41F4D02BCCD49E00A25656 /* HoneyPotTexture.png in Resources */,
 				FBD5183D2BB642C800E947E5 /* donut.dae in Resources */,
 				FBE60A5C2B92E52A009B3E7E /* Duck.001.png in Resources */,
 				FB41F4A72BCCB7CA00A25656 /* Crumbs.dae in Resources */,
@@ -564,6 +579,7 @@
 				FB21282D2BB9FB1600CE5066 /* DuckYellowTexture.png in Resources */,
 				FB41F4A52BCCB7C200A25656 /* CottenCandy.dae in Resources */,
 				FB41F4C52BCCD0F200A25656 /* PawTexture.png in Resources */,
+				FB41F4CD2BCCD49E00A25656 /* Honeypot.dae in Resources */,
 				58B817712BBCA5BC00DF8FD8 /* cat1.png in Resources */,
 				FB41F4C22BCCD07600A25656 /* Iceberg.png in Resources */,
 				0E052F742BBA5363003BA02D /* cloud_teal.png in Resources */,
