@@ -102,6 +102,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             for foodInformation in foodGroup {
                 let foodAssetName = foodInformation.1.assetName
                 Globals.foodSCNModels[foodAssetName] = Utilities.loadSceneModelNode(name: foodAssetName)
+                print("asset name: \(foodAssetName)")
             }
         }
     }

@@ -44,6 +44,7 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
         
         // load scene model
         // TODO: use .clone() to do object instancing
+        
         self.addChildNode((Globals.foodSCNModels[foodData.assetName]!.clone()))
 
         
