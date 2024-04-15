@@ -16,7 +16,6 @@ public class TreasureFoodNode: BaseFoodNode {
     override init(foodData: FoodData) {
         super.init(foodData: foodData)
         self.DestroyExtras = {
-            print("I'm dead")
         }
     }
     required init?(coder aDecoder: NSCoder) {
@@ -32,11 +31,14 @@ public class TreasureFoodNode: BaseFoodNode {
     var timeTillStopElapsed: TimeInterval = 0.0
     var timeTillStop: TimeInterval = 20.0
     
+    var keepSpawning: Bool = true
+    
     override func doBehaviour() {
         
         timeTillStopElapsed += Globals.deltaTime
         
         if timeTillStopElapsed >= timeTillStop {
+            keepSpawning = false
             return
         }
         let directionToCenter = SCNVector3(0, 0, 0) + self.position
@@ -60,6 +62,7 @@ public class TreasureFoodNode: BaseFoodNode {
     }
     
     override func OnDestroy() {
+
         if Globals.currentGameState == "paused" {
             return
         }
@@ -67,9 +70,15 @@ public class TreasureFoodNode: BaseFoodNode {
         
         food.position = self.position
         
-        // Destroy the food after 50 seconds
-        food.Destroy(after: 50.0)
-        Globals.mainScene.rootNode.addChildNode(food)
+        for _ in 0...20 {
+            let food = TreasureBitsNode(foodData: Globals.specialFoods[1])
+            food.position = self.position
+            food.initialPosition = self.position
+            //food.position = self.position
+            // Destroy the food after 50 seconds
+            food.Destroy(after: 50.0)
+            Globals.mainScene.rootNode.addChildNode(food)
+        }
     }
     
     func intervalBehaviour() {
@@ -79,6 +88,9 @@ public class TreasureFoodNode: BaseFoodNode {
         // Check if it's time to spawn food
         if timeElapsed >= spawnInterval {
             // Reset the time elapsed
+            if !keepSpawning {
+                return
+            }
             timeElapsed = 0.0
             
             // Spawn the food
@@ -101,7 +113,8 @@ public class TreasureFoodNode: BaseFoodNode {
     
     func spawnBabyFoods() {
         
-        let food = BaseFoodNode(foodData: Globals.stage1Foods[1].1)
+        // TODO: maybe use TreasureCrumbsNode?
+        let food = BaseFoodNode(foodData: Globals.specialFoods[0])
         
         food.position = self.position
         // Destroy the food after 50 seconds
@@ -111,9 +124,42 @@ public class TreasureFoodNode: BaseFoodNode {
 }
 
 public class TreasureCrumbsNode: BaseFoodNode {
-    
 }
 
 public class TreasureBitsNode: BaseFoodNode {
+    var burstInterval: TimeInterval = 1.0
+    var burstTime: TimeInterval = 0.0
     
+    var initialPosition = SCNVector3()
+    
+    
+    let rangeLimit: Float = 1
+    var modifierX: Float = 0.0
+    var modifierZ: Float = 0.0
+    
+    override func Start() {
+        //        initialPosition = self.position
+        initializeFoodMovement()
+    }
+    
+    func initializeFoodMovement() {
+        modifierX = Float.random(in: -rangeLimit...rangeLimit)
+        modifierZ = Float.random(in: -rangeLimit...rangeLimit)
+    }
+    
+    override func doBehaviour() {
+        burstTime += Globals.deltaTime
+        if burstTime >= burstInterval {
+            return
+        }
+        
+        let directionToCenter = initialPosition - self.position
+        
+        // Normalize the direction vector to ensure consistent movement speed
+        let normalizedDirection = directionToCenter.normalized()
+        
+        // Adjust the position based on the direction vector
+        self.position.x -= normalizedDirection.x * Float(Globals.deltaTime) * self.speed * self.modifierX
+        self.position.z -= normalizedDirection.z * Float(Globals.deltaTime) * self.speed * self.modifierZ
+    }
 }
