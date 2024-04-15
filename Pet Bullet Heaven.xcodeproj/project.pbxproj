@@ -70,6 +70,21 @@
 		FB2128302BB9FB1600CE5066 /* FrogGreenTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128202BB9FB1600CE5066 /* FrogGreenTexture.png */; };
 		FB2128312BB9FB1600CE5066 /* FrogLuckyTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */; };
 		FB2128342BB9FE4100CE5066 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2128332BB9FE4100CE5066 /* Utilities.swift */; };
+		FB41F4A52BCCB7C200A25656 /* CottenCandy.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4A42BCCB7C200A25656 /* CottenCandy.dae */; };
+		FB41F4A72BCCB7CA00A25656 /* Crumbs.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4A62BCCB7CA00A25656 /* Crumbs.dae */; };
+		FB41F4A92BCCB7D200A25656 /* Kelp.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4A82BCCB7D200A25656 /* Kelp.dae */; };
+		FB41F4AB2BCCB7DA00A25656 /* Muffin.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4AA2BCCB7DA00A25656 /* Muffin.dae */; };
+		FB41F4AD2BCCB7E200A25656 /* Mushroom.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4AC2BCCB7E200A25656 /* Mushroom.dae */; };
+		FB41F4BD2BCCCEC500A25656 /* Bubble.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4BB2BCCCEC500A25656 /* Bubble.dae */; };
+		FB41F4BE2BCCCEC500A25656 /* BubbleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4BC2BCCCEC500A25656 /* BubbleTexture.png */; };
+		FB41F4C22BCCD07600A25656 /* Iceberg.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C02BCCD07600A25656 /* Iceberg.png */; };
+		FB41F4C52BCCD0F200A25656 /* PawTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C32BCCD0F200A25656 /* PawTexture.png */; };
+		FB41F4C62BCCD0F200A25656 /* PawV5.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C42BCCD0F200A25656 /* PawV5.dae */; };
+		FB41F4C82BCCD1CE00A25656 /* IcebergV2.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C72BCCD1CE00A25656 /* IcebergV2.dae */; };
+		FB41F4CD2BCCD49E00A25656 /* Honeypot.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C92BCCD49E00A25656 /* Honeypot.dae */; };
+		FB41F4CE2BCCD49E00A25656 /* Dogbone.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4CA2BCCD49E00A25656 /* Dogbone.dae */; };
+		FB41F4CF2BCCD49E00A25656 /* DogBoneTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4CB2BCCD49E00A25656 /* DogBoneTexture.png */; };
+		FB41F4D02BCCD49E00A25656 /* HoneyPotTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4CC2BCCD49E00A25656 /* HoneyPotTexture.png */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* BaseFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* BaseFoodNode.swift */; };
 		FBB2DC772BC348AD0096231F /* TreasureFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */; };
@@ -173,6 +188,22 @@
 		FB2128202BB9FB1600CE5066 /* FrogGreenTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogGreenTexture.png; sourceTree = "<group>"; };
 		FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogLuckyTexture.png; sourceTree = "<group>"; };
 		FB2128332BB9FE4100CE5066 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		FB41F4A42BCCB7C200A25656 /* CottenCandy.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = CottenCandy.dae; sourceTree = "<group>"; };
+		FB41F4A62BCCB7CA00A25656 /* Crumbs.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Crumbs.dae; sourceTree = "<group>"; };
+		FB41F4A82BCCB7D200A25656 /* Kelp.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Kelp.dae; sourceTree = "<group>"; };
+		FB41F4AA2BCCB7DA00A25656 /* Muffin.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Muffin.dae; sourceTree = "<group>"; };
+		FB41F4AC2BCCB7E200A25656 /* Mushroom.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Mushroom.dae; sourceTree = "<group>"; };
+		FB41F4B82BCCB99B00A25656 /* Mushroom.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Mushroom.dae; path = "../../../../Downloads/Food Models/Mushroom/Mushroom.dae"; sourceTree = "<group>"; };
+		FB41F4BB2BCCCEC500A25656 /* Bubble.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Bubble.dae; sourceTree = "<group>"; };
+		FB41F4BC2BCCCEC500A25656 /* BubbleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleTexture.png; sourceTree = "<group>"; };
+		FB41F4C02BCCD07600A25656 /* Iceberg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Iceberg.png; sourceTree = "<group>"; };
+		FB41F4C32BCCD0F200A25656 /* PawTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PawTexture.png; sourceTree = "<group>"; };
+		FB41F4C42BCCD0F200A25656 /* PawV5.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = PawV5.dae; sourceTree = "<group>"; };
+		FB41F4C72BCCD1CE00A25656 /* IcebergV2.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IcebergV2.dae; sourceTree = "<group>"; };
+		FB41F4C92BCCD49E00A25656 /* Honeypot.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Honeypot.dae; sourceTree = "<group>"; };
+		FB41F4CA2BCCD49E00A25656 /* Dogbone.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Dogbone.dae; sourceTree = "<group>"; };
+		FB41F4CB2BCCD49E00A25656 /* DogBoneTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DogBoneTexture.png; sourceTree = "<group>"; };
+		FB41F4CC2BCCD49E00A25656 /* HoneyPotTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HoneyPotTexture.png; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* BaseFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFoodNode.swift; sourceTree = "<group>"; };
 		FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureFoodNode.swift; sourceTree = "<group>"; };
@@ -302,8 +333,14 @@
 		4FAE63822B7C483D007ED6AA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FB41F4BA2BCCCEAA00A25656 /* Attack */,
 				58B8175F2BBCA5BC00DF8FD8 /* Sprites */,
 				FB2128122BB9FB1600CE5066 /* textures */,
+				FB41F4A42BCCB7C200A25656 /* CottenCandy.dae */,
+				FB41F4AA2BCCB7DA00A25656 /* Muffin.dae */,
+				FB41F4A62BCCB7CA00A25656 /* Crumbs.dae */,
+				FB41F4A82BCCB7D200A25656 /* Kelp.dae */,
+				FB41F4AC2BCCB7E200A25656 /* Mushroom.dae */,
 				0D58FCD62BB8DED800488D01 /* app_icon.jpg */,
 				0E052F602BBA304F003BA02D /* title_image.png */,
 				0E052F722BBA5363003BA02D /* cloud_pink.png */,
@@ -324,6 +361,7 @@
 				FBE60A5F2B92E533009B3E7E /* Frog.001.png */,
 				FBE60A622B92E7EB009B3E7E /* Frog.001.dae */,
 				FBD518352BB63BCC00E947E5 /* CarrotV2.dae */,
+				FB41F4B82BCCB99B00A25656 /* Mushroom.dae */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -364,6 +402,23 @@
 				FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */,
 			);
 			path = textures;
+			sourceTree = "<group>";
+		};
+		FB41F4BA2BCCCEAA00A25656 /* Attack */ = {
+			isa = PBXGroup;
+			children = (
+				FB41F4BB2BCCCEC500A25656 /* Bubble.dae */,
+				FB41F4BC2BCCCEC500A25656 /* BubbleTexture.png */,
+				FB41F4C72BCCD1CE00A25656 /* IcebergV2.dae */,
+				FB41F4C02BCCD07600A25656 /* Iceberg.png */,
+				FB41F4C32BCCD0F200A25656 /* PawTexture.png */,
+				FB41F4C42BCCD0F200A25656 /* PawV5.dae */,
+				FB41F4CA2BCCD49E00A25656 /* Dogbone.dae */,
+				FB41F4CB2BCCD49E00A25656 /* DogBoneTexture.png */,
+				FB41F4C92BCCD49E00A25656 /* Honeypot.dae */,
+				FB41F4CC2BCCD49E00A25656 /* HoneyPotTexture.png */,
+			);
+			path = Attack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -473,6 +528,8 @@
 				0E052F612BBA304F003BA02D /* title_image.png in Resources */,
 				FB2128292BB9FB1600CE5066 /* BaseFrogTexture.png in Resources */,
 				FBD5183B2BB642C800E947E5 /* IcingTexture.png in Resources */,
+				FB41F4BE2BCCCEC500A25656 /* BubbleTexture.png in Resources */,
+				FB41F4AB2BCCB7DA00A25656 /* Muffin.dae in Resources */,
 				58B817742BBCA5BC00DF8FD8 /* frog3.png in Resources */,
 				0D58FCC92BB78DBD00488D01 /* Banana.dae in Resources */,
 				0D8DB43C2B7AC9AB008D2AE8 /* .gitignore in Resources */,
@@ -485,8 +542,10 @@
 				FB2128232BB9FB1600CE5066 /* CatCursedTexture.png in Resources */,
 				0E052F752BBA5363003BA02D /* cloud_pink.png in Resources */,
 				58B8176C2BBCA5BC00DF8FD8 /* fox.jpeg in Resources */,
+				FB41F4BD2BCCCEC500A25656 /* Bubble.dae in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
 				FBD5183C2BB642C800E947E5 /* donutTexture.png in Resources */,
+				FB41F4AD2BCCB7E200A25656 /* Mushroom.dae in Resources */,
 				FB2128252BB9FB1600CE5066 /* CatPinkTexture.png in Resources */,
 				0D58FCD72BB8DED800488D01 /* app_icon.jpg in Resources */,
 				FB21282E2BB9FB1600CE5066 /* DuckDolanTexture.png in Resources */,
@@ -494,27 +553,38 @@
 				FBE60A582B92E51F009B3E7E /* Cat.001.png in Resources */,
 				58B817722BBCA5BC00DF8FD8 /* chicken.png in Resources */,
 				FB2128312BB9FB1600CE5066 /* FrogLuckyTexture.png in Resources */,
+				FB41F4CF2BCCD49E00A25656 /* DogBoneTexture.png in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
 				FBD5183A2BB642C800E947E5 /* berrytext.png in Resources */,
 				58B817752BBCA5BC00DF8FD8 /* frog2.png in Resources */,
 				FB2128302BB9FB1600CE5066 /* FrogGreenTexture.png in Resources */,
+				FB41F4CE2BCCD49E00A25656 /* Dogbone.dae in Resources */,
+				FB41F4C82BCCD1CE00A25656 /* IcebergV2.dae in Resources */,
 				0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */,
 				0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */,
 				0D58FCCB2BB7943800488D01 /* FrogFroak.dae in Resources */,
+				FB41F4C62BCCD0F200A25656 /* PawV5.dae in Resources */,
 				58B8176F2BBCA5BC00DF8FD8 /* duck1.png in Resources */,
 				58B8176D2BBCA5BC00DF8FD8 /* duck2.png in Resources */,
 				FB2128242BB9FB1600CE5066 /* FrogFroakTexture.png in Resources */,
 				58B817762BBCA5BC00DF8FD8 /* frog1.png in Resources */,
 				58B817702BBCA5BC00DF8FD8 /* dog1.png in Resources */,
+				FB41F4D02BCCD49E00A25656 /* HoneyPotTexture.png in Resources */,
 				FBD5183D2BB642C800E947E5 /* donut.dae in Resources */,
 				FBE60A5C2B92E52A009B3E7E /* Duck.001.png in Resources */,
+				FB41F4A72BCCB7CA00A25656 /* Crumbs.dae in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
+				FB41F4A92BCCB7D200A25656 /* Kelp.dae in Resources */,
 				58B8177B2BBCA87300DF8FD8 /* bear1.png in Resources */,
 				0D64093D2B71FBD00047847B /* Main.storyboard in Resources */,
 				58B817732BBCA5BC00DF8FD8 /* cat2.png in Resources */,
 				0D58FCD92BB8F00D00488D01 /* logo-color.png in Resources */,
 				FB21282D2BB9FB1600CE5066 /* DuckYellowTexture.png in Resources */,
+				FB41F4A52BCCB7C200A25656 /* CottenCandy.dae in Resources */,
+				FB41F4C52BCCD0F200A25656 /* PawTexture.png in Resources */,
+				FB41F4CD2BCCD49E00A25656 /* Honeypot.dae in Resources */,
 				58B817712BBCA5BC00DF8FD8 /* cat1.png in Resources */,
+				FB41F4C22BCCD07600A25656 /* Iceberg.png in Resources */,
 				0E052F742BBA5363003BA02D /* cloud_teal.png in Resources */,
 				FBE60A552B92D484009B3E7E /* Paw 4.dae in Resources */,
 				FB21282C2BB9FB1600CE5066 /* DuckDaffyTexture.png in Resources */,
