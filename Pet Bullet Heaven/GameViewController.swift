@@ -185,13 +185,18 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let scnView = self.view as! SCNView
         let foodPosition = scnView.projectPoint(food.presentation.position)
         let attackingNode = checkPetCollision()
+        var damageDone = UserDefaults.standard.integer(forKey: Globals.damageDoneKey)
+        var snacksEaten = UserDefaults.standard.integer(forKey: Globals.snacksEatenKey)
+        var totalScore = UserDefaults.standard.integer(forKey: Globals.totalScoreKey)
         
         if let projectile = attackingNode as? Projectile {
             // Handle collision with a projectile node
             food._Health -= projectile._Damage
             
             //increment stats
-            Globals.damageDone += projectile._Damage
+            damageDone += projectile._Damage
+            // Save damage score persistently
+            UserDefaults.standard.set(damageDone, forKey: Globals.damageDoneKey)
             
             // Show floating damage text
             let floatingText = FloatingText()
@@ -200,7 +205,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         else if let petNode = attackingNode as? Pet {
             food._Health -= Int(petNode.attack)
-            Globals.damageDone += petNode.attack
+            damageDone += petNode.attack
+            // Save damage score persistently
+            UserDefaults.standard.set(damageDone, forKey: Globals.damageDoneKey)
             
             // Show floating damage text
             let floatingText = FloatingText()
@@ -216,8 +223,12 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             SoundManager.Instance.refreshEatingSFX()
             
             //Increment stats
-            Globals.snacksEaten += 1
-            Globals.totalScore += food.hungerValue
+            snacksEaten += 1
+            totalScore += food.hungerValue
+            
+            //save data
+            UserDefaults.standard.set(snacksEaten, forKey: Globals.snacksEatenKey)
+            UserDefaults.standard.setValue(totalScore, forKey: Globals.totalScoreKey)
 
             //increase exp for all active pets
             for petIndex in 0...Globals.activePets.count - 1 {

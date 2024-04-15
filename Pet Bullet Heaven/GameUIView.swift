@@ -188,11 +188,12 @@ class GameUIView: UIView, PetSelectionDelegate {
                 
                 // increase food health
                 var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
-                
+                var stagesPassed = UserDefaults.standard.integer(forKey: Globals.stagesPassedKey)
                 // Increment stage count and play new bgm
                 SoundManager.Instance.stopCurrentBGM()
                 stageCount += 1
-                Globals.stagesPassed += 1
+                stagesPassed += 1
+                UserDefaults.standard.set(stagesPassed, forKey: Globals.stagesPassedKey)
                 self?.inGameUIView.setStageCount(stageCount: stageCount)
                 UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
                 SoundManager.Instance.playCurrentStageBGM()

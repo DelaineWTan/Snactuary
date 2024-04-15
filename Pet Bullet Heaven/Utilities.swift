@@ -92,12 +92,15 @@ public class Utilities {
 //            print("User data version out of date (v\(currentUserDataVersion)), initializing to v\(latestUserDataVersion)...")
             UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
             UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
+            UserDefaults.standard.set(0, forKey: Globals.damageDoneKey)
+            UserDefaults.standard.set(0, forKey: Globals.snacksEatenKey)
+            UserDefaults.standard.set(0, forKey: Globals.stagesPassedKey)
             UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
             UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
             UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
             
             UserDefaults.standard.set(latestUserDataVersion, forKey: Globals.userDataVersionKey)
-//        }
+       // }
     }
     
     /// Prints all user data to console

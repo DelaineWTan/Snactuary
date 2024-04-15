@@ -442,6 +442,9 @@ public class Globals {
     public static let stageMaxScorekey : String = "Max Stage Score"
     public static let stageCountKey : String = "Stage Count"
     public static let foodHealthMultiplierKey : String = "Food Health Multiplier"
+    public static let damageDoneKey : String = "Total Damage Done"
+    public static let snacksEatenKey : String = "Snacks Eaten"
+    public static let stagesPassedKey : String = "Stages Passed"
     public static var petModelNodeName: [String] = [
         "Frog.001 reference", "Penguin.001 reference", "Cat.001 reference", "Duck.001 reference"
     ]
