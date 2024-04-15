@@ -175,15 +175,14 @@ class GameUIView: UIView, PetSelectionDelegate {
             self?.inGameUIView.pauseButton.isHidden = true
             
             let delayInSeconds = 12.0 // Adjust the delay time as needed
+            let stageNode = Globals.mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
+            var stageMat = stageNode?.geometry?.firstMaterial
             // levitate pets in active party & play heavenly sfx
-            Utilities.levitatePets(duration: delayInSeconds)
+            Utilities.levitatePetsAndFadeScreenCutscene(duration: delayInSeconds, &stageMat!)
             SoundManager.Instance.playStageTransitionSFX()
             
-            // Add a delay before performing additional logic
+            // This closure will be executed after the specified delay
             DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
-                // Perform additional logic after the delay
-                // This closure will be executed after the specified delay
-                
                 // reset current hungerScore on stage & hungerMeter
                 self?.inGameUIView.resetHunger()
                 
@@ -197,11 +196,8 @@ class GameUIView: UIView, PetSelectionDelegate {
                 self?.inGameUIView.setStageCount(stageCount: stageCount)
                 UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
                 SoundManager.Instance.playCurrentStageBGM()
-                // change stage visual aesthetics
-                let stageNode = Globals.mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
-                if let stageMat = stageNode?.geometry?.firstMaterial {
-                    stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation(stageMat)
-                }
+                
+                
                 
                 // increase max HungerScore required to progress to next stage
                 self?.inGameUIView.increaseMaxHungerScore()
@@ -210,10 +206,11 @@ class GameUIView: UIView, PetSelectionDelegate {
                 UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
                 
                 UserDefaults.standard.synchronize()
+                // reset stuffs
                 self?.inGameUIView.stageClearLabel.isHidden = true
                 self?.enableAllGestures(isEnabled: true)
                 self?.inGameUIView.pauseButton.isHidden = false
-                Globals.playerNode.position.y = 0
+                Utilities.changeGameState(gameState: "inGame")
             }
             
         }
