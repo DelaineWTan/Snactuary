@@ -118,13 +118,16 @@ public class Utilities {
         case "paused":
             Globals.timeScale = 0
             Globals.inMainMenu = false
+            Globals.currentGameState = "paused"
         case "mainMenu":
             Globals.timeScale = 0
             Globals.inMainMenu = true
             LifecycleManager.Instance.deleteAllFood()
+            Globals.currentGameState = "mainMenu"
         case "inGame":
             Globals.timeScale = 1
             Globals.inMainMenu = false
+            Globals.currentGameState = "inGame"
         default:
             Globals.timeScale = 1
         }
@@ -156,6 +159,61 @@ public class Utilities {
     public static func finalStatCalculation(stageCycle: Int, baseStat: Float, growth: Float) -> Float {
         return (baseStat * Float(stageCycle)) * growth
     }
+    
+    // Levitate pets and fade to white over a given time
+    public static func levitatePetsAndFadeScreenCutscene(duration: Double, _ stageMat: inout SCNMaterial) {
+        // Define the target height
+        let targetHeight: Float = 10 // Adjust the target height as needed
+        
+        // Define the duration for the animation
+        let durationInSeconds: TimeInterval = duration // Adjust the duration as needed
+        
+        // Calculate the distance to move per frame
+        let distanceToMovePerFrame = (targetHeight - Globals.playerNode.position.y) / (Float(durationInSeconds) * 60)
+        
+        // Create a white view for screen fade
+        let whiteView = UIView(frame: UIScreen.main.bounds)
+        whiteView.backgroundColor = .white
+        whiteView.alpha = 0 // Start with transparent
+        
+        // Add the white view to the key window
+        UIApplication.shared.keyWindow?.addSubview(whiteView)
+        
+        // Create a local mutable variable to hold the reference to material
+        var mutableMaterial = stageMat
+        
+        // Create a timer to update the pet's position and fade the screen over time
+        var timeElapsed: TimeInterval = 0
+        let timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60, repeats: true) { timer in
+            // Increment the time elapsed
+            timeElapsed += 1.0 / 60
+            
+            // Update the pet's position
+            Globals.playerNode.position.y += distanceToMovePerFrame
+            
+            // Calculate the alpha value for screen fade
+            let alpha = CGFloat(timeElapsed / (durationInSeconds - 1.5))
+            
+            // Set the alpha value of the white view
+            whiteView.alpha = alpha
+            
+            // Check if the animation duration has been reached
+            if timeElapsed >= durationInSeconds {
+                // Invalidate the timer to stop the animation
+                timer.invalidate()
+                
+                // Update stage appearance
+                StageAestheticsHelper.iterateStageVariation(&mutableMaterial)
+                Globals.playerNode.position.y = 0
+                
+                // Remove the white view from the screen
+                whiteView.removeFromSuperview()
+            }
+        }
+    }
+
+
+
 }
 
 extension SCNVector3 {

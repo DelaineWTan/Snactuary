@@ -62,6 +62,13 @@ public class TreasureFoodNode: BaseFoodNode {
     }
     
     override func OnDestroy() {
+
+        if Globals.currentGameState == "paused" {
+            return
+        }
+        let food = BaseFoodNode(foodData: Globals.stage2Foods[1].1)
+        
+        food.position = self.position
         
         for _ in 0...20 {
             let food = TreasureBitsNode(foodData: Globals.specialFoods[1])

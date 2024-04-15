@@ -68,6 +68,29 @@ class InGameUIView: UIView {
         return stageCountLabel
     }()
     
+    public lazy var stageClearLabel: UILabel = {
+        let stageClearLabel = UILabel()
+        stageClearLabel.text = "Stage \(_stageCount) Cleared!"
+        let font = UIFont.systemFont(ofSize: 48)
+        let textColor = UIColor.white
+        
+        let strokeColor = UIColor.black
+        let strokeWidth = -1.0
+        
+        // Using NSAttributedString to set stroke
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: textColor,
+            .strokeColor: strokeColor,
+            .strokeWidth: strokeWidth
+        ]
+
+        let attributedString = NSAttributedString(string: "Stage \(_stageCount) Cleared!", attributes: attributes)
+        stageClearLabel.attributedText = attributedString
+        
+        return stageClearLabel
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -170,7 +193,7 @@ class InGameUIView: UIView {
     
     private func setupUI() {
         // for debugging
-        //Utilities.initUserData()
+        Utilities.initUserData()
         
         // Load hunger score from persistent storage
         let savedHungerScore = UserDefaults.standard.integer(forKey: Globals.stageScoreKey)
@@ -186,6 +209,9 @@ class InGameUIView: UIView {
         addSubview(hungerMeter)
         addSubview(hungerScoreLabel)
         addSubview(stageCountLabel)
+        addSubview(stageClearLabel)
+        
+        stageClearLabel.isHidden = true
             
         // Layout constraints for pause button
         pauseButton.translatesAutoresizingMaskIntoConstraints = false
@@ -226,6 +252,13 @@ class InGameUIView: UIView {
             hungerMeter.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             hungerMeter.widthAnchor.constraint(equalToConstant: 240),
             hungerMeter.heightAnchor.constraint(equalToConstant: 10),
+        ])
+        
+        // Layout constraints for stage clear label
+        stageClearLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stageClearLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            stageClearLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 200)
         ])
         
         let innerCirclePath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX+200, y: bounds.midY+400), radius: 30, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
@@ -277,6 +310,7 @@ class InGameUIView: UIView {
         _maxHungerScore = Int(increasedScore)
         UserDefaults.standard.set(_maxHungerScore, forKey: Globals.stageMaxScorekey)
         hungerScoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
+        stageClearLabel.text = "Stage \(_stageCount) Cleared!"
     }
     
     @objc private func nextStageButtonTapped() {

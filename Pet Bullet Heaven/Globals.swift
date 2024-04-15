@@ -17,6 +17,7 @@ public class Globals {
     public static var playerNode = mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)!
     
     public static var inMainMenu = true
+    public static var currentGameState = "mainMenu"
     public static var deltaTime: TimeInterval = 0
     public static var timeScale: Double = 1
     
