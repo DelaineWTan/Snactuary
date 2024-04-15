@@ -88,6 +88,13 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             Utilities.swapSceneNode(with: pet, position: petIndex)
         }
         
+        var petLevels = UserDefaults.standard.array(forKey: Globals.petLevelsKey)!
+        
+        //load saved pet levels
+        for levelIndex in 0...petLevels.count - 1 {
+            Globals.pets[levelIndex]?.levelUp(petLevels[levelIndex] as! Int)
+        }
+        
         // Initialize food models
         initializeFoodSCNModels()
         
@@ -239,8 +246,16 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                
                 //check if pet has enough exp to level up
                 if pet.hasLeveledUp(){
+                    var petLevels = UserDefaults.standard.array(forKey: Globals.petLevelsKey)!
+                
                     // assign exp over level up threshold to next level's exp
                     pet.levelUp(pet.level+1)
+                    
+                    for levelIndex in 0...petLevels.count - 1 {
+                        petLevels[levelIndex] = (Globals.pets[levelIndex]?.level)
+                    }
+                    UserDefaults.standard.setValue(petLevels, forKey: Globals.petLevelsKey)
+                    
                     let overflowExp = pet.exp - pet.levelUpExp
                     pet.exp = overflowExp
     

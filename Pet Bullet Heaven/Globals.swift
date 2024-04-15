@@ -434,6 +434,7 @@ public class Globals {
     public static let defaultFoodHealth : Int = 1
     public static let defaultFoodHungerValue : Int = 1
     public static let defaultStageCount : Int = 1
+    public static let defaultPetLevels : Array = [1,1,1,1,1,1,1,1,1,1,1]
     
     // Persistent User Data Keys
     public static let userDataVersionKey = "userDataVersion"
@@ -445,6 +446,7 @@ public class Globals {
     public static let damageDoneKey : String = "Total Damage Done"
     public static let snacksEatenKey : String = "Snacks Eaten"
     public static let stagesPassedKey : String = "Stages Passed"
+    public static let petLevelsKey : String = "Pet Levels"
     public static var petModelNodeName: [String] = [
         "Frog.001 reference", "Penguin.001 reference", "Cat.001 reference", "Duck.001 reference"
     ]
