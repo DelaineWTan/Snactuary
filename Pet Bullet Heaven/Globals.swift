@@ -27,12 +27,9 @@ public class Globals {
                petId: 0,
                petImageName: "frog1.png",
                petModelName: "art.scnassets/Frog.Green.scn",
-               baseAbility: ShootClosestAbility(
-                _InputRange: 170,
-                _InputFireRate: 100, // TODO: Fix model memory issue first
-                _InputProjectileSpeed: 22,
-                _InputProjectileDuration: 1.25,
-                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 2, assetName: "Paw 4")}),
+               baseAbility: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 10, _InputProjectileDuration: 3, _InputProjectile: {
+                   ()-> Projectile in StationaryBomb(_InputDamage: 2, assetName: "IcebergV2")
+               }),
                currentExp: 0,
                level: 1
               ),
@@ -42,7 +39,7 @@ public class Globals {
                petImageName: "penguin1.png",
                petModelName: "art.scnassets/Penguin.001.scn",
                baseAbility: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 10, _InputProjectileDuration: 3, _InputProjectile: {
-                   ()-> Projectile in StationaryBomb(_InputDamage: 2, assetName: "Paw 4")
+                   ()-> Projectile in StationaryBomb(_InputDamage: 2, assetName: "IcebergV2")
                }),
                currentExp: 0,
                level: 1
@@ -116,7 +113,7 @@ public class Globals {
                 _InputRotationSpeed: 5.5,
                 _InputDistanceFromCenter: 16,
                 _InputNumProjectiles: 2,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2, assetName: "Paw 4")}),
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 2, assetName: "Bubble")}),
                currentExp: 0,
                level: 1
               ),
@@ -130,7 +127,7 @@ public class Globals {
                 _InputFireRate: 2.5,
                 _InputProjectileSpeed: 30,
                 _InputProjectileDuration: 1,
-                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1, assetName: "Paw 4")}),
+                _InputProjectile: {()->Projectile in LaunchedProjectile(_InputDamage: 1, assetName: "Bubble")}),
                currentExp: 0,
                level: 1
               ),
