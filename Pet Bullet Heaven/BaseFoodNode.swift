@@ -101,7 +101,7 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     func despawnBehaviour() {
         // Check if the object's distance from the center is greater than 100 meters
         let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
-        if distanceFromCenter > 200 {
+        if distanceFromCenter > 500 {
             // If the object is more than 100 meters away from the center, destroy it
             self.Destroy(after: 0)
         }

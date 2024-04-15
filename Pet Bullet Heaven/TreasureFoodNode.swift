@@ -16,7 +16,6 @@ public class TreasureFoodNode: BaseFoodNode {
     override init(foodData: FoodData) {
         super.init(foodData: foodData)
         self.DestroyExtras = {
-            print("I'm dead")
         }
     }
     required init?(coder aDecoder: NSCoder) {
