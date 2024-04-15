@@ -60,7 +60,6 @@ public class TreasureFoodNode: BaseFoodNode {
     }
     
     override func OnDestroy() {
-        print("Game State: \(Globals.currentGameState)")
         if Globals.currentGameState == "paused" {
             return
         }
