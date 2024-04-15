@@ -118,13 +118,16 @@ public class Utilities {
         case "paused":
             Globals.timeScale = 0
             Globals.inMainMenu = false
+            Globals.currentGameState = "paused"
         case "mainMenu":
             Globals.timeScale = 0
             Globals.inMainMenu = true
             LifecycleManager.Instance.deleteAllFood()
+            Globals.currentGameState = "mainMenu"
         case "inGame":
             Globals.timeScale = 1
             Globals.inMainMenu = false
+            Globals.currentGameState = "inGame"
         default:
             Globals.timeScale = 1
         }

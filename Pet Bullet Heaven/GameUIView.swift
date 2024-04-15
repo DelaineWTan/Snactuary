@@ -164,7 +164,7 @@ class GameUIView: UIView, PetSelectionDelegate {
         }
         
         inGameUIView.nextStageButtonTappedHandler = { [weak self] in
-            
+            Utilities.changeGameState(gameState: "paused")
             // do cutscene here
             self?.inGameUIView.nextStageButton.isHidden = true
             self?.inGameUIView.stageClearLabel.isHidden = false
