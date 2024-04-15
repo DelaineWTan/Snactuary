@@ -157,7 +157,7 @@ public class Utilities {
         return (baseStat * Float(stageCycle)) * growth
     }
     
-    // Define a function to levitate pets over time
+    // Levitate pets over a given time
     public static func levitatePets(duration: Double) {
         // Define the target height
         let targetHeight: Float = 50 // Adjust the target height as needed
@@ -181,9 +181,6 @@ public class Utilities {
             if timeElapsed >= durationInSeconds {
                 // Invalidate the timer to stop the animation
                 timer.invalidate()
-                
-                // Additional logic after the levitation animation completes
-                // For example, play heavenly sound effects here
             }
         }
     }

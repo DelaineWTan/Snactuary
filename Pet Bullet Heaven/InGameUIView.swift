@@ -310,6 +310,7 @@ class InGameUIView: UIView {
         _maxHungerScore = Int(increasedScore)
         UserDefaults.standard.set(_maxHungerScore, forKey: Globals.stageMaxScorekey)
         hungerScoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
+        stageClearLabel.text = "Stage \(_stageCount) Cleared!"
     }
     
     @objc private func nextStageButtonTapped() {

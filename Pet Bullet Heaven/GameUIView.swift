@@ -15,7 +15,6 @@ class GameUIView: UIView, PetSelectionDelegate {
     let pauseMenuUIView = PauseMenuUIView()
     let inGameUIView = InGameUIView()
     weak var delegate: SceneProvider?
-    var buttonHandlersEnabled = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -158,9 +157,6 @@ class GameUIView: UIView, PetSelectionDelegate {
     
     private func setupInGameUIHandlers() {
         inGameUIView.pauseButtonTappedHandler = { [weak self] in
-            guard self?.buttonHandlersEnabled == true else {
-                return
-            }
             // Hide in game ui and show pause menu
             self?.pauseMenuUIView.isHidden = false
             self?.inGameUIView.isHidden = true
@@ -173,19 +169,17 @@ class GameUIView: UIView, PetSelectionDelegate {
             self?.inGameUIView.nextStageButton.isHidden = true
             self?.inGameUIView.stageClearLabel.isHidden = false
             
-            // stop all food, gesture recognizers, and stop button handling
-            // get food, recognizers, and handlers
-            let food = LifecycleManager.Instance.getAllFood()
+            // delete all food, stop recognizers, and handlers
+            LifecycleManager.Instance.deleteAllFood()
             self?.enableAllGestures(isEnabled: false)
-            //self?.buttonHandlersEnabled = false
-            self?.inGameUIView.pauseButton.isHidden = false
+            self?.inGameUIView.pauseButton.isHidden = true
             
             let delayInSeconds = 12.0 // Adjust the delay time as needed
             // levitate pets in active party & play heavenly sfx
             Utilities.levitatePets(duration: delayInSeconds)
             SoundManager.Instance.playStageTransitionSFX()
-            // Add a delay before performing additional logic
             
+            // Add a delay before performing additional logic
             DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
                 // Perform additional logic after the delay
                 // This closure will be executed after the specified delay
@@ -193,8 +187,6 @@ class GameUIView: UIView, PetSelectionDelegate {
                 // reset current hungerScore on stage & hungerMeter
                 self?.inGameUIView.resetHunger()
                 
-                // clear food objects
-                LifecycleManager.Instance.deleteAllFood()
                 // increase food health
                 var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
                 
@@ -220,7 +212,7 @@ class GameUIView: UIView, PetSelectionDelegate {
                 UserDefaults.standard.synchronize()
                 self?.inGameUIView.stageClearLabel.isHidden = true
                 self?.enableAllGestures(isEnabled: true)
-                self?.inGameUIView.pauseButton.isHidden = true
+                self?.inGameUIView.pauseButton.isHidden = false
                 Globals.playerNode.position.y = 0
             }
             
