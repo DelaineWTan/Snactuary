@@ -180,10 +180,10 @@ class GameUIView: UIView, PetSelectionDelegate {
             //self?.buttonHandlersEnabled = false
             self?.inGameUIView.pauseButton.isHidden = false
             
-            let delayInSeconds = 5.0 // Adjust the delay time as needed
+            let delayInSeconds = 12.0 // Adjust the delay time as needed
             // levitate pets in active party & play heavenly sfx
             Utilities.levitatePets(duration: delayInSeconds)
-            
+            SoundManager.Instance.playStageTransitionSFX()
             // Add a delay before performing additional logic
             
             DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {

@@ -160,7 +160,7 @@ public class Utilities {
     // Define a function to levitate pets over time
     public static func levitatePets(duration: Double) {
         // Define the target height
-        let targetHeight: Float = 10 // Adjust the target height as needed
+        let targetHeight: Float = 50 // Adjust the target height as needed
         
         // Define the duration for the levitation animation
         let durationInSeconds: TimeInterval = TimeInterval(duration) // Adjust the duration as needed
