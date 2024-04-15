@@ -76,6 +76,8 @@
 		FB41F4AD2BCCB7E200A25656 /* Mushroom.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4AC2BCCB7E200A25656 /* Mushroom.dae */; };
 		FB41F4BD2BCCCEC500A25656 /* Bubble.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4BB2BCCCEC500A25656 /* Bubble.dae */; };
 		FB41F4BE2BCCCEC500A25656 /* BubbleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4BC2BCCCEC500A25656 /* BubbleTexture.png */; };
+		FB41F4C12BCCD07600A25656 /* IcebergV2.blend in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4BF2BCCD07600A25656 /* IcebergV2.blend */; };
+		FB41F4C22BCCD07600A25656 /* Iceberg.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C02BCCD07600A25656 /* Iceberg.png */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* BaseFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* BaseFoodNode.swift */; };
 		FBB2DC772BC348AD0096231F /* TreasureFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */; };
@@ -186,6 +188,8 @@
 		FB41F4B82BCCB99B00A25656 /* Mushroom.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Mushroom.dae; path = "../../../../Downloads/Food Models/Mushroom/Mushroom.dae"; sourceTree = "<group>"; };
 		FB41F4BB2BCCCEC500A25656 /* Bubble.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Bubble.dae; sourceTree = "<group>"; };
 		FB41F4BC2BCCCEC500A25656 /* BubbleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleTexture.png; sourceTree = "<group>"; };
+		FB41F4BF2BCCD07600A25656 /* IcebergV2.blend */ = {isa = PBXFileReference; lastKnownFileType = file; path = IcebergV2.blend; sourceTree = "<group>"; };
+		FB41F4C02BCCD07600A25656 /* Iceberg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Iceberg.png; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* BaseFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFoodNode.swift; sourceTree = "<group>"; };
 		FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureFoodNode.swift; sourceTree = "<group>"; };
@@ -390,6 +394,8 @@
 			children = (
 				FB41F4BB2BCCCEC500A25656 /* Bubble.dae */,
 				FB41F4BC2BCCCEC500A25656 /* BubbleTexture.png */,
+				FB41F4C02BCCD07600A25656 /* Iceberg.png */,
+				FB41F4BF2BCCD07600A25656 /* IcebergV2.blend */,
 			);
 			path = Attack;
 			sourceTree = "<group>";
@@ -533,6 +539,7 @@
 				0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */,
 				0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */,
 				0D58FCCB2BB7943800488D01 /* FrogFroak.dae in Resources */,
+				FB41F4C12BCCD07600A25656 /* IcebergV2.blend in Resources */,
 				58B8176F2BBCA5BC00DF8FD8 /* duck1.png in Resources */,
 				58B8176D2BBCA5BC00DF8FD8 /* duck2.png in Resources */,
 				FB2128242BB9FB1600CE5066 /* FrogFroakTexture.png in Resources */,
@@ -550,6 +557,7 @@
 				FB21282D2BB9FB1600CE5066 /* DuckYellowTexture.png in Resources */,
 				FB41F4A52BCCB7C200A25656 /* CottenCandy.dae in Resources */,
 				58B817712BBCA5BC00DF8FD8 /* cat1.png in Resources */,
+				FB41F4C22BCCD07600A25656 /* Iceberg.png in Resources */,
 				0E052F742BBA5363003BA02D /* cloud_teal.png in Resources */,
 				FBE60A552B92D484009B3E7E /* Paw 4.dae in Resources */,
 				FB21282C2BB9FB1600CE5066 /* DuckDaffyTexture.png in Resources */,
