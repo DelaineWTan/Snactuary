@@ -58,7 +58,7 @@ public class Globals {
                 _InputRotationSpeed: 19,
                 _InputDistanceFromCenter: 6,
                 _InputNumProjectiles: 3,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Paw 4")})
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "PawV5")})
               ),
         
         3: Pet(petName:"Dol Ducker",
