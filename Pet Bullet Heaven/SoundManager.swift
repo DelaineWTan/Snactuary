@@ -7,6 +7,7 @@ public class SoundManager {
     var tapSFXPlayers: [String: AVPlayer] = [:]
     var eatingSFXFileName: String = "pet-eating-sfx"
     var eatingSFXPlayers: [AVPlayer] = []
+    var stageTransitionSFX: AVPlayer?
     var numPets: Int = 4
     
     private init() {
@@ -103,6 +104,13 @@ public class SoundManager {
             eatingSFXPlayers.append(sfxPlayer)
         }
         print("Sound effect '\(eatingSFXFileName)' preloaded")
+        
+        // Initialize stage transition sound effect
+        if let soundURL = Bundle.main.url(forResource: "heavenly-choir-sfx", withExtension: "wav", subdirectory: "art.scnassets/SFX") {
+            stageTransitionSFX = AVPlayer(url: soundURL)
+        } else {
+            fatalError("Failed to load stage transition sound effect")
+        }
     }
     
     // Extract pet name from the file name in the format "[pet-name]-..."
@@ -134,5 +142,10 @@ public class SoundManager {
                 return
             }
         }
+    }
+    
+    public func playStageTransitionSFX() {
+        stageTransitionSFX?.seek(to: .zero)
+        stageTransitionSFX?.play()
     }
 }

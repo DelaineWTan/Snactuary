@@ -91,14 +91,14 @@ public enum StageAestheticsHelper {
     //private static var currTint : tintColor = tintColor.green
     private static var currBG : mapBG = mapBG.plants
     
-    public static func iterateStageVariation(_ material: SCNMaterial) -> UIImage? {
+    public static func iterateStageVariation(_ material: inout SCNMaterial) {
         mapIterCount += 1
         mapIterCount = mapIterCount % (maxTextureCount + 1) // add maxTintCount later
         currBG = currBG.next()
         
         setTileBG(material, withScale: currBG.background.scale)
         
-        return currBG.image
+        material.diffuse.contents = currBG.image
     }
     
     public static func setInitialStageImage(_ material: SCNMaterial) -> UIImage? {

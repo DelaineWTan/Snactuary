@@ -44,6 +44,16 @@ public class LifecycleManager {
         }
     }
     
+    public func getAllFood() -> [BaseFoodNode] {
+        // Filter out all game objects that are instances of BaseFoodNode
+        let foodList = gameObjects.filter { $0.value is BaseFoodNode }
+        
+        // Convert the filtered dictionary values to an array of BaseFoodNode
+        let allFood = foodList.map { $0.value as! BaseFoodNode }
+        
+        return allFood
+    }
+    
     func getClosestFood() -> (BaseFoodNode?, Float) {
         
         // Get a list of all the Food in the Scene
