@@ -49,7 +49,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Set delegates
         overlayView.delegate = self
         Globals.mainScene.physicsWorld.contactDelegate = self
-        
+
         // show statistics and debug options, remove for production
 //        scnView.showsStatistics = true
 //        scnView.debugOptions = [
@@ -200,7 +200,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             scnView.addSubview(floatingText)
             floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.attack))
         }
-
+        _ = CrumbsPS(food.position)
         // if food killed
         if food._Health <= 0 {
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
