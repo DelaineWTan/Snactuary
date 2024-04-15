@@ -15,6 +15,7 @@ class GameUIView: UIView, PetSelectionDelegate {
     let pauseMenuUIView = PauseMenuUIView()
     let inGameUIView = InGameUIView()
     weak var delegate: SceneProvider?
+    var buttonHandlersEnabled = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -157,6 +158,9 @@ class GameUIView: UIView, PetSelectionDelegate {
     
     private func setupInGameUIHandlers() {
         inGameUIView.pauseButtonTappedHandler = { [weak self] in
+            guard self?.buttonHandlersEnabled == true else {
+                return
+            }
             // Hide in game ui and show pause menu
             self?.pauseMenuUIView.isHidden = false
             self?.inGameUIView.isHidden = true
@@ -164,44 +168,62 @@ class GameUIView: UIView, PetSelectionDelegate {
         }
         
         inGameUIView.nextStageButtonTappedHandler = { [weak self] in
-            self?.inGameUIView.nextStageButton.isHidden = true
             
             // do cutscene here
+            self?.inGameUIView.nextStageButton.isHidden = true
             self?.inGameUIView.stageClearLabel.isHidden = false
             
             // stop all food, gesture recognizers, and stop button handling
+            // get food, recognizers, and handlers
+            let food = LifecycleManager.Instance.getAllFood()
+            self?.enableAllGestures(isEnabled: false)
+            //self?.buttonHandlersEnabled = false
+            self?.inGameUIView.pauseButton.isHidden = false
             
-            //self?.inGameUIView.stageClearLabel.isHidden = true
+            let delayInSeconds = 5.0 // Adjust the delay time as needed
+            // levitate pets in active party & play heavenly sfx
+            Utilities.levitatePets(duration: delayInSeconds)
             
+            // Add a delay before performing additional logic
             
-            // reset current hungerScore on stage & hungerMeter
-            self?.inGameUIView.resetHunger()
-            
-            // clear food objects
-            LifecycleManager.Instance.deleteAllFood()
-            // increase food health
-            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
-            
-            // Increment stage count and play new bgm
-            SoundManager.Instance.stopCurrentBGM()
-            stageCount += 1
-            Globals.stagesPassed += 1
-            self?.inGameUIView.setStageCount(stageCount: stageCount)
-            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
-            SoundManager.Instance.playCurrentStageBGM()
-            // change stage visual aesthetics
-            let stageNode = Globals.mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
-            if let stageMat = stageNode?.geometry?.firstMaterial {
-                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation(stageMat)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+                // Perform additional logic after the delay
+                // This closure will be executed after the specified delay
+                
+                // reset current hungerScore on stage & hungerMeter
+                self?.inGameUIView.resetHunger()
+                
+                // clear food objects
+                LifecycleManager.Instance.deleteAllFood()
+                // increase food health
+                var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+                
+                // Increment stage count and play new bgm
+                SoundManager.Instance.stopCurrentBGM()
+                stageCount += 1
+                Globals.stagesPassed += 1
+                self?.inGameUIView.setStageCount(stageCount: stageCount)
+                UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
+                SoundManager.Instance.playCurrentStageBGM()
+                // change stage visual aesthetics
+                let stageNode = Globals.mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
+                if let stageMat = stageNode?.geometry?.firstMaterial {
+                    stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation(stageMat)
+                }
+                
+                // increase max HungerScore required to progress to next stage
+                self?.inGameUIView.increaseMaxHungerScore()
+                
+                // save stage's food health multiplier
+                UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
+                
+                UserDefaults.standard.synchronize()
+                self?.inGameUIView.stageClearLabel.isHidden = true
+                self?.enableAllGestures(isEnabled: true)
+                self?.inGameUIView.pauseButton.isHidden = true
+                Globals.playerNode.position.y = 0
             }
             
-            // increase max HungerScore required to progress to next stage
-            self?.inGameUIView.increaseMaxHungerScore()
-            
-            // save stage's food health multiplier
-            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
-            
-            UserDefaults.standard.synchronize()
         }
     }
     
@@ -268,6 +290,22 @@ class GameUIView: UIView, PetSelectionDelegate {
             }
         } else {
             print("Failed to load the scene.")
+        }
+    }
+    
+    private func enableAllGestures(isEnabled: Bool) {
+        var responder: UIResponder? = self.next
+        
+        // Traverse up the responder chain until finding the GameViewController
+        while responder != nil {
+            if let viewController = responder as? GameViewController {
+                // Disable all gesture recognizers associated with the GameViewController
+                viewController.view.gestureRecognizers?.forEach { gestureRecognizer in
+                    gestureRecognizer.isEnabled = isEnabled
+                }
+                break
+            }
+            responder = responder?.next
         }
     }
 }

@@ -156,6 +156,37 @@ public class Utilities {
     public static func finalStatCalculation(stageCycle: Int, baseStat: Float, growth: Float) -> Float {
         return (baseStat * Float(stageCycle)) * growth
     }
+    
+    // Define a function to levitate pets over time
+    public static func levitatePets(duration: Double) {
+        // Define the target height
+        let targetHeight: Float = 10 // Adjust the target height as needed
+        
+        // Define the duration for the levitation animation
+        let durationInSeconds: TimeInterval = TimeInterval(duration) // Adjust the duration as needed
+        
+        // Calculate the distance to move per frame
+        let distanceToMovePerFrame = (targetHeight - Globals.playerNode.position.y) / (Float(durationInSeconds) * 60)
+        
+        // Create a timer to update the pet's position over time
+        var timeElapsed: TimeInterval = 0
+        let timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60, repeats: true) { timer in
+            // Increment the time elapsed
+            timeElapsed += 1.0 / 60
+            
+            // Update the pet's position
+            Globals.playerNode.position.y += distanceToMovePerFrame
+            
+            // Check if the animation duration has been reached
+            if timeElapsed >= durationInSeconds {
+                // Invalidate the timer to stop the animation
+                timer.invalidate()
+                
+                // Additional logic after the levitation animation completes
+                // For example, play heavenly sound effects here
+            }
+        }
+    }
 }
 
 extension SCNVector3 {
