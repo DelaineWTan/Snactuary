@@ -18,7 +18,7 @@ class FoodSpawner: MonoBehaviour {
     var elapsedTime: TimeInterval = 0
     var spawnInterval: TimeInterval = 1 //0.2 // Adjust depending on desired spawn rate
     
-    let centerDist: Int = 20 // 55 seems to be a good distance away from player
+    let centerDist: Int = 55 // 55 seems to be a good distance away from player
     
     // TODO: Final food balancing sometime
     init(scene: SCNScene) {
@@ -103,7 +103,7 @@ class FoodSpawner: MonoBehaviour {
                     hungerGrowth: 1.0,
                     speedGrowth: 1.0))
             }
-            let randomPosition = generateRandomPositionWithinRadius(center: position, radius: 5)
+            let randomPosition = generateRandomPositionWithinRadius(center: position, radius: 15)
             food?.position = randomPosition
             
             // Destroy the food after 50 seconds
@@ -121,21 +121,6 @@ class FoodSpawner: MonoBehaviour {
         food.Destroy(after: 50.0)
         mainScene.rootNode.addChildNode(food)
     }
-    
-    //    func herdSpawn(foodData: FoodData, quantity: Int) {
-    //        let position = findRandomPosition(spawnMultiplier: 1)
-    //
-    //            // Spawn multiple foods in an area near position
-    //            for _ in 0..<quantity {
-    //                let randomPosition = generateRandomPositionWithinRadius(center: position, radius: 20)
-    ////                let food = BaseFoodNode(foodData: foodData)
-    //                food.position = randomPosition
-    //
-    //                // Destroy the food after 50 seconds
-    //                food.Destroy(after: 100.0)
-    //                mainScene.rootNode.addChildNode(food)
-    //            }
-    //    }
     
     func generateRandomPositionAround(position: SCNVector3) -> SCNVector3 {
         // Adjust this range as needed
