@@ -83,7 +83,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
         scnView.addGestureRecognizer(panGesture)
         
-        // Add attack patterns for initial active pets to game
+        // Add active pets and attack patterns for initial active pets to game
         for petIndex in 0...((activePets.count) - 1) {
             // Add pets into scene
             let pet = Globals.pets[activePets[petIndex] as! Int]!

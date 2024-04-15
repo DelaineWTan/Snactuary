@@ -125,6 +125,8 @@ class PetSelectionUIView: UIView {
     }
     
     public func setupActivePanels() {
+        var activePets = UserDefaults.standard.array(forKey: Globals.activePetsKey)!
+        
         // Clear existing views from stackView
         activePetView.subviews.forEach { $0.removeFromSuperview() }
         
@@ -158,8 +160,8 @@ class PetSelectionUIView: UIView {
             label.topAnchor.constraint(equalTo: activePetView.topAnchor, constant: -20)
         ])
         
-        for petIndex in 0...Globals.defaultActivePets.count - 1 {
-            let pet = Globals.pets[Globals.defaultActivePets[petIndex]]!
+        for petIndex in 0...activePets.count - 1 {
+            let pet = Globals.pets[activePets[petIndex] as! Int]!
             if let image = UIImage(named: pet.imageName) {
                 let imageView = UIImageView(image: image)
                 imageView.contentMode = .scaleAspectFit
@@ -400,7 +402,11 @@ class PetSelectionUIView: UIView {
         if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
             // Swap the pets between active and collection panels
             let collectionPet = Globals.pets[collectionPanelTag]!
+
+            
             Globals.defaultActivePets[Int(activePanelTag)] = collectionPet.id
+            UserDefaults.standard.set(Globals.defaultActivePets, forKey: Globals.activePetsKey)
+            
 
             // Update the view
             setupActivePanels()
@@ -447,7 +453,9 @@ class PetSelectionUIView: UIView {
         if let activePanelTag = activePanelTag, let collectionPanelTag = collectionPanelTag {
             // Swap the pets between active and collection panels
             let collectionPet = Globals.pets[collectionPanelTag]!
+
             Globals.defaultActivePets[Int(activePanelTag)] = collectionPet.id
+            UserDefaults.standard.set(Globals.defaultActivePets, forKey: Globals.activePetsKey)
 
             // Update the view
             setupActivePanels()
