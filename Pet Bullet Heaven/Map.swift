@@ -7,11 +7,12 @@
 import SceneKit
 
 class Map : MonoBehaviour {
+    
     var uniqueID: UUID
     
-    var onDestroy: (() -> Void)?
+    var DestroyExtras: (() -> Void)?
     
-    func onDestroy(after duration: TimeInterval) {
+    func Destroy(after duration: TimeInterval) {
         // code
     }
     
@@ -26,6 +27,9 @@ class Map : MonoBehaviour {
     }
     
     func Start() {
+    }
+    
+    func OnDestroy() {
     }
     
     func Update() {

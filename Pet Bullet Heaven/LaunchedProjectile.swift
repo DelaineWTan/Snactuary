@@ -29,14 +29,16 @@ class LaunchedProjectile: Projectile {
     }
     
     // Mutated Constructor
-    init(_InputDamage: Int) {
+    override init(_InputDamage: Int, assetName: String){
         // Call to Super Constructor
-        super.init()
+        super.init(_InputDamage: _InputDamage, assetName: assetName)
+        
         _Damage = _InputDamage
-        _Mesh = loadFromFile(_AssetName: "Paw 4", _FileType: "dae")
+        _Mesh = loadFromFile(_AssetName: assetName, _FileType: "dae")
         self.position.y += 1
         //self.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5) // changing the scale does not change the hitbox
         self.addChildNode(_Mesh!)
+        
     }
     
     func moveTowardsDestination() {
@@ -71,7 +73,7 @@ class LaunchedProjectile: Projectile {
             self.position = SCNVector3(newPositionX, newPositionY, newPositionZ)
 //            localTranslate(by: SCNVector3(0,0, -Float(_ProjectileSpeed!) * Float(Globals.deltaTime)))
         } else {
-            self.onDestroy(after: 0)
+            self.Destroy(after: 0)
         }
     }
 }

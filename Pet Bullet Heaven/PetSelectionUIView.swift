@@ -73,7 +73,7 @@ class PetSelectionUIView: UIView {
         var totalSpeed: Int = 0
         for petIndex in 0...Globals.activePets.count - 1  {
             let pet = Globals.pets[Globals.activePets[petIndex]]
-            totalPow += Int(pet!.baseAttack)
+            totalPow += pet!.attack
             totalSpeed += Int(pet!.speed)
         }
         
@@ -174,7 +174,7 @@ class PetSelectionUIView: UIView {
                 nameLabel.translatesAutoresizingMaskIntoConstraints = false
                 
                 let descriptionLabel = UILabel()
-                descriptionLabel.text = "ATK \(Int(pet.baseAttack)), SPD \(Int(pet.speed))"
+                descriptionLabel.text = "ATK \(pet.attack), SPD \(Int(pet.speed))"
                 descriptionLabel.textAlignment = .center
                 descriptionLabel.textColor = .white
                 descriptionLabel.font = UIFont.systemFont(ofSize: 12) // Adjust font and size as needed
@@ -288,7 +288,7 @@ class PetSelectionUIView: UIView {
                 nameLabel.font = UIFont.systemFont(ofSize: 14) // Adjust font and size as needed
 
                 let descriptionLabel = UILabel()
-                descriptionLabel.text = "ATK \(Int(pet.baseAttack)), SPD \(Int(pet.speed))"
+                descriptionLabel.text = "ATK \(pet.attack), SPD \(Int(pet.speed))"
                 descriptionLabel.textAlignment = .center
                 descriptionLabel.font = UIFont.systemFont(ofSize: 10) // Adjust font and size as needed
                 descriptionLabel.translatesAutoresizingMaskIntoConstraints = false

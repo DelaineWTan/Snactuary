@@ -8,6 +8,7 @@
 import Foundation
 import SceneKit
 
+
 ///
 /// Rudimentary Food Class
 ///
@@ -15,24 +16,26 @@ import SceneKit
 public class BaseFoodNode : SCNNode, MonoBehaviour {
     
     var uniqueID: UUID
+    var DestroyExtras: (() -> Void)? // Closure to be called when the node is destroyed
     
-    var onDestroy: (() -> Void)? // Closure to be called when the node is destroyed
+    var deltaTime : CFTimeInterval = 0
+    var previousTimestamp: CFTimeInterval = 0
+    let foodCategory: Int = 0b010
     
     var _Health : Int = Globals.defaultFoodHealth
-    
-    var speed : Float
-    
     var hungerValue: Int = Globals.defaultFoodHungerValue
+    var exp: Int = 1
+    var speed : Float
     
     var foodData: FoodData
     
-    let foodCategory: Int = 0b010
-    
     init(foodData: FoodData) {
-        
-        self.speed = foodData.initialSpeed
-        self.hungerValue = foodData.hungerValue
-        self._Health = foodData.health * UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+        let stageIteration = Utilities.getCurrentStageIteration()
+        // calc food stats with base stats and their growths
+        self._Health = Utilities.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.health, growth: foodData.healthGrowth)
+        self.exp = Utilities.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.initialEXP, growth: foodData.EXPGrowth)
+        self.speed = Utilities.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.initialSpeed, growth: foodData.speedGrowth)
+        self.hungerValue = Utilities.finalStatCalculation(stageCycle: stageIteration, baseStat: foodData.hungerValue, growth: foodData.hungerGrowth)
         self.uniqueID = UUID() // make sure every class that has an Updatable has this unique ID in its init
         self.foodData = foodData
         super.init()
@@ -41,6 +44,7 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
         
         // load scene model
         // TODO: use .clone() to do object instancing
+        
         self.addChildNode((Globals.foodSCNModels[foodData.assetName]!.clone()))
 
         
@@ -71,6 +75,9 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     func Start() {
     }
     
+    func OnDestroy() {
+    }
+    
     func Update() {
         moveWithWorld()
         doBehaviour()
@@ -95,9 +102,9 @@ public class BaseFoodNode : SCNNode, MonoBehaviour {
     func despawnBehaviour() {
         // Check if the object's distance from the center is greater than 100 meters
         let distanceFromCenter = sqrt(pow(self.position.x, 2) + pow(self.position.z, 2))
-        if distanceFromCenter > 200 {
+        if distanceFromCenter > 500 {
             // If the object is more than 100 meters away from the center, destroy it
-            self.onDestroy(after: 0)
+            self.Destroy(after: 0)
         }
     }
 }

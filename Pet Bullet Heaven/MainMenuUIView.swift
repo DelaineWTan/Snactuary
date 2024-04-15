@@ -10,6 +10,7 @@ import UIKit
 class MainMenuUIView: UIView {
     var playButtonTappedHandler: (() -> Void)?
     var selectPetsButtonTappedHandler: (() -> Void)?
+    var statsButtonTappedHandler: (() -> Void)?
     var exitButtonTappedHandler: (() -> Void)?
     
     lazy var titleLabel: UIImageView = {
@@ -26,6 +27,11 @@ class MainMenuUIView: UIView {
     
     lazy var selectPetsButton: UIButton = {
         let button = Utilities.makeButton(title: "Select Pets", image: UIImage(named: "cloud_yellow.png"), backgroundColor: .blue, target: self, action: #selector(selectPetsButtonTapped))
+        return button
+    }()
+    
+    lazy var statsButton: UIButton = {
+        let button = Utilities.makeButton(title: "Statistics", image: UIImage(named: "cloud_teal.png"), backgroundColor: .blue, target: self, action: #selector(statsButtonTapped))
         return button
     }()
     
@@ -48,6 +54,7 @@ class MainMenuUIView: UIView {
         addSubview(titleLabel)
         addSubview(playButton)
         addSubview(selectPetsButton)
+        addSubview(statsButton)
         addSubview(exitButton)
         
         // Layout constraints for title image
@@ -76,10 +83,18 @@ class MainMenuUIView: UIView {
             selectPetsButton.heightAnchor.constraint(equalToConstant: 98)
         ])
         
+        statsButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            statsButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            statsButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 180), // Shifted down by 40 points
+            statsButton.widthAnchor.constraint(equalToConstant: 147),
+            statsButton.heightAnchor.constraint(equalToConstant: 98)
+        ])
+        
         exitButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             exitButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            exitButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 180), // Shifted down by 40 points
+            exitButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 300), // Shifted down by 80 points
             exitButton.widthAnchor.constraint(equalToConstant: 147),
             exitButton.heightAnchor.constraint(equalToConstant: 98)
         ])
@@ -91,6 +106,10 @@ class MainMenuUIView: UIView {
     
     @objc private func selectPetsButtonTapped() {
         selectPetsButtonTappedHandler?()
+    }
+    
+    @objc private func statsButtonTapped() {
+        statsButtonTappedHandler?()
     }
     
     @objc private func exitButtonTapped() {

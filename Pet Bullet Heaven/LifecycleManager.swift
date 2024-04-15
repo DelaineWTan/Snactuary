@@ -23,6 +23,7 @@ public class LifecycleManager {
     }
     
     func deleteGameObject(gameObject: MonoBehaviour) {
+        gameObject.OnDestroy()
         gameObjects.removeValue(forKey: gameObject.uniqueID)
     }
     
@@ -39,8 +40,18 @@ public class LifecycleManager {
             food?.childNodes.forEach {
                 $0.removeFromParentNode()
             }
-            food!.onDestroy?()
+            food!.DestroyExtras?()
         }
+    }
+    
+    public func getAllFood() -> [BaseFoodNode] {
+        // Filter out all game objects that are instances of BaseFoodNode
+        let foodList = gameObjects.filter { $0.value is BaseFoodNode }
+        
+        // Convert the filtered dictionary values to an array of BaseFoodNode
+        let allFood = foodList.map { $0.value as! BaseFoodNode }
+        
+        return allFood
     }
     
     func getClosestFood() -> (BaseFoodNode?, Float) {

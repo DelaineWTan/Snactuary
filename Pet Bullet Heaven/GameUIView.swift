@@ -11,6 +11,7 @@ import SceneKit
 class GameUIView: UIView, PetSelectionDelegate {
     let mainMenuUIView = MainMenuUIView()
     let petSelectionUIView = PetSelectionUIView()
+    let statsUIView = StatsUIView()
     let pauseMenuUIView = PauseMenuUIView()
     let inGameUIView = InGameUIView()
     weak var delegate: SceneProvider?
@@ -36,6 +37,8 @@ class GameUIView: UIView, PetSelectionDelegate {
         petSelectionUIView.isHidden = true
         addSubview(pauseMenuUIView)
         pauseMenuUIView.isHidden = true
+        addSubview(statsUIView)
+        statsUIView.isHidden = true
         addSubview(inGameUIView)
         inGameUIView.isHidden = true
         
@@ -70,6 +73,16 @@ class GameUIView: UIView, PetSelectionDelegate {
         ])
         setupPetSelectionMenuHandlers()
         
+        // Layout constraints for stats view
+        statsUIView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            statsUIView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            statsUIView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            statsUIView.widthAnchor.constraint(equalTo: widthAnchor),
+            statsUIView.heightAnchor.constraint(equalTo: heightAnchor)
+        ])
+        setupStatsMenuHandlers()
+        
         // Layout constraints for in game view
         inGameUIView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -98,6 +111,13 @@ class GameUIView: UIView, PetSelectionDelegate {
             self?.petSelectionUIView.setupTopCenterLabel()
         }
         
+        mainMenuUIView.statsButtonTappedHandler = { [weak self] in
+            // Hide main menu and show stat menu
+            self?.mainMenuUIView.isHidden = true
+            self?.statsUIView.isHidden = false
+            self?.statsUIView.updateStatistics()
+        }
+        
         mainMenuUIView.exitButtonTappedHandler = {
             exit(0)
         }
@@ -108,6 +128,14 @@ class GameUIView: UIView, PetSelectionDelegate {
             // Hide pet selection menu and show main menu
             self?.mainMenuUIView.isHidden = false
             self?.petSelectionUIView.isHidden = true
+        }
+    }
+    
+    private func setupStatsMenuHandlers() {
+        statsUIView.mainMenuButtonTappedHandler = { [weak self] in
+            // Hide stats menu and show main menu
+            self?.mainMenuUIView.isHidden = false
+            self?.statsUIView.isHidden = true
         }
     }
     
@@ -136,35 +164,55 @@ class GameUIView: UIView, PetSelectionDelegate {
         }
         
         inGameUIView.nextStageButtonTappedHandler = { [weak self] in
+            Utilities.changeGameState(gameState: "paused")
+            // do cutscene here
             self?.inGameUIView.nextStageButton.isHidden = true
+            self?.inGameUIView.stageClearLabel.isHidden = false
             
-            // reset current hungerScore on stage & hungerMeter
-            self?.inGameUIView.resetHunger()
-            
-            // clear food objects
+            // delete all food, stop recognizers, and handlers
             LifecycleManager.Instance.deleteAllFood()
-            // increase food health
-            var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+            self?.enableAllGestures(isEnabled: false)
+            self?.inGameUIView.pauseButton.isHidden = true
             
-            // Increment stage count and play new bgm
-            SoundManager.Instance.stopCurrentBGM()
-            stageCount += 1
-            self?.inGameUIView.setStageCount(stageCount: stageCount)
-            UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
-            SoundManager.Instance.playCurrentStageBGM()
-            // change stage visual aesthetics
+            let delayInSeconds = 12.0 // Adjust the delay time as needed
             let stageNode = Globals.mainScene.rootNode.childNode(withName: "stagePlane", recursively: true)
-            if let stageMat = stageNode?.geometry?.firstMaterial {
-                stageMat.diffuse.contents = StageAestheticsHelper.iterateStageVariation(stageMat)
+            var stageMat = stageNode?.geometry?.firstMaterial
+            // levitate pets in active party & play heavenly sfx
+            Utilities.levitatePetsAndFadeScreenCutscene(duration: delayInSeconds, &stageMat!)
+            SoundManager.Instance.playStageTransitionSFX()
+            
+            // This closure will be executed after the specified delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+                // reset current hungerScore on stage & hungerMeter
+                self?.inGameUIView.resetHunger()
+                
+                // increase food health
+                var stageCount = UserDefaults.standard.integer(forKey: Globals.stageCountKey)
+                
+                // Increment stage count and play new bgm
+                SoundManager.Instance.stopCurrentBGM()
+                stageCount += 1
+                Globals.stagesPassed += 1
+                self?.inGameUIView.setStageCount(stageCount: stageCount)
+                UserDefaults.standard.set(stageCount, forKey: Globals.stageCountKey)
+                SoundManager.Instance.playCurrentStageBGM()
+                
+                
+                
+                // increase max HungerScore required to progress to next stage
+                self?.inGameUIView.increaseMaxHungerScore()
+                
+                // save stage's food health multiplier
+                UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
+                
+                UserDefaults.standard.synchronize()
+                // reset stuffs
+                self?.inGameUIView.stageClearLabel.isHidden = true
+                self?.enableAllGestures(isEnabled: true)
+                self?.inGameUIView.pauseButton.isHidden = false
+                Utilities.changeGameState(gameState: "inGame")
             }
             
-            // increase max HungerScore required to progress to next stage
-            self?.inGameUIView.increaseMaxHungerScore()
-            
-            // save stage's food health multiplier
-            UserDefaults.standard.set(Globals.foodHealthMultiplier, forKey: Globals.foodHealthMultiplierKey)
-            
-            UserDefaults.standard.synchronize()
         }
     }
     
@@ -231,6 +279,22 @@ class GameUIView: UIView, PetSelectionDelegate {
             }
         } else {
             print("Failed to load the scene.")
+        }
+    }
+    
+    private func enableAllGestures(isEnabled: Bool) {
+        var responder: UIResponder? = self.next
+        
+        // Traverse up the responder chain until finding the GameViewController
+        while responder != nil {
+            if let viewController = responder as? GameViewController {
+                // Disable all gesture recognizers associated with the GameViewController
+                viewController.view.gestureRecognizers?.forEach { gestureRecognizer in
+                    gestureRecognizer.isEnabled = isEnabled
+                }
+                break
+            }
+            responder = responder?.next
         }
     }
 }

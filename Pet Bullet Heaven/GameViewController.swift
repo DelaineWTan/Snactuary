@@ -49,7 +49,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         // Set delegates
         overlayView.delegate = self
         Globals.mainScene.physicsWorld.contactDelegate = self
-        
+
         // show statistics and debug options, remove for production
 //        scnView.showsStatistics = true
 //        scnView.debugOptions = [
@@ -102,7 +102,14 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             for foodInformation in foodGroup {
                 let foodAssetName = foodInformation.1.assetName
                 Globals.foodSCNModels[foodAssetName] = Utilities.loadSceneModelNode(name: foodAssetName)
+                print("asset name: \(foodAssetName)")
             }
+        }
+        
+        for foodData in Globals.specialFoods {
+            let foodAssetName = foodData.assetName
+            Globals.foodSCNModels[foodAssetName] = Utilities.loadSceneModelNode(name: foodAssetName)
+            print("asset name: \(foodAssetName)")
         }
     }
     
@@ -183,6 +190,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             // Handle collision with a projectile node
             food._Health -= projectile._Damage
             
+            //increment stats
+            Globals.damageDone += projectile._Damage
+            
             // Show floating damage text
             let floatingText = FloatingText()
             scnView.addSubview(floatingText)
@@ -190,37 +200,45 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         else if let petNode = attackingNode as? Pet {
             food._Health -= Int(petNode.attack)
+            Globals.damageDone += petNode.attack
             
             // Show floating damage text
             let floatingText = FloatingText()
             scnView.addSubview(floatingText)
             floatingText.showDamageText(at: CGPoint(x: CGFloat(foodPosition.x), y: CGFloat(foodPosition.y)), with: Int(petNode.attack))
         }
-
+        _ = CrumbsPS(food.position)
         // if food killed
         if food._Health <= 0 {
             overlayView.inGameUIView.addToHungerMeter(hungerValue: food.hungerValue)
             UserDefaults.standard.synchronize()
-            food.onDestroy(after: 0)
+            food.Destroy(after: 0)
             SoundManager.Instance.refreshEatingSFX()
             
+            //Increment stats
+            Globals.snacksEaten += 1
+            Globals.totalScore += food.hungerValue
+
             //increase exp for all active pets
             for petIndex in 0...Globals.activePets.count - 1 {
                 let pet = Globals.pets[Globals.activePets[petIndex]]!
                 
                 //add exp
-                pet.exp += 1
+                pet.exp += food.exp
                
                 //check if pet has enough exp to level up
                 if pet.hasLeveledUp(){
-                    pet.levelUp(pet.level + 1)
-                    //
+                    // assign exp over level up threshold to next level's exp
+                    pet.levelUp(pet.level+1)
+                    let overflowExp = pet.exp - pet.levelUpExp
+                    pet.exp = overflowExp
+    
                     let mainPlayerNode = Globals.mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)
                     let oldAbilityNode = mainPlayerNode!.childNode(withName: Globals.petAbilityNodeName[petIndex], recursively: true)!
                     
                     let updatedAbility = oldAbilityNode as! Ability
-                    updatedAbility.setDamage(Int(pet.attack))
-                    //
+                    updatedAbility.setDamage(pet.attack)
+
                     let petPosition = scnView.projectPoint(pet.slotPosition)
                     let floatingText = FloatingText()
                     scnView.addSubview(floatingText)

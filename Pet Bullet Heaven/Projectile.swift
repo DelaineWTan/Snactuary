@@ -10,12 +10,15 @@ import SceneKit
 
 class Projectile : SCNNode, MonoBehaviour {
     
+    
     // TODO: NOTE TO SELF, REFACTOR THIS FILE
     
     var uniqueID: UUID
     
     func Start() {
         
+    }
+    func OnDestroy() {
     }
     
     func Update() {
@@ -27,12 +30,25 @@ class Projectile : SCNNode, MonoBehaviour {
         }
     }
     
-    var onDestroy: (() -> Void)?
+    var DestroyExtras: (() -> Void)?
     
-    override init() {
+//    override init() {
+//        self.uniqueID = UUID()
+//        super.init()
+//        LifecycleManager.Instance.addGameObject(self)
+//    }
+    
+    // Mutated Constructor
+    init(_InputDamage: Int, assetName: String) {
+        // Call to Super Constructor
         self.uniqueID = UUID()
         super.init()
         LifecycleManager.Instance.addGameObject(self)
+        _Damage = _InputDamage
+        _Mesh = loadFromFile(_AssetName: assetName, _FileType: "dae")
+        self.position.y += 1
+        //self.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5) // changing the scale does not change the hitbox
+        self.addChildNode(_Mesh!)
     }
     
     required init?(coder: NSCoder) {

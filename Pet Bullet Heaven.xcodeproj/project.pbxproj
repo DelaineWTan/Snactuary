@@ -33,9 +33,11 @@
 		0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F702BBA5363003BA02D /* cloud_yellow.png */; };
 		0E052F742BBA5363003BA02D /* cloud_teal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F712BBA5363003BA02D /* cloud_teal.png */; };
 		0E052F752BBA5363003BA02D /* cloud_pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E052F722BBA5363003BA02D /* cloud_pink.png */; };
+		0E796D752BCCBA9900D310CB /* CrumbsPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E796D742BCCBA9900D310CB /* CrumbsPS.swift */; };
 		0ED95DCA2B9193E5008F010E /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED95DC92B9193E5008F010E /* Map.swift */; };
 		0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FAE63852B7C4CF0007ED6AA /* Penguin_HandPaint.001.png */; };
 		4E4BB89B2B92B6BE003008D6 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */; };
+		4EE3792A2BC8A09000F208A0 /* StatsUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE379292BC8A09000F208A0 /* StatsUIView.swift */; };
 		4F745FA22BB7893A008909FD /* ShootClosestAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */; };
 		4F745FA42BB7BC1A008909FD /* LaunchedProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F745FA32BB7BC1A008909FD /* LaunchedProjectile.swift */; };
 		4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE637A2B7C21B3007ED6AA /* Ability.swift */; };
@@ -78,6 +80,21 @@
 		FB2128302BB9FB1600CE5066 /* FrogGreenTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128202BB9FB1600CE5066 /* FrogGreenTexture.png */; };
 		FB2128312BB9FB1600CE5066 /* FrogLuckyTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */; };
 		FB2128342BB9FE4100CE5066 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2128332BB9FE4100CE5066 /* Utilities.swift */; };
+		FB41F4A52BCCB7C200A25656 /* CottenCandy.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4A42BCCB7C200A25656 /* CottenCandy.dae */; };
+		FB41F4A72BCCB7CA00A25656 /* Crumbs.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4A62BCCB7CA00A25656 /* Crumbs.dae */; };
+		FB41F4A92BCCB7D200A25656 /* Kelp.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4A82BCCB7D200A25656 /* Kelp.dae */; };
+		FB41F4AB2BCCB7DA00A25656 /* Muffin.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4AA2BCCB7DA00A25656 /* Muffin.dae */; };
+		FB41F4AD2BCCB7E200A25656 /* Mushroom.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4AC2BCCB7E200A25656 /* Mushroom.dae */; };
+		FB41F4BD2BCCCEC500A25656 /* Bubble.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4BB2BCCCEC500A25656 /* Bubble.dae */; };
+		FB41F4BE2BCCCEC500A25656 /* BubbleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4BC2BCCCEC500A25656 /* BubbleTexture.png */; };
+		FB41F4C22BCCD07600A25656 /* Iceberg.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C02BCCD07600A25656 /* Iceberg.png */; };
+		FB41F4C52BCCD0F200A25656 /* PawTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C32BCCD0F200A25656 /* PawTexture.png */; };
+		FB41F4C62BCCD0F200A25656 /* PawV5.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C42BCCD0F200A25656 /* PawV5.dae */; };
+		FB41F4C82BCCD1CE00A25656 /* IcebergV2.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C72BCCD1CE00A25656 /* IcebergV2.dae */; };
+		FB41F4CD2BCCD49E00A25656 /* Honeypot.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4C92BCCD49E00A25656 /* Honeypot.dae */; };
+		FB41F4CE2BCCD49E00A25656 /* Dogbone.dae in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4CA2BCCD49E00A25656 /* Dogbone.dae */; };
+		FB41F4CF2BCCD49E00A25656 /* DogBoneTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4CB2BCCD49E00A25656 /* DogBoneTexture.png */; };
+		FB41F4D02BCCD49E00A25656 /* HoneyPotTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB41F4CC2BCCD49E00A25656 /* HoneyPotTexture.png */; };
 		FB6306C42B8017DD00E8096D /* FoodSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6306C32B8017DD00E8096D /* FoodSpawner.swift */; };
 		FB7328982B7D947500557AE6 /* BaseFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7328972B7D947500557AE6 /* BaseFoodNode.swift */; };
 		FBB2DC772BC348AD0096231F /* TreasureFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */; };
@@ -144,8 +161,10 @@
 		0E052F702BBA5363003BA02D /* cloud_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_yellow.png; sourceTree = "<group>"; };
 		0E052F712BBA5363003BA02D /* cloud_teal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_teal.png; sourceTree = "<group>"; };
 		0E052F722BBA5363003BA02D /* cloud_pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_pink.png; sourceTree = "<group>"; };
+		0E796D742BCCBA9900D310CB /* CrumbsPS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrumbsPS.swift; sourceTree = "<group>"; };
 		0ED95DC92B9193E5008F010E /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		4E4BB89A2B92B6BE003008D6 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		4EE379292BC8A09000F208A0 /* StatsUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsUIView.swift; sourceTree = "<group>"; };
 		4F745FA12BB7893A008909FD /* ShootClosestAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootClosestAbility.swift; sourceTree = "<group>"; };
 		4F745FA32BB7BC1A008909FD /* LaunchedProjectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchedProjectile.swift; sourceTree = "<group>"; };
 		4FAE637A2B7C21B3007ED6AA /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
@@ -189,6 +208,22 @@
 		FB2128202BB9FB1600CE5066 /* FrogGreenTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogGreenTexture.png; sourceTree = "<group>"; };
 		FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogLuckyTexture.png; sourceTree = "<group>"; };
 		FB2128332BB9FE4100CE5066 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		FB41F4A42BCCB7C200A25656 /* CottenCandy.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = CottenCandy.dae; sourceTree = "<group>"; };
+		FB41F4A62BCCB7CA00A25656 /* Crumbs.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Crumbs.dae; sourceTree = "<group>"; };
+		FB41F4A82BCCB7D200A25656 /* Kelp.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Kelp.dae; sourceTree = "<group>"; };
+		FB41F4AA2BCCB7DA00A25656 /* Muffin.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Muffin.dae; sourceTree = "<group>"; };
+		FB41F4AC2BCCB7E200A25656 /* Mushroom.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Mushroom.dae; sourceTree = "<group>"; };
+		FB41F4B82BCCB99B00A25656 /* Mushroom.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Mushroom.dae; path = "../../../../Downloads/Food Models/Mushroom/Mushroom.dae"; sourceTree = "<group>"; };
+		FB41F4BB2BCCCEC500A25656 /* Bubble.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Bubble.dae; sourceTree = "<group>"; };
+		FB41F4BC2BCCCEC500A25656 /* BubbleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleTexture.png; sourceTree = "<group>"; };
+		FB41F4C02BCCD07600A25656 /* Iceberg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Iceberg.png; sourceTree = "<group>"; };
+		FB41F4C32BCCD0F200A25656 /* PawTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PawTexture.png; sourceTree = "<group>"; };
+		FB41F4C42BCCD0F200A25656 /* PawV5.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = PawV5.dae; sourceTree = "<group>"; };
+		FB41F4C72BCCD1CE00A25656 /* IcebergV2.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = IcebergV2.dae; sourceTree = "<group>"; };
+		FB41F4C92BCCD49E00A25656 /* Honeypot.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Honeypot.dae; sourceTree = "<group>"; };
+		FB41F4CA2BCCD49E00A25656 /* Dogbone.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Dogbone.dae; sourceTree = "<group>"; };
+		FB41F4CB2BCCD49E00A25656 /* DogBoneTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DogBoneTexture.png; sourceTree = "<group>"; };
+		FB41F4CC2BCCD49E00A25656 /* HoneyPotTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HoneyPotTexture.png; sourceTree = "<group>"; };
 		FB6306C32B8017DD00E8096D /* FoodSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSpawner.swift; sourceTree = "<group>"; };
 		FB7328972B7D947500557AE6 /* BaseFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFoodNode.swift; sourceTree = "<group>"; };
 		FBB2DC762BC348AD0096231F /* TreasureFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureFoodNode.swift; sourceTree = "<group>"; };
@@ -271,6 +306,7 @@
 				0DCB55BC2B75947D00C18DD0 /* PauseMenuUIView.swift */,
 				FBFDBE6B2B8550780071A1F6 /* PetSelectionUIView.swift */,
 				58861D4B2B7C1084002573D2 /* Pet.swift */,
+				0E796D742BCCBA9900D310CB /* CrumbsPS.swift */,
 				0DCB55AA2B74B7C500C18DD0 /* Globals.swift */,
 				FB2128332BB9FE4100CE5066 /* Utilities.swift */,
 				0ED95DC92B9193E5008F010E /* Map.swift */,
@@ -292,6 +328,7 @@
 				4FAE63802B7C2202007ED6AA /* OrbitingPaw.swift */,
 				0DA1A35B2BB27BAC0003544F /* FloatingText.swift */,
 				04FB228E2BB3A44B00B1A519 /* StageAestheticsHelper.swift */,
+				4EE379292BC8A09000F208A0 /* StatsUIView.swift */,
 			);
 			path = "Pet Bullet Heaven";
 			sourceTree = "<group>";
@@ -318,8 +355,14 @@
 			children = (
 				58FDBBE12BCDC65E005F67FC /* dog-leashedV2.dae */,
 				58FDBBD72BCDBBC8005F67FC /* dog.dae */,
+				FB41F4BA2BCCCEAA00A25656 /* Attack */,
 				58B8175F2BBCA5BC00DF8FD8 /* Sprites */,
 				FB2128122BB9FB1600CE5066 /* textures */,
+				FB41F4A42BCCB7C200A25656 /* CottenCandy.dae */,
+				FB41F4AA2BCCB7DA00A25656 /* Muffin.dae */,
+				FB41F4A62BCCB7CA00A25656 /* Crumbs.dae */,
+				FB41F4A82BCCB7D200A25656 /* Kelp.dae */,
+				FB41F4AC2BCCB7E200A25656 /* Mushroom.dae */,
 				0D58FCD62BB8DED800488D01 /* app_icon.jpg */,
 				0E052F602BBA304F003BA02D /* title_image.png */,
 				0E052F722BBA5363003BA02D /* cloud_pink.png */,
@@ -341,6 +384,7 @@
 				FBE60A5F2B92E533009B3E7E /* Frog.001.png */,
 				FBE60A622B92E7EB009B3E7E /* Frog.001.dae */,
 				FBD518352BB63BCC00E947E5 /* CarrotV2.dae */,
+				FB41F4B82BCCB99B00A25656 /* Mushroom.dae */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -388,6 +432,23 @@
 				FB2128212BB9FB1600CE5066 /* FrogLuckyTexture.png */,
 			);
 			path = textures;
+			sourceTree = "<group>";
+		};
+		FB41F4BA2BCCCEAA00A25656 /* Attack */ = {
+			isa = PBXGroup;
+			children = (
+				FB41F4BB2BCCCEC500A25656 /* Bubble.dae */,
+				FB41F4BC2BCCCEC500A25656 /* BubbleTexture.png */,
+				FB41F4C72BCCD1CE00A25656 /* IcebergV2.dae */,
+				FB41F4C02BCCD07600A25656 /* Iceberg.png */,
+				FB41F4C32BCCD0F200A25656 /* PawTexture.png */,
+				FB41F4C42BCCD0F200A25656 /* PawV5.dae */,
+				FB41F4CA2BCCD49E00A25656 /* Dogbone.dae */,
+				FB41F4CB2BCCD49E00A25656 /* DogBoneTexture.png */,
+				FB41F4C92BCCD49E00A25656 /* Honeypot.dae */,
+				FB41F4CC2BCCD49E00A25656 /* HoneyPotTexture.png */,
+			);
+			path = Attack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -499,6 +560,8 @@
 				58FDBBDF2BCDBBFB005F67FC /* dog2.png in Resources */,
 				FB2128292BB9FB1600CE5066 /* BaseFrogTexture.png in Resources */,
 				FBD5183B2BB642C800E947E5 /* IcingTexture.png in Resources */,
+				FB41F4BE2BCCCEC500A25656 /* BubbleTexture.png in Resources */,
+				FB41F4AB2BCCB7DA00A25656 /* Muffin.dae in Resources */,
 				58B817742BBCA5BC00DF8FD8 /* frog3.png in Resources */,
 				58FDBBD42BCDBBB5005F67FC /* DogMat3.png in Resources */,
 				0D58FCC92BB78DBD00488D01 /* Banana.dae in Resources */,
@@ -511,10 +574,12 @@
 				585568032BC9E7230018A8D5 /* bear.dae in Resources */,
 				FB2128232BB9FB1600CE5066 /* CatCursedTexture.png in Resources */,
 				0E052F752BBA5363003BA02D /* cloud_pink.png in Resources */,
+				FB41F4BD2BCCCEC500A25656 /* Bubble.dae in Resources */,
 				0D6409382B71FBD00047847B /* art.scnassets in Resources */,
 				585568072BC9E7AD0018A8D5 /* bearTexture.png in Resources */,
 				FBD5183C2BB642C800E947E5 /* donutTexture.png in Resources */,
 				58FDBBD52BCDBBB5005F67FC /* DogMat.png in Resources */,
+				FB41F4AD2BCCB7E200A25656 /* Mushroom.dae in Resources */,
 				FB2128252BB9FB1600CE5066 /* CatPinkTexture.png in Resources */,
 				0D58FCD72BB8DED800488D01 /* app_icon.jpg in Resources */,
 				FB21282E2BB9FB1600CE5066 /* DuckDolanTexture.png in Resources */,
@@ -523,29 +588,41 @@
 				58FDBBD62BCDBBB5005F67FC /* DogMat2.png in Resources */,
 				585568012BC9E6EB0018A8D5 /* bear-gummy.png in Resources */,
 				FB2128312BB9FB1600CE5066 /* FrogLuckyTexture.png in Resources */,
+				FB41F4CF2BCCD49E00A25656 /* DogBoneTexture.png in Resources */,
 				0D6409422B71FBD20047847B /* LaunchScreen.storyboard in Resources */,
 				FBD5183A2BB642C800E947E5 /* berrytext.png in Resources */,
 				58B817752BBCA5BC00DF8FD8 /* frog2.png in Resources */,
 				FB2128302BB9FB1600CE5066 /* FrogGreenTexture.png in Resources */,
+				FB41F4CE2BCCD49E00A25656 /* Dogbone.dae in Resources */,
+				FB41F4C82BCCD1CE00A25656 /* IcebergV2.dae in Resources */,
 				0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */,
 				58FDBBD92BCDBBC8005F67FC /* dog.dae in Resources */,
 				0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */,
 				0D58FCCB2BB7943800488D01 /* FrogFroak.dae in Resources */,
+				FB41F4C62BCCD0F200A25656 /* PawV5.dae in Resources */,
 				58B8176F2BBCA5BC00DF8FD8 /* duck1.png in Resources */,
 				58B8176D2BBCA5BC00DF8FD8 /* duck2.png in Resources */,
 				58FDBBE22BCDC65E005F67FC /* dog-leashedV2.dae in Resources */,
 				FB2128242BB9FB1600CE5066 /* FrogFroakTexture.png in Resources */,
 				58B817762BBCA5BC00DF8FD8 /* frog1.png in Resources */,
 				585568002BC9E6EB0018A8D5 /* bear-polar.png in Resources */,
+				58B817702BBCA5BC00DF8FD8 /* dog1.png in Resources */,
+				FB41F4D02BCCD49E00A25656 /* HoneyPotTexture.png in Resources */,
 				FBD5183D2BB642C800E947E5 /* donut.dae in Resources */,
 				FBE60A5C2B92E52A009B3E7E /* Duck.001.png in Resources */,
+				FB41F4A72BCCB7CA00A25656 /* Crumbs.dae in Resources */,
 				0D64093F2B71FBD20047847B /* Assets.xcassets in Resources */,
+				FB41F4A92BCCB7D200A25656 /* Kelp.dae in Resources */,
 				58B8177B2BBCA87300DF8FD8 /* bear1.png in Resources */,
 				0D64093D2B71FBD00047847B /* Main.storyboard in Resources */,
 				58B817732BBCA5BC00DF8FD8 /* cat2.png in Resources */,
 				0D58FCD92BB8F00D00488D01 /* logo-color.png in Resources */,
 				FB21282D2BB9FB1600CE5066 /* DuckYellowTexture.png in Resources */,
+				FB41F4A52BCCB7C200A25656 /* CottenCandy.dae in Resources */,
+				FB41F4C52BCCD0F200A25656 /* PawTexture.png in Resources */,
+				FB41F4CD2BCCD49E00A25656 /* Honeypot.dae in Resources */,
 				58B817712BBCA5BC00DF8FD8 /* cat1.png in Resources */,
+				FB41F4C22BCCD07600A25656 /* Iceberg.png in Resources */,
 				0E052F742BBA5363003BA02D /* cloud_teal.png in Resources */,
 				585568092BC9E7AD0018A8D5 /* bearTexture2.png in Resources */,
 				58FDBBE02BCDBBFB005F67FC /* dog3.png in Resources */,
@@ -592,6 +669,7 @@
 				FBB2DC772BC348AD0096231F /* TreasureFoodNode.swift in Sources */,
 				4FAE637B2B7C21B3007ED6AA /* Ability.swift in Sources */,
 				4FAE63812B7C2202007ED6AA /* OrbitingPaw.swift in Sources */,
+				0E796D752BCCBA9900D310CB /* CrumbsPS.swift in Sources */,
 				0D58FCC72BB784F100488D01 /* StationaryBomb.swift in Sources */,
 				0DCB55BD2B75947D00C18DD0 /* PauseMenuUIView.swift in Sources */,
 				FBC69D7B2B82DEFB0052C572 /* MonoBehaviour.swift in Sources */,
@@ -600,6 +678,7 @@
 				FB2128342BB9FE4100CE5066 /* Utilities.swift in Sources */,
 				FB7328982B7D947500557AE6 /* BaseFoodNode.swift in Sources */,
 				0ED95DCA2B9193E5008F010E /* Map.swift in Sources */,
+				4EE3792A2BC8A09000F208A0 /* StatsUIView.swift in Sources */,
 				04FB228F2BB3A44B00B1A519 /* StageAestheticsHelper.swift in Sources */,
 				0DCB55BF2B75957D00C18DD0 /* InGameUIView.swift in Sources */,
 				0DA1A35C2BB27BAC0003544F /* FloatingText.swift in Sources */,
