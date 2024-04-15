@@ -52,7 +52,7 @@ public class Globals {
                level: 1
               ),
         
-        2: Pet(petName:"P Katt",
+        2: Pet(petName:"Pink Katt",
                petId: 2,
                petImageName: "cat2.png",
                petModelName: "art.scnassets/Cat.Pink.scn",
@@ -140,7 +140,7 @@ public class Globals {
                level: 1
               ),
         
-        9: Pet(petName:"Bear",
+        9: Pet(petName:"Brear",
                petId: 9,
                petImageName: "bear1.png",
                petModelName: "art.scnassets/bear.1.scn",
@@ -155,24 +155,39 @@ public class Globals {
                level: 1 // Assuming from context
               ),
         
-        10: Pet(petName:"Doig",
+        10: Pet(petName:"Gum Brear",
                 petId: 10,
-                petImageName: "dog1.png",
-                unlockedInput: false, currentExp: 0,
-                level: 1 // Assuming from context
-               ),
-        
-        11: Pet(petName:"Gummy Bear",
-                petId: 11,
                 petImageName: "bear-gummy.png",
                 petModelName: "art.scnassets/bear.g.scn",
                 currentExp: 0,
                 level: 1 // Assuming from context
                ),
-        12: Pet(petName:"Polar Bear",
-                petId: 12,
+        11: Pet(petName:"Pol Brear",
+                petId: 11,
                 petImageName: "bear-polar.png",
                 petModelName: "art.scnassets/bear.p.scn",
+                unlockedInput: false,
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
+        12: Pet(petName:"Sad Doger",
+                petId: 12,
+                petImageName: "dog.png",
+                petModelName: "art.scnassets/dog1.scn",
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
+        13: Pet(petName:"Lucky Doger",
+                petId: 13,
+                petImageName: "dog2.png",
+                petModelName: "art.scnassets/dog2.scn",
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
+        14: Pet(petName:"Sparky Doger",
+                petId: 14,
+                petImageName: "dog3.png",
+                petModelName: "art.scnassets/dog3.scn",
                 currentExp: 0,
                 level: 1 // Assuming from context
                ),
