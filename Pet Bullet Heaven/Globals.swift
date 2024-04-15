@@ -155,7 +155,7 @@ public class Globals {
                )
     ]
     
-    public static var activePets: [Int] = [
+    public static var defaultActivePets: [Int] = [
         // First four pets are the active party pets
         0, 1, 2, 3 // Use the new ids starting from 0
     ]
@@ -447,6 +447,7 @@ public class Globals {
     public static let snacksEatenKey : String = "Snacks Eaten"
     public static let stagesPassedKey : String = "Stages Passed"
     public static let petLevelsKey : String = "Pet Levels"
+    public static let activePetsKey: String = "Active Pets"
     public static var petModelNodeName: [String] = [
         "Frog.001 reference", "Penguin.001 reference", "Cat.001 reference", "Duck.001 reference"
     ]

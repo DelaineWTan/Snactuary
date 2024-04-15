@@ -33,6 +33,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     // Add floating damage text
     let floatingText = FloatingText()
     
+    var activePets = UserDefaults.standard.array(forKey: Globals.activePetsKey)!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Start game loop for lifecycle methods
@@ -82,9 +84,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         scnView.addGestureRecognizer(panGesture)
         
         // Add attack patterns for initial active pets to game
-        for petIndex in 0...((Globals.activePets.count) - 1) {
+        for petIndex in 0...((activePets.count) - 1) {
             // Add pets into scene
-            let pet = Globals.pets[Globals.activePets[petIndex]]!
+            let pet = Globals.pets[activePets[petIndex] as! Int]!
             Utilities.swapSceneNode(with: pet, position: petIndex)
         }
         
@@ -238,8 +240,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             UserDefaults.standard.setValue(totalScore, forKey: Globals.totalScoreKey)
 
             //increase exp for all active pets
-            for petIndex in 0...Globals.activePets.count - 1 {
-                let pet = Globals.pets[Globals.activePets[petIndex]]!
+            for petIndex in 0...activePets.count - 1 {
+                let pet = Globals.pets[activePets[petIndex] as! Int]!
                 
                 //add exp
                 pet.exp += food.exp
@@ -339,8 +341,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let location = gestureRecongnize.location(in: view)
         var speed : Float = 1
         
-        for petIndex in 0...Globals.activePets.count - 1 {
-            let pet = Globals.pets[Globals.activePets[petIndex]]!
+        for petIndex in 0...activePets.count - 1 {
+            let pet = Globals.pets[activePets[petIndex] as! Int]!
             // combine the speed of all the pets
             speed += pet.speed/10
         }

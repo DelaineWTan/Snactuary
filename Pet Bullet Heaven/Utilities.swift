@@ -88,20 +88,21 @@ public class Utilities {
     public static func initUserData() {
         let currentUserDataVersion = UserDefaults.standard.integer(forKey: Globals.userDataVersionKey)
         let latestUserDataVersion = Globals.userDataVersion
-        if (currentUserDataVersion != latestUserDataVersion) {
-            print("User data version out of date (v\(currentUserDataVersion)), initializing to v\(latestUserDataVersion)...")
+//        if (currentUserDataVersion != latestUserDataVersion) {
+//            print("User data version out of date (v\(currentUserDataVersion)), initializing to v\(latestUserDataVersion)...")
             UserDefaults.standard.set(0, forKey: Globals.totalScoreKey)
             UserDefaults.standard.set(0, forKey: Globals.stageScoreKey)
             UserDefaults.standard.set(0, forKey: Globals.damageDoneKey)
             UserDefaults.standard.set(0, forKey: Globals.snacksEatenKey)
             UserDefaults.standard.set(0, forKey: Globals.stagesPassedKey)
+            UserDefaults.standard.setValue(Globals.defaultActivePets, forKey: Globals.activePetsKey)
         UserDefaults.standard.set(Globals.defaultPetLevels, forKey: Globals.petLevelsKey)
             UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
             UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)
             UserDefaults.standard.set(Globals.foodHealthMultiplierKey, forKey: Globals.foodHealthMultiplierKey)
             
             UserDefaults.standard.set(latestUserDataVersion, forKey: Globals.userDataVersionKey)
-        }
+      //  }
     }
     
     /// Prints all user data to console
