@@ -33,6 +33,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
     // Add floating damage text
     let floatingText = FloatingText()
     
+    var activePets = UserDefaults.standard.array(forKey: Globals.activePetsKey)!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Start game loop for lifecycle methods
@@ -81,11 +83,18 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleMovementPan(_:)))
         scnView.addGestureRecognizer(panGesture)
         
-        // Add attack patterns for initial active pets to game
-        for petIndex in 0...((Globals.activePets.count) - 1) {
+        // Add active pets and attack patterns for initial active pets to game
+        for petIndex in 0...((activePets.count) - 1) {
             // Add pets into scene
-            let pet = Globals.pets[Globals.activePets[petIndex]]!
+            let pet = Globals.pets[activePets[petIndex] as! Int]!
             Utilities.swapSceneNode(with: pet, position: petIndex)
+        }
+        
+        var petLevels = UserDefaults.standard.array(forKey: Globals.petLevelsKey)!
+        
+        //load saved pet levels
+        for levelIndex in 0...petLevels.count - 1 {
+            Globals.pets[levelIndex]?.levelUp(petLevels[levelIndex] as! Int)
         }
         
         // Initialize food models
@@ -185,13 +194,18 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let scnView = self.view as! SCNView
         let foodPosition = scnView.projectPoint(food.presentation.position)
         let attackingNode = checkPetCollision()
+        var damageDone = UserDefaults.standard.integer(forKey: Globals.damageDoneKey)
+        var snacksEaten = UserDefaults.standard.integer(forKey: Globals.snacksEatenKey)
+        var totalScore = UserDefaults.standard.integer(forKey: Globals.totalScoreKey)
         
         if let projectile = attackingNode as? Projectile {
             // Handle collision with a projectile node
             food._Health -= projectile._Damage
             
             //increment stats
-            Globals.damageDone += projectile._Damage
+            damageDone += projectile._Damage
+            // Save damage score persistently
+            UserDefaults.standard.set(damageDone, forKey: Globals.damageDoneKey)
             
             // Show floating damage text
             let floatingText = FloatingText()
@@ -200,7 +214,9 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         }
         else if let petNode = attackingNode as? Pet {
             food._Health -= Int(petNode.attack)
-            Globals.damageDone += petNode.attack
+            damageDone += petNode.attack
+            // Save damage score persistently
+            UserDefaults.standard.set(damageDone, forKey: Globals.damageDoneKey)
             
             // Show floating damage text
             let floatingText = FloatingText()
@@ -216,20 +232,32 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             SoundManager.Instance.refreshEatingSFX()
             
             //Increment stats
-            Globals.snacksEaten += 1
-            Globals.totalScore += food.hungerValue
+            snacksEaten += 1
+            totalScore += food.hungerValue
+            
+            //save data
+            UserDefaults.standard.set(snacksEaten, forKey: Globals.snacksEatenKey)
+            UserDefaults.standard.setValue(totalScore, forKey: Globals.totalScoreKey)
 
             //increase exp for all active pets
-            for petIndex in 0...Globals.activePets.count - 1 {
-                let pet = Globals.pets[Globals.activePets[petIndex]]!
+            for petIndex in 0...activePets.count - 1 {
+                let pet = Globals.pets[activePets[petIndex] as! Int]!
                 
                 //add exp
                 pet.exp += food.exp
                
                 //check if pet has enough exp to level up
                 if pet.hasLeveledUp(){
+                    var petLevels = UserDefaults.standard.array(forKey: Globals.petLevelsKey)!
+                
                     // assign exp over level up threshold to next level's exp
                     pet.levelUp(pet.level+1)
+                    
+                    for levelIndex in 0...petLevels.count - 1 {
+                        petLevels[levelIndex] = (Globals.pets[levelIndex]?.level)
+                    }
+                    UserDefaults.standard.setValue(petLevels, forKey: Globals.petLevelsKey)
+                    
                     let overflowExp = pet.exp - pet.levelUpExp
                     pet.exp = overflowExp
     
@@ -313,8 +341,8 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
         let location = gestureRecongnize.location(in: view)
         var speed : Float = 1
         
-        for petIndex in 0...Globals.activePets.count - 1 {
-            let pet = Globals.pets[Globals.activePets[petIndex]]!
+        for petIndex in 0...activePets.count - 1 {
+            let pet = Globals.pets[activePets[petIndex] as! Int]!
             // combine the speed of all the pets
             speed += pet.speed/10
         }

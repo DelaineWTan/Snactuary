@@ -155,7 +155,7 @@ public class Globals {
                )
     ]
     
-    public static var activePets: [Int] = [
+    public static var defaultActivePets: [Int] = [
         // First four pets are the active party pets
         0, 1, 2, 3 // Use the new ids starting from 0
     ]
@@ -434,6 +434,7 @@ public class Globals {
     public static let defaultFoodHealth : Int = 1
     public static let defaultFoodHungerValue : Int = 1
     public static let defaultStageCount : Int = 1
+    public static let defaultPetLevels : Array = [1,1,1,1,1,1,1,1,1,1,1]
     
     // Persistent User Data Keys
     public static let userDataVersionKey = "userDataVersion"
@@ -442,6 +443,11 @@ public class Globals {
     public static let stageMaxScorekey : String = "Max Stage Score"
     public static let stageCountKey : String = "Stage Count"
     public static let foodHealthMultiplierKey : String = "Food Health Multiplier"
+    public static let damageDoneKey : String = "Total Damage Done"
+    public static let snacksEatenKey : String = "Snacks Eaten"
+    public static let stagesPassedKey : String = "Stages Passed"
+    public static let petLevelsKey : String = "Pet Levels"
+    public static let activePetsKey: String = "Active Pets"
     public static var petModelNodeName: [String] = [
         "Frog.001 reference", "Penguin.001 reference", "Cat.001 reference", "Duck.001 reference"
     ]
