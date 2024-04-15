@@ -191,7 +191,7 @@ public class Globals {
            speedGrowth: 1.0)
     ]
     public static var stage1Foods: [(Int, FoodData)] = [
-        (100,
+        (1,
          FoodData(
             name: "Muffin",
             type: "treasure",
