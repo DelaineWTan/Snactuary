@@ -81,7 +81,7 @@ public class SoundManager {
     
     private func preloadSoundEffects() {
         // Preload tapping SFX players
-        let sfxFiles = ["cat-meow-sfx", "frog-croak-sfx", "duck-quack-sfx", "penguin-wenk-sfx"]
+        let sfxFiles = ["cat-meow-sfx", "frog-croak-sfx", "duck-quack-sfx", "penguin-wenk-sfx", "dog-sfx", "bear-sfx"]
         
         for sfxFile in sfxFiles {
             if let sfxURL = Bundle.main.url(forResource: sfxFile, withExtension: "wav", subdirectory: "art.scnassets/SFX") {
