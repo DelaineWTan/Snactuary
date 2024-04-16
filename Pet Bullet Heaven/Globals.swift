@@ -11,7 +11,7 @@ import SceneKit
 
 public class Globals {
     // This version number is used to ensure local environments have the latest configured user data
-    public static var userDataVersion = 2
+    public static var userDataVersion = 3
     
     public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
     public static var playerNode = mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)!
@@ -221,7 +221,7 @@ public class Globals {
                ),
     ]
     
-    public static var defaultActivePets: [Int] = [
+    public static var activePets: [Int] = [
         // First four pets are the active party pets
         0, 1, 2, 3 // Use the new ids starting from 0
     ]

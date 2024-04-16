@@ -71,8 +71,8 @@ class PetSelectionUIView: UIView {
         
         var totalPow: Int = 0
         var totalSpeed: Int = 0
-        for petIndex in 0...Globals.defaultActivePets.count - 1  {
-            let pet = Globals.pets[Globals.defaultActivePets[petIndex]]
+        for petIndex in 0...Globals.activePets.count - 1  {
+            let pet = Globals.pets[Globals.activePets[petIndex]]
             totalPow += pet!.attack
             totalSpeed += Int(pet!.speed)
         }
@@ -125,7 +125,7 @@ class PetSelectionUIView: UIView {
     }
     
     public func setupActivePanels() {
-        var activePets = UserDefaults.standard.array(forKey: Globals.activePetsKey)!
+        let activePets = UserDefaults.standard.array(forKey: Globals.activePetsKey) ?? Globals.activePets
         
         // Clear existing views from stackView
         activePetView.subviews.forEach { $0.removeFromSuperview() }
@@ -374,7 +374,7 @@ class PetSelectionUIView: UIView {
 
         let selectedPet = Globals.pets[tappedView.tag]!
         // exit if selecting duplicate or locked
-        if (Globals.defaultActivePets.contains(selectedPet.id) || (!Globals.pets[Int(tappedView.tag)]!.unlocked)) {
+        if (Globals.activePets.contains(selectedPet.id) || (!Globals.pets[Int(tappedView.tag)]!.unlocked)) {
             // Animate the color change
             UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                 // Change the button's background color to the highlight color
@@ -404,8 +404,8 @@ class PetSelectionUIView: UIView {
             let collectionPet = Globals.pets[collectionPanelTag]!
 
             
-            Globals.defaultActivePets[Int(activePanelTag)] = collectionPet.id
-            UserDefaults.standard.set(Globals.defaultActivePets, forKey: Globals.activePetsKey)
+            Globals.activePets[Int(activePanelTag)] = collectionPet.id
+            UserDefaults.standard.set(Globals.activePets, forKey: Globals.activePetsKey)
             
 
             // Update the view
@@ -454,8 +454,8 @@ class PetSelectionUIView: UIView {
             // Swap the pets between active and collection panels
             let collectionPet = Globals.pets[collectionPanelTag]!
 
-            Globals.defaultActivePets[Int(activePanelTag)] = collectionPet.id
-            UserDefaults.standard.set(Globals.defaultActivePets, forKey: Globals.activePetsKey)
+            Globals.activePets[Int(activePanelTag)] = collectionPet.id
+            UserDefaults.standard.set(Globals.activePets, forKey: Globals.activePetsKey)
 
             // Update the view
             setupActivePanels()
@@ -494,8 +494,8 @@ class PetSelectionUIView: UIView {
     
     func updateButtonTitles() {
         // Update active pet buttons
-        for petIndex in 0...Globals.defaultActivePets.count - 1 {
-            let pet = Globals.pets[Globals.defaultActivePets[petIndex]]!
+        for petIndex in 0...Globals.activePets.count - 1 {
+            let pet = Globals.pets[Globals.activePets[petIndex]]!
             if let button = viewWithTag(1000 + petIndex) as? UIButton {
                 button.setTitle(pet.name, for: .normal)
                 
@@ -505,8 +505,8 @@ class PetSelectionUIView: UIView {
         }
         
         // Update collection pet buttons
-        for petIndex in 0...Globals.defaultActivePets.count - 1 {
-            let pet = Globals.pets[Globals.defaultActivePets[petIndex]]!
+        for petIndex in 0...Globals.activePets.count - 1 {
+            let pet = Globals.pets[Globals.activePets[petIndex]]!
             if let button = viewWithTag(2000 + petIndex) as? UIButton {
                 button.setTitle(pet.name, for: .normal)
                 addSubview(button)
