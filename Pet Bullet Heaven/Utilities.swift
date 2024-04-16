@@ -71,16 +71,33 @@ public class Utilities {
             button.backgroundColor = backgroundColor
         }
         button.setTitle(title, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         button.tintColor = .white
-        // Set text shadow for the titleLabel
-        button.titleLabel?.shadowColor = UIColor.black
-        button.titleLabel?.shadowOffset = CGSize(width: 1.0, height: 1.0)
         // Allow multiple lines
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.lineBreakMode = .byWordWrapping
         button.layer.cornerRadius = 8
         button.addTarget(target, action: action, for: .touchUpInside)
+        
+        let buttonLabel = UILabel()
+        buttonLabel.text = title
+        let font = UIFont.systemFont(ofSize: 24)
+        let textColor = UIColor.white
+        
+        let strokeColor = UIColor.black
+        let strokeWidth = -1.0
+        
+        // Using NSAttributedString to set stroke
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: textColor,
+            .strokeColor: strokeColor,
+            .strokeWidth: strokeWidth
+        ]
+
+        let attributedString = NSAttributedString(string: title, attributes: attributes)
+        buttonLabel.attributedText = attributedString
+        button.titleLabel?.attributedText = attributedString
+        button.addSubview(buttonLabel)
         return button
     }
     
