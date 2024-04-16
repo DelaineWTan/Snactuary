@@ -29,7 +29,7 @@ class StatsUIView: UIView {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 30)
         label.textColor = .white
-        label.text = ("Total Score: \(Globals.totalScore)")
+        label.text = ("Total Score: \(UserDefaults.standard.integer(forKey: Globals.totalScoreKey))")
         return label
     }()
     
@@ -38,7 +38,7 @@ class StatsUIView: UIView {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 30)
         label.textColor = .white
-        label.text = ("Stages Passed: \(Globals.stagesPassed)")
+        label.text = ("Stages Passed: \(UserDefaults.standard.integer(forKey: Globals.stageMaxScorekey))")
         return label
     }()
     
@@ -47,7 +47,7 @@ class StatsUIView: UIView {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 30)
         label.textColor = .white
-        label.text = ("Snacks Eaten: \(Globals.snacksEaten)")
+        label.text = ("Snacks Eaten: \(UserDefaults.standard.integer(forKey: Globals.snacksEatenKey))")
         return label
     }()
     
@@ -56,7 +56,7 @@ class StatsUIView: UIView {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 30)
         label.textColor = .white
-        label.text = ("Damage Done: \(Globals.damageDone)")
+        label.text = ("Damage Done: \(UserDefaults.standard.integer(forKey: Globals.damageDoneKey))")
         return label
     }()
     
@@ -120,10 +120,10 @@ class StatsUIView: UIView {
     }
     
     func updateStatistics() {
-        totalScoreLabel.text = "Total Score: \(Globals.totalScore)"
-        stagesPassedLabel.text = "Stages Passed: \(Globals.stagesPassed)"
-        snacksEatenLabel.text = "Snacks Eaten: \(Globals.snacksEaten)"
-        damageDoneLabel.text = "Damage Done: \(Globals.damageDone)"
+        totalScoreLabel.text = "Total Score: \(UserDefaults.standard.integer(forKey: Globals.totalScoreKey))"
+        stagesPassedLabel.text = "Stages Passed: \(UserDefaults.standard.integer(forKey: Globals.stagesPassedKey))"
+        snacksEatenLabel.text = "Snacks Eaten: \(UserDefaults.standard.integer(forKey: Globals.snacksEatenKey))"
+        damageDoneLabel.text = "Damage Done: \(UserDefaults.standard.integer(forKey: Globals.damageDoneKey))"
     }
     
     @objc private func mainMenuButtonTapped() {
