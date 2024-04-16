@@ -68,7 +68,7 @@
 		58FDBBDE2BCDBBFB005F67FC /* dog.png in Resources */ = {isa = PBXBuildFile; fileRef = 58FDBBDB2BCDBBFB005F67FC /* dog.png */; };
 		58FDBBDF2BCDBBFB005F67FC /* dog2.png in Resources */ = {isa = PBXBuildFile; fileRef = 58FDBBDC2BCDBBFB005F67FC /* dog2.png */; };
 		58FDBBE02BCDBBFB005F67FC /* dog3.png in Resources */ = {isa = PBXBuildFile; fileRef = 58FDBBDD2BCDBBFB005F67FC /* dog3.png */; };
-		58FDBBE22BCDC65E005F67FC /* dog-leashedV2.dae in Resources */ = {isa = PBXBuildFile; fileRef = 58FDBBE12BCDC65E005F67FC /* dog-leashedV2.dae */; };
+		58FDBBE42BCE1837005F67FC /* dog-leashedV3.dae in Resources */ = {isa = PBXBuildFile; fileRef = 58FDBBE32BCE1837005F67FC /* dog-leashedV3.dae */; };
 		FB2128232BB9FB1600CE5066 /* CatCursedTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128132BB9FB1600CE5066 /* CatCursedTexture.png */; };
 		FB2128242BB9FB1600CE5066 /* FrogFroakTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128142BB9FB1600CE5066 /* FrogFroakTexture.png */; };
 		FB2128252BB9FB1600CE5066 /* CatPinkTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = FB2128152BB9FB1600CE5066 /* CatPinkTexture.png */; };
@@ -196,7 +196,7 @@
 		58FDBBDB2BCDBBFB005F67FC /* dog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dog.png; sourceTree = "<group>"; };
 		58FDBBDC2BCDBBFB005F67FC /* dog2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dog2.png; sourceTree = "<group>"; };
 		58FDBBDD2BCDBBFB005F67FC /* dog3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dog3.png; sourceTree = "<group>"; };
-		58FDBBE12BCDC65E005F67FC /* dog-leashedV2.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "dog-leashedV2.dae"; sourceTree = "<group>"; };
+		58FDBBE32BCE1837005F67FC /* dog-leashedV3.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "dog-leashedV3.dae"; sourceTree = "<group>"; };
 		FB2128132BB9FB1600CE5066 /* CatCursedTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CatCursedTexture.png; sourceTree = "<group>"; };
 		FB2128142BB9FB1600CE5066 /* FrogFroakTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FrogFroakTexture.png; sourceTree = "<group>"; };
 		FB2128152BB9FB1600CE5066 /* CatPinkTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CatPinkTexture.png; sourceTree = "<group>"; };
@@ -352,7 +352,7 @@
 		4FAE63822B7C483D007ED6AA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				58FDBBE12BCDC65E005F67FC /* dog-leashedV2.dae */,
+				58FDBBE32BCE1837005F67FC /* dog-leashedV3.dae */,
 				58FDBBD72BCDBBC8005F67FC /* dog.dae */,
 				FB41F4BA2BCCCEAA00A25656 /* Attack */,
 				58B8175F2BBCA5BC00DF8FD8 /* Sprites */,
@@ -594,13 +594,13 @@
 				FB41F4CE2BCCD49E00A25656 /* Dogbone.dae in Resources */,
 				FB41F4C82BCCD1CE00A25656 /* IcebergV2.dae in Resources */,
 				0ED95DCC2B919716008F010E /* Penguin_HandPaint.001.png in Resources */,
+				58FDBBE42BCE1837005F67FC /* dog-leashedV3.dae in Resources */,
 				58FDBBD92BCDBBC8005F67FC /* dog.dae in Resources */,
 				0E052F732BBA5363003BA02D /* cloud_yellow.png in Resources */,
 				0D58FCCB2BB7943800488D01 /* FrogFroak.dae in Resources */,
 				FB41F4C62BCCD0F200A25656 /* PawV5.dae in Resources */,
 				58B8176F2BBCA5BC00DF8FD8 /* duck1.png in Resources */,
 				58B8176D2BBCA5BC00DF8FD8 /* duck2.png in Resources */,
-				58FDBBE22BCDC65E005F67FC /* dog-leashedV2.dae in Resources */,
 				FB2128242BB9FB1600CE5066 /* FrogFroakTexture.png in Resources */,
 				58B817762BBCA5BC00DF8FD8 /* frog1.png in Resources */,
 				585568002BC9E6EB0018A8D5 /* bear-polar.png in Resources */,
