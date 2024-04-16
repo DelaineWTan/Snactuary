@@ -11,7 +11,7 @@ import SceneKit
 
 public class Globals {
     // This version number is used to ensure local environments have the latest configured user data
-    public static var userDataVersion = 2
+    public static var userDataVersion = 3
     
     public static var mainScene = SCNScene(named: "art.scnassets/main.scn")!
     public static var playerNode = mainScene.rootNode.childNode(withName: "mainPlayer", recursively: true)!
@@ -29,7 +29,7 @@ public class Globals {
                petImageName: "frog1.png",
                petModelName: "art.scnassets/Frog.Green.scn",
                baseAbility: SpawnProjectileInRangeAbility(_InputSpawnRate: 3, _InputRange: 10, _InputProjectileDuration: 3, _InputProjectile: {
-                   ()-> Projectile in StationaryBomb(_InputDamage: 2, assetName: "IcebergV2")
+                   ()-> Projectile in StationaryBomb(_InputDamage: 2, assetName: "Bubble")
                }),
                currentExp: 0,
                level: 1
@@ -46,7 +46,7 @@ public class Globals {
                level: 1
               ),
         
-        2: Pet(petName:"P Katt",
+        2: Pet(petName:"Pink Katt",
                petId: 2,
                petImageName: "cat2.png",
                petModelName: "art.scnassets/Cat.Pink.scn",
@@ -133,29 +133,95 @@ public class Globals {
                level: 1
               ),
         
-        9: Pet(petName:"Bear",
+        9: Pet(petName:"Brear",
                petId: 9,
                petImageName: "bear1.png",
+               petModelName: "art.scnassets/bear.1.scn",
                baseAbility: OrbitingProjectileAbility(
                 _InputAbilityDamage: 4,
                 _InputAbilityDuration: 10,
                 _InputRotationSpeed: 4,
                 _InputDistanceFromCenter: 5,
                 _InputNumProjectiles: 1,
-                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Paw 4")}),
-               unlockedInput: false, currentExp: 0,
+                _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Honeypot")}),
+               //unlockedInput: false,
+               currentExp: 0,
                level: 1
               ),
         
-        10: Pet(petName:"Doig",
+        10: Pet(petName:"Gum Brear",
                 petId: 10,
-                petImageName: "dog1.png",
-                unlockedInput: false, currentExp: 0,
-                level: 1
-               )
+                petImageName: "bear-gummy.png",
+                petModelName: "art.scnassets/bear.g.scn",
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Honeypot")}),
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
+        11: Pet(petName:"Pol Brear",
+                petId: 11,
+                petImageName: "bear-polar.png",
+                petModelName: "art.scnassets/bear.p.scn",
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Honeypot")}),
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
+        12: Pet(petName:"Sad Doger",
+                petId: 12,
+                petImageName: "dog.png",
+                petModelName: "art.scnassets/dog1.scn",
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Dogbone")}),
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
+        13: Pet(petName:"Lucky Doger",
+                petId: 13,
+                petImageName: "dog2.png",
+                petModelName: "art.scnassets/dog2.scn",
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Dogbone")}),
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
+        14: Pet(petName:"Sparky Doger",
+                petId: 14,
+                petImageName: "dog3.png",
+                petModelName: "art.scnassets/dog3.scn",
+                baseAbility: OrbitingProjectileAbility(
+                 _InputAbilityDamage: 4,
+                 _InputAbilityDuration: 10,
+                 _InputRotationSpeed: 4,
+                 _InputDistanceFromCenter: 5,
+                 _InputNumProjectiles: 1,
+                 _InputProjectile: { ()->Projectile in OrbitingPaw(_InputDamage: 1, assetName: "Dogbone")}),
+                currentExp: 0,
+                level: 1 // Assuming from context
+               ),
     ]
     
-    public static var defaultActivePets: [Int] = [
+    public static var activePets: [Int] = [
         // First four pets are the active party pets
         0, 1, 2, 3 // Use the new ids starting from 0
     ]

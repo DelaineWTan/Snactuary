@@ -95,7 +95,7 @@ public class Utilities {
             UserDefaults.standard.set(0, forKey: Globals.damageDoneKey)
             UserDefaults.standard.set(0, forKey: Globals.snacksEatenKey)
             UserDefaults.standard.set(0, forKey: Globals.stagesPassedKey)
-            UserDefaults.standard.setValue(Globals.defaultActivePets, forKey: Globals.activePetsKey)
+            UserDefaults.standard.setValue(Globals.activePets, forKey: Globals.activePetsKey)
         UserDefaults.standard.set(Globals.defaultPetLevels, forKey: Globals.petLevelsKey)
             UserDefaults.standard.set(Globals.defaultStageCount, forKey: Globals.stageCountKey)
             UserDefaults.standard.set(Globals.defaultMaxHungerScore, forKey: Globals.stageMaxScorekey)

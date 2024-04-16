@@ -254,7 +254,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
                     pet.levelUp(pet.level+1)
                     
                     for levelIndex in 0...petLevels.count - 1 {
-                        petLevels[levelIndex] = (Globals.pets[levelIndex]?.level)
+                        petLevels[levelIndex] = (Globals.pets[levelIndex]?.level)!
                     }
                     UserDefaults.standard.setValue(petLevels, forKey: Globals.petLevelsKey)
                     
