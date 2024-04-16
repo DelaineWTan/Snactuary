@@ -116,7 +116,7 @@ class SpawnProjectileInRangeAbility : Ability {
         let newZ = Float.random(in: _CurrentPosition.z-_Range!..<_CurrentPosition.z+_Range!)
         
         // Return the new values
-        return SCNVector3(newX,0,newZ)
+        return SCNVector3(newX,1,newZ)
     }
     
     override func copy() -> Any {

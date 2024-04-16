@@ -50,7 +50,7 @@ class ShootClosestAbility: Ability {
     override func activate() -> Bool {
         
         // TODO: Create a timer for the Fire Rate
-        let timer = Timer(timeInterval: Double(_FireRate!), repeats: true){ [self]
+        timer = Timer(timeInterval: Double(_FireRate!), repeats: true){ [self]
             Timer in
             
             // Get the Closest FoodNode. Tuple containing the closest FoodNode, and the distance to it.
@@ -63,7 +63,7 @@ class ShootClosestAbility: Ability {
         }
         
         // Add Timer
-        RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
+        RunLoop.current.add(timer!, forMode: RunLoop.Mode.common)
         
         // Dummy Return
         return true
