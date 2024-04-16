@@ -40,48 +40,48 @@ public class SoundManager {
     }
     
     private func preloadBackgroundMusic() {
-            let bgmFiles = ["meadow-bgm", "beach-bgm", "clouds-bgm"]
-            
-            for bgmFile in bgmFiles {
-                if let musicURL = Bundle.main.url(forResource: bgmFile, withExtension: "wav", subdirectory: "art.scnassets/SFX") {
-                    do {
-                        let bgmPlayer = try AVAudioPlayer(contentsOf: musicURL)
-                        bgmPlayer.numberOfLoops = -1 // Loop indefinitely
-                        bgmPlayer.volume = 0.5 // Hardcode to 0.5 volume for now until volume settings exist
-                        backgroundMusicPlayers.append(bgmPlayer)
-                    } catch {
-                        print("Error loading background music \(bgmFile): \(error.localizedDescription)")
-                    }
-                } else {
-                    print("Background music file \(bgmFile) not found")
+        let bgmFiles = ["meadow-bgm", "beach-bgm", "clouds-bgm"]
+        
+        for bgmFile in bgmFiles {
+            if let musicURL = Bundle.main.url(forResource: bgmFile, withExtension: "wav", subdirectory: "art.scnassets/SFX") {
+                do {
+                    let bgmPlayer = try AVAudioPlayer(contentsOf: musicURL)
+                    bgmPlayer.numberOfLoops = -1 // Loop indefinitely
+                    bgmPlayer.volume = 0.5 // Hardcode to 0.5 volume for now until volume settings exist
+                    backgroundMusicPlayers.append(bgmPlayer)
+                } catch {
+                    print("Error loading background music \(bgmFile): \(error.localizedDescription)")
                 }
+            } else {
+                print("Background music file \(bgmFile) not found")
             }
+        }
+    }
+    
+    public func playCurrentStageBGM() {
+        guard !backgroundMusicPlayers.isEmpty else {
+            print("No background music loaded")
+            return
         }
         
-        public func playCurrentStageBGM() {
-            guard !backgroundMusicPlayers.isEmpty else {
-                print("No background music loaded")
-                return
-            }
-            
-            let currentBGMIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey)  - 1) % Globals.numStagePresets
-            let nextBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
-            nextBGMPlayer.play()
+        let currentBGMIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey)  - 1) % Globals.numStagePresets
+        let nextBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
+        nextBGMPlayer.play()
+    }
+    
+    public func stopCurrentBGM() {
+        guard !backgroundMusicPlayers.isEmpty else {
+            print("No background music loaded")
+            return
         }
-        
-        public func stopCurrentBGM() {
-            guard !backgroundMusicPlayers.isEmpty else {
-                print("No background music loaded")
-                return
-            }
-            let currentBGMIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey)  - 1) % Globals.numStagePresets
-            let currentBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
-            currentBGMPlayer.stop()
-        }
+        let currentBGMIndex = (UserDefaults.standard.integer(forKey: Globals.stageCountKey)  - 1) % Globals.numStagePresets
+        let currentBGMPlayer = backgroundMusicPlayers[currentBGMIndex]
+        currentBGMPlayer.stop()
+    }
     
     private func preloadSoundEffects() {
         // Preload tapping SFX players
-        let sfxFiles = ["cat-meow-sfx", "frog-croak-sfx", "duck-quack-sfx", "penguin-wenk-sfx", "dog-sfx", "bear-sfx"]
+        let sfxFiles = ["cat-meow-sfx", "frog-croak-sfx", "duck-quack-sfx", "penguin-wenk-sfx", "dog-bark-sfx", "bear-sfx"]
         
         for sfxFile in sfxFiles {
             if let sfxURL = Bundle.main.url(forResource: sfxFile, withExtension: "wav", subdirectory: "art.scnassets/SFX") {
