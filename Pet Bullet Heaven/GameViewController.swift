@@ -310,25 +310,7 @@ class GameViewController: UIViewController, SCNPhysicsContactDelegate, SceneProv
             return
         }
         
-        // get its material
-        let material = result.node.geometry!.firstMaterial!
         SoundManager.Instance.playTapSFX(result.node.name ?? "")
-        SCNTransaction.begin()
-        SCNTransaction.animationDuration = 0.5
-        
-        // on completion - unhighlight
-        SCNTransaction.completionBlock = {
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
-            
-            material.emission.contents = UIColor.black
-            
-            SCNTransaction.commit()
-        }
-        
-        material.emission.contents = UIColor.red
-        
-        SCNTransaction.commit()
     }
     
     var intialCenter = CGPoint()
