@@ -8,6 +8,13 @@
 import Foundation
 import SceneKit
 
+/// Protocol defining behavior for objects that can be updated and destroyed
+/// Difference between the monobehaviour from Unity and this is that here it is a protocol/interface
+/// rather than a class you inherit from.
+///
+/// "Mom, can we get MonoBehaviour?"
+/// "We have MonoBehaviour at home"
+/// MonoBehaviour at home:
 protocol MonoBehaviour {
     var uniqueID: UUID { get set }
     func Start()
@@ -17,8 +24,9 @@ protocol MonoBehaviour {
     func Destroy(after duration: TimeInterval)
 }
 
+// TBH could've done the Destroy functionality and architecture better
 extension MonoBehaviour where Self: SCNNode {
-    
+    // Default implementation of Destroy method to asynchronously destroy the object
     func Destroy(after duration: TimeInterval = 0) {
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
             self?.destroy()
@@ -31,7 +39,8 @@ extension MonoBehaviour where Self: SCNNode {
             }
         }
     }
-    
+
+    // Internal method to execute additional destruction logic
     private func destroy() {
         DestroyExtras?()
     }
