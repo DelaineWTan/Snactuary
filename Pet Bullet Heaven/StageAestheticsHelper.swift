@@ -102,8 +102,8 @@ public enum StageAestheticsHelper {
     }
     
     public static func setInitialStageImage(_ material: SCNMaterial) -> UIImage? {
-        if (mapIterCount != 0) {
-            for _ in 1..<mapIterCount{
+        if (mapIterCount  > 1) {
+            for _ in 1..<(mapIterCount+1){
                 currBG = currBG.next()
             }
         }
