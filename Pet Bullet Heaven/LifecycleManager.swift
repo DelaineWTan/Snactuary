@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Manages the lifecycle of game objects and provides utility methods for their management.
 public class LifecycleManager {
     
     // Singleton (hello old friend -Jun) instance
