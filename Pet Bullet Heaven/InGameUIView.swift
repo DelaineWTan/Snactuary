@@ -15,7 +15,6 @@ class InGameUIView: UIView {
     private var innerCircleLayer: CAShapeLayer?
     private var outerCircleLayer: CAShapeLayer?
     
-    // review this implementation of private vars and public getters if we want to do it like this
     private var _hungerScore: Int = 0
     private var _maxHungerScore: Int = Globals.defaultMaxHungerScore
     private var _stageCount: Int = 0
@@ -101,7 +100,7 @@ class InGameUIView: UIView {
         setupUI()
     }
     
-    // Adds a given hunger value to the hunger score
+    /// Adds a given hunger value to the hunger score.
     public func addToHungerMeter(hungerValue: Int) {
         updateHunger(newHungerValue: _hungerScore + hungerValue)
         
@@ -121,18 +120,20 @@ class InGameUIView: UIView {
         stageProgressCheck()
     }
     
-    // Sets hunger score to the given hungerValue
+    /// Sets hunger score to the given hungerValue.
     public func setHungerMeter(hungerValue: Int) {
         updateHunger(newHungerValue: hungerValue)
         hungerMeter.setProgress(Float(hungerValue)/Float(_maxHungerScore), animated: false)
         stageProgressCheck()
     }
-    
+
+    /// Set stage count and update its UI given its value.
     public func setStageCount(stageCount: Int) {
         _stageCount = stageCount
         stageCountLabel.text = "Stage: \(_stageCount)"
     }
-    
+
+    /// Puts UI stick positions at the given location converted into the UI coordinate system. 
     public func setStickPosition(location: CGPoint) {
         let anchorPoint = convertGestureCoordinateSystemToUICoordinateSystem(point: location)
         
@@ -140,7 +141,8 @@ class InGameUIView: UIView {
         outerCircleLayer?.position = anchorPoint
     }
     
-    // Put source which helped me here
+    /// Updates the joystick's position (inner circle) to a given point.
+    // Source: https://betterprogramming.pub/creating-a-joystick-control-in-swiftui-6c63d713ab9
     public func updateStickPosition(fingerLocation: CGPoint) {
         let outerPosition = outerCircleLayer?.position
         
@@ -163,27 +165,28 @@ class InGameUIView: UIView {
         
         innerCircleLayer?.position = CGPoint(x: newX, y: newY)
     }
-    
+
+    /// Set the visibility of the joystick UI.
     public func stickVisibilty(isVisible: Bool) {
         innerCircleLayer?.isHidden = !isVisible
         outerCircleLayer?.isHidden = !isVisible
     }
-    
+
+    /// Translate gesture plot to UI kit plot.
     private func convertGestureCoordinateSystemToUICoordinateSystem(point: CGPoint) -> CGPoint {
-        // translate gesture plot to UI kit plot
         let xPoint = point.x - bounds.maxX/2
         let yPoint = point.y - bounds.maxY/2
         return CGPoint(x: xPoint, y: yPoint)
     }
     
-    // Can be a public func in a static math helper class
+    /// Can be a public func in a static math helper class
     private func calculateDistanceBetweenPoints(point1: CGPoint, point2: CGPoint) -> CGFloat {
         let dx = point2.x - point1.x
         let dy = point2.y - point1.y
         return sqrt(dx * dx + dy * dy)
     }
     
-    // Makes stage progression button visible if hunger is at max
+    /// Triggers stage progression button if the hunger score meets requirements to progress to next stage.
     private func stageProgressCheck() {
         if (_hungerScore >= _maxHungerScore && nextStageButton.isHidden == true) {
             // maybe have a fade-in animation?
@@ -192,7 +195,7 @@ class InGameUIView: UIView {
     }
     
     private func setupUI() {
-        // for debugging
+        // for debugging, comment line below out for working persistent data
         Utilities.initUserData()
         
         // Load hunger score from persistent storage
@@ -263,14 +266,14 @@ class InGameUIView: UIView {
         
         let innerCirclePath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX+200, y: bounds.midY+400), radius: 30, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
         
-        // inner circle
+        // inner circle drawing
         innerCircleLayer = CAShapeLayer()
         innerCircleLayer?.opacity = 0.6
         innerCircleLayer?.path = innerCirclePath.cgPath
         
         innerCircleLayer?.fillColor = UIColor.lightGray.cgColor
         
-        // outer circle
+        // outer circle drawing
         let outerCirclePath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX+200, y: bounds.midY+400), radius: 50, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
         outerCircleLayer = CAShapeLayer()
         outerCircleLayer?.strokeColor = UIColor.black.cgColor
@@ -290,7 +293,7 @@ class InGameUIView: UIView {
         pauseButtonTappedHandler?()
     }
     
-    ///
+    /// Set hunger score to the given value. 
     private func updateHunger(newHungerValue: Int) {
         _hungerScore = newHungerValue
         hungerScoreLabel.text = "Score: \(_hungerScore) / \(_maxHungerScore)"
@@ -298,13 +301,13 @@ class InGameUIView: UIView {
         UserDefaults.standard.set(_hungerScore, forKey: Globals.stageScoreKey)
     }
     
-    ///
+    /// Resets the hunger score and its meter.
     public func resetHunger() {
         updateHunger(newHungerValue: 0)
         hungerMeter.progress = 0
     }
     
-    ///
+    /// Sets new hunger score and max score.
     public func increaseMaxHungerScore() {
         let increasedScore = Float(_maxHungerScore) * Globals.maxHungerScoreMultiplier
         _maxHungerScore = Int(increasedScore)
