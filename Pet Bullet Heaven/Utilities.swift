@@ -182,7 +182,7 @@ public class Utilities {
         return (baseStat * Float(stageCycle)) * growth
     }
     
-    // Levitate pets and fade to white over a given time
+    /// Initiates the stage transition sequence where pets levitate, sceen fades to white, and stage texture changes; given a duration.
     public static func levitatePetsAndFadeScreenCutscene(duration: Double, _ stageMat: inout SCNMaterial) {
         // Define the target height
         let targetHeight: Float = 10 // Adjust the target height as needed
@@ -196,7 +196,7 @@ public class Utilities {
         // Create a white view for screen fade
         let whiteView = UIView(frame: UIScreen.main.bounds)
         whiteView.backgroundColor = .white
-        whiteView.alpha = 0 // Start with transparent
+        whiteView.alpha = 0 // Start as transparent
         
         // Add the white view to the key window
         UIApplication.shared.keyWindow?.addSubview(whiteView)
