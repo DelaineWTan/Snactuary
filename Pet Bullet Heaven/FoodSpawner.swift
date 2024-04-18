@@ -3,7 +3,17 @@
 //  Pet Bullet Heaven
 //
 //  Created by Jun Solomon on 2024-02-16.
+//  This class manages the spawning of various types of food items within the game world.
+//  It dynamically spawns different types of food based on predefined parameters and game conditions.
+//  The class handles the lifecycle of spawned food items, including destruction after a specified duration.
+//  Customization options allow for adjusting spawn intervals, quantities, and spawn locations to suit gameplay requirements.
+//  Key components include initialization, update logic, spawning functionality, random position generation, and lifecycle management.
 //
+//  Usage:
+//  1. Initialize FoodSpawner with the main scene.
+//  2. The Update method gets called by the LifeCycle Manager to handle game loop.
+//  3. Foods are spawned dynamically based on predefined parameters and game conditions.
+//  4. Ensure proper handling of food item destruction for performance optimization.
 
 import Foundation
 import SceneKit
@@ -16,11 +26,10 @@ class FoodSpawner: MonoBehaviour {
     let mainScene: SCNScene
     
     var elapsedTime: TimeInterval = 0
-    var spawnInterval: TimeInterval = 1 //0.2 // Adjust depending on desired spawn rate
+    var spawnInterval: TimeInterval = 1 // Adjust depending on desired spawn rate
     
     let centerDist: Int = 55 // 55 seems to be a good distance away from player
     
-    // TODO: Final food balancing sometime
     init(scene: SCNScene) {
         
         self.mainScene = scene
@@ -106,7 +115,7 @@ class FoodSpawner: MonoBehaviour {
             let randomPosition = generateRandomPositionWithinRadius(center: position, radius: 15)
             food?.position = randomPosition
             
-            // Destroy the food after 50 seconds
+            // Destroy the food after 100 seconds
             food?.Destroy(after: 100.0)
             mainScene.rootNode.addChildNode(food!)
         }
@@ -178,16 +187,11 @@ class FoodSpawner: MonoBehaviour {
             speedGrowth: 1.0)
     }
     
-    func Start() {
-        
-    }
+    func Start() { }
     
-    func OnDestroy() {
-    }
+    func OnDestroy() { }
     
-    func Destroy(after duration: TimeInterval) {
-        
-    }
+    func Destroy(after duration: TimeInterval) { }
     
     // Choose either the X or Z coordinate of the food's spawn location and set it to either I or J, respectively.
     // If I is chosen, set it to the negative spawn distance from the center; if J is chosen, set it to the spawn distance from the center.
