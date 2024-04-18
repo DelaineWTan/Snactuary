@@ -9,24 +9,28 @@ import Foundation
 
 public class LifecycleManager {
     
-    // Singleton (not again) instance
+    // Singleton (hello old friend -Jun) instance
     static let Instance = LifecycleManager()
     
     private init() {}
-    
+
+    // Dictionary to store game objects with their unique IDs
     private var gameObjects = [UUID: MonoBehaviour]()
     private var lastUpdateTime: TimeInterval = 0
-    
+
+    // Method to add a game object to the manager and call its Start method
     func addGameObject(_ gameObject: MonoBehaviour) {
         gameObjects[gameObject.uniqueID] = gameObject
         gameObject.Start()
     }
-    
+
+    // Method to delete a game object from the manager
     func deleteGameObject(gameObject: MonoBehaviour) {
         gameObject.OnDestroy()
         gameObjects.removeValue(forKey: gameObject.uniqueID)
     }
-    
+
+    // Method to delete all food objects from the manager
     func deleteAllFood() {
         let foodToRemove = gameObjects.filter { $0.value is BaseFoodNode }
         
@@ -40,10 +44,11 @@ public class LifecycleManager {
             food?.childNodes.forEach {
                 $0.removeFromParentNode()
             }
-            food!.DestroyExtras?()
+            food!.DestroyExtras?() // Call DestroyExtras closure if available
         }
     }
-    
+
+    // Method to get all food objects from the manager
     public func getAllFood() -> [BaseFoodNode] {
         // Filter out all game objects that are instances of BaseFoodNode
         let foodList = gameObjects.filter { $0.value is BaseFoodNode }
@@ -86,7 +91,8 @@ public class LifecycleManager {
         return (closestFoodNode, closestDistance)
         
     }
-    
+
+    // Method to update all game objects (look, deltatime! -Jun)
     func update() {
         let currentTime = Date.timeIntervalSinceReferenceDate
         let deltaTime = (currentTime - lastUpdateTime) * Globals.timeScale
